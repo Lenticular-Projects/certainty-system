@@ -21,7 +21,7 @@ const sectionCards = [
 function SectionCard({ card }: { card: typeof sectionCards[number] }) {
   const hover = useSignalHover(card.signal)
   return (
-    <motion.div variants={staggerChild}>
+    <motion.div variants={staggerChild} className={styles.cardWrapper}>
       <Link href={card.href} className={styles.cardLink}>
         <motion.div
           className={`${styles.card} glass`}
@@ -104,9 +104,6 @@ export default function HomePage() {
           >
             <Link href="/objections" className={styles.ctaPrimary}>
               Open Objection Handbook
-            </Link>
-            <Link href="/how-calls-are-graded" className={styles.ctaSecondary}>
-              How calls are graded
             </Link>
           </motion.div>
         </div>
