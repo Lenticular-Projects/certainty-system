@@ -78,6 +78,24 @@ export const objections: Objection[] = [
 
   // SECTION 2: COMMERCIAL & BENEFIT
   {
+    id: 'just-want-money',
+    section: 'Commercial & Benefit',
+    clientPhrase: '"I just want the money." / "I just want the food card."',
+    signal: 'green',
+    underneath: 'This caller saw an ad for a grocery benefit, OTC card, or cash-back benefit and believes they can claim it independently — like a coupon or a government check — without touching their Medicare plan. They are not resistant to the benefit; they are resistant to what they think is an unnecessary process to get it.',
+    doNotSay: [
+      '"It doesn\'t work that way." — dismissive; makes them feel foolish',
+      '"You have to enroll in a plan to get it." — technically correct but lands like a trap; triggers resistance',
+      'Jumping into plan comparison before resolving the misunderstanding',
+    ],
+    responses: [
+      { text: '"That card is real — and I want to make sure you actually get it, because here\'s how it actually works: the grocery benefit isn\'t something the government mails out separately. It\'s loaded onto a card that comes with a specific plan. Think of the plan as the account — the card is what you spend from. My job is to find the plan in your area that gives you the highest card amount and make sure it gets activated in your name. That\'s the entire call. Can I check what\'s available for your zip code?"' },
+      { label: 'If they push back — "I don\'t want to switch my plan"', text: '"I hear you — and this isn\'t about switching to something worse. What I\'m looking for is whether there\'s a plan in your area that gives you that grocery money AND covers everything your current plan already covers. A lot of times there is. If your current plan already has it, I\'ll tell you. If there\'s one that gives you more, you get to decide. Either way, you get the real number in about 60 seconds."' },
+      { label: 'If they say "I just want the money — I\'m not doing all this"', text: '"I completely understand — you called for the benefit, not the process. Here\'s the truth: the benefit doesn\'t exist outside the plan. The plan is what delivers the money to your card every month. I\'m not adding a step — I\'m the step. Give me 60 seconds to find the highest card value in your area, and we get this done."' },
+    ],
+    pillar: 'Reframing',
+  },
+  {
     id: 'commercial-amount',
     section: 'Commercial & Benefit',
     clientPhrase: '"The commercial said I could get $6,000 / $900 / $1,200. Yours is less."',
@@ -237,6 +255,23 @@ export const objections: Objection[] = [
 
   // SECTION 6: TIMING
   {
+    id: 'already-did-this',
+    section: 'Timing',
+    clientPhrase: '"I already did this today."',
+    signal: 'red',
+    underneath: 'This is almost never true — or if it is, the call didn\'t result in an enrollment. Inbound callers who say this are trying to exit the verification process before it starts. They called because they want something. The "I already did this" is a shortcut — they think saying it will get them to the benefit faster, or they\'re testing whether you\'ll let them skip the process.',
+    doNotSay: [
+      '"Oh, okay — I\'ll let you go then." — kills the call on a deflection that was almost certainly not real',
+      '"Who did you talk to?" — accusatory; puts them on the defensive',
+      'Accepting the statement at face value and pivoting away from verification',
+    ],
+    responses: [
+      { text: '"I hear you — and I want to make sure whatever you did earlier actually got you the benefit you were looking for. A lot of times people go through part of the process but the enrollment doesn\'t go all the way through, and the benefit never activates. Can I take 60 seconds to verify whether what you set up earlier is showing as active in the system? That way you\'ll know for certain."' },
+      { label: 'If they resist the verification', text: '"I completely understand — I\'m not asking you to start over. I just want to confirm it went through. If it did, you\'ll know it\'s done and I\'ll let you go. If it didn\'t, we catch it right now instead of finding out later when the benefit doesn\'t show up. Either way, 60 seconds."' },
+    ],
+    pillar: 'Persuasion',
+  },
+  {
     id: 'already-signed-up',
     section: 'Timing',
     clientPhrase: '"I already signed up this year — I think I\'m good."',
@@ -364,6 +399,58 @@ export const objections: Objection[] = [
     pillar: 'Persuasion',
   },
   {
+    id: 'talked-to-someone',
+    section: 'Trust & Credibility',
+    clientPhrase: '"I already talked to someone about this today."',
+    signal: 'red',
+    underneath: 'If true, another agent may have already attempted an enrollment — or failed to close because of a trust issue. If not true, it\'s a deflection designed to end the call without confrontation. Either way, separate yourself from whoever came before without attacking them.',
+    doNotSay: [
+      '"Well, did they enroll you?" — confrontational; puts them on the spot',
+      '"That call may not have been legitimate." — casting doubt without evidence damages your credibility',
+      'Continuing to pitch as if they didn\'t say it',
+    ],
+    responses: [
+      { text: '"I appreciate you telling me that — and I\'m not going to repeat what they did. Can I ask: did that call get you the benefit you were looking for, or did something stop it from going through? Because if it\'s done, I\'ll confirm it in the system and let you go. If it\'s not, I\'d rather find that out now than have you wait until next month and the benefit doesn\'t show up."' },
+      { label: 'If they say yes it\'s done', text: '"Let me verify it\'s active right now — takes 30 seconds. If it\'s confirmed, you\'re set and I won\'t take another minute of your time."' },
+      { label: 'If it wasn\'t finished or they\'re not sure', text: '"That\'s exactly what I want to make sure we get right. Let me take 60 seconds and check the status so you\'re not left wondering."' },
+    ],
+    pillar: 'Persuasion',
+  },
+  {
+    id: 'family-says-scam',
+    section: 'Trust & Credibility',
+    clientPhrase: '"My son / daughter / family told me this is a scam."',
+    signal: 'red',
+    underneath: 'The family member isn\'t wrong to be protective — they\'ve probably seen real Medicare fraud or read about it. The client is caught between wanting the benefit and not wanting to disobey someone they trust. Arguing with the family member\'s concern, even gently, will end the call. Make their instinct work in your favor instead.',
+    doNotSay: [
+      '"Your son/daughter is wrong." — direct attack on a trusted person; call ends immediately',
+      '"A lot of people think that, but..." — dismisses the concern without addressing it',
+      'Providing credentials verbally only — a scammer can claim to be licensed just as easily',
+    ],
+    responses: [
+      { text: '"I\'m really glad your [family member] is looking out for you — that\'s exactly what they should be doing. And honestly, they\'re right that there are bad actors out there. Here\'s what I want to do: I\'m not going to ask you for anything right now. Let me pull up what\'s already in the system — your current plan — and show you what I can see before you give me a single piece of information. If I can show you that, you\'ll know I\'m in the right system and not just making something up. And if you want to call your [family member] right now and have them on the line while we talk, I\'m completely fine with that."' },
+      { label: 'If they want to bring the family member in', text: '"Absolutely — let\'s do it. What\'s the best way to reach them? I\'d rather walk both of you through the numbers at the same time so they hear it directly from me."' },
+    ],
+    pillar: 'Reframing',
+  },
+  {
+    id: 'keep-calling',
+    section: 'Trust & Credibility',
+    clientPhrase: '"You people keep calling me. Stop it." / "I\'m tired of these calls."',
+    signal: 'red',
+    underneath: 'Real frustration — and it\'s justified. Medicare-eligible seniors are among the most targeted populations for phone marketing. This person is not necessarily resistant to the benefit. They are resistant to the experience of being called. Separate yourself from that experience in the first 15 seconds — or you lose the call.',
+    doNotSay: [
+      '"I understand — but let me just tell you about..." — immediately confirms you are exactly what they\'re tired of',
+      'Defending the volume of calls or explaining why they receive them',
+      'Apologizing for the industry and then continuing the pitch anyway',
+    ],
+    responses: [
+      { text: '"I hear you — and I\'m not going to pretend that\'s not frustrating. You didn\'t call in to be pitched at. You called because you saw something about a benefit and you wanted a real answer. I\'m going to give you that and nothing else. Tell me what you were looking for when you called — and I\'ll either confirm you can get it or tell you straight that you can\'t. That\'s the whole call."' },
+      { label: 'If they called in responding to an ad', text: '"I know you\'ve had people waste your time. I\'m not going to. You saw an ad about [grocery benefit / giveback / OTC card]. Let me check your zip code right now and give you the real number — what\'s actually available for you — in 60 seconds. If the number\'s real, great. If it\'s not what the ad showed, I\'ll tell you exactly why. Either way you get an honest answer and we\'re done."' },
+    ],
+    pillar: 'Reframing',
+  },
+  {
     id: 'no-personal-info',
     section: 'Trust & Credibility',
     clientPhrase: '"I don\'t give out personal information over the phone."',
@@ -434,5 +521,16 @@ export const objections: Objection[] = [
       { text: '"I completely respect that — and before we hang up, I want to make sure you know: if your situation changes or your plan changes its benefits next year, you can always call back. My number is [number]. You deserve to have the right plan."' },
     ],
     pillar: 'Persuasion',
+  },
+  {
+    id: 'benefit-less-than-commercial',
+    section: 'Closing & Resistance',
+    clientPhrase: '"When the benefit in my area is less than what the commercial showed."',
+    signal: 'red',
+    underneath: 'The commercial set a ceiling expectation. Anchor them on what\'s real and available now.',
+    responses: [
+      { text: '"Those commercials show the national maximum. Your actual benefit is based on your zip code and your specific plan options. What I found for your area is $[amount] — and that\'s real money that starts [date]."' },
+    ],
+    pillar: 'Reframing',
   },
 ]
