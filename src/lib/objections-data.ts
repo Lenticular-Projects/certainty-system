@@ -7,6 +7,7 @@ export type Objection = {
   doNotSay?: string[]
   responses: Array<{ label?: string; text: string }>
   pillar: string
+  tags?: string[]
 }
 
 export const sections = [
@@ -41,6 +42,7 @@ export const objections: Objection[] = [
       { label: 'For long-term plan holders', text: '"Three years on the same plan tells me you\'re not someone who makes changes for no reason — and I\'m not going to ask you to. What I am going to do is show you what that plan has cost you over those three years compared to what was available. If the numbers don\'t make sense, we close the call and you keep what you have."' },
     ],
     pillar: 'Reframing → The Shift',
+    tags: ['happy', 'satisfied', 'works', 'working', 'keep', 'stay', 'current plan', 'fine', 'good'],
   },
   {
     id: 'dont-want-change',
@@ -52,6 +54,7 @@ export const objections: Objection[] = [
       { text: '"I hear you — and I\'m not here to push you into anything. I want to show you one number. If the number doesn\'t make sense, we stop. If it does, at least you\'ll know what you\'re walking away from. Give me 90 seconds."' },
     ],
     pillar: 'Reframing',
+    tags: ['change', "don't want", 'switch', 'switching', 'resist', 'no change', 'leave it'],
   },
   {
     id: 'lose-doctor',
@@ -63,6 +66,7 @@ export const objections: Objection[] = [
       { text: '"That\'s the first thing I check — tell me your doctor\'s name and I\'ll look them up in the system right now, while we\'re on the phone. If they\'re not in-network, I\'ll tell you and we stop there. If they are, the concern is resolved and we can look at the rest."' },
     ],
     pillar: 'Persuasion',
+    tags: ['doctor', 'lose doctor', 'keep doctor', 'physician', 'in-network', 'network', 'provider'],
   },
   {
     id: 'bad-experience',
@@ -74,6 +78,7 @@ export const objections: Objection[] = [
       { text: '"I hear you — and I\'m not going to dismiss what you went through. Can I ask what specifically went wrong? Because what I can tell you is that current year plans are structured differently from what you experienced. More importantly, I\'m going to verify your doctors and medications before we do anything — so you\'re not taking my word for it."' },
     ],
     pillar: 'Reframing',
+    tags: ['bad experience', 'past', 'before', 'last time', 'hurt', 'problem', 'went wrong', 'trauma'],
   },
 
   // SECTION 2: COMMERCIAL & BENEFIT
@@ -94,6 +99,7 @@ export const objections: Objection[] = [
       { label: 'If they say "I just want the money — I\'m not doing all this"', text: '"I completely understand — you called for the benefit, not the process. Here\'s the truth: the benefit doesn\'t exist outside the plan. The plan is what delivers the money to your card every month. I\'m not adding a step — I\'m the step. Give me 60 seconds to find the highest card value in your area, and we get this done."' },
     ],
     pillar: 'Reframing',
+    tags: ['food', 'food card', 'grocery', 'grocery card', 'money', 'card', 'OTC', 'cash', 'benefit card', 'allowance', 'debit card'],
   },
   {
     id: 'commercial-amount',
@@ -111,6 +117,7 @@ export const objections: Objection[] = [
       { label: 'Pivot to total value', text: '"Here\'s what those commercials don\'t show you. The total value isn\'t just one benefit. By the time we add up the grocery card, the Part B giveback, the dental, and the OTC allowance — the real total for your area is [annualized number]. That\'s the actual picture."' },
     ],
     pillar: 'Reframing',
+    tags: ['commercial', 'TV', 'ad', 'advertisement', '$6000', '$900', '$1200', 'amount', 'less', 'national maximum', 'said I could get', 'promised'],
   },
   {
     id: 'card-not-available',
@@ -122,6 +129,7 @@ export const objections: Objection[] = [
       { text: '"I completely understand why that\'s frustrating — you came in looking for something specific. Here\'s what I want to show you: even if that exact benefit isn\'t at the maximum in your area, the total value of what\'s available is often higher than what the commercial showed. Let me run the full picture for your zip code."' },
     ],
     pillar: 'The Shift',
+    tags: ['not available', 'my area', 'card', 'TV', 'ad', 'zip code', 'not in my area', 'doesn\'t exist here'],
   },
   {
     id: 'commercial-a-and-b',
@@ -133,6 +141,7 @@ export const objections: Objection[] = [
       { text: '"Those commercials make it sound automatic — and I understand why. What they don\'t explain is that the government distributes those funds through specific plans. You\'ve already done the hard part by getting Parts A and B. My job is to make sure that money actually gets to you instead of sitting unclaimed. Can I check what you qualify for right now?"' },
     ],
     pillar: 'Reframing',
+    tags: ['A and B', 'parts A and B', 'Part A', 'Part B', 'automatic', 'qualify', 'eligible', 'just need'],
   },
 
   // SECTION 3: STALL
@@ -147,6 +156,7 @@ export const objections: Objection[] = [
       { label: 'Step 2: Make the delay cost something', text: '"Here\'s what I want you to know before you go: every month we wait on this, that\'s $[monthly benefit] that doesn\'t come back. That\'s $[annual] this year. I\'m not asking you to make a permanent decision — I\'m asking you to not leave $[amount] on the table. Give me 3 more minutes."' },
     ],
     pillar: 'The Shift',
+    tags: ['think', 'think about it', 'call back', 'later', 'time', 'decide', 'not ready', 'need time', 'consider'],
   },
   {
     id: 'send-something',
@@ -159,6 +169,7 @@ export const objections: Objection[] = [
       { text: '"I can get you everything — and I want to make sure it\'s meaningful when you have it. The one thing those documents can\'t tell you is the comparison to what you have now. That\'s what I\'m here for. Give me 3 more minutes and I\'ll walk you through the side-by-side so when you have the documents, you know exactly what you\'re looking at."' },
     ],
     pillar: 'Persuasion',
+    tags: ['send', 'email', 'mail', 'brochure', 'documents', 'look over', 'information', 'paperwork', 'in writing'],
   },
   {
     id: 'give-plan-id',
@@ -170,6 +181,7 @@ export const objections: Objection[] = [
       { text: '"I\'ll get you everything before we hang up — and I want to make sure it\'s useful when you have it. The challenge with looking it up on your own is that the plan page doesn\'t show you the comparison to your current plan, and it doesn\'t run your specific doctors or medications. That\'s what I can show you right now. Give me 3 minutes on that first."' },
     ],
     pillar: 'Persuasion',
+    tags: ['plan ID', 'ID', 'look it up', 'website', 'find it myself', 'plan number', 'research', 'google it'],
   },
 
   // SECTION 4: NETWORK & COVERAGE
@@ -187,6 +199,7 @@ export const objections: Objection[] = [
       { text: '"I hear you — and I want to make sure you have the right information before you decide anything. Let me check Dr. [name]\'s status live right now, while we\'re on the phone. Doctors\' offices sometimes aren\'t up to date on which plans they\'re contracted with — those contracts change every year. Give me 60 seconds."' },
     ],
     pillar: 'Persuasion',
+    tags: ['doctor said', 'told me', 'stay', 'mandate', 'office said', 'doctor told', 'doctor wants', 'my doctor'],
   },
   {
     id: 'lose-medicaid',
@@ -198,6 +211,7 @@ export const objections: Objection[] = [
       { text: '"I completely understand why that would stop you — and I want to make sure you have the right information. Medicaid and your Medicare Advantage plan are two separate programs. Switching your Medicare plan does not affect your Medicaid status. Your Medicaid is based on your income — not which Medicare plan you choose. I can verify your eligibility right now while we\'re on the phone."' },
     ],
     pillar: 'Reframing',
+    tags: ['Medicaid', 'lose Medicaid', 'lose benefits', 'government benefits', 'dual eligible', 'extra help'],
   },
   {
     id: 'denied-before',
@@ -209,6 +223,7 @@ export const objections: Objection[] = [
       { text: '"I hear you — and I want to find out what happened. Eligibility changes every year, and it depends on the specific plan. Just because one plan or one situation said no doesn\'t mean every option in your area says no. I can check eligibility right now for everything available in your zip code."' },
     ],
     pillar: 'Persuasion',
+    tags: ['denied', 'rejected', 'said no', 'didn\'t work', 'tried before', 'not eligible', 'couldn\'t get'],
   },
   {
     id: 'no-hmo',
@@ -220,6 +235,7 @@ export const objections: Objection[] = [
       { text: '"That makes sense — and I want to show you what\'s actually available in your area, because PPO and HMO-POS plans exist alongside HMOs and they work very differently. Some give you the flexibility to see any doctor in-network without a referral. Let me check what plan types are available in your zip code before we rule anything out."' },
     ],
     pillar: 'Persuasion',
+    tags: ['HMO', 'PPO', 'any doctor', 'referral', 'specialist', 'network type', 'freedom', 'choose my doctor'],
   },
 
   // SECTION 5: LOYALTY
@@ -238,6 +254,7 @@ export const objections: Objection[] = [
       { label: 'Introducing a different carrier', text: '"I completely respect that. Before you go — on a scale of 1 to 10, how confident are you that your current [carrier] plan is the strongest one available in your area right now? If you\'re a 10, we\'re done. But if there\'s any doubt, let me verify in 60 seconds."' },
     ],
     pillar: 'Reframing',
+    tags: ['love', 'carrier', 'Humana', 'Aetna', 'UHC', 'United', 'Cigna', 'brand', 'loyal', 'same company', 'taken care', 'great care'],
   },
   {
     id: 'have-agent',
@@ -251,6 +268,7 @@ export const objections: Objection[] = [
       { label: 'No specific gap yet identified', text: '"Your current agent clearly cares about you — and so do I. The difference is I\'m looking at what\'s available right now, and I see $[amount] a month you\'re leaving on the table. A good agent would want you to have that. Let\'s take 2 minutes and look at the numbers."' },
     ],
     pillar: 'Reframing',
+    tags: ['agent', 'insurance lady', 'broker', 'my person', 'someone who handles', 'my agent', 'my broker', 'lady', 'guy'],
   },
 
   // SECTION 6: TIMING
@@ -270,6 +288,7 @@ export const objections: Objection[] = [
       { label: 'If they resist the verification', text: '"I completely understand — I\'m not asking you to start over. I just want to confirm it went through. If it did, you\'ll know it\'s done and I\'ll let you go. If it didn\'t, we catch it right now instead of finding out later when the benefit doesn\'t show up. Either way, 60 seconds."' },
     ],
     pillar: 'Persuasion',
+    tags: ['already did', 'did this', 'already done', 'earlier', 'already', 'this morning', 'just did'],
   },
   {
     id: 'already-signed-up',
@@ -281,6 +300,7 @@ export const objections: Objection[] = [
       { text: '"That\'s actually good timing — because we\'re in the Open Enrollment Period right now, which means you can make one plan change that takes effect next month. Auto-renewal keeps you on the same plan regardless of what\'s changed. I can run a comparison right now and show you if anything has shifted in your area. If you\'re already on the best plan, I\'ll tell you and we\'re done in 2 minutes."' },
     ],
     pillar: 'Persuasion',
+    tags: ['signed up', 'renewed', 'renewal', 'auto-renew', 'auto renew', 'enrolled already', 'already enrolled', 'covered'],
   },
   {
     id: 'next-enrollment',
@@ -292,6 +312,7 @@ export const objections: Objection[] = [
       { text: '"I hear you — and I want to show you what that wait actually costs. The benefit we\'re talking about is $[monthly]. Between now and next open enrollment is [X] months. That\'s $[X × monthly] you won\'t get back. That money is already funded — it exists right now for people in your zip code. The only question is whether it goes to you or someone else."' },
     ],
     pillar: 'The Shift',
+    tags: ['next year', 'open enrollment', 'later', 'wait', 'annual enrollment', 'AEP', 'next time', 'October', 'November'],
   },
   {
     id: 'procedure-coming',
@@ -303,6 +324,7 @@ export const objections: Objection[] = [
       { text: '"Completely valid concern — and here\'s the important thing: your current coverage stays active until the new plan\'s effective date. There is no gap. Your appointment is fully covered under your current plan. Once the new plan starts, [benefit] starts too. You\'re protected the whole way through."' },
     ],
     pillar: 'The Shift',
+    tags: ['procedure', 'surgery', 'appointment', 'hospital', 'coverage gap', 'gap', 'mess up', 'upcoming', 'operation', 'scheduled'],
   },
   {
     id: 'moving-soon',
@@ -314,6 +336,7 @@ export const objections: Objection[] = [
       { text: '"Where are you moving? Let me check what plans are available there — that way you\'re making a decision based on where you\'re actually going, not a guess. And here\'s what I want you to know: when you move, there\'s a Special Enrollment Period that lets you change plans. So we can lock in your benefit now, you get the money in the meantime, and you adjust the plan when you move."' },
     ],
     pillar: 'The Shift',
+    tags: ['moving', 'move', 'relocate', 'new address', 'different state', 'settle', 'settled', 'new home', 'SEP'],
   },
   {
     id: 'waiting-medicaid',
@@ -326,6 +349,7 @@ export const objections: Objection[] = [
       { label: 'If still pending', text: '"If Medicaid comes through, we can adjust your plan. If it doesn\'t, you\'re already covered. Either way, the benefit you\'re eligible for right now starts [date]. Every month we wait on the Medicaid answer, that\'s $[monthly] sitting on the table."' },
     ],
     pillar: 'The Shift',
+    tags: ['Medicaid', 'waiting', 'qualify', 'pending', 'dual eligible', 'LIS', 'extra help', 'application'],
   },
 
   // SECTION 7: BENEFIT & PLAN COMPARISON
@@ -339,6 +363,7 @@ export const objections: Objection[] = [
       { text: '"A Part B Giveback is real savings — and we\'re going to find you the best one available in your area. One thing I want to make sure of: plans with the highest giveback sometimes have higher copays when you actually use the plan. My job is to find you the plan that puts the most money back overall — not just the biggest number on the monthly summary. Let me pull up what\'s available in your zip code right now."' },
     ],
     pillar: 'The Shift',
+    tags: ['giveback', 'Part B', 'Part B giveback', 'premium reduction', 'reduce premium', 'lower premium', 'refund', 'Part B reduction'],
   },
   {
     id: 'original-medicare',
@@ -350,6 +375,7 @@ export const objections: Objection[] = [
       { text: '"I completely understand — a lot of people feel that way, and I want to make sure you\'re making that choice with the full picture. If there\'s a $0 premium plan that includes your doctors, covers your medications, and gives you [benefit], that\'s worth 2 minutes to look at. If it doesn\'t fit, we stay with what you have."' },
     ],
     pillar: 'Persuasion',
+    tags: ['original Medicare', 'traditional Medicare', 'fee for service', 'freedom', 'regular Medicare', 'basic Medicare'],
   },
   {
     id: 'medigap',
@@ -361,6 +387,7 @@ export const objections: Objection[] = [
       { text: '"Medigap does offer great flexibility — and I want to make sure the premium you\'re paying is worth what you\'re getting. Supplement premiums increase every year, and they don\'t cover dental, hearing, or prescriptions. Let me show you whether an Advantage plan in your area could give you those benefits and potentially put money back in your pocket."' },
     ],
     pillar: 'The Shift',
+    tags: ['Medigap', 'supplement', 'supplemental', 'gap coverage', 'Plan G', 'Plan N', 'Plan F'],
   },
   {
     id: 'no-prescriptions',
@@ -372,6 +399,7 @@ export const objections: Objection[] = [
       { text: '"That\'s great — staying healthy is the goal. Here\'s the thing worth knowing: if you go without Part D coverage for an extended period and need it later, Medicare adds a lifelong late enrollment penalty to your premium. Even a low-cost plan protects you from that — and most Advantage plans include Part D at no extra cost. It\'s about protection, not what you\'re using today."' },
     ],
     pillar: 'The Shift',
+    tags: ['prescriptions', 'drugs', 'medications', 'Part D', 'pharmacy', 'pills', 'no meds', 'no drugs', 'drug plan'],
   },
   {
     id: 'healthy-dont-need',
@@ -383,6 +411,7 @@ export const objections: Objection[] = [
       { text: '"I love hearing that — and the goal is to keep it that way. Here\'s what I want to make sure: even if you never need to use the medical side of this plan, there are benefits on it — grocery card, dental, OTC, giveback — that are funded and available to you regardless of your health. That money doesn\'t know whether you\'re healthy or not. It either goes to you every month or it stays unclaimed."' },
     ],
     pillar: 'The Shift',
+    tags: ['healthy', "don't need", 'fine', 'good health', 'never sick', 'not sick', 'no issues', 'doing well'],
   },
 
   // SECTION 8: TRUST & CREDIBILITY
@@ -397,6 +426,7 @@ export const objections: Objection[] = [
       { text: '"I completely understand — and I\'d be careful too. Here\'s what I\'d like to do: let me show you what I can already see in the system before you give me anything. If I can pull up your current plan details, you\'ll know I\'m working in the right place. Everything I do follows Medicare guidelines. Does that seem fair?"' },
     ],
     pillar: 'Persuasion',
+    tags: ['scam', 'fraud', 'real', 'legitimate', 'fake', 'free money', 'government', 'trust', 'verify', 'how do I know'],
   },
   {
     id: 'talked-to-someone',
@@ -415,6 +445,7 @@ export const objections: Objection[] = [
       { label: 'If it wasn\'t finished or they\'re not sure', text: '"That\'s exactly what I want to make sure we get right. Let me take 60 seconds and check the status so you\'re not left wondering."' },
     ],
     pillar: 'Persuasion',
+    tags: ['talked to someone', 'already talked', 'another agent', 'someone called', 'spoke with', 'third person', 'other agent', 'another call'],
   },
   {
     id: 'family-says-scam',
@@ -432,6 +463,7 @@ export const objections: Objection[] = [
       { label: 'If they want to bring the family member in', text: '"Absolutely — let\'s do it. What\'s the best way to reach them? I\'d rather walk both of you through the numbers at the same time so they hear it directly from me."' },
     ],
     pillar: 'Reframing',
+    tags: ['son', 'daughter', 'family', 'told me scam', 'kids', 'child', 'wife', 'husband', 'family says', 'warned me', 'scam', 'fraud'],
   },
   {
     id: 'keep-calling',
@@ -449,6 +481,7 @@ export const objections: Objection[] = [
       { label: 'If they called in responding to an ad', text: '"I know you\'ve had people waste your time. I\'m not going to. You saw an ad about [grocery benefit / giveback / OTC card]. Let me check your zip code right now and give you the real number — what\'s actually available for you — in 60 seconds. If the number\'s real, great. If it\'s not what the ad showed, I\'ll tell you exactly why. Either way you get an honest answer and we\'re done."' },
     ],
     pillar: 'Reframing',
+    tags: ['keep calling', 'stop calling', 'tired', 'calls', 'do not call', 'frustrated', 'harassing', 'stop it', 'leave me alone', 'too many calls'],
   },
   {
     id: 'no-personal-info',
@@ -460,6 +493,7 @@ export const objections: Objection[] = [
       { text: '"I completely understand — and I\'m going to show you exactly why you can trust this right now. Here\'s what I\'m going to do: verify your doctors in my system, show you the real numbers for your area, and walk you through what changes and what stays the same. At the end of that 2 minutes, you\'ll have everything you need to make a fully informed decision. Can I have 2 minutes?"' },
     ],
     pillar: 'Persuasion',
+    tags: ['personal information', 'personal info', 'social security', 'SSN', 'private', 'identity', 'don\'t give out', 'information'],
   },
   {
     id: 'no-phone-decisions',
@@ -472,6 +506,7 @@ export const objections: Objection[] = [
       { text: '"I completely understand — and I\'m going to show you exactly why you can trust this right now. Let me verify your doctors, show you the real numbers, and walk you through what changes and what stays the same. At the end of 2 minutes you\'ll know whether I\'m legitimate because I\'ll have shown you. Can I have 2 minutes?"' },
     ],
     pillar: 'Persuasion',
+    tags: ['phone', 'decision', 'over the phone', 'in person', 'online', 'not comfortable', 'don\'t decide', 'by phone'],
   },
 
   // SECTION 9: FAMILY & THIRD PARTY
@@ -486,6 +521,7 @@ export const objections: Objection[] = [
       { label: 'Arm the caller', text: '"Absolutely. When you talk to [name], here\'s what I want you to be able to tell them: \'I verified my doctor is in-network. My medications are covered. The plan pays $[amount] a year more than what I have now.\' Write that down — those are the three things they\'ll want to know."' },
     ],
     pillar: 'Persuasion',
+    tags: ['talk to', 'son', 'daughter', 'husband', 'wife', 'spouse', 'family', 'permission', 'ask first', 'check with', 'consult'],
   },
   {
     id: 'family-will-object',
@@ -497,6 +533,7 @@ export const objections: Objection[] = [
       { text: '"If your family asks why you switched, you can tell them exactly this: \'A licensed agent ran the side-by-side with me. My doctor is confirmed in-network. My medications are covered. I was leaving $[amount] a year on the table — and now I\'m not.\'"' },
     ],
     pillar: 'Persuasion',
+    tags: ['family', 'object', 'approve', 'regret', 'shouldn\'t have', 'done it', 'said yes', 'worried', 'family upset'],
   },
 
   // SECTION 10: CLOSING & RESISTANCE
@@ -510,6 +547,7 @@ export const objections: Objection[] = [
       { text: '"I understand — and here\'s what I\'d like to do before you go: let me check Dr. [name] right now while we\'re on the phone. This takes 60 seconds. If they\'re covered, that\'s one call you don\'t have to make. If they\'re not, at least you\'ll know before you call them."' },
     ],
     pillar: 'Persuasion',
+    tags: ['call back', 'call you back', 'doctor first', 'later', 'need to check', 'hang up', 'I\'ll call'],
   },
   {
     id: 'hard-no',
@@ -521,6 +559,7 @@ export const objections: Objection[] = [
       { text: '"I completely respect that — and before we hang up, I want to make sure you know: if your situation changes or your plan changes its benefits next year, you can always call back. My number is [number]. You deserve to have the right plan."' },
     ],
     pillar: 'Persuasion',
+    tags: ['no', 'refused', 'done', "won't", 'not interested', 'stop', 'absolute no', 'final no', 'hanging up'],
   },
   {
     id: 'benefit-less-than-commercial',
@@ -532,5 +571,6 @@ export const objections: Objection[] = [
       { text: '"Those commercials show the national maximum. Your actual benefit is based on your zip code and your specific plan options. What I found for your area is $[amount] — and that\'s real money that starts [date]."' },
     ],
     pillar: 'Reframing',
+    tags: ['less', 'my area', 'commercial', 'zip code', 'national', 'maximum', 'not that much', 'lower amount', 'less than'],
   },
 ]

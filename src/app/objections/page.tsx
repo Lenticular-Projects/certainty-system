@@ -32,8 +32,9 @@ export default function ObjectionsPage() {
   const fuse = useMemo(
     () =>
       new Fuse(objections, {
-        keys: ['clientPhrase'],
-        threshold: 0.4,
+        keys: ['clientPhrase', 'tags'],
+        threshold: 0.35,
+        ignoreLocation: true,
       }),
     []
   )
