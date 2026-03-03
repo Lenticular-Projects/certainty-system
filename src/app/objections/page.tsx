@@ -12,16 +12,18 @@ import { objections, sections } from '@/lib/objections-data'
 
 const sectionDescriptions: Record<string, string> = {
   'All': 'Every objection across all categories. Use search to find what you just heard.',
-  'Fear & Resistance': 'The client is protecting what they have. Fear drives the words, not logic.',
-  'Commercial & Benefit': 'Cost, coverage, and benefit comparisons that stall the enrollment.',
+  'Fear of Change & Switching': 'The client is protecting what they have. Fear drives the words, not logic.',
+  'Commercial & Benefit': 'They called about a benefit they saw advertised. Motivated — but often misinformed about how it works.',
   'Stall': 'Not saying no — not saying yes. They\'re buying time.',
   'Network & Coverage': 'Doctor, hospital, and provider network concerns.',
-  'Loyalty': 'They have a relationship — with their plan, agent, or carrier.',
-  'Timing': 'Not now. Call me back. I need more time to decide.',
+  'Loyalty': 'They have a relationship — with their plan, their agent, or their carrier.',
+  'Timing': 'Not now. Call me back. I need more time.',
   'Benefit & Plan Comparison': 'Side-by-side plan comparisons and specific benefit questions.',
   'Trust & Credibility': 'They don\'t believe you, the company, or the process yet.',
+  'Fear of Losing Existing Benefits': 'Doctor coverage, VA benefits, Medicaid — they don\'t want to lose what they already have.',
+  'Financial': 'The numbers don\'t feel worth it — or the cost feels too risky.',
   'Family & Third Party': 'Someone else needs to be involved before they can decide.',
-  'Closing & Resistance': 'Final resistance at the exact moment of commitment.',
+  'Resistance at Close': 'Final resistance at the exact moment of commitment.',
 }
 import styles from './page.module.css'
 
