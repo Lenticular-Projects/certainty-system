@@ -1,0 +1,925 @@
+/* ============================================================
+   Medicare 101 — Page Styles
+   ============================================================ */
+
+.intro {
+  color: var(--ink-60);
+  max-width: 720px;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+
+/* ---- TOC ---- */
+.toc {
+  margin-bottom: var(--space-9);
+  max-width: 720px;
+}
+
+.tocTitle {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-4);
+}
+
+.tocGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2) var(--space-6);
+}
+
+.tocItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.9375rem;
+  color: var(--ink-60);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--ink-10);
+  transition: color 0.15s ease;
+  text-decoration: none;
+}
+
+.tocItem:hover {
+  color: var(--ink);
+}
+
+.tocNum {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-20);
+  min-width: 20px;
+}
+
+/* ---- Sections ---- */
+.section {
+  margin-top: var(--space-10);
+  scroll-margin-top: 80px;
+}
+
+.sectionLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-3);
+}
+
+.sectionTitle {
+  margin-bottom: var(--space-5);
+}
+
+.sectionIntro {
+  max-width: 720px;
+  margin-bottom: var(--space-7);
+  color: var(--ink-60);
+}
+
+/* ---- Plan type cards ---- */
+.planGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+
+.planCard {
+  border-radius: 12px;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.planTag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.planName {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+
+.planAnalogy {
+  font-style: italic;
+  color: var(--ink-60);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--ink-20);
+}
+
+.planBody {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.prosConsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.prosCons h4 {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-2);
+}
+
+.prosCons ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.prosCons li {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.prosCons li::before {
+  content: '✓';
+  color: var(--sage-dark);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.prosCons.cons li::before {
+  content: '×';
+  color: var(--terracotta);
+}
+
+.planNote {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+  padding: var(--space-3) var(--space-4);
+  background: var(--cream-2);
+  border-radius: 8px;
+  margin-top: var(--space-2);
+}
+
+.planNote strong {
+  color: var(--ink);
+}
+
+/* ---- Comparison table ---- */
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: var(--space-6) 0;
+  border-radius: 12px;
+  border: var(--rule-lt);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  min-width: 560px;
+}
+
+.table thead th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  padding: var(--space-3) var(--space-5);
+  border-bottom: var(--rule);
+  background: var(--cream-2);
+  white-space: nowrap;
+}
+
+.table thead th:first-child {
+  border-radius: 12px 0 0 0;
+}
+
+.table thead th:last-child {
+  border-radius: 0 12px 0 0;
+}
+
+.table tbody td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: var(--rule-lt);
+  line-height: 1.55;
+  vertical-align: top;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover td {
+  background: rgba(251, 248, 243, 0.6);
+}
+
+.table td.rowLabel {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ---- SNP section ---- */
+.snpGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+.snpCard {
+  border-radius: 12px;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.snpBadge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--sage-tint);
+  color: var(--sage-dark);
+  padding: 4px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.snpName {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.375rem;
+}
+
+.snpBody {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.snpQuestion {
+  font-size: 0.9375rem;
+  font-style: italic;
+  padding: var(--space-3) var(--space-4);
+  background: var(--cream-2);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.snpQuestion strong {
+  font-style: normal;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+/* Trigger word chips */
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.chip {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--mustard-tint);
+  color: var(--ink);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+}
+
+/* ---- Key Terms ---- */
+.termGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 720px;
+  margin: var(--space-6) 0;
+}
+
+.termBlock {
+  border-left: 3px solid var(--ink-20);
+  padding-left: var(--space-5);
+}
+
+.termName {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  margin-bottom: var(--space-2);
+}
+
+.termAbbr {
+  color: var(--ink-60);
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+
+.termBody {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+}
+
+.termBody strong {
+  color: var(--ink);
+}
+
+.termPitch {
+  margin-top: var(--space-3);
+  font-size: 0.9375rem;
+  font-style: italic;
+  padding: var(--space-3) var(--space-4);
+  background: var(--cream-2);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+/* ---- Enrollment periods ---- */
+.periodGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 720px;
+  margin: var(--space-6) 0;
+}
+
+.periodCard {
+  border-radius: 12px;
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.periodAbbr {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.periodName {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+}
+
+.periodDates {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--cream-2);
+  color: var(--ink-60);
+  width: fit-content;
+}
+
+.periodBody {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.periodWarning {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: var(--space-3) var(--space-4);
+  background: var(--tc-tint);
+  border-left: 3px solid var(--terracotta);
+  border-radius: 0 8px 8px 0;
+}
+
+.periodWarning strong {
+  color: var(--tc-dark);
+}
+
+/* Decision tree */
+.decisionTree {
+  margin: var(--space-6) 0;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.treeRow {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-4) var(--space-5);
+  border-radius: 10px;
+  background: var(--cream-2);
+}
+
+.treeCondition {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.treeResult {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+.treeResult strong {
+  color: var(--ink);
+}
+
+.treeResultList {
+  margin-top: var(--space-2);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.treeResultList li {
+  font-size: 0.875rem;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--ink-60);
+}
+
+.treeResultList li::before {
+  content: '→';
+  color: var(--ink-20);
+  flex-shrink: 0;
+}
+
+/* ---- Mistakes ---- */
+.mistakeList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 720px;
+  margin: var(--space-6) 0;
+}
+
+.mistakeCard {
+  border-radius: 12px;
+  padding: var(--space-6);
+  border-left: 4px solid var(--terracotta);
+  background: var(--tc-tint);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.mistakeHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.mistakeNum {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+.mistakeTitle {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  color: var(--tc-dark);
+}
+
+.mistakeBody {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.mistakeCost {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(224, 92, 52, 0.08);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.mistakeCost strong {
+  color: var(--tc-dark);
+}
+
+.mistakeLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tc-dark);
+  margin-bottom: var(--space-2);
+}
+
+.mistakeScript {
+  font-style: italic;
+  font-size: 0.9375rem;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(251, 248, 243, 0.7);
+  border-radius: 8px;
+  line-height: 1.65;
+}
+
+.mistakeLesson {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(251, 248, 243, 0.85);
+  border-radius: 8px;
+  border-left: 3px solid var(--ink-20);
+}
+
+.mistakeLesson strong {
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--ink-60);
+}
+
+/* ---- Scenarios ---- */
+.scenarioList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 720px;
+  margin: var(--space-6) 0;
+}
+
+.scenarioCard {
+  border-radius: 12px;
+  padding: var(--space-5) var(--space-6);
+  background: rgba(251, 248, 243, 0.6);
+  border: var(--rule-lt);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.scenarioLetter {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.scenarioTitle {
+  font-weight: 700;
+  font-size: 1.0rem;
+  line-height: 1.3;
+}
+
+.scenarioSetup {
+  font-size: 0.875rem;
+  color: var(--ink-60);
+  line-height: 1.6;
+}
+
+.scenarioSetup strong {
+  color: var(--ink);
+}
+
+.scenarioScript {
+  font-style: italic;
+  font-size: 0.9375rem;
+  padding: var(--space-3) var(--space-4);
+  background: var(--cream-2);
+  border-radius: 8px;
+  line-height: 1.65;
+  border-left: 3px solid var(--sage-dark);
+}
+
+.scenarioSteps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.scenarioStep {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.stepNum {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--ink-60);
+  background: var(--cream-2);
+  border-radius: 999px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.stepBody {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  flex: 1;
+}
+
+/* ---- Kill phrases table ---- */
+.killTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  margin: var(--space-6) 0;
+}
+
+.killTable thead th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  padding: var(--space-3) var(--space-5);
+  border-bottom: var(--rule);
+}
+
+.killTable thead th:first-child {
+  color: var(--tc-dark);
+}
+
+.killTable thead th:last-child {
+  color: var(--sage-dark);
+}
+
+.killTable tbody td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: var(--rule-lt);
+  line-height: 1.6;
+  vertical-align: top;
+}
+
+.killTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.killPhrase {
+  font-style: italic;
+  color: var(--tc-dark);
+}
+
+.closePhrase {
+  font-style: italic;
+  color: var(--sage-dark);
+}
+
+.neverSay {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--tc-dark);
+  background: var(--tc-tint);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ---- System Connections ---- */
+
+.systemConnections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(19, 17, 16, 0.10);
+  margin-top: var(--space-2);
+}
+
+.systemConnectionsLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-20);
+}
+
+.systemTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.systemTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 8px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  line-height: 1;
+}
+
+.systemTag:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.systemTagType {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.systemTagLabel {
+  font-weight: 600;
+}
+
+.systemTagArrow {
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* Tag color variants */
+.tagPattern {
+  background: var(--tc-tint);
+  color: var(--tc-dark);
+  border-color: rgba(184, 68, 32, 0.15);
+}
+
+.tagPillar {
+  background: var(--sage-tint);
+  color: var(--sage-dark);
+  border-color: rgba(106, 139, 110, 0.2);
+}
+
+.tagObjection {
+  background: var(--mustard-tint);
+  color: var(--mustard-dark);
+  border-color: rgba(196, 154, 32, 0.2);
+}
+
+.tagCallType {
+  background: var(--cream-2);
+  color: var(--ink-60);
+  border-color: var(--ink-10);
+}
+
+/* ---- Kill phrases redesign ---- */
+
+.killList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 860px;
+}
+
+.killCard {
+  border-radius: 12px;
+  border: var(--rule-lt);
+  background: rgba(251, 248, 243, 0.6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.killRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+}
+
+.killCol {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.killColLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-20);
+}
+
+.killDivider {
+  width: 1px;
+  background: var(--ink-10);
+  align-self: stretch;
+}
+
+.systemConnections.inKillCard {
+  padding: var(--space-3) var(--space-5);
+  border-top: var(--rule-lt);
+  margin-top: 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .planGrid,
+  .snpGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .killRow {
+    grid-template-columns: 1fr;
+  }
+
+  .killDivider {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+  }
+
+  .systemTags {
+    gap: var(--space-2);
+  }
+
+  .systemTag {
+    font-size: 0.75rem;
+  }
+
+  .tocGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .prosConsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .treeRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .treeCondition {
+    font-size: 0.8125rem;
+  }
+
+  .killTable {
+    font-size: 0.875rem;
+  }
+
+  .killTable thead th,
+  .killTable tbody td {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .section {
+    margin-top: var(--space-8);
+  }
+
+  .table {
+    font-size: 0.875rem;
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: var(--space-3) var(--space-4);
+  }
+}

@@ -16,6 +16,7 @@ const sectionCards = [
   { label: '9 Call Types', href: '/call-types', description: 'Identify the client in the first two minutes.', signal: 'neutral' as const },
   { label: 'Objection Handbook', href: '/objections', description: 'Find the phrase. Deploy the response.', signal: 'neutral' as const },
   { label: 'Math Breakdown', href: '/math-breakdown', description: 'Three steps. The last one closes.', signal: 'green' as const },
+  { label: 'Medicare 101', href: '/medicare-101', description: 'Networks, SNPs, enrollment periods, and the mistakes that cost real enrollments.', signal: 'neutral' as const },
 ]
 
 function SectionCard({ card }: { card: typeof sectionCards[number] }) {

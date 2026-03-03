@@ -21,6 +21,7 @@ const mainLinks = [
 const moreLinks = [
   { label: 'Close Confirmation', href: '/close-confirmation' },
   { label: 'How Calls Are Graded', href: '/how-calls-are-graded' },
+  { label: 'Medicare 101', href: '/medicare-101' },
 ]
 
 export default function Nav() {
