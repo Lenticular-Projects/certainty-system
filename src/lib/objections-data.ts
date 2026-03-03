@@ -42,15 +42,15 @@ export const objections: Objection[] = [
     ],
     responses: [
       {
-        label: 'Reframe what "happy" means',
-        text: '"I love hearing that — and I want to make sure that feeling is based on the full picture. What I\'m looking at right now is that your current plan doesn\'t include [specific benefit]. That\'s $[amount] a year that\'s already funded for you — you\'re just not getting it. If I\'m wrong, I\'ll tell you."',
+        label: 'Standard',
+        text: '"I hear you — and I\'m glad it\'s been working. I just want to make sure what you have is still covering everything you\'re entitled to. What I\'d show you isn\'t going to take that away — it\'s just going to add to what you\'ve already been happy with."',
       },
       {
         label: 'For long-term plan holders',
-        text: '"You\'ve been on this plan a while — and I respect that. I just want to make sure what you have is still the right plan for your situation this year. Plans restructure every January. It takes me a couple minutes to verify. If what you have is the strongest plan in your area, I\'ll tell you and we\'re done."',
+        text: '"I get it — you found something that works and you don\'t want to mess with it. I just want to make sure it\'s still the best version of what\'s available to you this year. Plans change every January. Let me take a quick look and I\'ll tell you straight."',
       },
     ],
-    pillar: 'The Shift — reframe "happy" as "leaving money behind"',
+    pillar: 'Reframing — don\'t challenge the plan, build on it',
   },
 
   {
@@ -65,16 +65,16 @@ export const objections: Objection[] = [
     ],
     responses: [
       {
-        text: '"I hear you — and I wouldn\'t want you to change anything either. I want to make sure what you have is still the right plan for your situation this year. It takes me a couple minutes to verify. If it\'s already the strongest plan available in your area, I\'ll tell you and we\'re done. Fair?"',
+        text: '"I hear you — you\'ve had a plan that\'s worked and you don\'t want to risk losing what you have. What I\'m showing you doesn\'t take that away. It adds to it."',
       },
     ],
-    pillar: 'Reframing — redirect from "changing" to "verifying"',
+    pillar: 'Reframing — frame it as adding, not replacing',
   },
 
   {
     id: 'devil-you-know',
     section: 'Fear of Change & Switching',
-    clientPhrase: '"Better safe than sorry." / "I\'d rather stick with what I know."',
+    clientPhrase: '"I\'d rather stick with what I\'ve got." / "Better the devil you know."',
     signal: 'red',
     underneath: 'Past experience — theirs or someone they know — where a change went wrong. The emotion is real and must be named before anything else can land.',
     doNotSay: [
@@ -83,10 +83,10 @@ export const objections: Objection[] = [
     ],
     responses: [
       {
-        text: '"I hear you — you\'ve had a plan that\'s worked and you don\'t want to risk losing what you have. That makes complete sense. What I\'m showing you doesn\'t take anything away. It just makes sure you\'re not leaving benefits on the table every month that could improve your quality of life."',
+        text: '"I get that — you\'ve got something that\'s been working and you don\'t want to take a chance. All I want to do is take a look and make sure what you\'ve got is still the best fit for you right now. If it is, nothing changes."',
       },
     ],
-    pillar: 'Reframing — name the fear, redirect toward what they\'re currently leaving behind',
+    pillar: 'Reframing — make looking feel safe, not risky',
   },
 
   {
@@ -140,19 +140,15 @@ export const objections: Objection[] = [
     ],
     responses: [
       {
-        label: 'Explain how it actually works',
-        text: '"That card is real — and I want to make sure you actually get it. Here\'s how it works: the grocery benefit isn\'t something the government mails out separately. It\'s loaded onto a card that comes with a specific plan. Think of the plan as the account — the card is what you spend from. My job is to find the plan in your area that loads the highest amount. That\'s the whole call."',
+        label: 'Standard',
+        text: '"Yeah, absolutely — I can definitely help you with that. It goes through the Medicare system, so I\'m going to need to pull a few things together to find the right plan for you. But once I have that, I\'m going to do everything I can to make sure you\'re getting every benefit that\'s available to you. As long as you work with me, I\'ll take care of the rest."',
       },
       {
-        label: 'If they push back — "I don\'t want to switch"',
-        text: '"I hear you — this isn\'t about switching to something worse. I\'m looking for whether there\'s a plan that gives you that grocery money AND covers everything your current plan already covers. A lot of times there is. Let me check what\'s available for your zip code."',
-      },
-      {
-        label: 'If they say "I\'m not doing all this"',
-        text: '"I completely understand — you called for the benefit, not the process. Here\'s the truth: the benefit doesn\'t exist outside the plan. The plan is what delivers the money to your card every month. I\'m not adding a step — I am the step."',
+        label: 'If they push back — "I don\'t want to switch anything"',
+        text: '"I hear you — I\'m not trying to change something that\'s working. What I\'m showing you doesn\'t take that away. It adds to it. Let me just check what\'s available for your zip code."',
       },
     ],
-    pillar: 'Reframing — the benefit and the plan are the same thing; you activate the card',
+    pillar: 'Reframing — you\'re the step that gets them the card; create a handshake first',
   },
 
   {
@@ -248,10 +244,10 @@ export const objections: Objection[] = [
     ],
     responses: [
       {
-        text: '"I hear you — you want to see it in writing before you do anything. Here\'s the thing: the official plan documents only get generated once an application is on file — that\'s how the system works. What I can do is submit the application today, which triggers those documents to arrive at your door. And if anything in those documents doesn\'t match what I\'ve told you today, you call me directly and we sort it out."',
+        text: '"I hear you — and honestly, anything I\'d send right now wouldn\'t have your specific numbers on it anyway. What I can show you right now is built around your zip code, your situation, your doctors. That\'s more useful than any brochure. What was the main thing you were hoping to learn from it?"',
       },
     ],
-    pillar: 'The Shift — enrollment generates the documentation; reframe "send me something" as enrollment itself',
+    pillar: 'Refocusing — redirect from the exit back to their actual need',
   },
 
   {
@@ -509,10 +505,10 @@ export const objections: Objection[] = [
     underneath: 'Motivated, specific — they know what they want. The risk is chasing the giveback number without checking whether the overall plan is the right fit.',
     responses: [
       {
-        text: '"A Part B Giveback is real savings — and we\'re going to find you the best one available in your area. One thing I want to make sure of: plans with the highest giveback sometimes have higher copays when you actually use the plan. My job is to find you the plan that puts the most money back overall — not just the biggest number on the monthly summary. Let me pull up what\'s available in your zip code right now."',
+        text: '"No problem — let me pull up your zip code and see what\'s available."',
       },
     ],
-    pillar: 'The Shift — total savings, not just the giveback number',
+    pillar: 'Persuasion — green signal; acknowledge and move immediately',
   },
 
   {
@@ -586,14 +582,14 @@ export const objections: Objection[] = [
     responses: [
       {
         label: 'Standard response',
-        text: '"I completely understand — and I\'d be careful too. Here\'s what I\'d like to do: let me show you what I can already see in the system before you give me anything. If I can pull up your current plan details, you\'ll know I\'m working in the right place. Everything I do follows Medicare guidelines. Does that seem fair?"',
+        text: '"Absolutely not — and I understand why you\'d want to be careful. There are rules and laws in place that protect you through this whole process. All I need to do is pull up your current plan to see what benefits you qualify for. Once you can see I\'m working with real information, you\'ll be able to decide from there."',
       },
       {
         label: 'For "The government doesn\'t give out free money"',
-        text: '"You\'re right to be skeptical — and here\'s the accurate version: the government funds Medicare Advantage plans at a higher rate for certain zip codes and income levels. Those plans are required to use that funding for specific benefits — dental, grocery, cash back on Part B. It\'s not free money from nowhere. It\'s federally allocated funding that gets distributed through licensed plans. My job is to find which plan in your area is distributing the most of it."',
+        text: '"You\'re right — it\'s not free money. It\'s federally funded money that goes into specific Medicare plans. Those plans are required to use it for benefits — dental, grocery, cash back on Part B. My job is to find which plan in your area is paying out the most and make sure it goes to you."',
       },
     ],
-    pillar: 'Persuasion — demonstrate access and legitimacy before requesting anything',
+    pillar: 'Persuasion — "Absolutely not" first; demonstrate through action, not credentials',
   },
 
   {
