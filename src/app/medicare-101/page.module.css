@@ -504,78 +504,107 @@
 
 .mistakeHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-4);
+  border-bottom: 1px solid var(--ink-10);
+  padding-bottom: var(--space-4);
 }
 
-.mistakeNum {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--terracotta);
+.mistakeNumWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   flex-shrink: 0;
-  padding-top: 3px;
+  min-width: 52px;
+}
+
+.mistakeBigNum {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 2.25rem;
+  font-weight: 500;
+  color: var(--ink-40);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.mistakeNumBadge {
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-40);
 }
 
 .mistakeTitle {
-  font-weight: 700;
-  font-size: 1.0625rem;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 500;
+  font-size: 1.25rem;
   line-height: 1.3;
-  color: var(--tc-dark);
+  color: var(--ink);
 }
 
 .mistakeBody {
   font-size: 0.9375rem;
   line-height: 1.65;
+  color: var(--ink-80);
 }
 
 .mistakeCost {
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 400;
   padding: var(--space-3) var(--space-4);
-  background: rgba(224, 92, 52, 0.08);
-  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink-20);
+  border-radius: 4px;
   line-height: 1.6;
 }
 
 .mistakeCost strong {
-  color: var(--tc-dark);
+  font-weight: 600;
+  margin-right: 0.25rem;
 }
 
 .mistakeLabel {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--tc-dark);
-  margin-bottom: var(--space-2);
+  color: var(--ink-40);
+  margin-bottom: var(--space-1);
 }
 
 .mistakeScript {
   font-style: italic;
   font-size: 0.9375rem;
-  padding: var(--space-3) var(--space-4);
-  background: rgba(251, 248, 243, 0.7);
-  border-radius: 8px;
+  padding: var(--space-2) 0 var(--space-2) var(--space-4);
+  background: transparent;
+  border-radius: 0;
+  border-left: 1px solid var(--ink-20);
   line-height: 1.65;
+  color: var(--ink-80);
 }
 
 .mistakeLesson {
   font-size: 0.875rem;
-  line-height: 1.6;
-  padding: var(--space-3) var(--space-4);
-  background: rgba(251, 248, 243, 0.85);
-  border-radius: 8px;
-  border-left: 3px solid var(--ink-20);
+  font-weight: 400;
+  line-height: 1.65;
+  padding: var(--space-4) 0 0 0;
+  background: transparent;
+  border-radius: 0;
+  border-left: none;
+  border-top: 1px solid var(--ink-10);
+  margin-top: var(--space-2);
 }
 
 .mistakeLesson strong {
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   display: block;
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
   color: var(--ink-60);
 }
 
@@ -589,47 +618,54 @@
 }
 
 .scenarioCard {
-  border-radius: 12px;
+  border-radius: 8px;
   padding: var(--space-5) var(--space-6);
-  background: rgba(251, 248, 243, 0.6);
-  border: var(--rule-lt);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(19, 17, 16, 0.05);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
 .scenarioLetter {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-60);
+  color: var(--ink-40);
 }
 
 .scenarioTitle {
-  font-weight: 700;
-  font-size: 1.0rem;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 500;
+  font-size: 1.25rem;
   line-height: 1.3;
+  margin-top: var(--space-1);
 }
 
 .scenarioSetup {
   font-size: 0.875rem;
-  color: var(--ink-60);
+  color: var(--ink-80);
   line-height: 1.6;
 }
 
 .scenarioSetup strong {
   color: var(--ink);
+  font-weight: 600;
 }
 
 .scenarioScript {
   font-style: italic;
   font-size: 0.9375rem;
-  padding: var(--space-3) var(--space-4);
-  background: var(--cream-2);
-  border-radius: 8px;
+  padding: var(--space-3) 0 var(--space-3) var(--space-4);
+  background: transparent;
+  border-radius: 0;
   line-height: 1.65;
-  border-left: 3px solid var(--sage-dark);
+  border-left: 1px solid var(--ink-20);
+  color: var(--ink-80);
 }
 
 .scenarioSteps {
@@ -645,13 +681,14 @@
 }
 
 .stepNum {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  color: var(--ink-60);
-  background: var(--cream-2);
-  border-radius: 999px;
-  width: 22px;
-  height: 22px;
+  font-size: 0.625rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink-20);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -705,21 +742,29 @@
 
 .killPhrase {
   font-style: italic;
-  color: var(--tc-dark);
+  font-size: 0.9375rem;
+  color: var(--ink-80);
+  line-height: 1.55;
 }
 
 .closePhrase {
   font-style: italic;
-  color: var(--sage-dark);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.55;
 }
 
 .neverSay {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--tc-dark);
-  background: var(--tc-tint);
-  padding: 2px 8px;
+  font-style: normal;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  padding: var(--space-2) var(--space-3);
+  border: 1px dashed var(--ink-40);
   border-radius: 4px;
+  line-height: 1.55;
 }
 
 /* ---- System Connections ---- */
@@ -818,12 +863,13 @@
 }
 
 .killCard {
-  border-radius: 12px;
-  border: var(--rule-lt);
-  background: rgba(251, 248, 243, 0.6);
+  border-radius: 4px;
+  border: 1px solid var(--ink-10);
+  background: #fff;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .killRow {
@@ -839,12 +885,20 @@
   gap: var(--space-2);
 }
 
-.killColLabel {
+.killColLabelKill {
   font-size: 0.625rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-20);
+  color: var(--ink-60);
+}
+
+.killColLabelClose {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
 }
 
 .killDivider {
@@ -853,14 +907,45 @@
   align-self: stretch;
 }
 
+.killColKill {
+  background: transparent;
+}
+
+.killColClose {
+  background: transparent;
+}
+
 .systemConnections.inKillCard {
   padding: var(--space-3) var(--space-5);
   border-top: var(--rule-lt);
   margin-top: 0;
 }
 
+/* ---- Kill Section Entry ---- */
+.killSectionEntry {
+  margin-top: var(--space-9);
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-5);
+}
+
+.killSectionTitle {
+  margin-bottom: 0;
+}
+
+.killSectionIntro {
+  color: var(--ink-60);
+  max-width: 640px;
+  margin-bottom: 0;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
+
   .planGrid,
   .snpGrid {
     grid-template-columns: 1fr;
