@@ -17,6 +17,7 @@ const sectionCards = [
   { label: 'Objection Handbook', href: '/objections', description: 'Find the phrase. Deploy the response.', signal: 'neutral' as const },
   { label: 'Math Breakdown', href: '/math-breakdown', description: 'Three steps. The last one closes.', signal: 'green' as const },
   { label: 'Medicare 101', href: '/medicare-101', description: 'Networks, SNPs, enrollment periods, and the mistakes that cost real enrollments.', signal: 'neutral' as const },
+  { label: 'The Human Layer', href: '/human-layer', description: 'The operating layer underneath every other tool. What separates a presentation from a close.', signal: 'neutral' as const },
 ]
 
 function SectionCard({ card }: { card: typeof sectionCards[number] }) {

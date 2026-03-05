@@ -9,13 +9,14 @@ import { SPRING_FAST, EASE_SPRING } from '@/lib/motion'
 import styles from './Nav.module.css'
 
 const mainLinks = [
-  { label: 'Objections', href: '/objections' },
+  { label: 'Human Layer', href: '/human-layer' },
   { label: 'Call Types', href: '/call-types' },
   { label: 'Signals', href: '/signals' },
   { label: 'Pillars', href: '/pillars' },
-  { label: 'Patterns', href: '/patterns' },
-  { label: 'Math Breakdown', href: '/math-breakdown' },
   { label: 'Storytelling', href: '/storytelling' },
+  { label: 'Math Breakdown', href: '/math-breakdown' },
+  { label: 'Patterns', href: '/patterns' },
+  { label: 'Objections', href: '/objections' },
 ]
 
 const moreLinks = [
