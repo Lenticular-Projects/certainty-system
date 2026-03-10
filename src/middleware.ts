@@ -2,14 +2,27 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  // Skip IP check in local development
+  const { pathname } = request.nextUrl
+
+  // Trainee routes, auth API, and analysis API — skip IP restriction
+  if (
+    pathname.startsWith('/trainee') ||
+    pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/api/trainee') ||
+    pathname.startsWith('/api/analysis') ||
+    pathname.startsWith('/api/notify')
+  ) {
+    return NextResponse.next()
+  }
+
+  // Hub routes — IP restriction (skip in dev)
   if (process.env.NODE_ENV === 'development') {
     return NextResponse.next()
   }
 
   const allowedIPs = (process.env.ALLOWED_IPS ?? '')
     .split(',')
-    .map(ip => ip.trim())
+    .map((ip) => ip.trim())
     .filter(Boolean)
 
   const ip =
@@ -25,6 +38,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Run on all routes except the blocked page itself and static assets
-  matcher: ['/((?!blocked|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    '/((?!blocked|_next/static|_next/image|favicon.ico|call-audio).*)',
+  ],
 }

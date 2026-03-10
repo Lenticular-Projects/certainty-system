@@ -1,0 +1,118 @@
+/* ============================================================
+   The Certainty System — Knowledge Hub
+   Hub-Specific Styles (gradient, glass, signal states, card glows)
+   ============================================================ */
+
+/* --- Ambient Gradient on Body --- */
+body {
+  background-image: linear-gradient(-45deg, rgba(244, 80, 40, 0.95), rgba(245, 175, 20, 0.9), rgba(210, 245, 240, 0.7), rgba(45, 195, 175, 0.85));
+  background-size: 400% 400%;
+  animation: gradientDrift 20s ease infinite;
+  transition: background-position 2.5s ease-in-out;
+}
+
+@keyframes gradientDrift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* --- Signal State Shifts --- */
+body[data-signal="red"] {
+  background-position: 0% 50%;
+}
+
+body[data-signal="yellow"] {
+  background-position: 40% 50%;
+}
+
+body[data-signal="green"] {
+  background-position: 100% 50%;
+}
+
+body[data-signal="neutral"] {
+  background-position: 50% 50%;
+}
+
+/* --- Content Readability Overlay (interior pages) --- */
+.pageOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(251, 248, 243, 0.83);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Glassmorphism Utility Classes --- */
+.glass {
+  background: rgba(251, 248, 243, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.glassDark {
+  background: rgba(19, 17, 16, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #FAF5EC;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.20);
+}
+
+.glassSubtle {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+/* --- Card Glow Accents --- */
+.cardGlow {
+  position: relative;
+  overflow: hidden;
+}
+
+.cardGlow::before {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.10;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.cardGlow:hover::before {
+  opacity: 0.20;
+}
+
+.cardGlowRed::before {
+  background: #E05C34;
+  top: -40px;
+  right: -40px;
+}
+
+.cardGlowYellow::before {
+  background: #E9B840;
+  bottom: -40px;
+  left: -40px;
+}
+
+.cardGlowGreen::before {
+  background: #8FAF94;
+  top: -40px;
+  left: -40px;
+}

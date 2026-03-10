@@ -1,10 +1,6 @@
 import type { Metadata } from 'next'
 import { Playfair_Display } from 'next/font/google'
 import localFont from 'next/font/local'
-import { AmbientProvider } from '@/context/AmbientContext'
-import { MotionProvider } from '@/components/layout/MotionProvider'
-import Nav from '@/components/layout/Nav'
-import Footer from '@/components/layout/Footer'
 import './globals.css'
 
 const geist = localFont({
@@ -33,15 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${geist.variable} ${playfair.variable}`}>
-      <body>
-        <MotionProvider>
-          <AmbientProvider>
-            <Nav />
-            {children}
-            <Footer />
-          </AmbientProvider>
-        </MotionProvider>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

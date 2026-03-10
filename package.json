@@ -9,23 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^1.11.1",
     "@carbon/icons-react": "^11.55.0",
+    "@google/generative-ai": "^0.24.1",
     "@next/mdx": "^14.2.0",
+    "@vercel/postgres": "^0.10.0",
     "d3": "^7.9.0",
+    "drizzle-orm": "^0.45.1",
     "framer-motion": "^11.18.0",
     "fuse.js": "^7.0.0",
     "geist": "^1.7.0",
     "gray-matter": "^4.0.3",
     "next": "^14.2.0",
+    "next-auth": "^5.0.0-beta.30",
     "next-mdx-remote": "^6.0.0",
     "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "react-dom": "^18.3.0",
+    "resend": "^6.9.3",
+    "wavesurfer.js": "^7.12.1"
   },
   "devDependencies": {
     "@types/d3": "^7.4.0",
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
+    "drizzle-kit": "^0.31.9",
     "typescript": "^5.5.0"
   }
 }

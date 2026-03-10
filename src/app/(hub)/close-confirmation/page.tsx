@@ -43,9 +43,9 @@ export default function CloseConfirmationPage() {
         <h2 className="display-lg">The Three-Question Test</h2>
         <p className="body-lg">Before hanging up, every enrolled client should be able to answer these three questions <strong>without you prompting them:</strong></p>
         <ol className={styles.testList}>
-          <li><strong>What plan did I just enroll in and when does it start?</strong></li>
-          <li><strong>Why did I switch?</strong></li>
-          <li><strong>What is the one thing I&rsquo;m most looking forward to?</strong></li>
+          <li>What plan did I just enroll in and when does it start?</li>
+          <li>Why did I switch?</li>
+          <li>What is the one thing I&rsquo;m most looking forward to?</li>
         </ol>
         <p className="body-md">The Anchor Statement covers #1. The Confidence Statement covers #2. The Forward Close covers #3. <strong>All three components are required.</strong> Skipping any one leaves a gap the client will fill with doubt.</p>
       </motion.section>

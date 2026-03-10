@@ -1,0 +1,117 @@
+/* ============================================================
+   The Certainty System — Trainee Portal
+   ============================================================ */
+
+:root {
+  --trainee-accent: #2D5A3D;
+  --trainee-accent-light: rgba(45, 90, 61, 0.07);
+  --trainee-active: #E05C34;
+  --trainee-locked: #C8C4BD;
+  --trainee-bg: #FAFAF8;
+  --trainee-card: #FFFFFF;
+  --trainee-border: rgba(19, 17, 16, 0.07);
+  --trainee-border-focus: rgba(45, 90, 61, 0.4);
+}
+
+body {
+  background: var(--trainee-bg);
+}
+
+/* ── Primary Header ── */
+
+.traineeHeader {
+  background: #fff;
+  border-bottom: 1px solid var(--trainee-border);
+  padding: 14px 24px;
+}
+
+.traineeHeaderInner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.traineeHeaderLogo {
+  font-family: var(--font-playfair, Georgia, serif);
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink, #131110);
+  letter-spacing: -0.01em;
+}
+
+.traineeHeaderLabel {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--trainee-accent);
+}
+
+/* ── Knowledge Hub Reference Bar ── */
+
+.refBar {
+  background: #F5F3EF;
+  border-bottom: 1px solid var(--trainee-border);
+  padding: 0 24px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.refBar::-webkit-scrollbar {
+  display: none;
+}
+
+.refBarInner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 36px;
+}
+
+.refBarPrefix {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(19, 17, 16, 0.35);
+  padding-right: 16px;
+  border-right: 1px solid var(--trainee-border);
+  margin-right: 16px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.refBarLinks {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.refBarLink {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(19, 17, 16, 0.55);
+  padding: 0 14px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s;
+  border-right: 1px solid var(--trainee-border);
+  text-decoration: none;
+}
+
+.refBarLink:first-child {
+  padding-left: 0;
+}
+
+.refBarLink:hover {
+  color: var(--trainee-accent);
+  background: rgba(45, 90, 61, 0.04);
+}

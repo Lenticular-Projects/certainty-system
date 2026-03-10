@@ -1,6 +1,6 @@
 /* ============================================================
-   The Certainty System — Knowledge Hub
-   Global Stylesheet
+   The Certainty System — Global Stylesheet
+   Base tokens, reset, layout, type scale (shared by all routes)
    ============================================================ */
 
 /* --- CSS Custom Properties --- */
@@ -66,57 +66,13 @@
   padding: 0;
 }
 
-/* --- Ambient Gradient on Body --- */
+/* --- Body Base --- */
 body {
   font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--ink);
   background-color: var(--cream);
-  background-image: linear-gradient(-45deg, rgba(244, 80, 40, 0.95), rgba(245, 175, 20, 0.9), rgba(210, 245, 240, 0.7), rgba(45, 195, 175, 0.85));
-  background-size: 400% 400%;
-  animation: gradientDrift 20s ease infinite;
-  transition: background-position 2.5s ease-in-out;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@keyframes gradientDrift {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* --- Signal State Shifts --- */
-body[data-signal="red"] {
-  background-position: 0% 50%;
-}
-
-body[data-signal="yellow"] {
-  background-position: 40% 50%;
-}
-
-body[data-signal="green"] {
-  background-position: 100% 50%;
-}
-
-body[data-signal="neutral"] {
-  background-position: 50% 50%;
-}
-
-/* --- Content Readability Overlay (interior pages) --- */
-.pageOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(251, 248, 243, 0.83);
-  pointer-events: none;
-  z-index: 0;
 }
 
 /* --- Layout --- */
@@ -157,72 +113,6 @@ body[data-signal="neutral"] {
   }
 }
 
-/* --- Glassmorphism Utility Classes --- */
-.glass {
-  background: rgba(251, 248, 243, 0.78);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.glassDark {
-  background: rgba(19, 17, 16, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  color: #FAF5EC;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.20);
-}
-
-.glassSubtle {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-}
-
-/* --- Card Glow Accents --- */
-.cardGlow {
-  position: relative;
-  overflow: hidden;
-}
-
-.cardGlow::before {
-  content: '';
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.10;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-}
-
-.cardGlow:hover::before {
-  opacity: 0.20;
-}
-
-.cardGlowRed::before {
-  background: #E05C34;
-  top: -40px;
-  right: -40px;
-}
-
-.cardGlowYellow::before {
-  background: #E9B840;
-  bottom: -40px;
-  left: -40px;
-}
-
-.cardGlowGreen::before {
-  background: #8FAF94;
-  top: -40px;
-  left: -40px;
-}
-
 /* --- Type Scale --- */
 .display-xl {
   font-family: var(--font-playfair), Georgia, serif;
@@ -242,7 +132,7 @@ body[data-signal="neutral"] {
 
 .heading-md {
   font-family: var(--font-geist), sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1.125rem;
   line-height: 1.4;
 }
@@ -261,7 +151,7 @@ body[data-signal="neutral"] {
 
 .label {
   font-family: var(--font-geist), sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -274,6 +164,11 @@ body[data-signal="neutral"] {
   background: var(--cream-2);
   padding: 0.2em 0.5em;
   border-radius: 4px;
+}
+
+/* --- Strong --- */
+strong {
+  font-weight: 600;
 }
 
 /* --- Links --- */

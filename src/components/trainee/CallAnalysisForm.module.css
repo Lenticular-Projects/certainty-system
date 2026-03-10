@@ -1,0 +1,708 @@
+/* ── Call Analysis Form ── */
+
+.page {
+  min-height: 100vh;
+  background: #FAFAF8;
+  color: var(--ink, #131110);
+  font-family: var(--font-geist, system-ui, sans-serif);
+}
+
+/* ── Zone 1: Sticky Audio Bar ── */
+
+.audioBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(250, 250, 248, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.07);
+  box-shadow: 0 1px 0 rgba(19, 17, 16, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+  padding: 10px 24px;
+}
+
+.audioBarInner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.audioBarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.callTitle {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(19, 17, 16, 0.45);
+}
+
+.callDuration {
+  font-size: 0.6875rem;
+  color: rgba(19, 17, 16, 0.3);
+  font-variant-numeric: tabular-nums;
+}
+
+.waveformContainer {
+  width: 100%;
+  margin-bottom: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.audioControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.controlBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: var(--ink, #131110);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  flex-shrink: 0;
+}
+
+.controlBtn:hover {
+  background: #2a2a2a;
+}
+
+.controlBtn:active {
+  transform: scale(0.95);
+}
+
+.playBtn {
+  width: 38px;
+  height: 38px;
+}
+
+.rewindBtn {
+  background: transparent;
+  color: rgba(19, 17, 16, 0.6);
+  border: 1px solid rgba(19, 17, 16, 0.12);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.rewindBtn:hover {
+  background: rgba(19, 17, 16, 0.04);
+  color: var(--ink, #131110);
+}
+
+.timeDisplay {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(19, 17, 16, 0.4);
+  min-width: 84px;
+  white-space: nowrap;
+}
+
+.speedBtn {
+  background: transparent;
+  color: rgba(19, 17, 16, 0.55);
+  border: 1px solid rgba(19, 17, 16, 0.12);
+  border-radius: 5px;
+  width: auto;
+  padding: 3px 9px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.speedBtn:hover {
+  background: rgba(19, 17, 16, 0.04);
+  color: var(--ink, #131110);
+}
+
+.controlSpacer {
+  flex: 1;
+}
+
+/* ── Zone 2: Listening Briefing ── */
+
+.briefingSection {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 24px 28px;
+}
+
+.briefingToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  gap: 16px;
+}
+
+.briefingTitle {
+  font-family: var(--font-playfair, 'Playfair Display', serif);
+  font-size: 1.375rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink, #131110);
+  letter-spacing: -0.01em;
+}
+
+.briefingChevron {
+  font-size: 1rem;
+  color: rgba(19, 17, 16, 0.3);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.briefingChevronOpen {
+  transform: rotate(180deg);
+}
+
+.briefingContent {
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.briefingContentOpen {
+  max-height: 1600px;
+  opacity: 1;
+}
+
+.briefingContentClosed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.briefingIntro {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: rgba(19, 17, 16, 0.65);
+  margin: 16px 0 24px;
+}
+
+.briefingList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid rgba(19, 17, 16, 0.07);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.briefingItem {
+  padding: 14px 18px;
+  background: #fff;
+}
+
+.briefingItem + .briefingItem {
+  border-top: 1px solid rgba(19, 17, 16, 0.06);
+}
+
+.briefingItemLabel {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink, #131110);
+  margin-bottom: 3px;
+  letter-spacing: -0.01em;
+}
+
+.briefingItemDetail {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: rgba(19, 17, 16, 0.55);
+}
+
+.briefingClosing {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: rgba(19, 17, 16, 0.5);
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(19, 17, 16, 0.06);
+  font-style: italic;
+}
+
+/* ── Divider ── */
+
+.divider {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.dividerLine {
+  height: 1px;
+  background: rgba(19, 17, 16, 0.07);
+}
+
+/* ── Results ── */
+
+.resultSection {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.resultPass {
+  padding: 20px 24px;
+  background: rgba(45, 90, 61, 0.06);
+  border: 1px solid rgba(45, 90, 61, 0.2);
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+
+.resultPass h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2D5A3D;
+  margin-bottom: 4px;
+}
+
+.resultPass p {
+  font-size: 0.875rem;
+  color: rgba(19, 17, 16, 0.6);
+  line-height: 1.6;
+}
+
+.resultFail {
+  padding: 20px 24px;
+  background: rgba(224, 92, 52, 0.05);
+  border: 1px solid rgba(224, 92, 52, 0.2);
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+
+.resultFail h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #B84420;
+  margin-bottom: 4px;
+}
+
+.resultFail p {
+  font-size: 0.875rem;
+  color: rgba(19, 17, 16, 0.6);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.retryBtn {
+  padding: 8px 20px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: var(--font-geist, system-ui, sans-serif);
+  background: var(--ink, #131110);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+
+.retryBtn:hover {
+  background: #2a2a2a;
+}
+
+.overallScore {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 4px 0 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultSections {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid rgba(19, 17, 16, 0.07);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.resultSectionItem {
+  padding: 14px 18px;
+  background: #fff;
+}
+
+.resultSectionItem + .resultSectionItem {
+  border-top: 1px solid rgba(19, 17, 16, 0.06);
+}
+
+.resultSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.resultSectionName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink, #131110);
+}
+
+.resultSectionScore {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2D5A3D;
+  background: rgba(45, 90, 61, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultSectionFeedback {
+  font-size: 0.8125rem;
+  color: rgba(19, 17, 16, 0.55);
+  line-height: 1.65;
+}
+
+/* ── Zone 3: Analysis Form ── */
+
+.formSection {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 24px 96px;
+}
+
+.formTitle {
+  font-family: var(--font-playfair, 'Playfair Display', serif);
+  font-size: 1.375rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink, #131110);
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+/* ── Form Groups (Section Cards) ── */
+
+.formGroup {
+  margin-bottom: 12px;
+  padding: 20px 24px 24px;
+  background: #fff;
+  border: 1px solid rgba(19, 17, 16, 0.07);
+  border-radius: 12px;
+}
+
+.formGroupHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.formGroupNumber {
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2D5A3D;
+  background: rgba(45, 90, 61, 0.08);
+  padding: 3px 7px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.formGroupTitle {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink, #131110);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.formGroupHint {
+  font-size: 0.75rem;
+  color: rgba(19, 17, 16, 0.35);
+  margin-bottom: 18px;
+  margin-top: 3px;
+  font-style: italic;
+}
+
+.fieldRow {
+  margin-bottom: 18px;
+}
+
+.fieldRow:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Field Labels — the key change ── */
+
+.fieldLabel {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(19, 17, 16, 0.7);
+  margin-bottom: 7px;
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+}
+
+.fieldSublabel {
+  font-weight: 400;
+  color: rgba(19, 17, 16, 0.35);
+  font-style: italic;
+}
+
+/* ── Hub Link Icon ── */
+
+.hubLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: #2D5A3D;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.hubLink:hover {
+  opacity: 0.9;
+}
+
+/* ── Client Gold Block ── */
+
+.clientGoldBlock {
+  padding: 16px;
+  background: rgba(45, 90, 61, 0.03);
+  border-radius: 8px;
+  border-left: 2px solid rgba(45, 90, 61, 0.25);
+  margin-bottom: 12px;
+}
+
+.clientGoldBlock:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ── Form Controls ── */
+
+.selectField {
+  width: 100%;
+  padding: 9px 36px 9px 11px;
+  font-size: 0.875rem;
+  font-family: var(--font-geist, system-ui, sans-serif);
+  border: 1px solid rgba(19, 17, 16, 0.14);
+  border-radius: 7px;
+  background: #FAFAF8;
+  color: var(--ink, #131110);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.selectField:focus {
+  outline: none;
+  border-color: rgba(45, 90, 61, 0.5);
+  box-shadow: 0 0 0 3px rgba(45, 90, 61, 0.08);
+  background: #fff;
+}
+
+.textField {
+  width: 100%;
+  padding: 9px 11px;
+  font-size: 0.875rem;
+  font-family: var(--font-geist, system-ui, sans-serif);
+  border: 1px solid rgba(19, 17, 16, 0.14);
+  border-radius: 7px;
+  background: #FAFAF8;
+  color: var(--ink, #131110);
+  resize: vertical;
+  min-height: 76px;
+  line-height: 1.55;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.textField:focus {
+  outline: none;
+  border-color: rgba(45, 90, 61, 0.5);
+  box-shadow: 0 0 0 3px rgba(45, 90, 61, 0.08);
+  background: #fff;
+}
+
+.textField::placeholder {
+  color: rgba(19, 17, 16, 0.3);
+}
+
+/* ── Radio ── */
+
+.radioGroup {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(19, 17, 16, 0.7);
+  cursor: pointer;
+  user-select: none;
+}
+
+.radioLabel input[type="radio"] {
+  accent-color: #2D5A3D;
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Checkbox Pills ── */
+
+.checkboxGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(19, 17, 16, 0.65);
+  cursor: pointer;
+  padding: 5px 11px;
+  border: 1px solid rgba(19, 17, 16, 0.1);
+  border-radius: 5px;
+  background: #FAFAF8;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  user-select: none;
+}
+
+.checkboxLabel:hover {
+  border-color: rgba(45, 90, 61, 0.3);
+  color: rgba(19, 17, 16, 0.85);
+}
+
+.checkboxLabelChecked {
+  background: rgba(45, 90, 61, 0.07);
+  border-color: rgba(45, 90, 61, 0.35);
+  color: #1a3d28;
+}
+
+.checkboxLabel input[type="checkbox"] {
+  accent-color: #2D5A3D;
+  width: 13px;
+  height: 13px;
+}
+
+/* ── Math Steps ── */
+
+.mathSteps {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: rgba(19, 17, 16, 0.02);
+  border-radius: 7px;
+  border: 1px solid rgba(19, 17, 16, 0.06);
+}
+
+.mathStepsLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(19, 17, 16, 0.45);
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+
+/* ── Submit ── */
+
+.submitRow {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.submitBtn {
+  padding: 12px 48px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-geist, system-ui, sans-serif);
+  letter-spacing: 0.02em;
+  background: var(--ink, #131110);
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.submitBtn:hover {
+  background: #2a2a2a;
+}
+
+.submitBtn:active {
+  transform: scale(0.98);
+}
+
+.submitBtn:disabled {
+  opacity: 0.4;
+  cursor: wait;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 768px) {
+  .audioBar {
+    padding: 8px 16px;
+  }
+
+  .briefingSection,
+  .formSection {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .formGroup {
+    padding: 16px;
+  }
+
+  .radioGroup {
+    gap: 14px;
+  }
+
+  .checkboxGroup {
+    gap: 6px;
+  }
+
+  .submitBtn {
+    width: 100%;
+  }
+}
