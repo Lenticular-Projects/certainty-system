@@ -47,16 +47,31 @@ Return ONLY valid JSON (no markdown fences) with this structure:
 {
   "passed": boolean,
   "overallScore": number (0-100),
-  "summary": "1-2 sentence overall assessment",
+  "summary": "Coaching summary paragraph — name the most significant miss and connect it to a real-world consequence. Example: 'Missing the fear signal means you'd run a math breakdown on a client who needs trust built first — which is exactly what failed on this call.'",
+  "focusAreas": [
+    "Specific, imperative action item before retrying — e.g. 'Re-read The Misinformed Caller — specifically how fear manifests in the first 90 seconds'",
+    "Another specific action item referencing a named concept, content page, or behavior"
+  ],
   "sections": [
     {
       "name": "Section Name",
       "score": number,
       "maxScore": number,
-      "feedback": "Specific feedback for this section"
+      "feedback": "Section feedback written in coaching voice (see instructions below)"
     }
   ]
 }
+
+FEEDBACK VOICE INSTRUCTIONS (critical — follow exactly):
+- For zero-credit sections: "You said [what trainee said]. The correct answer is [correct answer]. [1-2 sentences explaining the diagnostic: why their answer is wrong, what the actual signal/behavior was, and why it matters.]"
+- For partial-credit sections: "You identified [what they got right]. You missed [what they didn't catch] — [brief explanation of the gap]."
+- For full-credit sections: "[What they demonstrated correctly.] This is exactly right."
+
+FOCUS AREAS INSTRUCTIONS:
+- Only populate focusAreas when passed is false. Return an empty array when passed is true.
+- Max 3 items. Each must be a specific, actionable imperative — not vague.
+- Reference named content areas where possible (e.g., 'The Misinformed Caller', 'RED signal', 'Enrollment Verification').
+- Items should directly address the trainee's specific gaps, not generic advice.
 
 IMPORTANT: The Expert Analysis document includes its own score breakdown for the AGENT's performance (Lead Quality, Signal Reading, etc.). Do NOT use that scoring schema. Use ONLY the 8-section trainee rubric defined below when grading the TRAINEE's submission.
 

@@ -76,6 +76,34 @@ const OUTCOMES = [
 
 const SPEED_OPTIONS = [1, 1.25, 1.5]
 
+/* ── Section Study Links (for results feedback) ── */
+
+const SECTION_STUDY_LINKS: Array<{ match: string; label: string; href: string }> = [
+  { match: 'call type', label: 'Call Types', href: '/call-types' },
+  { match: 'misinformed', label: 'The Misinformed Caller', href: '/call-types/misinformed' },
+  { match: 'scared', label: 'The Scared Switcher', href: '/call-types/scared-switcher' },
+  { match: 'signal', label: 'Signals', href: '/signals' },
+  { match: 'client gold', label: 'Human Layer', href: '/human-layer' },
+  { match: 'pillar', label: 'Pillars', href: '/pillars' },
+  { match: 'math', label: 'Math Breakdown', href: '/math-breakdown' },
+  { match: 'objection', label: 'Objections', href: '/objections' },
+  { match: 'compliance', label: 'How Calls Are Graded', href: '/how-calls-are-graded' },
+  { match: 'enrollment', label: 'How Calls Are Graded', href: '/how-calls-are-graded' },
+]
+
+function findStudyLinks(text: string): Array<{ label: string; href: string }> {
+  const lower = text.toLowerCase()
+  const seen = new Set<string>()
+  const matches: Array<{ label: string; href: string }> = []
+  for (const entry of SECTION_STUDY_LINKS) {
+    if (lower.includes(entry.match) && !seen.has(entry.href)) {
+      seen.add(entry.href)
+      matches.push({ label: entry.label, href: entry.href })
+    }
+  }
+  return matches
+}
+
 /* ── Hub Link Component ── */
 
 function HubLink({ href, label }: { href: string; label?: string }) {
@@ -446,24 +474,69 @@ export default function CallAnalysisForm({ callId, rubric }: Props) {
             </div>
           )}
 
+          {/* ── Before You Retry block ── */}
+          {!(result as { passed?: boolean }).passed &&
+            !(result as { error?: string }).error &&
+            Array.isArray((result as { focusAreas?: string[] }).focusAreas) &&
+            ((result as { focusAreas: string[] }).focusAreas).length > 0 && (
+            <div className={styles.focusBlock}>
+              <div className={styles.focusBlockTitle}>Before You Retry</div>
+              <ul className={styles.focusBlockList}>
+                {((result as { focusAreas: string[] }).focusAreas).map((item, i) => {
+                  const links = findStudyLinks(item)
+                  return (
+                    <li key={i} className={styles.focusBlockItem}>
+                      <span>{item}</span>
+                      {links.map((link, j) => (
+                        <span key={j} className={styles.sectionStudyLink}>
+                          <HubLink href={link.href} label={link.label} />
+                          <span>{link.label}</span>
+                        </span>
+                      ))}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )}
+
           {(result as { sections?: Array<{ name: string; score: number; maxScore: number; feedback: string }> }).sections && (
             <div className={styles.resultSections}>
               {((result as { sections: Array<{ name: string; score: number; maxScore: number; feedback: string }> }).sections).map((section, i) => {
                 const ratio = section.maxScore > 0 ? section.score / section.maxScore : 0
+                const isZero = section.score === 0
+                const isWeak = ratio < 0.7
                 const scoreStyle = ratio >= 0.7
                   ? {}
                   : ratio >= 0.4
                     ? { color: '#92400e', background: 'rgba(251, 191, 36, 0.15)' }
                     : { color: '#B84420', background: 'rgba(224, 92, 52, 0.1)' }
+                const feedbackStyle = isZero
+                  ? { color: 'rgba(19,17,16,0.7)' }
+                  : ratio >= 1
+                    ? { color: 'rgba(19,17,16,0.4)' }
+                    : undefined
+                const sectionStudyLinks = isWeak ? findStudyLinks(section.name.toLowerCase()) : []
                 return (
                   <div key={i} className={styles.resultSectionItem}>
                     <div className={styles.resultSectionHeader}>
-                      <span className={styles.resultSectionName}>{section.name}</span>
-                      <span className={styles.resultSectionScore} style={scoreStyle}>
+                      <span className={styles.resultSectionName}>
+                        {section.name}
+                        {sectionStudyLinks.map((link, j) => (
+                          <span key={j} className={styles.sectionStudyLink}>
+                            <HubLink href={link.href} label={link.label} />
+                            <span>Review</span>
+                          </span>
+                        ))}
+                      </span>
+                      <span
+                        className={styles.resultSectionScore}
+                        style={isZero ? { ...scoreStyle, fontWeight: 700, fontSize: '0.8125rem' } : scoreStyle}
+                      >
                         {section.score}/{section.maxScore}
                       </span>
                     </div>
-                    <p className={styles.resultSectionFeedback}>{section.feedback}</p>
+                    <p className={styles.resultSectionFeedback} style={feedbackStyle}>{section.feedback}</p>
                   </div>
                 )
               })}
