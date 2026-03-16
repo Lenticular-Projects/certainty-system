@@ -115,20 +115,20 @@ export default function HomePage() {
       {/* Certainty Definition */}
       <section className={styles.definitionSection}>
         <motion.div
-          className={`${styles.definitionInner} glass`}
+          className={styles.definitionImageWrap}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={SPRING}
         >
-          <p className={styles.definitionLabel}>cer·tain·ty</p>
-          <p className={styles.definitionPhonetic}>/ˈsərtn-tē/ — noun</p>
-          <p className={styles.definitionText}>
-            The state of being 100% confident, free from doubt, or having firm, objective knowledge that something is true. Freedom from doubt. The state of being completely confident.
-          </p>
-          <p className={styles.definitionRule}>
-            Certainty must exist in the agent before it can exist in the client.
-          </p>
+          <Image
+            src="/images/certainty-homepage-card.png"
+            alt="cer·tain·ty — The state of being 100% confident, free from doubt. Certainty must exist in the agent before it can exist in the client."
+            width={1456}
+            height={816}
+            className={styles.definitionImage}
+            priority={false}
+          />
         </motion.div>
       </section>
 

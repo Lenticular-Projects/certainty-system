@@ -164,7 +164,7 @@
   z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--space-7) var(--space-10);
+  padding: var(--space-4) var(--space-7) var(--space-10);
 }
 
 
@@ -220,49 +220,21 @@
 
 /* ── Certainty Definition ─────────────────────── */
 .definitionSection {
-  max-width: 720px;
+  max-width: 900px;
   margin: 0 auto var(--space-10);
-  padding: 0 var(--space-7);
+  padding: var(--space-8) var(--space-7) 0;
 }
 
-.definitionInner {
+.definitionImageWrap {
   border-radius: 16px;
-  padding: var(--space-7) var(--space-8);
-  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(19, 17, 16, 0.08);
 }
 
-.definitionLabel {
-  font-family: var(--font-playfair), Georgia, serif;
-  font-style: italic;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: var(--space-1);
-}
-
-.definitionPhonetic {
-  font-family: var(--font-geist), sans-serif;
-  font-size: 0.8125rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-40);
-  text-transform: uppercase;
-  margin-bottom: var(--space-5);
-}
-
-.definitionText {
-  font-size: 1.0625rem;
-  line-height: 1.7;
-  color: var(--ink-60);
-  margin-bottom: var(--space-5);
-}
-
-.definitionRule {
-  font-family: var(--font-playfair), Georgia, serif;
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--ink-60);
-  padding-top: var(--space-5);
-  border-top: 1px solid rgba(19, 17, 16, 0.1);
+.definitionImage {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ── Editorial sections (Problem + Foundational Truth) ─ */
@@ -389,14 +361,15 @@
     padding: 0 var(--space-5) var(--space-9);
   }
 
-  .definitionSection,
+  .definitionSection {
+    padding-top: var(--space-6);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+  }
+
   .editorialSection,
   .philosophySection {
     padding: 0 var(--space-5);
-  }
-
-  .definitionInner {
-    padding: var(--space-6) var(--space-5);
   }
 
   .threeJobs {

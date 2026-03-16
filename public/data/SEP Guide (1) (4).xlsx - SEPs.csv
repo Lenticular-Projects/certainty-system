@@ -1,0 +1,143 @@
+SEP REFERENCE,,,,,PROBING QUESTIONS
+CODE,DEFINITION,TIMELINE,NOTES,,
+NEW TO MEDICARE/RECENTLY GOT PART B,,,,,PROBING QUESTIONS
+IEP,First time enrolling in Medicare,"7 months= (*3 months before, the month of, 3 months after)
+Coverage will start the month the bene turns 65 or first day following the month you submit an enrollment if they are already 65.","Bene just turned 65
+On disability for 24 months
+*if bene is in an ACTIVE plan that effectuated this is no longer a valid option
+*NOT valid for a MA only plan",,"• Will you be 65 in the next 3 months or have you turned 65 in the last 3 months? (IEP, IEP2)
+
+• When does/did your Medicare Part B start? (ICEP)
+
+• What is your current coverage? Is it an employer plan? What is your plan with that coverage? Are you keeping it or are you going to be ending it soon? (ICEP)
+
+• Are you unsatisfied with your first MAPD that recently went into effect?(OEP-N)"
+"IEP2
+(Use MRD on application)",Was enrolled in Medicare before 65 NOW turning 65,"7 months=
+*3 months before
+*the month of
+*3 months after","1961 is the GOLDEN YEAR to look for in MARx DOB
+
+MA-only plans are prohibited",,
+ICEP,Delayed part B while bene already has Part A (enrolling in a MA or MAPD) or Bene new to Medicare (just got A+B) and is enrolling in a MA only plan,"5 months = *3 months before, *the month of, and *1 month after
+
+Coverage will start the month the bene gets Part B or the first of the following month","*Part A and B different effective dates
+*Timeframe got extended as of 1/1/25
+*NOT valid for a PDP",,
+OEP-N* (NEW),This is for bene NEW to Medicare but does not like their first MA/MAPD plan that effectuated,"*The month of A/B effectuates
+*2 full months after","*Allows to make ONE CHANGE
+*Those with only a PDP and/or a Medigap plan are unable to",,
+RET,Bene new to Medicare and was notified of getting A/B AFTER coverage started,*the month the individual receives the notice and 2 months after,*If bene has Part A and Part B it needs to have the same effective date,,
+,,,,,
+SEP EXTENSION,,,,,PROBING QUESTIONS
+DST,"*Lives in a Disaster area and missed an election period
+*EXTENSION to a diff SEP
+*SITE
+*Carrier DST Sites","*Available for the duration of the emergency or disaster plus an additional two months following the end date of the emergency or disaster as identified in the declaration or, if different, the date the end of the incident is announced, whichever is later
+
+*Must not have used a different SEP since then","*For beneficiaries who have been affected by 
+the disaster
+
+*Disasters by themselves are NOT a SEP!",,"• Did you recently have a disaster in your area? (DST)
+
+Suggested assumptive language: ""it looks like you did miss an SEP in March and had a tornado come through the area around the same time. Because of that tornado it prevented you from being able to sign up, correct?"""
+,,,,,
+FINANCIAL ELIGIBILITY,,,,,PROBING QUESTIONS
+INT,"The bene MUST have FULL Medicaid in order to enroll into a MA/MAPD plan (includes FBDE, QMB+, SLMB+, Full)",1x a Month,*Please see the INT/MCO Reference Sheet to determine eligibility before enrolling.,,"• Do you have to pay for your Part B premium, OR are you receiving assistance from the State to help you pay for that?
+
+• Did you recently lose Medicaid or Extra Help? (MCD,NLS)
+
+• Have you received a green, purple or orange notice that your extra help level has changed? (MCD,NLS)
+
+***Potential eligibilty question: Do you make more or less than $1,903(single) or $2,575(couple) per month?"
+DEP,Beneficiary is on Medicaid and/or LIS and wants to enroll into a PDP.,1x Month,"MUST enroll into a PDP
+**All levels of Medicaid. If bene only has LIS, they are still eligible",,
+MCD,Loss/gain/change in level of Medicaid,3 months from time of change,available all year INCLUDING AFTER SEPT 30TH,,
+NLS,Loss/gain/change in level of Extra Help,3 months from time of change,available all year INCLUDING AFTER SEPT 30TH,,
+,,,,,
+CHRONIC ELIGIBILITY,,,,,PROBING QUESTIONS
+PAP,Bene ALREADY enrolled in a pharmacy assistance program,"*1x per calendar year
+*w/in 2 months of loss","CHECK ON THIS SITE FOR APPROVED OPTIONS
+*Very common for those in  New York (EPIC)New Jersey (PAAD)Pennsylvania (PACE/PACENET) Wisconsin (SeniorRx)",,"• Are you enrolled OR recently dis-enrolled in a state Pharmacy Assistance Program? (PAP)
+
+• Are you leaving or no longer eligible for a PACE plan? (PAC)
+
+• Are you currently enrolled in a Chronic Special Needs Plan? *** open the door for the beneficiary to freely tell you if they have any conditions- without you asking that question."
+CSN,Bene has a severe or disabling chronic condition,Once per calendar year,"MUST be enrolling into a CSNP
+*Not valid moving bene CSNP to CSNP (unless its a Specific Condition CSNP going to a different Condition CSNP)",,
+PAC,Bene leaving PACE program,2 months after the date of PACE disenrollment,DO NOT PULL BENE OUT OF PACE PLAN,,
+SNP,Loss of Special Needs Status,"starting from the time they lose their special needs status, up to 3 months after their SNP's grace period ends.",*Beneficiary no longer eligible for CSNP and/or the Provider failed to verify the chronic condition within 2 months of enrollment,,
+,,,,,
+MONITORED LIVING ARRANGEMENT,,,,,PROBING QUESTIONS
+"OEP-I
+(Use LT2 on application)","Moving into/living in/move out of a skilled nursing facility, nursing home, intermediate care facility for the mentally disabled, psychiatric hospital, rehabilitation hospital or long-term care hospital","*Unlimited use if currently living in LTC
+*Up to 2 months after they leave","*MUST enroll in a MA/MAPD
+*Does NOT include assisted living facilities or residential homes",,"• Do you currently reside in or did you recently move out of a skilled nursing facility, nursing home, intermediate care facility for the mentally disabled, psychiatric hospital, rehabilitation hospital or long-term care hospital? (OEP-I, LTC)"
+LTC,"Moving into/living in/move out of a skilled nursing facility, nursing home, intermediate care facility for the mentally disabled, psychiatric hospital, rehabilitation hospital or long-term care hospital","*Unlimited use if currently living in LTC
+*Up to 2 months after they leave","*MUST enroll in a PDP
+*Does NOT include assisted living facilities or residential homes",,
+,,,,,
+INVOLUNTARY DISENROLLMENT,,,,,PROBING QUESTIONS
+LCC,Involuntary loss of Creditable coverage,"*2 months from the time of loss
+*2 months after you were notified (whichever is later)",This does NOT apply to bene who missed premium payments and lost coverage,,"• Have you recently lost coverage through the VA, Tricare, the ACA, or any other organization? (LCC)
+
+• Has your plan been discontinued? (EOC)
+
+• Are you in a plan that was recently taken over by your state? (REC)
+
+• Has Medicare ended their contract with your current plan? (MYT)
+
+• Have you recently lost Medicare Part B and are in need of prescription drug coverage? (INV)"
+INV,Bene lost MAPD coverage because they lost Medical (Part B) coverage and want to join a Medicare drug plan,"When bene gets notice and It continues during the Plan's grace period, and if they are disenrolled from the plan at the end of the grace period, it continues for 2 months after their coverage ends.",*MUST be PDP,,
+REC,I’m in a plan that was recently taken over by the state because of financial issues.,"Starting the month the state action is effective and lasting until the state action is no longer in effect, or until the Beneficiary joins another plan, whichever occurs first.",,,
+EOC,Carrier ended its plan in that zipcode,After Dec 8th-End of February,,,
+MYT,Medicare ended its contract with my plan,"Starts 2 months before the plan's contract with Medicare ends, and ends 1 full month after the contract ends.",,,
+,,,,,
+VOLUNTARY ENROLLMENT/DISENROLLMENT,,,,,PROBING QUESTIONS
+LEC,Loss of employer or union coverage (inc. COBRA),"*The month of
+*2 months AFTER loss",may coincide with delayed part B,,"• What is your current coverage? Is it an employer plan? What is your plan with that coverage? Are you keeping it or are you going to be ending it soon? (LEC)
+
+• Are you wanting to go back to your Supplement/Medigap plan with Original Medicare and a Prescription Drug Plan? (12G) **If YES, did you drop your Supplement/Medigap plan to join a MA/MAPD for the FIRST TIME within the last twelve months? (12G)
+
+• Are you wanting to go back to Original Medicare after turning 65 and joining a MA/MAPD within the last twelve months? (12J)
+
+• Did you drop a Cost Plan with drug coverage within the last 2 months? (OSD)
+
+• Do you have other creditable drug coverage outside of your MAPD? (OCC)
+
+• Were you automatically enrolled into a plan by Medicare within the last 3 months? (DIF)"
+OSD,Bene dropped their Cost Plan with drug coverage and switched to Original Medicare.,2 full months after the month they drop their Medicare Cost Plan.,*MUST enroll in PDP only,,
+12G,Dropped a Med Supp to choose MA/MAPD for first time and want to return to Original Medicare and PDP,Bene's chance to disenroll the Medicare Advantage Plan lasts for 12 months after they join the Medicare Advantage Plan for the first time.,aka: 12 month Trial Right,,
+12J,Joined MAPD plan upon turning 65 in last 12mn and wants to go back to OM/PDP,Any time during the first 12- months of joining MAPD upon turning 65,*MUST enroll in PDP only,,
+CDC,Bene in MAPD but has other creditable drug coverage (VA),Anytime,MUST enroll them OUT of a MAPD or PDP and INTO a MA only plan.,,
+DIF,Bene automatically enrolled into a plan BY Medicare,w/in 3 months from the effective date of government enrollment,"*MARx may indicate this with an X by the plan
+*The bene may also state they were automatically enrolled by Medicare",,
+,,,,,
+LOCATION CHANGE,,,,,PROBING QUESTIONS
+MOV,Moved to a diff zip code OR county (needs to have have at least 1 new option available even if you are not licensed with it).,"*The month BEFORE the move
+*2 months after the move
+*When Medicare is notified (aka MARx address is different than application being submitted with current address)",*NOT valid with change of PO Box,,"• Have you moved within the last two months, or do you plan to move within the next month? (MOV)
+• When you moved, did you update Medicare of that move? (MOV)
+• Did you recently become a US citizen? (LAW)
+• Did you recently return to the U.S. after living abroad? (RUS)
+• Were you recently released from prison/jail? (INC)"
+INC,Recently released from Incarceration(jail),w/in 2 months of release,,,
+,,,,,
+MISC,,,,,PROBING QUESTIONS
+RUS,Recently returned to the US after living permanently abroad,w/in 2 months after the move,,,
+LAW,Recently became a US Citizen,"*The month of
+*2 full months after",,,
+,,,,,
+STAR RATINGS,,,,,PROBING QUESTIONS
+5ST,Enrolling in a 5star plan,Once per year,,,
+LPI,Bene's current plan star rating is 2.5 or lower an the plans star rating has been 2.5 or lower for the past 3 years .,Anytime bene is in low star rating plan,**MUST enroll the bene in a plan with a 3+ star rating,,
+,,,,,
+ELECTION CODES,,,,,PROBING QUESTIONS
+OEP,Open enrollment Period,Valid January 1st - March 31st for any beneficiary that has a MA/MAPD in the system as of January 1st.,*MARx will indicate when this SEP was used. If the plan has not gone into effect yet you CAN still use it to overide the other.,,
+AEP,Annual enrollment Period,"October 15th - December 7th
+*Coverage will start January 1st",*Last plan standing wins. Plan effectuates January 1st of the following year.,,
+,,,,,
+ACC,DONT USE THIS- ITS ONLY FOR CMS,,,,PROBING QUESTIONS
+,,,,,
+,,,,,
+**An exceptional condition for Medicare is a personal or external circumstance preventing someone from enrolling in Medicare or making changes to their coverage.,,,,,
