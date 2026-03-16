@@ -20,6 +20,27 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: 'The Certainty System',
   description: 'The system that turns a conversation into a commitment.',
+  openGraph: {
+    title: 'The Certainty System',
+    description: 'The system that turns a conversation into a commitment.',
+    url: 'https://certainty.vercel.app',
+    siteName: 'The Certainty System',
+    images: [
+      {
+        url: 'https://certainty.vercel.app/images/certainty-homepage-card.png',
+        width: 1456,
+        height: 816,
+        alt: 'The Certainty System',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Certainty System',
+    description: 'The system that turns a conversation into a commitment.',
+    images: ['https://certainty.vercel.app/images/certainty-homepage-card.png'],
+  },
 }
 
 export default function RootLayout({
