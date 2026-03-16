@@ -39,6 +39,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!blocked|_next/static|_next/image|favicon.ico|call-audio).*)',
+    '/((?!blocked|_next/static|_next/image|favicon.ico|call-audio|images).*)',
   ],
 }
