@@ -5,8 +5,9 @@ export type Objection = {
   signal: 'red' | 'yellow' | 'green'
   underneath: string
   doNotSay?: string[]
-  responses: Array<{ label?: string; text: string }>
+  responses: Array<{ label?: string; text: string; position?: 'early' | 'late' }>
   pillar: string
+  tags?: string[]
 }
 
 export const sections = [
@@ -34,23 +35,24 @@ export const objections: Objection[] = [
     section: 'Fear of Change & Switching',
     clientPhrase: '"I\'m happy with what I have." / "My plan works."',
     signal: 'red',
-    underneath: 'They have connected their current plan to their health and safety. "Happy" is based on no comparison. The absence of complaints is not the same as receiving full value.',
+    underneath: 'They have connected their current plan to their health and safety. "Happy" is based on no comparison. The absence of complaints is not the same as receiving full value. Early in the call this is a reframe — late in the call, when the comparison is already on the table, this becomes a cost-of-inaction close.',
+    tags: ['happy', 'works fine', 'satisfied', 'plan works', 'happy with it', 'good plan', 'no complaints', 'like my plan'],
     doNotSay: [
-      'Explaining why the new plan is better — logic against fear does not work',
+      'Explaining why the new plan is better before naming what they\'re feeling — logic against fear does not work',
       '"But your plan is costing you money." — sounds like an attack; they defend it',
       '"You\'re missing out on a lot of benefits." — they hear criticism, not opportunity',
     ],
     responses: [
       {
-        label: 'Standard',
-        text: '"I hear you — and I\'m glad it\'s been working. I just want to make sure what you have is still covering everything you\'re entitled to. What I\'d show you isn\'t going to take that away — it\'s just going to add to what you\'ve already been happy with."',
+        position: 'early',
+        text: '"I hear you — and I\'m glad it\'s been working. I just want to make sure what you have is still the best version available to you this year, because plans change every January. Let me take a quick look and I\'ll tell you straight — if you\'re already on the right plan, I\'ll be the first to say so."',
       },
       {
-        label: 'For long-term plan holders',
-        text: '"I get it — you found something that works and you don\'t want to mess with it. I just want to make sure it\'s still the best version of what\'s available to you this year. Plans change every January. Let me take a quick look and I\'ll tell you straight."',
+        position: 'late',
+        text: '"I hear you — and you\'ve now seen the comparison. Staying where you are is your call, but it\'s not a neutral one anymore — it\'s a decision to leave [annualized difference] on the table this year. I just want to make sure that\'s a choice you\'re making on purpose."',
       },
     ],
-    pillar: 'Reframing — don\'t challenge the plan, build on it',
+    pillar: 'Reframing — don\'t challenge the plan, make inaction visible; early is about looking, late is about the cost of staying',
   },
 
   {
@@ -58,17 +60,23 @@ export const objections: Objection[] = [
     section: 'Fear of Change & Switching',
     clientPhrase: '"I don\'t want to change."',
     signal: 'red',
-    underneath: '"I don\'t want to" is not a decision — it\'s discomfort with motion. The fear is about losing something safe, not about the plan itself.',
+    underneath: '"I don\'t want to" is not a decision — it\'s discomfort with motion. The fear is about losing something safe, not about the plan itself. Early: make looking feel safe. Late: make staying feel expensive.',
+    tags: ['don\'t want to change', 'don\'t want to switch', 'not changing', 'leave it alone', 'don\'t mess with it'],
     doNotSay: [
       'Presenting benefits or plan details before naming the fear',
       '"Change is sometimes a good thing!" — invalidates their experience',
     ],
     responses: [
       {
+        position: 'early',
         text: '"I hear you — you\'ve had a plan that\'s worked and you don\'t want to risk losing what you have. What I\'m showing you doesn\'t take that away. It adds to it."',
       },
+      {
+        position: 'late',
+        text: '"I hear you — and you\'ve already seen what\'s available. Staying where you are isn\'t neutral anymore — it\'s a decision that costs you [annualized difference] this year. That\'s the only thing I want to make sure you\'re seeing clearly before you decide."',
+      },
     ],
-    pillar: 'Reframing — frame it as adding, not replacing',
+    pillar: 'Reframing — early: adding not replacing; late: inaction now has a specific cost',
   },
 
   {
@@ -76,17 +84,23 @@ export const objections: Objection[] = [
     section: 'Fear of Change & Switching',
     clientPhrase: '"I\'d rather stick with what I\'ve got." / "Better the devil you know."',
     signal: 'red',
-    underneath: 'Past experience — theirs or someone they know — where a change went wrong. The emotion is real and must be named before anything else can land.',
+    underneath: 'Past experience — theirs or someone they know — where a change went wrong. The emotion is real and must be named before anything else can land. Early: looking is safe. Late: the devil you know is costing you a specific amount.',
+    tags: ['stick with', 'devil you know', 'rather stay', 'know what I have', 'comfortable with it', 'rather keep'],
     doNotSay: [
       'Explaining Medicare mechanics — logic against fear almost always fails',
       '"There\'s nothing to worry about." — dismisses the concern without addressing it',
     ],
     responses: [
       {
+        position: 'early',
         text: '"I get that — you\'ve got something that\'s been working and you don\'t want to take a chance. All I want to do is take a look and make sure what you\'ve got is still the best fit for you right now. If it is, nothing changes."',
       },
+      {
+        position: 'late',
+        text: '"I hear you — and you\'ve now seen what\'s on the other side. The devil you know is costing you [annualized difference] this year compared to what\'s available. That\'s the one thing I want to make sure you\'re weighing before you decide."',
+      },
     ],
-    pillar: 'Reframing — make looking feel safe, not risky',
+    pillar: 'Reframing — early: looking is safe; late: the familiar option now has a visible price tag',
   },
 
   {
@@ -156,23 +170,24 @@ export const objections: Objection[] = [
     section: 'Commercial & Benefit',
     clientPhrase: '"The commercial said I could get $6,000 / $900 / $1,200. Yours is less."',
     signal: 'red',
-    underneath: 'The commercial set an expectation. The reality feels like a downgrade. They need someone to validate that feeling — and then give them something real.',
+    underneath: 'The commercial set an expectation. The reality feels like a downgrade. They need someone to validate the frustration — then show them the real total picture fast, because they\'re motivated and ready to act.',
+    tags: ['commercial said', 'ad said', 'tv said', 'promised more', 'less than advertised', 'said I could get', 'not what I saw', 'different from commercial'],
     doNotSay: [
-      '"I don\'t control the commercial." — abandons all authority; you are nobody on this call',
-      '"That\'s not how it works." — shames them for believing it; call ends',
+      '"I don\'t control the commercial." — abandons all authority',
+      '"That\'s not how it works." — shames them for believing it',
       'Defending the system — you become part of what betrayed them',
     ],
     responses: [
       {
         label: 'Validate and anchor on real value',
-        text: '"You\'re right to be frustrated — and I want to be straight with you. Those commercials show the national maximum — the highest available anywhere in the country. Your actual benefit is based on your zip code and the plans available there. What I\'m looking at for your area right now is $[amount] — and that\'s real. The commercial showed the ceiling. I\'m showing you your floor."',
+        text: '"You\'re right to be frustrated — those commercials show the national maximum, not what\'s specific to your area. What I\'m looking at for your zip code right now is [amount] — and that\'s real. The commercial showed the ceiling. I\'m showing you your actual number. And we need to get it locked in before [enrollment window closes]."',
       },
       {
         label: 'Pivot to total value',
-        text: '"Here\'s what those commercials don\'t show you. The total value isn\'t just one benefit. By the time we add up the grocery card, the Part B giveback, the dental, and the OTC allowance — the real total for your area is [annualized number]. That\'s the actual picture."',
+        text: '"Here\'s what the commercial doesn\'t show: the total. When we add up [grocery / OTC / Part B giveback / dental], the real annual number for your area is [total annualized]. That\'s the actual picture — and it\'s available right now."',
       },
     ],
-    pillar: 'Reframing — validate the frustration; anchor on real available value',
+    pillar: 'Reframing — validate the frustration, anchor on the real verified number, add enrollment window urgency',
   },
 
   {
@@ -214,22 +229,25 @@ export const objections: Objection[] = [
     section: 'Stall',
     clientPhrase: '"I need to think about it." / "Call me back later."',
     signal: 'red',
-    underneath: 'This is almost never about needing time. It\'s about inaction not yet feeling expensive enough. The client doesn\'t have a compelling reason to decide now.',
+    underneath: 'This is almost never about needing time. It\'s a polite exit from a call that stopped leading. The client doesn\'t have a compelling reason to decide now — so the agent\'s job is to create one. Early: find the real concern. Late: the cost of waiting is already a specific number; use it.',
+    tags: ['think about it', 'need to think', 'call me back', 'let me think', 'not today', 'think it over', 'sleep on it'],
     doNotSay: [
-      '"Of course — I\'ll call you back." — the lead is almost never recovered once the call ends this way',
-      '"What specifically do you need to think about?" — open-ended; gives them room to manufacture more objections',
+      '"Of course — I\'ll call you back." — the call almost never converts; you are handing them the exit',
+      'Accepting it as a real answer without isolating the actual concern',
     ],
     responses: [
       {
-        label: 'Step 1 — Find the real objection',
-        text: '"Of course — before I let you go, can I ask: is there something specific you want to think through? Because if there\'s a concern, I\'d rather address it now while I have everything pulled up."',
+        position: 'early',
+        label: 'Isolate the concern',
+        text: '"Before you go — is there something specific you want to think through? If there\'s a concern, I\'d rather address it right now while I have everything in front of me. What\'s the one thing that\'s holding you back?"',
       },
       {
-        label: 'Step 2 — Make the delay cost something',
-        text: '"Here\'s what I want you to know before you go: every month we wait on this, that\'s $[monthly benefit] that doesn\'t come back. I\'m not asking you to make a permanent decision — I\'m asking you to not leave $[amount] on the table. Work with me for a few more minutes."',
+        position: 'late',
+        label: 'Make waiting expensive',
+        text: '"You\'ve already seen the full picture — [benefit comparison, annualized amount]. Every month you wait is [monthly amount] that doesn\'t come back. I\'m not asking you to make a permanent decision, I\'m asking you not to leave [annualized amount] on the table. Give me five more minutes."',
       },
     ],
-    pillar: 'The Shift — reframe what they\'re thinking about; make inaction the cost',
+    pillar: 'The Shift — early: find the real objection; late: make inaction have a visible monthly cost',
   },
 
   {
@@ -336,22 +354,23 @@ export const objections: Objection[] = [
     section: 'Loyalty',
     clientPhrase: '"I love [carrier] — they\'ve taken great care of me."',
     signal: 'red',
-    underneath: 'This client has connected the brand to their health and safety. Logic will not touch this first. Go in through the loyalty, not against it.',
+    underneath: 'This client has connected the brand to their health and safety. Logic will not touch this first. Go in through the loyalty, not against it — same carrier upgrades are the easiest close here.',
+    tags: ['love', 'love my plan', 'love my carrier', 'great care', 'happy with carrier', 'been good to me', 'trusted', 'loyal'],
     doNotSay: [
       'Presenting a competing carrier\'s plan as the first move',
-      'Saying their current plan is "inferior" — the moment you insult a plan, the client defends it. The call ends.',
+      'Saying their current plan is "inferior" — the moment you insult a plan, the client defends it',
     ],
     responses: [
       {
         label: 'Same brand upgrade',
-        text: '"I love that [carrier] has taken great care of you — that matters. My job today isn\'t to move you away from [carrier]. It\'s to make sure you\'re on the right [carrier] plan for this year, because they have multiple plans in your area and some of them pay significantly more. Can I show you what else [carrier] has available?"',
+        text: '"I\'m glad [carrier] has taken care of you — and my job isn\'t to move you away from them. It\'s to make sure you\'re on the right [carrier] plan for this year, because they have multiple options in your area and some pay significantly more. You could stay with the same company and get [annualized difference] more per year. Let me show you what they have."',
       },
       {
         label: 'Introducing a different carrier',
-        text: '"I completely respect that. Before you go — on a scale of 1 to 10, how confident are you that your current [carrier] plan is the strongest one available in your area right now? If you\'re a 10, we\'re done. But if there\'s any doubt, let me verify."',
+        text: '"I completely respect that. Before you go — on a scale of 1 to 10, how confident are you that your current [carrier] plan is the strongest one available right now? If you\'re a 10, we\'re done. But if there\'s any doubt, the difference is [annualized amount] a year — and that number doesn\'t care which carrier it comes from."',
       },
     ],
-    pillar: 'Reframing — validate the loyalty, redirect toward the upgrade within the brand',
+    pillar: 'Reframing — validate the loyalty, anchor on the annualized gap; same-brand upgrade removes the loyalty barrier entirely',
   },
 
   {
@@ -359,17 +378,23 @@ export const objections: Objection[] = [
     section: 'Loyalty',
     clientPhrase: '"I\'ve been with this carrier before and I wasn\'t happy."',
     signal: 'red',
-    underneath: 'Real experience that created a real barrier. You cannot argue with lived experience.',
+    underneath: 'Real experience that created a real barrier. You cannot argue with lived experience. Early: validate and open the door to looking. Late: the specific numbers already on the table differentiate this from what they had before.',
+    tags: ['bad experience', 'wasn\'t happy', 'had them before', 'didn\'t like them', 'problems with', 'issues with', 'used to have'],
     doNotSay: [
       '"I\'m sure things are different now." — dismissive',
       'Moving past the objection with "I understand" and no follow-through',
     ],
     responses: [
       {
-        text: '"I hear you — and I\'m not going to dismiss what you went through. What I want to show you is that this year\'s [carrier] plan is a different structure than what you had before. More importantly, it covers Dr. [name] and it gives you $[amount] a month you\'re currently not getting. Can I show you the comparison before you decide?"',
+        position: 'early',
+        text: '"I hear you — and I\'m not going to dismiss what you went through. Before we close the door, can I show you what this year\'s plan looks like? It\'s a different structure, and if it doesn\'t hold up, you say no. But you should see the numbers first."',
+      },
+      {
+        position: 'late',
+        text: '"I hear you — and what you went through was real. What\'s also real is that [doctor] is confirmed in-network on this plan and you\'re looking at [annualized amount] more per year than you have now. This isn\'t the same plan you had. Does what I\'ve shown you address what went wrong before?"',
       },
     ],
-    pillar: 'Reframing — validate the past experience, differentiate the current offer with a specific anchor',
+    pillar: 'Reframing — validate the past, differentiate with specific verified facts; early opens the door, late uses what was already proven',
   },
 
   {
@@ -377,22 +402,23 @@ export const objections: Objection[] = [
     section: 'Loyalty',
     clientPhrase: '"I have an insurance lady / agent who handles this."',
     signal: 'red',
-    underneath: 'Their loyalty is to a person, not a plan. Do not attack that person — you will lose.',
+    underneath: 'Their loyalty is to a person, not a plan. Do not attack that person — you will lose. Work alongside the relationship, not against it.',
+    tags: ['agent', 'insurance agent', 'insurance lady', 'my agent', 'person who handles', 'already have someone', 'person I use', 'lady who does it'],
     doNotSay: [
       '"You should go talk to them." — handing the sale directly to a competitor',
-      'Criticizing the other agent directly',
+      'Criticizing the other agent directly — they will defend the person',
     ],
     responses: [
       {
         label: 'When a specific gap exists',
-        text: '"I completely respect loyalty — and I\'m not here to replace anyone. Here\'s what I want you to know: your current plan doesn\'t cover [specific thing]. Your current agent either didn\'t know or didn\'t have access to a plan that fixes this. I\'m not criticizing them — I just want you to have coverage that actually works. Can we fix this today?"',
+        text: '"I completely respect that relationship — and I\'m not here to replace anyone. Here\'s what I want you to know: your current plan doesn\'t include [specific gap]. Your agent either didn\'t know this was available or doesn\'t have access to it. I\'m not criticizing them — I just want you to have what you\'re entitled to. Can we fix this today before [enrollment window] closes?"',
       },
       {
-        label: 'No specific gap yet identified',
-        text: '"Your current agent cares about you — and so do I. The difference is I\'m looking at what\'s available right now, and I see $[amount] a month you\'re leaving on the table. A good agent would want you to have that. Let\'s look at the numbers."',
+        label: 'No specific gap identified yet',
+        text: '"Your agent cares about you — and so do I. The difference is I\'m looking at what\'s available right now, and I can see there\'s [annualized amount] a year you\'re not getting. A good agent would want you to have that. Let\'s look at the numbers together."',
       },
     ],
-    pillar: 'Reframing — validate the loyalty, identify the gap, position yourself as the solution',
+    pillar: 'Reframing — validate the loyalty, identify the gap, add urgency through the enrollment window',
   },
 
   // ─── SECTION 6: TIMING ───────────────────────────────────────────────────
@@ -572,24 +598,30 @@ export const objections: Objection[] = [
   {
     id: 'is-this-scam',
     section: 'Trust & Credibility',
-    clientPhrase: '"How do I know you\'re real? Is this a scam?" / "The government doesn\'t give out free money."',
+    clientPhrase: '"How do I know you\'re not a scam?" / "Is this a legitimate company?"',
     signal: 'red',
-    underneath: 'Real skepticism, probably justified. Proving legitimacy through action is more powerful than words. A scammer would say "I promise this is real" — you\'re going to show, not tell.',
+    underneath: 'Active skepticism — they\'re deciding right now whether you\'re real. Early: prove legitimacy through action before asking for anything. Late: point to what was already verified on this call as the evidence.',
+    tags: ['scam', 'legitimate', 'real', 'fraud', 'how do I know', 'is this real', 'verify', 'prove it', 'too good to be true', 'skeptical'],
     doNotSay: [
-      'Getting defensive or listing credentials before addressing the emotional concern',
-      '"I promise you this is real." — a scammer would say the exact same thing',
+      '"I\'m a licensed agent with [company]." — they cannot verify this in the moment',
+      '"We\'re a legitimate company." — a scammer would say this',
+      '"I\'m not here to scam you." — a scammer would also say this',
     ],
     responses: [
       {
-        label: 'Standard response',
-        text: '"Absolutely not — and I understand why you\'d want to be careful. There are rules and laws in place that protect you through this whole process. All I need to do is pull up your current plan to see what benefits you qualify for. Once you can see I\'m working with real information, you\'ll be able to decide from there."',
+        position: 'early',
+        text: '"That\'s the right question to ask — and I want to prove it to you right now. I\'m going to look up what\'s in the Medicare system for your zip code, and when I tell you what I find, you can verify it on Medicare.gov yourself. I\'m not asking you to take my word for it — I\'m asking you to check what I show you."',
       },
       {
-        label: 'For "The government doesn\'t give out free money"',
-        text: '"You\'re right — it\'s not free money. It\'s federally funded money that goes into specific Medicare plans. Those plans are required to use it for benefits — dental, grocery, cash back on Part B. My job is to find which plan in your area is paying out the most and make sure it goes to you."',
+        position: 'late',
+        text: '"You\'ve already seen what I\'m working with — [verified doctor, specific benefit amount, plan details]. This is a legitimate, government-regulated program and everything I\'ve shown you is verifiable. The question now is whether you want to leave [annualized amount] on the table or get it locked in before [enrollment window closes]."',
+      },
+      {
+        label: 'For "The government says not to give out info"',
+        text: '"You\'re right — and those warnings exist because scammers call seniors every day. Here\'s the difference: I\'m not asking for money or a bank account. I\'m looking up Medicare benefits that already exist in your name — the same thing your doctor\'s office does every time you check in for an appointment."',
       },
     ],
-    pillar: 'Persuasion — "Absolutely not" first; demonstrate through action, not credentials',
+    pillar: 'Persuasion — early: demonstrate before asking; late: point to what\'s already been verified on this call',
   },
 
   {
@@ -643,32 +675,19 @@ export const objections: Objection[] = [
     section: 'Trust & Credibility',
     clientPhrase: '"You people keep calling me. Stop it." / "I\'m tired of these calls."',
     signal: 'red',
-    underneath: 'Real frustration — and it\'s justified. Medicare seniors are among the most targeted populations for phone marketing. They are not necessarily resistant to the benefit; they are resistant to the experience. Separate yourself from that experience immediately or you lose the call.',
+    underneath: 'Real frustration — and it\'s justified. Separate yourself from the experience immediately. They called about a benefit — get back to that. One question reframes the whole call.',
+    tags: ['stop calling', 'keep calling', 'tired of calls', 'leave me alone', 'calls all the time', 'sick of this', 'constantly calling', 'harassment'],
     doNotSay: [
       '"I understand — but let me just tell you about..." — immediately confirms you are exactly what they\'re tired of',
       'Defending the volume of calls or explaining why they receive them',
-      'Apologizing for the industry and then pitching anyway',
+      'Apologizing and then pitching anyway — contradicts itself',
     ],
     responses: [
       {
-        text: '"I hear you — and I\'m not going to pretend that\'s not frustrating. You didn\'t call in to be pitched at. You called because you saw something about a benefit and you wanted a real answer. I\'m going to give you that and nothing else. Tell me what you were looking for when you called — and I\'ll either confirm you can get it or tell you straight that you can\'t. That\'s the whole call."',
+        text: '"I hear you — and I\'m not here to add to that. You called today because you saw something about a benefit and wanted a real answer. I\'m going to give you exactly that and nothing else. What specifically were you looking for — and I\'ll tell you right now whether it\'s real for your area or not. That\'s the whole call."',
       },
     ],
-    pillar: 'Reframing — separate yourself from the experience they\'re tired of; be the honest answer they called for',
-  },
-
-  {
-    id: 'no-personal-info',
-    section: 'Trust & Credibility',
-    clientPhrase: '"I don\'t give out personal information over the phone."',
-    signal: 'red',
-    underneath: 'Trust barrier — they need proof of legitimacy before giving access.',
-    responses: [
-      {
-        text: '"That\'s a completely reasonable concern — and here\'s how I want to show you I\'m legitimate: I can verify information by looking up what\'s already in the system before you give me anything additional. Let me pull up your current plan details right now. If I can show you what you already have, you\'ll know I\'m in the right system. Is that fair?"',
-      },
-    ],
-    pillar: 'Persuasion — prove legitimacy through action, not words',
+    pillar: 'Reframing — separate yourself from the experience; pivot immediately to the specific benefit they called about',
   },
 
   {
@@ -676,16 +695,23 @@ export const objections: Objection[] = [
     section: 'Trust & Credibility',
     clientPhrase: '"I don\'t like to make decisions over the phone."',
     signal: 'red',
-    underneath: 'Almost always about trust, not channel.',
+    underneath: 'Almost always about trust, not channel. Early: build trust through action. Late: the numbers are already on the table — this is no longer a phone decision, it\'s a math decision, and the math is already done.',
+    tags: ['phone decisions', 'over the phone', 'not on the phone', 'don\'t do this by phone', 'want to see it', 'in person'],
     doNotSay: [
       '"I\'m not going to push you to decide today if you\'re not ready." — permission-seeking; kills the same-call close',
+      'Offering to call back — validates the objection and ends the sale',
     ],
     responses: [
       {
-        text: '"I completely understand — and I\'m going to show you exactly why you can trust this right now. I\'m going to verify your doctors in my system, show you the real numbers for your area, and walk you through what changes and what stays the same. At the end of that, you\'ll know whether I\'m legitimate because I\'ll have shown you — not just told you."',
+        position: 'early',
+        text: '"I completely understand — and I\'m going to show you exactly why you can trust this right now. I\'m going to verify your doctors in the system, show you the real numbers for your area, and walk you through what changes and what stays the same. At the end of that, you\'ll know because I\'ve shown you — not just told you."',
+      },
+      {
+        position: 'late',
+        text: '"I hear you — and I\'d feel the same way normally. But you\'ve already seen [doctor confirmed, benefit verified, plan details]. This isn\'t a phone decision anymore — it\'s a math decision, and the math is already in front of you. Is there anything specific you\'re still unsure about, or is it more of a general discomfort with the channel?"',
       },
     ],
-    pillar: 'Persuasion — prove legitimacy through action; maintain the same-call close as the goal',
+    pillar: 'Persuasion — early: build trust through action; late: the verification is done, pivot from channel to math',
   },
 
   // ─── SECTION 9: FEAR OF LOSING EXISTING BENEFITS ─────────────────────────
@@ -747,16 +773,23 @@ export const objections: Objection[] = [
     section: 'Financial',
     clientPhrase: '"The difference isn\'t significant enough to bother switching."',
     signal: 'red',
-    underneath: 'The client is comparing the monthly number against the effort of switching. Monthly numbers feel small. Annual numbers land.',
+    underneath: 'The monthly number didn\'t land — it almost never does. Annual numbers land. Numbers connected to something the client said land the most. Early: annualize and push for full picture. Late: connect the annual number to what was already said.',
+    tags: ['not significant', 'not enough', 'small difference', 'not worth it', 'barely anything', 'too small', 'small amount', 'not worth the hassle'],
     doNotSay: [
-      '"So that\'s not enough for you, the $40 extra?" — hands the client permission to confirm the benefit is too small. They will confirm it. The sale ends.',
+      '"So that\'s not enough for you, the $[X] extra?" — hands the client permission to confirm the benefit is too small; they will confirm it',
+      'Restating the monthly number — they already dismissed it once',
     ],
     responses: [
       {
-        text: '"I hear you — and let me show you what that actually represents. $[monthly] × 12 months = $[annual]. You mentioned you\'re paying for [specific expense from discovery]. That\'s $[annual] that could go toward that instead of sitting unclaimed. The question isn\'t whether $[monthly] is significant. The question is: why would you keep giving $[annual] back to your insurance company every year for doing nothing?"',
+        position: 'early',
+        text: '"Let me show you the full picture — [monthly benefit] times 12 is [annualized amount], and that\'s before we factor in [dental / OTC / copay savings]. Every month you stay where you are is [monthly amount] that doesn\'t come back. Is that still not worth 10 more minutes?"',
+      },
+      {
+        position: 'late',
+        text: '"[Annualized amount] is what we\'re actually talking about — and you mentioned [what they said: groceries, prescriptions, bills, dental]. That\'s exactly what this money is for. The question isn\'t whether [monthly amount] is significant — the question is why you\'d leave [annualized amount] on the table this year."',
       },
     ],
-    pillar: 'The Shift — annualize the number; connect it to the client\'s own words from discovery',
+    pillar: 'The Shift — annualize first, humanize with Client Gold second; the monthly number almost never closes alone',
   },
 
   {
@@ -764,16 +797,18 @@ export const objections: Objection[] = [
     section: 'Financial',
     clientPhrase: '"My current plan is free. Why would I switch?"',
     signal: 'red',
-    underneath: '"Free" means $0 premium — it says nothing about the value of what\'s in the plan. The client is not accounting for unclaimed benefits.',
+    underneath: '"Free" means $0 premium — it says nothing about the value inside the plan. The client is treating no premium as maximum value. The correct reframe: both plans are free. The only difference is [annualized amount] a year going to you or sitting unclaimed.',
+    tags: ['free', 'it\'s free', 'plan is free', 'no cost', 'zero premium', 'don\'t pay anything', 'costs nothing'],
     doNotSay: [
-      '"Well this plan is also free." — true but misses the point entirely',
+      '"Well this plan is also free." — true but completely misses the point',
+      'Presenting a plan with a premium to a client who just said they won\'t pay for one',
     ],
     responses: [
       {
-        text: '"Your current plan being free doesn\'t mean it\'s giving you everything you\'re entitled to. Free just means $0 premium — it says nothing about what\'s in the plan. What I\'m looking at right now is that your current plan has $0 in [grocery/OTC/giveback benefit] and the plan I\'m showing you has $[amount]. Both are $0 premium. The only difference is $[annualized] a year that\'s either going to you or sitting unclaimed."',
+        text: '"Free just means $0 premium — it says nothing about what\'s inside the plan. What I\'m looking at right now is that your current plan has $0 in [grocery / OTC / giveback] and the plan I\'m showing you has $[amount]. Both plans are $0 premium. The only difference is [annualized amount] a year that\'s either going into your pocket or sitting unclaimed. And that window closes [date]."',
       },
     ],
-    pillar: 'The Shift — reframe "free" as a premium description, not a value description',
+    pillar: 'The Shift — reframe free as a premium description, not a value description; both are free, one pays you more',
   },
 
   {
@@ -781,16 +816,18 @@ export const objections: Objection[] = [
     section: 'Financial',
     clientPhrase: '"I can\'t afford the copays on a new plan." / "I\'m on a fixed income."',
     signal: 'red',
-    underneath: 'This client is protecting a fragile budget. They are not resisting the plan — they are scared of an unexpected bill. This is solvable with the right comparison.',
+    underneath: 'This client is protecting a fragile budget. They are not resisting the plan — they are scared of an unexpected bill. The fix is a side-by-side that shows the net position is better, not the same. Their fixed income is the urgency — every month they stay is money they\'re not getting.',
+    tags: ['fixed income', 'can\'t afford', 'copays', 'too expensive', 'budget', 'can\'t pay', 'don\'t have the money', 'tight budget', 'social security only'],
     doNotSay: [
       'Dismissing the concern or pivoting away before addressing it directly',
+      'Presenting premium costs before showing the net benefit offset',
     ],
     responses: [
       {
-        text: '"I hear you — and that\'s exactly what I want to protect you from. Let me show you the comparison side by side. Current plan copay vs. this plan\'s copay. Current monthly benefit vs. this plan\'s benefit. Even if you used it every single month, you\'d still come out ahead because the [benefit] offsets the difference. Your fixed income is actually better protected on this plan than it is on your current one."',
+        text: '"I hear you — and that\'s exactly what I want to protect. Let me show you the side by side: current plan copay versus this plan\'s copay, current benefit versus this plan\'s benefit. Even if you used it every single month, you come out ahead — because the [benefit amount] offsets the difference. Your fixed income is actually better protected on this plan. And every month you wait is [monthly benefit] that doesn\'t come back."',
       },
     ],
-    pillar: 'The Shift — show the full cost picture; net benefit offsets copay fear',
+    pillar: 'The Shift — show the net position, not just the copay; fixed income is the urgency, not the barrier',
   },
 
   // ─── SECTION 11: FAMILY & THIRD PARTY ────────────────────────────────────
@@ -800,18 +837,29 @@ export const objections: Objection[] = [
     section: 'Family & Third Party',
     clientPhrase: '"I need to talk to my son / daughter / husband first."',
     signal: 'green',
-    underneath: 'They\'re interested. They have deferred the final say. The conversation without the agent is where the sale dies.',
+    underneath: 'They\'re interested. They have deferred the final say. The conversation without the agent is where the sale dies. First move is always to get the third party on the call right now. If that fails, arm the caller with the exact language they need.',
+    tags: ['son', 'daughter', 'husband', 'wife', 'spouse', 'family', 'talk to', 'need to talk', 'involve', 'check with', 'run it by', 'ask first'],
+    doNotSay: [
+      '"Of course — go ahead and talk to them." — the call is over; the third party will almost never say yes',
+      'Offering to call back — a callback after a family conversation almost never closes',
+    ],
     responses: [
       {
-        label: 'Get the third party on now',
-        text: '"I completely understand — and I actually think that\'s the right call. Is [name] available right now? It\'s much easier than playing phone tag. That way they can hear everything directly from me."',
+        position: 'early',
+        label: 'Get them on now',
+        text: '"I completely understand — and is [name] available right now? It\'s much easier for them to hear it directly from me than second-hand. A 10-minute call together is all it takes. Can we do that?"',
       },
       {
-        label: 'Arm the caller',
-        text: '"Absolutely. When you talk to [name], here\'s what I want you to be able to tell them: \'I verified my doctor is in-network. My medications are covered. The plan pays $[amount] a year more than what I have now.\' Write that down — those are the three things they\'ll want to know."',
+        position: 'late',
+        label: 'Get them on now with the numbers',
+        text: '"Absolutely — and is [name] available right now? I\'d rather walk both of you through what I\'ve found together. You\'ve already seen [doctor confirmed, benefit amount] — they\'ll want to hear this directly."',
+      },
+      {
+        label: 'If they can\'t get on — arm the caller',
+        text: '"Understood. Here\'s what to tell them: your doctor is confirmed in-network, medications are covered, and this plan pays [annualized amount] more per year than what you have now. Write those three things down — that\'s everything they\'ll want to know."',
       },
     ],
-    pillar: 'Persuasion — get the third party on now or arm the caller for the conversation without you',
+    pillar: 'Persuasion — first move is always a three-way call right now; if that fails, arm the caller with the three facts',
   },
 
   {
@@ -820,6 +868,7 @@ export const objections: Objection[] = [
     clientPhrase: '"My daughter / son handles my insurance. They told me not to touch it."',
     signal: 'red',
     underneath: 'The client doesn\'t want to make a unilateral decision and risk family conflict. The family member is a gatekeeper — turn them into an ally.',
+    tags: ['son', 'daughter', 'handles', 'told me not to', 'don\'t touch', 'family handles', 'children', 'kids'],
     doNotSay: [
       'Continuing to sell to the client alone when a family member holds the real decision',
       '"You can always talk to them after."',
@@ -838,12 +887,42 @@ export const objections: Objection[] = [
     clientPhrase: '"My family is going to say I shouldn\'t have done this."',
     signal: 'red',
     underneath: 'They said yes but don\'t have the language to defend it. This is Hollow Yes territory. The Close Confirmation is the armor.',
+    tags: ['family', 'object', 'mad', 'upset', 'disagree', 'shouldn\'t have', 'spouse', 'husband', 'wife'],
     responses: [
       {
         text: '"If your family asks why you switched, you can tell them exactly this: \'A licensed agent ran the side-by-side with me. My doctor is confirmed in-network. My medications are covered. I was leaving $[amount] a year on the table — and now I\'m not.\' That\'s the answer."',
       },
     ],
     pillar: 'Persuasion — the Confidence Statement is the post-enrollment armor',
+  },
+
+  {
+    id: 'wife-husband-nurse-professional',
+    section: 'Family & Third Party',
+    clientPhrase: '"My wife is a nurse / My husband handles this / I need my wife to look it over first."',
+    signal: 'red',
+    underneath: 'The client is deferring to a spouse or partner who has healthcare expertise — or who simply makes these decisions. This is not a stall; it is a real process requirement. The agent\'s job is not to override it — it is to use the expertise as a reason to get that person on the phone right now, not later. A nurse or healthcare professional will understand the value of a better plan immediately. That is an asset. Never treat it as a wall.',
+    tags: ['wife', 'husband', 'spouse', 'nurse', 'doctor', 'professional', 'partner', 'look it over', 'involved', 'need to ask', 'check with', 'talk to my wife', 'talk to my husband', 'she handles', 'he handles', 'run it by'],
+    doNotSay: [
+      '"That\'s fair — let me give you a call back." — this hands the decision to someone who was never on the call and ends the sale',
+      '"I don\'t want to be high pressure." — this signals weakness and validates the exit; there is no urgency in a call that apologizes for itself',
+      'Accepting the callback as the outcome — a callback is not a close; it is a lead that almost never converts',
+    ],
+    responses: [
+      {
+        label: 'Early in call — no numbers established yet',
+        text: '"That makes complete sense — and honestly, having a nurse in the family makes this easier, not harder. Is she available right now? I\'d rather walk both of you through this together so she can ask her questions directly and you can make this decision together today."',
+      },
+      {
+        label: 'Late in call — numbers and plan already established',
+        text: '"Completely respect that. Here\'s what I want you to tell her: your doctor is confirmed in-network, your current plan has [current benefit], this plan has [new benefit] — that\'s [annualized difference] more per year. A nurse is going to look at those numbers and tell you this is a legitimate upgrade. Can we get her on the phone for five minutes right now so she hears it directly?"',
+      },
+      {
+        label: 'If getting them on the phone now is not possible',
+        text: '"I understand. The one thing I want to make sure of is that this enrollment window doesn\'t close before she has a chance to look at it — every month you wait is [monthly benefit] that doesn\'t come back. Write down these three things for her: doctor confirmed, [benefit amount] per year, zero cost to change. That\'s the whole picture."',
+      },
+    ],
+    pillar: 'Persuasion — validate the expertise, use it as a bridge to a three-way call now; urgency is the enrollment window, not pressure',
   },
 
   // ─── SECTION 12: RESISTANCE AT CLOSE ─────────────────────────────────────
@@ -853,17 +932,18 @@ export const objections: Objection[] = [
     section: 'Resistance at Close',
     clientPhrase: '"I\'m not enrolling today." / "I don\'t enroll on first contact."',
     signal: 'red',
-    underneath: 'Often a practiced defense. It is not necessarily a real no.',
+    underneath: 'Often a practiced defense, not a real no. The agent\'s job is to make waiting feel expensive in specific dollar terms, then isolate whether there\'s a real concern underneath.',
+    tags: ['not enrolling today', 'not today', 'first contact', 'don\'t decide same day', 'need more time', 'not ready', 'not doing it today'],
     doNotSay: [
-      'Accepting it and scheduling a callback',
-      'Pushing harder with more benefits information',
+      'Accepting it and scheduling a callback — the lead almost never converts',
+      'Pushing harder with more benefits information — that\'s not the issue',
     ],
     responses: [
       {
-        text: '"I completely respect that. Before you go — on a scale of 1 to 10, how confident are you that your current plan is the best one available in your area right now? If you\'re a 10, we\'re done. But if there\'s any doubt at all, what specifically would you need to see to feel confident you\'re on the right plan?"',
+        text: '"Before you go — every month you wait on this is [monthly benefit] that doesn\'t come back. That\'s [annualized amount] this year. On a scale of 1 to 10, how confident are you that your current plan is the best one available right now? If you\'re a 10, we\'re done. But if there\'s any doubt, tell me what specifically you\'d need to see — because I probably have it right here."',
       },
     ],
-    pillar: 'Persuasion — the 1-to-10 scale creates reasonable doubt without confrontation',
+    pillar: 'The Shift — make waiting cost a specific monthly number; use the 1-to-10 to find the real objection',
   },
 
   {
@@ -871,13 +951,19 @@ export const objections: Objection[] = [
     section: 'Resistance at Close',
     clientPhrase: '"This sounds too good to be true." / "There\'s got to be a catch."',
     signal: 'red',
-    underneath: 'Skepticism. The reason it sounds that way is because most people have been leaving these benefits unclaimed for years without knowing they existed.',
+    underneath: 'Skepticism. Early: reframe the skepticism — nobody told them it was theirs. Late: the verification that already happened on this call is the proof it\'s real.',
+    tags: ['too good to be true', 'catch', 'sounds suspicious', 'really', 'hard to believe', 'doesn\'t make sense', 'what\'s the catch', 'seems too easy'],
     responses: [
       {
-        text: '"That reaction makes complete sense — and I\'d feel the same way. Here\'s why it sounds that way: most people in your situation have been leaving these benefits unclaimed for years without knowing they existed. This isn\'t new money coming from somewhere mysterious. It\'s money that\'s already been allocated by the federal government and is sitting in a plan waiting to be claimed. The reason you haven\'t heard about it is because nobody told you. That\'s what I\'m here to fix."',
+        position: 'early',
+        text: '"That reaction makes complete sense — and I\'d feel the same way. Here\'s why it sounds that way: most people have been leaving these benefits unclaimed for years because nobody walked them through it. This isn\'t new money from somewhere mysterious — it\'s a legitimate, government-funded benefit that\'s been allocated and is sitting in a plan waiting to be claimed. Let me show you what specifically is available in your area."',
+      },
+      {
+        position: 'late',
+        text: '"I understand the instinct — and here\'s what makes this different from that feeling: you\'ve already seen [doctor confirmed, specific benefit amount, plan verified]. This is a legitimate program, everything I\'ve shown you is on a recorded line, and the numbers are specific to your zip code. It\'s real — and the only question is whether you want it working for you starting [effective date]."',
       },
     ],
-    pillar: 'Reframing — reframe "too good to be true" as "nobody told you it was yours"',
+    pillar: 'Reframing — early: nobody told you it was yours; late: the verification that happened on this call is the proof',
   },
 
   {
@@ -885,17 +971,23 @@ export const objections: Objection[] = [
     section: 'Resistance at Close',
     clientPhrase: '"I\'ve been burned before — I don\'t trust this."',
     signal: 'red',
-    underneath: 'A real experience where a phone enrollment went badly. Trust is the only issue here. The product is not the problem.',
+    underneath: 'A real experience where a phone enrollment went badly. Trust is the only issue here. The product is not the problem. Early: prove through action before asking for anything. Late: everything already shown is the proof.',
+    tags: ['burned before', 'burned', 'bad experience', 'happened before', 'last time', 'don\'t trust', 'been hurt', 'got scammed before'],
     doNotSay: [
       'Defending the industry or the process',
       'Minimizing what happened to them',
     ],
     responses: [
       {
-        text: '"I hear you — and I\'m not going to tell you that didn\'t happen. What I want to show you is that what I\'m doing right now is different. I\'m not asking you to take anything on faith. I\'m going to show you Dr. [name] is covered in the system before you give me a single piece of information. I\'m going to give you the plan ID so you can verify it on Medicare.gov yourself after this call. And I\'m going to give you my direct number — so if anything isn\'t right, you have someone to call."',
+        position: 'early',
+        text: '"I hear you — and I\'m not going to tell you that didn\'t happen. What I want to show you is that what I\'m doing right now is different. I\'m going to verify Dr. [name] is covered in the system right now, before you give me anything else. You\'ll see it in real time — that\'s the difference."',
+      },
+      {
+        position: 'late',
+        text: '"I hear you — and what happened before was real. What\'s also real is that [doctor] is confirmed, [benefit] is verified, and everything I\'ve shown you is on a recorded, legitimate, government-regulated line. You\'ve already seen the proof. The only thing left is deciding whether [annualized amount] is worth making the move."',
       },
     ],
-    pillar: 'Persuasion — demonstrate legitimacy through specific, verifiable actions before asking for anything',
+    pillar: 'Persuasion — early: demonstrate before asking; late: the call itself is the evidence',
   },
 
   {
@@ -918,12 +1010,261 @@ export const objections: Objection[] = [
     clientPhrase: 'Hard No — absolute final refusal',
     signal: 'red',
     underneath: 'True end. Do not argue. Do not push. Exit cleanly. The number they have is future pipeline.',
+    tags: ['no', 'absolutely not', 'not interested', 'stop calling', 'final no', 'don\'t want it'],
     responses: [
       {
         text: '"I completely respect that — and before we hang up, I want to make sure you know: if your situation changes or your plan changes its benefits next year, you can always call back. My number is [number]. You deserve to have the right plan."',
       },
     ],
     pillar: 'Refocusing — graceful exit preserves the relationship',
+  },
+
+  // ─── NEW ENTRIES: CALL-POSITION AWARE ────────────────────────────────────
+
+  {
+    id: 'unauthorized-switch',
+    section: 'Trust & Credibility',
+    clientPhrase: '"People have been changing my insurance without my permission." / "This happened to me before."',
+    signal: 'red',
+    underneath: 'This is different from a general scam fear — someone actually transferred this client without consent. The wound is specific and real. Explaining that the practice is illegal does nothing. The agent\'s job is to establish that this call is verifiably different: recorded, regulated, nothing moves without their verbal yes. Then use that betrayal as the reason to act now — they deserve a plan that\'s actually theirs.',
+    tags: ['transferred', 'switched without permission', 'changed without asking', 'didn\'t authorize', 'happened before', 'without my consent', 'they changed it', 'unauthorized'],
+    doNotSay: [
+      '"That\'s illegal for an agent to do." — correct but irrelevant; logic against trauma never lands',
+      'Moving past it and presenting a plan before acknowledging what happened',
+    ],
+    responses: [
+      {
+        position: 'early',
+        text: '"What happened to you was wrong — and that\'s exactly why this is a legitimate, government-regulated program on a recorded line where nothing changes without your explicit verbal approval. Let me show you what\'s available so you know exactly what you\'re entitled to."',
+      },
+      {
+        position: 'late',
+        text: '"What happened to you was wrong — and everything I\'ve shown you today, [doctor confirmed, benefit amount, plan details], is verifiable and nothing moves forward without you saying yes. Don\'t let what someone else did be the reason you leave [annualized benefit] on the table this year."',
+      },
+    ],
+    pillar: 'Reframing — name the violation, establish the recorded line as the safeguard, use the past betrayal as urgency',
+  },
+
+  {
+    id: 'agents-all-lie',
+    section: 'Trust & Credibility',
+    clientPhrase: '"Everybody says that." / "Agents lie." / "They all say the same thing."',
+    signal: 'red',
+    underneath: 'Industry-wide cynicism — not about one bad experience, but wholesale distrust of the category. The only move is to stop asking them to trust you and start showing them something verifiable. The word \'legitimate\' is the anchor — government-regulated, recorded line, verified for their specific zip code. These are facts, not promises.',
+    tags: ['everybody says', 'agents lie', 'all the same', 'they all say', 'don\'t trust', 'heard it before', 'promises', 'misleading', 'lies', 'prove it'],
+    doNotSay: [
+      'Defending yourself or explaining your credentials — sounds exactly like every other agent',
+      '"I\'m different" without showing how — an empty claim',
+    ],
+    responses: [
+      {
+        position: 'early',
+        text: '"I hear you — and the way I prove I\'m different is I don\'t make promises, I show you verified numbers for your specific zip code on a legitimate, government-regulated program on a recorded line. Give me 60 seconds to show you exactly what\'s available for your area."',
+      },
+      {
+        position: 'late',
+        text: '"I hear you — and the numbers I just showed you are verified, specific to your situation, and this is a legitimate program. You\'ve already seen [what was found]. The only thing left is making sure you actually get what you\'re entitled to before this window closes."',
+      },
+    ],
+    pillar: 'Reframing — stop asking for trust, start showing verifiable facts; legitimate and recorded are the two anchors',
+  },
+
+  {
+    id: 'just-signed-up',
+    section: 'Fear of Change & Switching',
+    clientPhrase: '"I literally just signed up." / "I just changed plans this month."',
+    signal: 'red',
+    underneath: 'The client feels settled — they just did the work of enrolling and do not want to revisit it. This is not the same as long-term loyalty. The correct move is not to challenge the decision they made, but to confirm whether the plan they just got actually includes the benefit they called about. If it does, great. If it doesn\'t, there may be a window right now to correct it.',
+    tags: ['just signed up', 'just changed', 'just enrolled', 'recently switched', 'new plan', 'just joined', 'just did it', 'already enrolled'],
+    responses: [
+      {
+        text: '"That\'s good — it means you\'re active in the system right now. The only thing I want to confirm is that the plan you just got includes the [specific benefit] you called about, because not every plan at that carrier offers it — and if yours doesn\'t, we may have a window right now to get you the version that does."',
+      },
+    ],
+    pillar: 'Refocusing — confirm what they got, not challenge what they did; urgency is the active window',
+  },
+
+  {
+    id: 'not-worth-the-change',
+    section: 'Financial',
+    clientPhrase: '"That\'s not worth it to me." / "It\'s not enough to bother changing for." / "I don\'t really see the value."',
+    signal: 'red',
+    underneath: 'The monthly number didn\'t land. It almost never does. The Math Breakdown is missing Step 2 (annualize) and Step 3 (humanize). A client who says the value isn\'t there has not seen the full picture — either the annual number was never stated, or it was never connected to something real in their life. The fix is always to show them the complete total and tie it to what they already said.',
+    tags: ['not worth it', 'not enough', 'too small', 'doesn\'t matter', 'not a big deal', 'makes no difference', 'not enough to change', 'small amount', 'barely anything'],
+    doNotSay: [
+      'Restating the monthly number — they already heard it and dismissed it',
+      'Adding more plan features — they\'re not asking for more features, they\'re questioning value',
+    ],
+    responses: [
+      {
+        position: 'early',
+        text: '"Let me show you the full picture before you decide — [monthly benefit] over the course of a year is [annualized amount], and that\'s before we factor in [dental / OTC / copay savings]. Every month you stay on your current plan is [monthly amount] that doesn\'t come back."',
+      },
+      {
+        position: 'late',
+        label: 'Standard late — use what you learned',
+        text: '"[Annualized amount] is what we\'re talking about — and you mentioned [what they said: groceries / prescription / dental / bills]. That\'s exactly what this money is for. Staying on your current plan means that problem doesn\'t get solved this year."',
+      },
+      {
+        position: 'late',
+        label: 'If they say the total is still too small',
+        text: '"Let\'s add everything up — [benefit 1] plus [benefit 2] plus [benefit 3] comes out to [total annualized]. That\'s the real number. Is that still not enough to make this worth it for you?"',
+      },
+    ],
+    pillar: 'The Shift — annualize first, humanize second, show the full total if needed; the monthly number almost never closes on its own',
+  },
+
+  {
+    id: 'doesnt-feel-right',
+    section: 'Trust & Credibility',
+    clientPhrase: '"Something just doesn\'t feel right." / "I\'m not sure I trust this." / "I\'m a little uneasy."',
+    signal: 'red',
+    underneath: 'Vague distrust with no specific target. Not a scam accusation, not a past trauma — just discomfort. The agent who asks \'what specifically doesn\'t feel right?\' often opens a door to a solvable concern. The agent who tries to convince them often entrenches it. The move is to anchor the legitimacy claim in something verifiable and specific, then name the cost of staying put.',
+    tags: ['feel right', 'doesn\'t feel right', 'gut feeling', 'don\'t trust', 'uneasy', 'nervous', 'suspicious', 'not sure', 'not comfortable', 'seems off'],
+    doNotSay: [
+      '"I promise you this is legitimate." — a promise is asking for trust they don\'t have yet',
+      '"You can decide from there." — an exit ramp; removes urgency entirely',
+    ],
+    responses: [
+      {
+        position: 'early',
+        text: '"Fair — and the best way I can address that is to show you exactly what I\'m looking at right now: a legitimate, government-regulated benefit verified for your specific zip code on a recorded line. Let me show you the actual number for your area and you can judge it from what you see."',
+      },
+      {
+        position: 'late',
+        text: '"I hear you — and you\'ve already seen the verified numbers: [doctor confirmed, benefit amount, plan details]. This is a legitimate program and everything I\'ve shown you is real. The question is whether you want to leave [annualized amount] on the table this year or get it working for you starting [effective date]."',
+      },
+    ],
+    pillar: 'Reframing — anchor legitimacy in specifics already verified; make staying put the thing that needs explaining, not moving forward',
+  },
+
+  {
+    id: 'scared-they-will-take-more',
+    section: 'Trust & Credibility',
+    clientPhrase: '"Somebody took money from me." / "I\'m scared they\'re going to take more." / "I had money taken out."',
+    signal: 'red',
+    underneath: 'Financial loss trauma tied specifically to Medicare or Social Security. This client had actual money removed — by a bad agent, a scammer, or a billing error. Every new plan looks like another threat. The direction of money needs to be made explicit: this plan adds, it does not take. That reframe — money toward them, not away — is the only thing that addresses the fear directly.',
+    tags: ['took money', 'stole', 'scared', 'afraid', 'lost money', 'they took', 'overcharged', 'financial loss', 'deducted', 'missing money', 'took from me', 'they took it'],
+    doNotSay: [
+      'Explaining why this plan is different without naming the direction of money explicitly',
+    ],
+    responses: [
+      {
+        text: '"I hear you — and what I\'m showing you moves in the exact opposite direction: this plan puts [monthly amount] more into your [Social Security check / account] every single month, which is [annualized amount] more per year than you\'re getting right now. That\'s money going to you — and that\'s exactly why we need to get this locked in before [enrollment window closes]."',
+      },
+    ],
+    pillar: 'Reframing — make the direction of money explicit; this plan adds, urgency is the enrollment window',
+  },
+
+  {
+    id: 'client-bought-signal-ignored',
+    section: 'Resistance at Close',
+    clientPhrase: 'Client said yes — now looping, second-guessing, or stalling mid-enrollment.',
+    signal: 'yellow',
+    underneath: 'The client gave a buying signal — "let\'s do it," "okay, go ahead," "I\'m ready" — and then the agent kept going. Discovery questions, re-verification, re-explanation. Every minute after a buying signal is a minute for doubt to grow. When a client says yes, the presentation stops and the paperwork starts. The job at this moment is to confirm the three things they care about and submit.',
+    tags: ['let\'s do it', 'go ahead', 'okay', 'I\'m ready', 'yes', 'alright', 'sure', 'do it', 'looping', 'second guessing', 'going back', 'hesitating after yes'],
+    doNotSay: [
+      'Asking more discovery questions after a yes — gives doubt time to grow',
+      'Re-summarizing the plan — the sale is already made; don\'t reopen it',
+    ],
+    responses: [
+      {
+        text: '"[Name], you already made the right call — [doctor] is confirmed, your coverage stays intact, and this puts [monthly amount] more in your pocket starting [effective date]. Let\'s get this submitted right now so it\'s official and you don\'t lose your spot."',
+      },
+    ],
+    pillar: 'Persuasion — a yes is a yes; confirm the three things they care about and submit immediately',
+  },
+
+  {
+    id: 'news-said-everyone-gets-it',
+    section: 'Commercial & Benefit',
+    clientPhrase: '"The news said everyone can get this." / "The president said seniors get this benefit." / "I heard everyone on Medicare qualifies."',
+    signal: 'yellow',
+    underneath: 'Public messaging — TV news, political statements, advertisements — set an expectation that these benefits are automatically available to all Medicare members. The client is not wrong that the benefits exist. They are wrong about the mechanism. The correct move is to validate what they heard, then reframe the enrollment step as finding out whether their specific window is open — not as correcting them.',
+    tags: ['news said', 'president said', 'everyone can get it', 'saw on TV', 'commercial said', 'heard about it', 'advertised', 'automatically', 'all seniors', 'everyone qualifies'],
+    doNotSay: [
+      '"That\'s not how it works." — shames them for believing what they heard',
+      'Explaining the full Medicare plan structure before establishing eligibility — kills momentum',
+    ],
+    responses: [
+      {
+        text: '"They\'re right — these are legitimate, government-funded benefits and you absolutely can qualify. What the ads don\'t explain is that they come through specific Medicare plans during specific enrollment windows — and I need to check right now whether your window is open, because if it is, we don\'t want to miss it."',
+      },
+    ],
+    pillar: 'Reframing — validate what they heard, reframe enrollment as checking their window; urgency is don\'t miss it',
+  },
+
+  {
+    id: 'grief-or-life-crisis',
+    section: 'Family & Third Party',
+    clientPhrase: 'Client discloses a major loss or crisis during the call — death in family, health emergency, financial collapse.',
+    signal: 'red',
+    underneath: 'The client is carrying something real and heavy. Agents who acknowledge it briefly and pivot purposefully keep the call. Agents who linger in the grief lose momentum and can\'t get back. Agents who ignore it entirely lose trust. The correct sequence is: one genuine beat of acknowledgment, then reframe getting coverage handled as a service to them — one less thing they have to carry. The purpose of the call becomes a gift, not a sale.',
+    tags: ['lost someone', 'passed away', 'death', 'grief', 'crisis', 'overwhelming', 'too much', 'just happened', 'funeral', 'hospital', 'just lost', 'husband died', 'wife died', 'son died', 'daughter died'],
+    doNotSay: [
+      '"I\'m so sorry — now, back to your Medicare plan..." — the pivot is too fast; they feel unheard',
+      'Staying in the grief for multiple exchanges — you lose the call\'s purpose and can\'t recover',
+    ],
+    responses: [
+      {
+        text: '"[Name], I\'m sorry — and the best thing I can do for you right now is get your coverage handled so it\'s one less thing on your mind. Let\'s take care of this today."',
+      },
+      {
+        label: 'If they return to the grief',
+        text: '"I hear you — and I\'m not going anywhere. The reason I want to get this done today is so you don\'t have to think about it again. Let\'s finish this."',
+      },
+    ],
+    pillar: 'Reframing — one genuine beat, then pivot; getting coverage handled is a service to them in a hard moment',
+  },
+
+  {
+    id: 'stay-put-not-worth-it',
+    section: 'Resistance at Close',
+    clientPhrase: '"I think I\'m just going to stay where I am." / "It didn\'t really feel worth it."',
+    signal: 'red',
+    underneath: 'This is a soft no — not a hard refusal, but inertia winning. The Math Breakdown didn\'t connect to anything real in their life. The correct move is to ask a diagnostic question that reveals whether the issue is the number or the change. Both have specific responses. Neither response accepts the exit.',
+    tags: ['stay put', 'staying where I am', 'keeping what I have', 'not going to change', 'not worth it', 'going to stay', 'I\'ll pass', 'going to keep it', 'staying with my plan'],
+    doNotSay: [
+      '"Of course — I understand." — accepts the exit; the call is over',
+      'Re-listing plan features — they\'re not asking for more information',
+    ],
+    responses: [
+      {
+        position: 'early',
+        text: '"Before you go — staying where you are right now means leaving [annualized amount] on the table this year. I want to make sure that\'s a decision you\'re making on purpose. What specifically didn\'t feel worth it?"',
+      },
+      {
+        position: 'late',
+        label: 'Diagnostic — ask first',
+        text: '"You\'ve seen the full comparison — [current] versus [new], that\'s [annualized difference] this year. Staying put now has a specific dollar cost. Was it the number that didn\'t feel big enough, or is it more about not wanting to go through a change right now?"',
+      },
+      {
+        position: 'late',
+        label: 'If it\'s the number',
+        text: '"Let me show you the full picture — [benefit 1] plus [benefit 2] plus [benefit 3] comes out to [total annualized]. That\'s what you\'re leaving behind every year you stay where you are. Does that change the picture?"',
+      },
+      {
+        position: 'late',
+        label: 'If it\'s about not wanting to change',
+        text: '"I hear that — but staying where you are isn\'t neutral anymore. You\'ve seen what\'s available. The question is whether [annualized amount] this year is worth 10 minutes right now. That\'s really what we\'re talking about."',
+      },
+    ],
+    pillar: 'The Shift — inaction now has a cost; diagnose whether the issue is the number or the change, then respond specifically',
+  },
+
+  {
+    id: 'conflicting-benefit-amounts',
+    section: 'Resistance at Close',
+    clientPhrase: '"You said a different number earlier." / "Someone told me a different amount." / "Which one is it?"',
+    signal: 'yellow',
+    underneath: 'Trust fractures the moment the numbers don\'t match. The client noticed and they\'re right to question it. The agent who papers over it loses all credibility. The agent who owns it immediately and corrects it actually builds more trust than if the error never happened. Own it in one sentence. Fix it. Move.',
+    tags: ['different number', 'two numbers', 'you said', 'which one', 'confused', 'different amount', 'contradicted', 'changed the number', 'what is it'],
+    responses: [
+      {
+        text: '"You\'re right to catch that — let me pull the confirmed number right now. [Looks it up.] The correct amount is [X] — that\'s the official figure and that\'s what we\'re working with."',
+      },
+    ],
+    pillar: 'Persuasion — own the error in one beat, correct it immediately, keep moving; don\'t dwell',
   },
 
 ]

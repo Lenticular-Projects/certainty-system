@@ -149,6 +149,91 @@
   font-style: italic;
 }
 
+/* ─── CALL POSITION LAYOUT ─────────────────────────────────────── */
+
+.responsePositional {
+  margin-bottom: 20px;
+}
+
+.positionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.positionBlock {
+  background: var(--mustard-tint);
+  border-left: 3px solid var(--mustard-dark);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.positionBlockLate {
+  background: var(--sage-tint);
+  border-left-color: var(--sage-dark);
+}
+
+.positionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.positionPill {
+  display: inline-block;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.positionPillEarly {
+  background: var(--mustard-dark);
+  color: #fff;
+}
+
+.positionPillLate {
+  background: var(--sage-dark);
+  color: #fff;
+}
+
+.positionHint {
+  font-size: 0.6875rem;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
+.positionResponseItem {
+  padding-top: 0;
+}
+
+.positionResponseItemBorder {
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.responseLabelLate {
+  color: var(--sage-dark);
+}
+
+@media (max-width: 768px) {
+  .positionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── END CALL POSITION LAYOUT ──────────────────────────────────── */
+
 @media (max-width: 768px) {
   .header {
     padding: var(--space-4) var(--space-5);

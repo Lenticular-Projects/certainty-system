@@ -8,11 +8,17 @@ import { useSignalHover } from '@/hooks/useSignalHover'
 import SignalBadge from './SignalBadge'
 import styles from './ExpandCollapse.module.css'
 
+interface Response {
+  label?: string
+  text: string
+  position?: 'early' | 'late'
+}
+
 interface ExpandCollapseProps {
   clientPhrase: string
   underneath: string
   doNotSay?: string[]
-  responses: Array<{ label?: string; text: string }>
+  responses: Response[]
   pillar: string
   signal: 'red' | 'yellow' | 'green'
 }
@@ -27,6 +33,11 @@ export default function ExpandCollapse({
 }: ExpandCollapseProps) {
   const [isOpen, setIsOpen] = useState(false)
   const hover = useSignalHover(signal)
+
+  const earlyResponses = responses.filter(r => r.position === 'early')
+  const lateResponses = responses.filter(r => r.position === 'late')
+  const anytimeResponses = responses.filter(r => !r.position)
+  const hasPositions = earlyResponses.length > 0 || lateResponses.length > 0
 
   return (
     <motion.div
@@ -67,6 +78,7 @@ export default function ExpandCollapse({
             style={{ overflow: 'hidden' }}
           >
             <div className={styles.body}>
+
               {/* Underneath It */}
               <div className={styles.section}>
                 <span className={styles.sectionLabel}>Underneath It</span>
@@ -85,16 +97,71 @@ export default function ExpandCollapse({
                 </div>
               )}
 
-              {/* The Response */}
-              <div className={styles.response}>
-                <span className={styles.sectionLabel}>The Response</span>
-                {responses.map((r, i) => (
-                  <div key={i} className={styles.responseItem}>
-                    {r.label && <span className={styles.responseLabel}>{r.label}</span>}
-                    <p className={styles.responseText}>{r.text}</p>
+              {/* The Response — positional layout */}
+              {hasPositions ? (
+                <div className={styles.responsePositional}>
+                  <span className={styles.sectionLabel}>The Response</span>
+
+                  <div className={styles.positionGrid}>
+
+                    {/* Early in Call */}
+                    {earlyResponses.length > 0 && (
+                      <div className={styles.positionBlock}>
+                        <div className={styles.positionHeader}>
+                          <span className={styles.positionPill + ' ' + styles.positionPillEarly}>Early in Call</span>
+                          <span className={styles.positionHint}>No Client Gold yet — foundational</span>
+                        </div>
+                        {earlyResponses.map((r, i) => (
+                          <div key={i} className={styles.positionResponseItem}>
+                            {r.label && <span className={styles.responseLabel}>{r.label}</span>}
+                            <p className={styles.responseText}>{r.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Late in Call */}
+                    {lateResponses.length > 0 && (
+                      <div className={styles.positionBlock + ' ' + styles.positionBlockLate}>
+                        <div className={styles.positionHeader}>
+                          <span className={styles.positionPill + ' ' + styles.positionPillLate}>Late in Call</span>
+                          <span className={styles.positionHint}>Use what you learned — pull Client Gold</span>
+                        </div>
+                        {lateResponses.map((r, i) => (
+                          <div key={i} className={styles.positionResponseItem + (i > 0 ? ' ' + styles.positionResponseItemBorder : '')}>
+                            {r.label && <span className={styles.responseLabel + ' ' + styles.responseLabelLate}>{r.label}</span>}
+                            <p className={styles.responseText}>{r.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
                   </div>
-                ))}
-              </div>
+
+                  {/* Anytime responses below the grid, if any */}
+                  {anytimeResponses.length > 0 && (
+                    <div className={styles.response} style={{ marginTop: '12px' }}>
+                      {anytimeResponses.map((r, i) => (
+                        <div key={i} className={styles.responseItem}>
+                          {r.label && <span className={styles.responseLabel}>{r.label}</span>}
+                          <p className={styles.responseText}>{r.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                /* Standard response layout — no positions */
+                <div className={styles.response}>
+                  <span className={styles.sectionLabel}>The Response</span>
+                  {responses.map((r, i) => (
+                    <div key={i} className={styles.responseItem}>
+                      {r.label && <span className={styles.responseLabel}>{r.label}</span>}
+                      <p className={styles.responseText}>{r.text}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
 
             </div>
           </motion.div>
