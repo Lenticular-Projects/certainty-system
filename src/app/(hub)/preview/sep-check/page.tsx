@@ -330,7 +330,7 @@ const SIGNALS: SignalCard[] = [
       id: 'new-to-medicare',
       name: 'Initial Enrollment Period (IEP / ICEP)',
       code: 'IEP / ICEP / IEP2',
-      window: 'IEP: 7 months (3 before + birthday month + 3 after). ICEP: 6 months (3 before + Part B month + 2 after, extended 1/1/2025). IEP2: fresh 7-month window when disability beneficiary turns 65.',
+      window: 'IEP: 7 months (3 before + birthday month + 3 after). ICEP: 5 months (3 before + Part B month + 1 after, extended 1/1/2025). IEP2: fresh 7-month window when disability beneficiary turns 65.',
       isTimeSensitive: true,
       allowed: [
         'IEP: Enroll in MAPD or PDP for the first time (NOT valid for MA-only plans)',
@@ -338,8 +338,8 @@ const SIGNALS: SignalCard[] = [
         'IEP2: Uses MRD on application — same as IEP but a completely fresh window (MA-only plans prohibited)',
       ],
       script: 'Since you just became eligible for Medicare, you\'re actually still in your initial enrollment window. That means we can get you set up with the right plan right now — no special circumstances needed.',
-      verify: 'Ask: "When exactly did your Part B start?" IEP = 7-month window around 65th birthday. ICEP = 6-month window for delayed Part B (extended as of 1/1/2025 to 3 months before + month of + 2 months after). Part A and Part B must have the SAME effective date for IEP; different dates → use ICEP. IEP2 = disability beneficiary turning 65 gets a completely fresh 7-month window — look for 1961 birth year in MARx. Also: OEP-N = if their first MA/MAPD already effectuated and they don\'t like it, they get month of effectuation + 2 months to make ONE change.',
-      nextStep: 'Confirm Part B effective date. Calculate the window. IEP/IEP2 = 7 months, ICEP = 6 months. If already in a plan they don\'t like (OEP-N), they get one change within 3 months of effectuation. If bene was notified of A/B AFTER coverage started → RET (month of notice + 2 months).',
+      verify: 'Ask: "When exactly did your Part B start?" IEP = 7-month window around 65th birthday. ICEP = 5-month window for delayed Part B (extended as of 1/1/2025 to 3 months before + month of + 1 month after). Part A and Part B must have the SAME effective date for IEP; different dates → use ICEP. IEP2 = disability beneficiary turning 65 gets a completely fresh 7-month window — look for 1961 birth year in MARx. Also: OEP-N = if their first MA/MAPD already effectuated and they don\'t like it, they get month of effectuation + 2 months to make ONE change.',
+      nextStep: 'Confirm Part B effective date. Calculate the window. IEP/IEP2 = 7 months, ICEP = 5 months. If already in a plan they don\'t like (OEP-N), they get one change within 3 months of effectuation. If bene was notified of A/B AFTER coverage started → RET (month of notice + 2 months).',
     },
   },
 ]
@@ -348,31 +348,31 @@ const SIGNALS: SignalCard[] = [
 /* Cheat Sheet                                                         */
 /* ------------------------------------------------------------------ */
 
-const CHEAT_SHEET: { category: string; items: { trigger: string; sep: string; window: string; code: string | null; note?: string }[] }[] = [
+const CHEAT_SHEET: { category: string; items: { trigger: string; sep: string; window: string; code: string | null; notes?: string[] }[] }[] = [
   {
     category: 'New to Medicare',
     items: [
-      { trigger: 'Turning 65 / just got Medicare', sep: 'Initial Enrollment Period', window: '7 months (3 before + birthday month + 3 after)', code: 'IEP', note: 'NOT valid for MA-only plans' },
-      { trigger: 'Under-65 disability beneficiary turning 65', sep: 'IEP2 (fresh window)', window: '7 months around 65th birthday', code: 'IEP2 (MRD)', note: '1961 birth year — MA-only prohibited' },
-      { trigger: 'Delayed Part B, now activating', sep: 'Initial Coverage Election Period', window: '6 months (3 before + Part B month + 2 after)', code: 'ICEP', note: 'Extended 1/1/2025. NOT valid for PDP' },
-      { trigger: 'New to Medicare, doesn\'t like first MA/MAPD', sep: 'New Enrollee OEP', window: 'Month of effectuation + 2 months', code: 'OEP-N', note: 'ONE change only. Not for PDP-only or Medigap' },
-      { trigger: 'Notified of A/B AFTER coverage started', sep: 'Retroactive Entitlement', window: 'Month of notice + 2 months', code: 'RET', note: 'Part A and Part B must have same effective date' },
+      { trigger: 'Turning 65 / just got Medicare', sep: 'Initial Enrollment Period', window: '7 months (3 before + birthday month + 3 after)', code: 'IEP', notes: ['Bene just turned 65', 'On disability for 24 months', 'If bene is in an ACTIVE plan that has effectuated, this is no longer a valid option', 'NOT valid for a MA-only plan'] },
+      { trigger: 'Under-65 disability beneficiary turning 65', sep: 'IEP2 (fresh window)', window: '7 months around 65th birthday', code: 'IEP2 (MRD)', notes: ['1961 is the GOLDEN YEAR to look for in MARx DOB', 'MA-only plans are prohibited'] },
+      { trigger: 'Delayed Part B, now activating', sep: 'Initial Coverage Election Period', window: '5 months (3 before + Part B month + 1 after)', code: 'ICEP', notes: ['Part A and Part B have different effective dates', 'Timeframe extended as of 1/1/25', 'NOT valid for a PDP'] },
+      { trigger: 'New to Medicare, doesn\'t like first MA/MAPD', sep: 'New Enrollee OEP', window: 'Month of effectuation + 2 months', code: 'OEP-N', notes: ['Allows ONE CHANGE only', 'Those with only a PDP and/or a Medigap plan are unable to use this'] },
+      { trigger: 'Notified of A/B AFTER coverage started', sep: 'Retroactive Entitlement', window: 'Month of notice + 2 months', code: 'RET', notes: ['If bene has Part A and Part B, they must have the same effective date'] },
     ],
   },
   {
     category: 'Financial Eligibility',
     items: [
-      { trigger: 'Full Medicaid — enrolling in D-SNP', sep: 'Integrated Care SEP', window: 'Any month, repeatable', code: 'INT', note: 'Full-benefit duals only (FBDE, QMB+, SLMB+)' },
-      { trigger: 'Any Medicaid or LIS — PDP change', sep: 'Dual/LIS Monthly SEP', window: 'Any month, repeatable', code: 'DEP', note: 'All Medicaid levels + Extra Help. PDP or drop MA only' },
-      { trigger: 'Lost/gained/changed Medicaid level', sep: 'Medicaid Change SEP', window: '3 months from change', code: 'MCD', note: 'Available all year including after Sept 30' },
-      { trigger: 'Lost/gained/changed Extra Help level', sep: 'Extra Help Change SEP', window: '3 months from change', code: 'NLS', note: 'Available all year including after Sept 30' },
+      { trigger: 'Full Medicaid — enrolling in D-SNP', sep: 'Integrated Care SEP', window: 'Any month, repeatable', code: 'INT', notes: ['Bene MUST have FULL Medicaid (FBDE, QMB+, SLMB+, Full)', 'Please see the INT/MCO Reference Sheet to determine eligibility before enrolling'] },
+      { trigger: 'Any Medicaid or LIS — PDP change', sep: 'Dual/LIS Monthly SEP', window: 'Any month, repeatable', code: 'DEP', notes: ['MUST enroll into a PDP', 'All levels of Medicaid qualify. If bene only has LIS, they are still eligible'] },
+      { trigger: 'Lost/gained/changed Medicaid level', sep: 'Medicaid Change SEP', window: '3 months from change', code: 'MCD', notes: ['Available all year INCLUDING AFTER SEPT 30TH'] },
+      { trigger: 'Lost/gained/changed Extra Help level', sep: 'Extra Help Change SEP', window: '3 months from change', code: 'NLS', notes: ['Available all year INCLUDING AFTER SEPT 30TH'] },
     ],
   },
   {
     category: 'Location / Life Change',
     items: [
-      { trigger: 'Moved to a different ZIP or county', sep: 'Change of Residence SEP', window: 'Mo before (if notified) + mo of + 2 mo after', code: 'MOV', note: 'NOT valid for PO Box change' },
-      { trigger: 'Released from incarceration', sep: 'Post-Incarceration SEP', window: '2 months after release', code: 'INC', note: 'Part A/B SEP is 12 months; MA/PDP is 2 months' },
+      { trigger: 'Moved to a different ZIP or county', sep: 'Change of Residence SEP', window: 'Mo before (if notified) + mo of + 2 mo after', code: 'MOV', notes: ['NOT valid with change of PO Box'] },
+      { trigger: 'Released from incarceration', sep: 'Post-Incarceration SEP', window: '2 months after release', code: 'INC' },
       { trigger: 'Returned to US after living abroad', sep: 'Return to US SEP', window: '2 months after return', code: 'RUS' },
       { trigger: 'Recently became a US citizen', sep: 'Lawful Presence SEP', window: 'Month of + 2 full months', code: 'LAW' },
     ],
@@ -380,24 +380,24 @@ const CHEAT_SHEET: { category: string; items: { trigger: string; sep: string; wi
   {
     category: 'Chronic / Special Needs',
     items: [
-      { trigger: 'Has qualifying chronic condition + C-SNP available', sep: 'C-SNP Eligibility SEP', window: 'One-time per condition', code: 'CSN', note: 'Must enroll INTO a C-SNP. Not CSNP→CSNP same condition' },
-      { trigger: 'Enrolled in state Pharmacy Assistance Program', sep: 'SPAP SEP', window: '1x/year while enrolled; 2 mo after loss', code: 'PAP', note: 'NY EPIC, NJ PAAD, PA PACE/PACENET, WI SeniorCare' },
-      { trigger: 'Leaving PACE program', sep: 'PACE Disenrollment SEP', window: '2 months after disenrollment', code: 'PAC', note: 'Do NOT pull bene out of PACE plan' },
-      { trigger: 'Lost Special Needs status', sep: 'SNP Loss SEP', window: 'Up to 3 months after disenrollment', code: 'SNP', note: 'Ends upon enrollment in another plan' },
+      { trigger: 'Has qualifying chronic condition + C-SNP available', sep: 'C-SNP Eligibility SEP', window: 'Once per calendar year', code: 'CSN', notes: ['MUST be enrolling into a C-SNP', 'Not valid moving bene CSNP to CSNP — UNLESS it is a Specific Condition CSNP going to a different Condition CSNP'] },
+      { trigger: 'Enrolled in state Pharmacy Assistance Program', sep: 'SPAP SEP', window: '1x/year while enrolled; 2 mo after loss', code: 'PAP', notes: ['Check approved options site for eligible programs', 'Very common for those in New York (EPIC), New Jersey (PAAD), Pennsylvania (PACE/PACENET), Wisconsin (SeniorRx)'] },
+      { trigger: 'Leaving PACE program', sep: 'PACE Disenrollment SEP', window: '2 months after disenrollment', code: 'PAC', notes: ['DO NOT pull bene out of PACE plan'] },
+      { trigger: 'Lost Special Needs status', sep: 'SNP Loss SEP', window: "Up to 3 months after the SNP's grace period ends", code: 'SNP', notes: ['Beneficiary no longer eligible for CSNP and/or the Provider failed to verify the chronic condition within 2 months of enrollment'] },
     ],
   },
   {
     category: 'Institutionalized / LTC',
     items: [
-      { trigger: 'In nursing home / SNF / LTC facility → MA/MAPD', sep: 'OEP-I (Institutionalized)', window: 'Unlimited while in facility + 2 mo after', code: 'OEP-I (LT2)', note: 'Does NOT include standard assisted living' },
-      { trigger: 'In nursing home / SNF / LTC facility → PDP', sep: 'LTC SEP', window: 'Unlimited while in facility + 2 mo after', code: 'LTC', note: 'Must enroll in PDP' },
+      { trigger: 'In nursing home / SNF / LTC facility → MA/MAPD', sep: 'OEP-I (Institutionalized)', window: 'Unlimited while in facility + 2 mo after', code: 'OEP-I (LT2)', notes: ['MUST enroll in a MA/MAPD', 'Does NOT include assisted living facilities or residential homes'] },
+      { trigger: 'In nursing home / SNF / LTC facility → PDP', sep: 'LTC SEP', window: 'Unlimited while in facility + 2 mo after', code: 'LTC', notes: ['MUST enroll in a PDP', 'Does NOT include assisted living facilities or residential homes'] },
     ],
   },
   {
     category: 'Involuntary Disenrollment',
     items: [
-      { trigger: 'Lost creditable coverage (VA, TRICARE, ACA)', sep: 'Loss of Creditable Coverage', window: '2 mo from loss or notification (later)', code: 'LCC', note: 'NOT for missed premium payments' },
-      { trigger: 'Lost MAPD because lost Part B', sep: 'Involuntary Loss SEP', window: 'Notice + grace period + 2 mo after', code: 'INV', note: 'Must enroll in PDP only' },
+      { trigger: 'Lost creditable coverage (VA, TRICARE, ACA)', sep: 'Loss of Creditable Coverage', window: '2 mo from loss or notification (later)', code: 'LCC', notes: ['Does NOT apply to benes who missed premium payments and lost coverage'] },
+      { trigger: 'Lost MAPD because lost Part B', sep: 'Involuntary Loss SEP', window: 'Notice + grace period + 2 mo after', code: 'INV', notes: ['MUST enroll in PDP only'] },
       { trigger: 'Plan taken over by state (financial)', sep: 'Receivership SEP', window: 'Until state action ends or member switches', code: 'REC' },
       { trigger: 'Carrier ended plan in ZIP (non-renewal)', sep: 'Plan Non-Renewal SEP', window: 'Dec 8 – end of February', code: 'EOC' },
       { trigger: 'Medicare ended contract with plan', sep: 'Medicare Contract Termination', window: '2 mo before + 1 mo after end', code: 'MYT' },
@@ -406,32 +406,32 @@ const CHEAT_SHEET: { category: string; items: { trigger: string; sep: string; wi
   {
     category: 'Voluntary Changes',
     items: [
-      { trigger: 'Lost employer/union/COBRA coverage', sep: 'Loss of Employer Coverage SEP', window: 'Month of loss + 2 mo after', code: 'LEC', note: 'May coincide with delayed Part B (ICEP)' },
-      { trigger: 'Dropped Cost Plan with drug coverage', sep: 'Cost Plan Disenrollment SEP', window: '2 full months after drop', code: 'OSD', note: 'PDP only' },
-      { trigger: 'Dropped Medigap for first-time MA/MAPD, wants to return', sep: '12-Month Trial Right', window: '12 months from MA start', code: '12G', note: 'Guaranteed-issue Medigap on return' },
-      { trigger: 'Joined MAPD at 65, wants to go back to OM + PDP', sep: 'Age-65 Trial Right', window: '12 months from MAPD start', code: '12J', note: 'Disenrolls from MAPD → Original Medicare + PDP' },
-      { trigger: 'In MAPD but has other drug coverage (VA, TRICARE)', sep: 'Creditable Drug Coverage SEP', window: 'Anytime', code: 'CDC', note: 'Must switch to MA-only plan' },
-      { trigger: 'Auto-enrolled into plan by Medicare', sep: 'Government Enrollment SEP', window: '3 months from effective date', code: 'DIF' },
+      { trigger: 'Lost employer/union/COBRA coverage', sep: 'Loss of Employer Coverage SEP', window: 'Month of loss + 2 mo after', code: 'LEC', notes: ['May coincide with delayed Part B (ICEP)'] },
+      { trigger: 'Dropped Cost Plan with drug coverage', sep: 'Cost Plan Disenrollment SEP', window: '2 full months after drop', code: 'OSD', notes: ['MUST enroll in PDP only'] },
+      { trigger: 'Dropped Medigap for first-time MA/MAPD, wants to return', sep: '12-Month Trial Right', window: '12 months from MA start', code: '12G', notes: ['Also known as: 12-Month Trial Right'] },
+      { trigger: 'Joined MAPD at 65, wants to go back to OM + PDP', sep: 'Age-65 Trial Right', window: '12 months from MAPD start', code: '12J', notes: ['MUST enroll in PDP only'] },
+      { trigger: 'In MAPD but has other drug coverage (VA, TRICARE)', sep: 'Creditable Drug Coverage SEP', window: 'Anytime', code: 'CDC', notes: ['MUST enroll them OUT of a MAPD or PDP and INTO a MA-only plan'] },
+      { trigger: 'Auto-enrolled into plan by Medicare', sep: 'Government Enrollment SEP', window: '3 months from effective date', code: 'DIF', notes: ['MARx may indicate this with an X by the plan', 'The bene may also state they were automatically enrolled by Medicare'] },
     ],
   },
   {
     category: 'Star Ratings',
     items: [
       { trigger: 'Enrolling in a 5-star rated plan', sep: '5-Star SEP', window: 'Dec 8 – Nov 30 (once per year)', code: '5ST' },
-      { trigger: 'Current plan under 3 stars for 3 consecutive years', sep: 'Low-Performing Plan SEP', window: 'Once per calendar year', code: 'LPI', note: 'Must enroll in 3+ star or unrated plan' },
+      { trigger: 'Current plan rated 2.5 stars or lower for 3 consecutive years', sep: 'Low-Performing Plan SEP', window: 'Anytime while enrolled in a low-performing plan', code: 'LPI', notes: ['MUST enroll the bene in a plan with a 3+ star rating'] },
     ],
   },
   {
     category: 'Disaster / Extension',
     items: [
-      { trigger: 'FEMA/state disaster prevented enrollment', sep: 'Disaster SEP', window: 'Duration of emergency + 2 mo after end', code: 'DST', note: 'Extension to another missed SEP — not standalone. Do not proactively market.' },
+      { trigger: 'FEMA/state disaster prevented enrollment', sep: 'Disaster SEP', window: 'Duration of emergency + 2 mo after end', code: 'DST', notes: ['For beneficiaries who have been affected by the disaster', 'Disasters by themselves are NOT a SEP — this is an extension to a missed SEP'] },
     ],
   },
   {
     category: 'Election Periods',
     items: [
-      { trigger: 'Oct 15 – Dec 7', sep: 'Annual Election Period', window: 'Coverage effective Jan 1. Last plan wins.', code: 'AEP' },
-      { trigger: 'Jan 1 – Mar 31 (existing MA plan holders only)', sep: 'MA Open Enrollment Period', window: 'One change. Effective 1st of following month.', code: 'OEP', note: 'Not for Original Medicare enrollees to join MA' },
+      { trigger: 'Oct 15 – Dec 7', sep: 'Annual Election Period', window: 'Coverage effective Jan 1. Last plan wins.', code: 'AEP', notes: ['Last plan standing wins — plan effectuates January 1st of the following year'] },
+      { trigger: 'Jan 1 – Mar 31 (existing MA plan holders only)', sep: 'MA Open Enrollment Period', window: 'One change. Effective 1st of following month.', code: 'OEP', notes: ['MARx will indicate when this SEP was used', 'If the plan has not gone into effect yet, you CAN still use OEP to override it'] },
     ],
   },
 ]
@@ -1206,7 +1206,13 @@ export default function SEPCheckPage() {
                           <span className={styles.cheatTrigger}>{row.trigger}</span>
                           <span className={styles.cheatSep}>
                             {row.sep}
-                            {row.note && <span className={styles.cheatNote}>{row.note}</span>}
+                            {row.notes && row.notes.length > 0 && (
+                              <ul className={styles.cheatNoteList}>
+                                {row.notes.map((n, i) => (
+                                  <li key={i} className={styles.cheatNoteItem}>{n}</li>
+                                ))}
+                              </ul>
+                            )}
                           </span>
                           <span className={styles.cheatWindow}>{row.window}</span>
                           <span className={styles.cheatCodeCol}>{row.code && <code className={styles.cheatCode}>{row.code}</code>}</span>

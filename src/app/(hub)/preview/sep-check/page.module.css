@@ -1404,14 +1404,28 @@
 .cheatTrigger { font-size: 0.75rem; color: var(--ink-60); line-height: 1.45; }
 .cheatSep { font-size: 0.75rem; font-weight: 600; color: var(--ink); line-height: 1.45; }
 
-.cheatNote {
-  display: block;
-  font-size: 0.6875rem;
-  font-weight: 400;
-  color: var(--ink-60);
-  line-height: 1.4;
-  margin-top: 2px;
-  font-style: italic;
+.cheatNoteList {
+  list-style: none;
+  margin: 3px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cheatNoteItem {
+  font-size: 0.75rem;
+  color: var(--ink-50);
+  line-height: 1.5;
+  padding-left: 10px;
+  position: relative;
+}
+
+.cheatNoteItem::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--ink-30);
 }
 
 .cheatCode {
