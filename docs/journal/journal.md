@@ -4,6 +4,65 @@ A running log of meaningful changes to the codebase. Each entry explains what ch
 
 ---
 
+## 2026-03-18 — SEP Check v7: Font Fix + Expandable Detail Panels for All 35 Rows
+
+**Files changed:**
+- `src/app/(hub)/preview/sep-check/page.tsx`
+- `src/app/(hub)/preview/sep-check/page.module.css`
+
+**Why:**
+Two issues remained after v6:
+1. The `.cheatWindow` column was rendering at `0.6875rem` while Trigger, SEP, and Code columns were all `0.75rem` — the Window text looked visibly smaller on every row.
+2. Only 10 of 35 cheat sheet rows had expandable detail panels. The other 25 showed no `▾` icon and couldn't be expanded — meaning agents had no way to drill into those SEPs from the reference table.
+
+**What changed:**
+
+*CSS (1 line):*
+- `.cheatWindow` font-size corrected from `0.6875rem` → `0.75rem`. All four cheat sheet columns now render at the same size.
+
+*Detail panels — 25 new entries added:*
+Each of the following rows now has a `detail` object with `what` (plain-English explanation), `qualify` (checklist of who qualifies), `watch` (edge cases and traps), and `script` where applicable. Content sourced from internal SEP Guide CSV and cross-referenced against CMS enrollment guidance.
+
+| Code | SEP Name |
+|------|----------|
+| RET | Retroactive Entitlement |
+| DEP | Dual/LIS Monthly SEP (PDP) |
+| MCD | Medicaid Change SEP |
+| NLS | Extra Help Change SEP |
+| INC | Post-Incarceration SEP |
+| RUS | Return to US SEP |
+| LAW | Lawful Presence SEP |
+| CSN | C-SNP Eligibility SEP |
+| PAP | SPAP SEP |
+| PAC | PACE Disenrollment SEP |
+| SNP | SNP Loss SEP |
+| LTC | LTC SEP (PDP in facility) |
+| INV | Involuntary Loss SEP |
+| REC | Receivership SEP |
+| EOC | Plan Non-Renewal SEP |
+| MYT | Medicare Contract Termination |
+| LEC | Loss of Employer Coverage SEP |
+| OSD | Cost Plan Disenrollment SEP |
+| 12G | 12-Month Trial Right (Medigap→MA) |
+| 12J | Age-65 Trial Right |
+| CDC | Creditable Drug Coverage SEP |
+| DIF | Government Enrollment SEP |
+| 5ST | 5-Star SEP |
+| LPI | Low-Performing Plan SEP |
+| DST | Disaster SEP |
+
+Notable content decisions:
+- **DST**: Includes the "no proactive marketing" warning and the March 2025 CMS reversal allowing direct agent submission.
+- **CDC**: Explicitly calls out that destination must be MA-only, not a swap between MAPD plans.
+- **12J**: Flags that PDP enrollment is mandatory, not optional.
+- **PAC**: Includes the "DO NOT initiate PACE disenrollment" warning.
+- **INV**: Clarifies the three-phase window (notice → grace period → 2 months after).
+
+**Verification:**
+TypeScript compiled clean (`tsc --noEmit` — no errors). All 35 rows confirmed to have `detail:` entries via grep count.
+
+---
+
 ## 2026-03-16 — SEP Check: Accuracy Overhaul + Full Reference
 
 **Files changed:**
