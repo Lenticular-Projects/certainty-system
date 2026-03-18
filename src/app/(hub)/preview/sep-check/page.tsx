@@ -902,6 +902,362 @@ const itemVariants = {
 }
 
 /* ------------------------------------------------------------------ */
+/* Chronic Condition Search                                            */
+/* ------------------------------------------------------------------ */
+
+interface CsnpCondition {
+  name: string
+  category: string
+  aliases: string[]
+}
+
+const CSNP_CONDITIONS: CsnpCondition[] = [
+  { name: 'Chronic Alcohol / Drug Dependence', category: 'Substance Use', aliases: ['alcoholism', 'alcohol use', 'AUD', 'drug addiction', 'substance abuse', 'substance use disorder', 'SUD', 'opioid use disorder', 'OUD', 'opioid'] },
+  { name: 'Autoimmune Disorder', category: 'Autoimmune', aliases: ['lupus', 'SLE', 'rheumatoid arthritis', 'RA', 'multiple sclerosis', 'MS', 'psoriasis', 'scleroderma', 'Sjogren', 'vasculitis', 'myositis', 'IBD', 'Crohn', "Crohn's", 'ulcerative colitis', "Graves'", 'Hashimoto', 'autoimmune'] },
+  { name: 'Cancer (Active/Invasive)', category: 'Oncology', aliases: ['lung cancer', 'breast cancer', 'prostate cancer', 'colon cancer', 'colorectal cancer', 'leukemia', 'lymphoma', 'bladder cancer', 'kidney cancer', 'pancreatic cancer', 'ovarian cancer', 'melanoma', 'brain tumor', 'chemotherapy', 'chemo', 'radiation', 'cancer', 'oncology'] },
+  { name: 'Cardiovascular Disorder', category: 'Cardiovascular', aliases: ['heart disease', 'coronary artery disease', 'CAD', 'heart attack', 'MI', 'myocardial infarction', 'angina', 'arrhythmia', 'atrial fibrillation', 'AFib', 'aortic stenosis', 'peripheral artery disease', 'PAD', 'pacemaker', 'stent', 'DVT', 'deep vein thrombosis', 'pulmonary embolism', 'blood clot'] },
+  { name: 'Chronic Heart Failure', category: 'Cardiovascular', aliases: ['CHF', 'congestive heart failure', 'heart failure', 'HF', 'cardiomyopathy', 'systolic dysfunction', 'diastolic dysfunction', 'ejection fraction', 'EF'] },
+  { name: 'Dementia', category: 'Neurological', aliases: ["Alzheimer's", 'Alzheimers', 'vascular dementia', 'memory loss', 'cognitive decline', 'Lewy body dementia', 'frontotemporal dementia', 'FTD', 'memory care', 'forgetfulness', 'dementia'] },
+  { name: 'Diabetes Mellitus', category: 'Endocrine', aliases: ['diabetes', 'type 2 diabetes', 'T2D', 'T1D', 'type 1 diabetes', 'insulin', 'metformin', 'A1C', 'diabetic', 'blood sugar', 'glucose', 'Ozempic', 'Januvia', 'Jardiance'] },
+  { name: 'End-Stage Liver Disease', category: 'Hepatic', aliases: ['ESLD', 'cirrhosis', 'liver failure', 'liver disease', 'hepatitis C', 'hep C', 'hepatic', 'portal hypertension', 'ascites', 'liver transplant'] },
+  { name: 'End-Stage Renal Disease (ESRD)', category: 'Renal', aliases: ['ESRD', 'kidney failure', 'renal failure', 'dialysis', 'hemodialysis', 'peritoneal dialysis', 'kidney disease', 'CKD stage 5', 'kidney transplant', 'creatinine', 'GFR'] },
+  { name: 'Hematologic Disorder', category: 'Blood', aliases: ['sickle cell disease', 'sickle cell', 'thalassemia', 'hemophilia', 'multiple myeloma', 'myeloma', 'blood disorder', 'polycythemia', 'myelodysplastic syndrome', 'MDS', 'aplastic anemia'] },
+  { name: 'HIV / AIDS', category: 'Infectious Disease', aliases: ['HIV', 'AIDS', 'human immunodeficiency virus', 'antiretroviral', 'CD4', 'viral load', 'HIV positive', 'Truvada', 'Biktarvy'] },
+  { name: 'Chronic Lung Disorder', category: 'Pulmonary', aliases: ['COPD', 'emphysema', 'chronic bronchitis', 'pulmonary fibrosis', 'IPF', 'asthma', 'pulmonary hypertension', 'oxygen therapy', 'oxygen tank', 'bronchiectasis', 'lung disease', 'nebulizer', 'inhaler', 'albuterol'] },
+  { name: 'Chronic Mental Health Condition', category: 'Behavioral Health', aliases: ['schizophrenia', 'bipolar disorder', 'bipolar', 'major depression', 'major depressive disorder', 'MDD', 'PTSD', 'post-traumatic stress', 'schizoaffective', 'psychosis', 'severe depression', 'treatment-resistant depression', 'psychiatric'] },
+  { name: 'Neurological Disorder', category: 'Neurological', aliases: ["Parkinson's", 'Parkinsons', 'epilepsy', 'seizures', 'ALS', 'amyotrophic lateral sclerosis', "Lou Gehrig's", 'neuropathy', 'Huntington', 'tremors', 'motor neuron disease', 'ataxia', 'cerebral palsy'] },
+  { name: 'Stroke / CVA', category: 'Neurological', aliases: ['stroke', 'CVA', 'cerebrovascular accident', 'TIA', 'mini-stroke', 'hemorrhagic stroke', 'ischemic stroke', 'brain attack', 'cerebral infarction', 'hemiplegia', 'aphasia'] },
+]
+
+function ChronicConditionSearch() {
+  const [query, setQuery] = useState('')
+
+  const trimmed = query.trim().toLowerCase()
+  const matches = trimmed.length < 2 ? [] : CSNP_CONDITIONS.filter(c => {
+    const haystack = [c.name, c.category, ...c.aliases].join(' ').toLowerCase()
+    return haystack.includes(trimmed)
+  })
+  const noMatch = trimmed.length >= 2 && matches.length === 0
+
+  return (
+    <div className={styles.csnpSearch}>
+      <p className={styles.csnpSearchLabel}>Condition Lookup — C-SNP Eligibility</p>
+      <input
+        className={styles.csnpInput}
+        type="text"
+        placeholder="Type a condition (e.g. diabetes, lupus, ESRD…)"
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        autoComplete="off"
+        spellCheck={false}
+      />
+      {matches.length > 0 && (
+        <div className={styles.csnpResultList}>
+          {matches.map((c, i) => (
+            <div key={i} className={styles.csnpMatch}>
+              <div className={styles.csnpMatchTop}>
+                <span className={styles.csnpMatchName}>{c.name}</span>
+                <span className={styles.csnpMatchCategory}>{c.category}</span>
+              </div>
+              <div className={styles.csnpQualify}>
+                <CheckmarkFilled size={12} />
+                Qualifying — verify C-SNP plan availability in carrier portal
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {noMatch && (
+        <p className={styles.csnpNoMatch}>Not on CMS qualifying list — not a C-SNP trigger</p>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Medicaid Router                                                     */
+/* ------------------------------------------------------------------ */
+
+function MedicaidRouter() {
+  const [q1, setQ1] = useState<'yes' | 'no' | null>(null)
+  const [q2, setQ2] = useState<'yes' | 'unsure' | 'no' | null>(null)
+  const [q3, setQ3] = useState<'yes' | 'no' | null>(null)
+
+  function reset() { setQ1(null); setQ2(null); setQ3(null) }
+  function pickQ1(v: 'yes' | 'no') { setQ1(q1 === v ? null : v); setQ2(null); setQ3(null) }
+  function pickQ2(v: 'yes' | 'unsure' | 'no') { setQ2(q2 === v ? null : v); setQ3(null) }
+  function pickQ3(v: 'yes' | 'no') { setQ3(q3 === v ? null : v) }
+
+  return (
+    <div className={styles.routerBlock}>
+      <p className={styles.routerQuestion}>Do they currently have Medicaid or Extra Help (LIS)?</p>
+      <div className={styles.oepForkRow}>
+        <button
+          className={`${styles.oepForkBtn} ${styles.oepForkYes} ${q1 === 'yes' ? styles.oepForkSelected : ''} ${q1 === 'no' ? styles.oepForkFaded : ''}`}
+          onClick={() => pickQ1('yes')}
+          aria-pressed={q1 === 'yes'}
+        >
+          <CheckmarkFilled size={14} /> YES — has Medicaid or LIS
+        </button>
+        <button
+          className={`${styles.oepForkBtn} ${styles.oepForkNo} ${q1 === 'no' ? styles.oepForkSelected : ''} ${q1 === 'yes' ? styles.oepForkFaded : ''}`}
+          onClick={() => pickQ1('no')}
+          aria-pressed={q1 === 'no'}
+        >
+          <CloseFilled size={14} /> NO — neither
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {q1 === 'no' && (
+          <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+            <div className={`${styles.oepResultInner} ${styles.oepResultNo}`}>
+              <p className={styles.oepResultTitle}>No dual/LIS SEP available. Move on.</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {q1 === 'yes' && (
+          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+            <p className={styles.routerQuestion}>Is it full Medicaid? (State covers premiums, copays, and deductibles)</p>
+            <div className={styles.routerThreeRow}>
+              <button
+                className={`${styles.oepForkBtn} ${styles.oepForkYes} ${q2 === 'yes' ? styles.oepForkSelected : ''} ${q2 !== null && q2 !== 'yes' ? styles.oepForkFaded : ''}`}
+                onClick={() => pickQ2('yes')}
+                aria-pressed={q2 === 'yes'}
+              >
+                YES — Full Medicaid
+              </button>
+              <button
+                className={`${styles.oepForkBtn} ${styles.oepForkNo} ${q2 === 'unsure' ? styles.oepForkSelected : ''} ${q2 !== null && q2 !== 'unsure' ? styles.oepForkFaded : ''}`}
+                onClick={() => pickQ2('unsure')}
+                aria-pressed={q2 === 'unsure'}
+              >
+                NOT SURE
+              </button>
+              <button
+                className={`${styles.oepForkBtn} ${styles.oepForkNo} ${q2 === 'no' ? styles.oepForkSelected : ''} ${q2 !== null && q2 !== 'no' ? styles.oepForkFaded : ''}`}
+                onClick={() => pickQ2('no')}
+                aria-pressed={q2 === 'no'}
+              >
+                NO — LIS / partial only
+              </button>
+            </div>
+
+            <AnimatePresence>
+              {q2 === 'yes' && (
+                <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+                  <div className={`${styles.oepResultInner} ${styles.oepResultYes}`}>
+                    <p className={styles.oepResultTitle}>INT — Integrated Care SEP</p>
+                    <p className={styles.oepResultSub}>Enroll in aligned D-SNP, any month. Also check DEP for PDP changes.</p>
+                  </div>
+                </motion.div>
+              )}
+              {q2 === 'unsure' && (
+                <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+                  <div className={`${styles.oepResultInner} ${styles.oepResultNo}`}>
+                    <p className={styles.oepResultTitle}>Ask: is income below the threshold?</p>
+                    <p className={styles.oepResultSub}>Under $1,903/mo (single) or $2,575/mo (couple)? If yes, likely QMB — qualifies for both INT and DEP.</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {q2 === 'no' && (
+              <>
+                <p className={styles.routerQuestion}>Did their Medicaid or Extra Help status recently change?</p>
+                <div className={styles.oepForkRow}>
+                  <button
+                    className={`${styles.oepForkBtn} ${styles.oepForkYes} ${q3 === 'yes' ? styles.oepForkSelected : ''} ${q3 === 'no' ? styles.oepForkFaded : ''}`}
+                    onClick={() => pickQ3('yes')}
+                    aria-pressed={q3 === 'yes'}
+                  >
+                    <CheckmarkFilled size={14} /> YES — recently changed
+                  </button>
+                  <button
+                    className={`${styles.oepForkBtn} ${styles.oepForkNo} ${q3 === 'no' ? styles.oepForkSelected : ''} ${q3 === 'yes' ? styles.oepForkFaded : ''}`}
+                    onClick={() => pickQ3('no')}
+                    aria-pressed={q3 === 'no'}
+                  >
+                    <CloseFilled size={14} /> NO — same status ongoing
+                  </button>
+                </div>
+                <AnimatePresence>
+                  {q3 === 'yes' && (
+                    <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+                      <div className={`${styles.oepResultInner} ${styles.oepResultYes}`}>
+                        <p className={styles.oepResultTitle}>MCD or NLS — 3-month window</p>
+                        <p className={styles.oepResultSub}>From change date. Available all year, even after Sept 30.</p>
+                      </div>
+                    </motion.div>
+                  )}
+                  {q3 === 'no' && (
+                    <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+                      <div className={`${styles.oepResultInner} ${styles.oepResultYes}`}>
+                        <p className={styles.oepResultTitle}>DEP — Dual/LIS Monthly SEP</p>
+                        <p className={styles.oepResultSub}>PDP changes only, any month, repeatable.</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {q1 !== null && (
+        <button className={styles.routerReset} onClick={reset}>Start over</button>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* IEP Classifier                                                      */
+/* ------------------------------------------------------------------ */
+
+function IEPClassifier() {
+  const [q1, setQ1] = useState<'yes' | 'no' | null>(null)
+  const [q2, setQ2] = useState<'yes' | 'no' | null>(null)
+  const [q3, setQ3] = useState<'yes' | 'no-retro' | 'no-clean' | null>(null)
+
+  function reset() { setQ1(null); setQ2(null); setQ3(null) }
+  function pickQ1(v: 'yes' | 'no') { setQ1(q1 === v ? null : v); setQ2(null); setQ3(null) }
+  function pickQ2(v: 'yes' | 'no') { setQ2(q2 === v ? null : v); setQ3(null) }
+  function pickQ3(v: 'yes' | 'no-retro' | 'no-clean') { setQ3(q3 === v ? null : v) }
+
+  return (
+    <div className={styles.routerBlock}>
+      <p className={styles.routerQuestion}>Do Part A and Part B have the same effective date?</p>
+      <div className={styles.oepForkRow}>
+        <button
+          className={`${styles.oepForkBtn} ${styles.oepForkYes} ${q1 === 'yes' ? styles.oepForkSelected : ''} ${q1 === 'no' ? styles.oepForkFaded : ''}`}
+          onClick={() => pickQ1('yes')}
+          aria-pressed={q1 === 'yes'}
+        >
+          <CheckmarkFilled size={14} /> YES — same date
+        </button>
+        <button
+          className={`${styles.oepForkBtn} ${styles.oepForkNo} ${q1 === 'no' ? styles.oepForkSelected : ''} ${q1 === 'yes' ? styles.oepForkFaded : ''}`}
+          onClick={() => pickQ1('no')}
+          aria-pressed={q1 === 'no'}
+        >
+          <CloseFilled size={14} /> NO — different dates
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {q1 === 'no' && (
+          <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+            <div className={`${styles.oepResultInner} ${styles.oepResultYes}`}>
+              <p className={styles.oepResultTitle}>ICEP — 5-month window</p>
+              <p className={styles.oepResultSub}>3 before Part B month + month of + 1 after. Part B was delayed — use Part B effective date as the anchor.</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {q1 === 'yes' && (
+          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+            <p className={styles.routerQuestion}>Are they on disability and turning 65?</p>
+            <div className={styles.oepForkRow}>
+              <button
+                className={`${styles.oepForkBtn} ${styles.oepForkYes} ${q2 === 'yes' ? styles.oepForkSelected : ''} ${q2 === 'no' ? styles.oepForkFaded : ''}`}
+                onClick={() => pickQ2('yes')}
+                aria-pressed={q2 === 'yes'}
+              >
+                <CheckmarkFilled size={14} /> YES — disability + 65
+              </button>
+              <button
+                className={`${styles.oepForkBtn} ${styles.oepForkNo} ${q2 === 'no' ? styles.oepForkSelected : ''} ${q2 === 'yes' ? styles.oepForkFaded : ''}`}
+                onClick={() => pickQ2('no')}
+                aria-pressed={q2 === 'no'}
+              >
+                <CloseFilled size={14} /> NO — standard enrollment
+              </button>
+            </div>
+
+            <AnimatePresence>
+              {q2 === 'yes' && (
+                <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+                  <div className={`${styles.oepResultInner} ${styles.oepResultYes}`}>
+                    <p className={styles.oepResultTitle}>IEP2 — Fresh 7-month window at 65</p>
+                    <p className={styles.oepResultSub}>Look for 1961 DOB in MARx. MA-only plans are prohibited.</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {q2 === 'no' && (
+              <>
+                <p className={styles.routerQuestion}>Have they already enrolled in an MA/MAPD plan that has effectuated?</p>
+                <div className={styles.routerThreeRow}>
+                  <button
+                    className={`${styles.oepForkBtn} ${styles.oepForkYes} ${q3 === 'yes' ? styles.oepForkSelected : ''} ${q3 !== null && q3 !== 'yes' ? styles.oepForkFaded : ''}`}
+                    onClick={() => pickQ3('yes')}
+                    aria-pressed={q3 === 'yes'}
+                  >
+                    YES — plan effectuated
+                  </button>
+                  <button
+                    className={`${styles.oepForkBtn} ${styles.oepForkNo} ${q3 === 'no-retro' ? styles.oepForkSelected : ''} ${q3 !== null && q3 !== 'no-retro' ? styles.oepForkFaded : ''}`}
+                    onClick={() => pickQ3('no-retro')}
+                    aria-pressed={q3 === 'no-retro'}
+                  >
+                    NO — notified retroactively
+                  </button>
+                  <button
+                    className={`${styles.oepForkBtn} ${styles.oepForkNo} ${q3 === 'no-clean' ? styles.oepForkSelected : ''} ${q3 !== null && q3 !== 'no-clean' ? styles.oepForkFaded : ''}`}
+                    onClick={() => pickQ3('no-clean')}
+                    aria-pressed={q3 === 'no-clean'}
+                  >
+                    NO — hasn&apos;t enrolled yet
+                  </button>
+                </div>
+                <AnimatePresence>
+                  {q3 === 'yes' && (
+                    <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+                      <div className={`${styles.oepResultInner} ${styles.oepResultYes}`}>
+                        <p className={styles.oepResultTitle}>OEP-N — One change available</p>
+                        <p className={styles.oepResultSub}>Window: month of effectuation + 2 months.</p>
+                      </div>
+                    </motion.div>
+                  )}
+                  {q3 === 'no-retro' && (
+                    <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+                      <div className={`${styles.oepResultInner} ${styles.oepResultYes}`}>
+                        <p className={styles.oepResultTitle}>RET — Retroactive entitlement</p>
+                        <p className={styles.oepResultSub}>Window: month of notification + 2 months.</p>
+                      </div>
+                    </motion.div>
+                  )}
+                  {q3 === 'no-clean' && (
+                    <motion.div className={styles.oepResult} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }}>
+                      <div className={`${styles.oepResultInner} ${styles.oepResultYes}`}>
+                        <p className={styles.oepResultTitle}>IEP — 7-month window</p>
+                        <p className={styles.oepResultSub}>3 before 65th birthday month + birthday month + 3 after. Confirm Part B start date.</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {q1 !== null && (
+        <button className={styles.routerReset} onClick={reset}>Start over</button>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
 /* Signal Card Item Component                                          */
 /* ------------------------------------------------------------------ */
 
@@ -982,8 +1338,6 @@ function SignalCardItem({
           <div className={styles.signalAskHear}>
             <span className={styles.askTag}>ASK</span>
             <span className={styles.askText}>{sig.askThis}</span>
-            <span className={styles.hearDot}>·</span>
-            <span className={styles.hearTag}>HEAR</span>
             <span className={styles.hearKeywords}>{sig.listenFor.slice(0, 3).join(' · ')}</span>
           </div>
         </div>
@@ -1024,7 +1378,6 @@ function SignalCardItem({
 
               {/* Full listen-for list */}
               <div className={styles.hearFullRow}>
-                <span className={styles.hearLabel}>Listen for</span>
                 <p className={styles.hearText}>{sig.listenFor.join(' · ')}</p>
               </div>
 
@@ -1082,6 +1435,10 @@ function SignalCardItem({
                   <p>{sig.sep.warning}</p>
                 </div>
               )}
+
+              {sig.id === 'dual-lis' && <MedicaidRouter />}
+              {sig.id === 'new-to-medicare' && <IEPClassifier />}
+              {sig.id === 'chronic' && <ChronicConditionSearch />}
 
             </div>
           </motion.div>

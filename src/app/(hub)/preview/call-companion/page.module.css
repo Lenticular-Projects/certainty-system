@@ -1,0 +1,525 @@
+/* ============================================================
+   Call Companion — Live Call Four-Stage Panel
+   ============================================================ */
+
+/* ---- Page Header ---- */
+.eyebrow {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-2);
+}
+
+.pageTitle { margin: 0 0 var(--space-1); }
+
+.pageDesc {
+  font-size: 0.9375rem;
+  color: var(--ink-60);
+  margin-bottom: var(--space-6);
+  line-height: 1.5;
+}
+
+/* ---- Stage Layout ---- */
+.stageStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-bottom: var(--space-10);
+}
+
+/* ---- Stage Card (glass) ---- */
+.stageCard {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.stageHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5) var(--space-3);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.07);
+}
+
+.stageNum {
+  font-size: 0.5625rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  background: rgba(19, 17, 16, 0.07);
+  border-radius: 3px;
+  padding: 2px 6px;
+  flex-shrink: 0;
+}
+
+.stageLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.stageTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+  min-width: 0;
+}
+
+.stageBody {
+  padding: var(--space-4) var(--space-5);
+}
+
+/* ---- Shared Input ---- */
+.stageInput {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid rgba(19, 17, 16, 0.15);
+  border-radius: 6px;
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  margin-bottom: var(--space-3);
+}
+.stageInput:focus { border-color: var(--ink-60); }
+.stageInput::placeholder { color: var(--ink-40); }
+
+/* ---- Stage 1: Call Type ---- */
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.typeChip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(19, 17, 16, 0.15);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s, border-color 0.12s;
+}
+.typeChip:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+.typeChipDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dotGreen { background: var(--sage); }
+.dotYellow { background: var(--mustard, #C49A20); }
+.dotRed { background: var(--terracotta, #B84420); }
+
+/* Call type result card */
+.typeResult {
+  border-radius: 8px;
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+}
+
+.typeResultTop {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.typeResultNum {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--ink-60);
+  background: rgba(19, 17, 16, 0.07);
+  border-radius: 3px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.typeResultTitleGroup { flex: 1; min-width: 0; }
+
+.typeResultTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.typeResultSignal {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.typeResultSignal.sigGreen { color: var(--sage-dark); }
+.typeResultSignal.sigYellow { color: var(--mustard-dark, #92400e); }
+.typeResultSignal.sigRed { color: var(--tc-dark, #B84420); }
+
+.typeResultDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.typeResultGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.typeResultRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.typeRowLabel {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  flex-shrink: 0;
+  width: 100px;
+}
+
+.typeRowValue {
+  font-size: 0.875rem;
+  color: var(--ink);
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.typeRowValueBold {
+  font-size: 0.875rem;
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.keyMovesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.keyMovesList li {
+  font-size: 0.8125rem;
+  color: var(--ink);
+  line-height: 1.5;
+  padding-left: var(--space-3);
+  position: relative;
+}
+.keyMovesList li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--ink-40);
+  font-weight: 700;
+}
+
+/* ---- Stage 2: Signal Buttons ---- */
+.signalBtnRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.signalBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1.5px solid transparent;
+  min-height: 44px;
+  background: rgba(19, 17, 16, 0.04);
+  color: var(--ink);
+  border-color: rgba(19, 17, 16, 0.12);
+}
+.signalBtn:hover { background: rgba(19, 17, 16, 0.08); }
+
+.signalBtnGreen.signalBtnSelected {
+  background: rgba(106, 139, 110, 0.15);
+  color: var(--sage-dark);
+  border-color: var(--sage);
+}
+.signalBtnYellow.signalBtnSelected {
+  background: rgba(196, 154, 32, 0.12);
+  color: var(--mustard-dark, #92400e);
+  border-color: var(--mustard, #C49A20);
+}
+.signalBtnRed.signalBtnSelected {
+  background: rgba(184, 68, 32, 0.1);
+  color: var(--tc-dark, #B84420);
+  border-color: var(--terracotta, #B84420);
+}
+.signalBtnFaded { opacity: 0.4; }
+
+.signalBtnDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dotBtnGreen { background: var(--sage); }
+.dotBtnYellow { background: var(--mustard, #C49A20); }
+.dotBtnRed { background: var(--terracotta, #B84420); }
+
+/* Signal result card */
+.signalResult {
+  border-radius: 8px;
+  padding: var(--space-4);
+  border: 1px solid transparent;
+}
+.signalResultGreen {
+  background: rgba(106, 139, 110, 0.08);
+  border-color: rgba(106, 139, 110, 0.25);
+  border-left: 3px solid var(--sage);
+}
+.signalResultYellow {
+  background: rgba(196, 154, 32, 0.07);
+  border-color: rgba(196, 154, 32, 0.25);
+  border-left: 3px solid var(--mustard, #C49A20);
+}
+.signalResultRed {
+  background: rgba(184, 68, 32, 0.07);
+  border-color: rgba(184, 68, 32, 0.2);
+  border-left: 3px solid var(--terracotta, #B84420);
+}
+
+.signalResultLabel {
+  font-size: 0.5625rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+.signalResultGreen .signalResultLabel { color: var(--sage-dark); }
+.signalResultYellow .signalResultLabel { color: var(--mustard-dark, #92400e); }
+.signalResultRed .signalResultLabel { color: var(--tc-dark, #B84420); }
+
+.signalResultMove {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: var(--space-3);
+}
+
+.signalResultPillar {
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+  margin-bottom: var(--space-2);
+}
+.signalResultPillar strong { color: var(--ink); }
+
+.signalBridgeList {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.signalBridgeList li {
+  font-size: 0.875rem;
+  color: var(--ink);
+  line-height: 1.5;
+  font-style: italic;
+  padding-left: var(--space-3);
+  position: relative;
+}
+.signalBridgeList li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--ink-40);
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ---- Stage 3: Objections ---- */
+.noMatch {
+  font-size: 0.875rem;
+  color: var(--ink-60);
+  padding: var(--space-3) var(--space-4);
+  background: var(--cream-2);
+  border-radius: 6px;
+}
+
+.objResultList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.objCard {
+  border-radius: 8px;
+  padding: var(--space-4);
+  border: 1px solid transparent;
+}
+.objCardGreen { background: rgba(106, 139, 110, 0.06); border-color: rgba(106, 139, 110, 0.2); border-left: 3px solid var(--sage); }
+.objCardYellow { background: rgba(196, 154, 32, 0.06); border-color: rgba(196, 154, 32, 0.2); border-left: 3px solid var(--mustard, #C49A20); }
+.objCardRed { background: rgba(184, 68, 32, 0.06); border-color: rgba(184, 68, 32, 0.18); border-left: 3px solid var(--terracotta, #B84420); }
+
+.objPhrase {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+.objUnderneath {
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+  line-height: 1.55;
+  font-style: italic;
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.07);
+}
+
+.objResponses {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.objResponseItem {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  padding: var(--space-3);
+}
+
+.objResponseLabel {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-1);
+}
+
+.objResponseText {
+  font-size: 0.875rem;
+  color: var(--ink);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.objAvoidToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-60);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+}
+.objAvoidToggle:hover { color: var(--ink); }
+
+.objAvoidList {
+  margin-top: var(--space-2);
+  padding-left: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.objAvoidList li {
+  font-size: 0.8125rem;
+  color: var(--tc-dark, #B84420);
+  line-height: 1.5;
+  list-style: none;
+  position: relative;
+  padding-left: var(--space-3);
+}
+.objAvoidList li::before {
+  content: '✕';
+  position: absolute;
+  left: 0;
+  font-size: 0.625rem;
+  color: var(--tc-dark, #B84420);
+}
+
+/* ---- Stage 4: Close Bridge ---- */
+.bridgeResult {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+  border-left: 3px solid var(--sage);
+  border-radius: 8px;
+  padding: var(--space-4);
+}
+
+.bridgeBenefit {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-3);
+}
+
+.bridgeScript {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink);
+  font-style: italic;
+  border-left: 2px solid var(--sage);
+  padding-left: var(--space-3);
+  margin: 0;
+}
+
+.bridgeSituation {
+  font-size: 0.75rem;
+  color: var(--ink-60);
+  margin-bottom: var(--space-2);
+  line-height: 1.4;
+}
+
+/* ---- Focus states ---- */
+.signalBtn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.typeChip:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.objAvoidToggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }

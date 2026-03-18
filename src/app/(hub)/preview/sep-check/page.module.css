@@ -405,6 +405,50 @@
 }
 .oepShowSignals:hover { background: rgba(19, 17, 16, 0.04); }
 
+/* ---- Medicaid Router + IEP Classifier ---- */
+.routerBlock {
+  margin-top: var(--space-3);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.routerQuestion {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  padding: var(--space-4) var(--space-5) var(--space-3);
+  margin: 0;
+}
+
+.routerThreeRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-2);
+  padding: 0 var(--space-4) var(--space-3);
+}
+
+.routerReset {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.75rem;
+  font-family: inherit;
+  color: var(--ink-60);
+  background: none;
+  border: none;
+  border-top: 1px solid rgba(19, 17, 16, 0.06);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.routerReset:hover { color: var(--ink); }
+.routerReset:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
 /* ---- Shared block utility ---- */
 .blockHeading {
   display: flex;
@@ -1519,6 +1563,7 @@
   .cheatNav { grid-template-columns: repeat(2, 1fr); }
 
   .oepForkRow { grid-template-columns: 1fr; }
+  .routerThreeRow { grid-template-columns: 1fr; }
 
   .cheatHeader,
   .cheatRow {
@@ -1624,6 +1669,96 @@
   transition: background 0.15s;
 }
 .undoBtn:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* ---- Chronic Condition Search ---- */
+.csnpSearch {
+  margin-top: var(--space-3);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+  border-radius: 8px;
+  padding: var(--space-3);
+}
+
+.csnpSearchLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin: 0 0 var(--space-2);
+}
+
+.csnpInput {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid rgba(19, 17, 16, 0.15);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.csnpInput:focus { border-color: var(--ink-60); }
+.csnpInput::placeholder { color: var(--ink-40); }
+
+.csnpResultList {
+  margin-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.csnpMatch {
+  background: rgba(45, 90, 61, 0.08);
+  border: 1px solid rgba(45, 90, 61, 0.2);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.csnpMatchTop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.csnpMatchName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.csnpMatchCategory {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  background: rgba(19, 17, 16, 0.06);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.csnpQualify {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: #2D5A3D;
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+.csnpNoMatch {
+  font-size: 0.8125rem;
+  color: #B84420;
+  padding: 6px 0 2px;
+  margin: var(--space-2) 0 0;
+}
 
 /* ---- Focus states ---- */
 .signalTap:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
