@@ -976,7 +976,7 @@ function SignalCardItem({
               {sig.phase}
             </span>
             {sig.frequency === 'high' && state === 'unchecked' && (
-              <span className={styles.signalFreqHighBadge}>High</span>
+              <span className={styles.signalFreqHighBadge}>High Priority</span>
             )}
           </div>
           <div className={styles.signalAskHear}>
