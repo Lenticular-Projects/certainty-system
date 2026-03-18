@@ -520,6 +520,27 @@
   margin-top: var(--space-2);
 }
 
+.femaStale {
+  font-size: 0.75rem;
+  color: var(--mustard-dark);
+  background: var(--mustard-tint);
+  border: 1px solid rgba(196, 154, 32, 0.25);
+  border-radius: 6px;
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+  line-height: 1.45;
+}
+
+.femaZipBadge {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--ink-60);
+  background: rgba(19, 17, 16, 0.05);
+  border-radius: 4px;
+  padding: 2px var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
 .femaNoMatch {
   display: flex;
   align-items: flex-start;

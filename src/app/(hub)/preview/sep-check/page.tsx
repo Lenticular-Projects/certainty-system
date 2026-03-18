@@ -1463,6 +1463,9 @@ export default function SEPCheckPage() {
   const [femaResults, setFemaResults] = useState<FemaDeclaration[]>([])
   const [femaSearched, setFemaSearched] = useState(false)
   const [femaDeclarations, setFemaDeclarations] = useState<FemaDeclaration[]>([])
+  const [femaLastUpdated, setFemaLastUpdated] = useState<string>('')
+  const [femaError, setFemaError] = useState<string | null>(null)
+  const [zipContext, setZipContext] = useState<string>('')
   const [enrollmentPeriod, setEnrollmentPeriod] = useState<EnrollmentPeriod | null>(null)
   const [showCheatSheet, setShowCheatSheet] = useState(false)
   const [oepChoice, setOepChoice] = useState<'yes' | 'no' | null>(null)
@@ -1480,7 +1483,10 @@ export default function SEPCheckPage() {
     setEnrollmentPeriod(getEnrollmentPeriod(new Date()))
     fetch('/data/fema-active.json')
       .then(r => r.json())
-      .then(d => setFemaDeclarations(d.declarations || []))
+      .then(d => {
+        setFemaDeclarations(d.declarations || [])
+        setFemaLastUpdated(d.lastUpdated || '')
+      })
       .catch(() => {})
   }, [])
 
@@ -1513,14 +1519,35 @@ export default function SEPCheckPage() {
     setExpandedSignal(prev => prev === id ? null : id)
   }
 
-  function handleFemaSearch() {
-    const query = femaInput.trim().toLowerCase()
-    if (!query) return
+  async function handleFemaSearch() {
+    const rawQuery = femaInput.trim()
+    if (!rawQuery) return
+    setFemaError(null)
+    setZipContext('')
+    let resolvedQuery = rawQuery.toLowerCase()
+    if (/^\d{5}$/.test(rawQuery)) {
+      try {
+        const res = await fetch(`https://api.zippopotam.us/us/${rawQuery}`)
+        if (res.ok) {
+          const data = await res.json()
+          const place = data.places[0]
+          const resolved = `ZIP ${rawQuery} \u2192 ${place['place name']}, ${place.state}`
+          setZipContext(resolved)
+          resolvedQuery = place.state.toLowerCase()
+        } else {
+          setFemaError(`ZIP code ${rawQuery} not found. Try searching by state or county name.`)
+          setFemaSearched(true)
+          return
+        }
+      } catch {
+        // Network error — fall through to text search with original input
+      }
+    }
     const today = new Date()
     const matches = femaDeclarations.filter(d => {
       if (new Date(d.sepEndDate) < today) return false
-      const stateMatch = d.state.toLowerCase().includes(query)
-      const countyMatch = !d.allCounties && d.counties.some(c => c.toLowerCase().includes(query))
+      const stateMatch = d.state.toLowerCase().includes(resolvedQuery)
+      const countyMatch = !d.allCounties && d.counties.some(c => c.toLowerCase().includes(resolvedQuery))
       return stateMatch || countyMatch
     })
     setFemaResults(matches)
@@ -1539,6 +1566,8 @@ export default function SEPCheckPage() {
     setFemaInput('')
     setFemaResults([])
     setFemaSearched(false)
+    setFemaError(null)
+    setZipContext('')
     setOepChoice(null)
     setExpandedCheat(null)
     undoTimerRef.current = setTimeout(() => setUndoSnapshot(null), 8000)
@@ -1791,9 +1820,14 @@ export default function SEPCheckPage() {
                   FEMA Disaster SEP — Check State or County
                 </p>
                 <p className={styles.blockSub}>
-                  Run this when you get their state. Type the state name or county name — not ZIP.
+                  Run this when you get their state. Type a state, county, or 5-digit ZIP.
                   If there&apos;s an active declaration, <strong>DST SEP</strong> may apply.
                 </p>
+                {femaLastUpdated && (Date.now() - new Date(femaLastUpdated).getTime()) / 86400000 > 30 && (
+                  <div className={styles.femaStale}>
+                    Data last updated {femaLastUpdated}. Check for a new Humana compliance communication.
+                  </div>
+                )}
                 <div className={styles.femaInputRow}>
                   <input
                     ref={femaInputRef}
@@ -1801,15 +1835,15 @@ export default function SEPCheckPage() {
                     type="text"
                     value={femaInput}
                     onChange={e => setFemaInput(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handleFemaSearch()}
-                    placeholder="State name or county — e.g. Florida, Texas, Harris..."
+                    onKeyDown={e => { if (e.key === 'Enter') handleFemaSearch() }}
+                    placeholder="State, county, or ZIP — e.g. Florida, Harris, 33601..."
                   />
                   <button className={styles.femaBtn} onClick={handleFemaSearch}>
                     Check
                   </button>
                 </div>
                 <p className={styles.femaHint}>
-                  Don&apos;t have a county? Type the state. ZIP → state: check their address in the system.
+                  ZIP codes are resolved to state automatically. Don&apos;t have a county? Type the state.
                 </p>
 
                 <AnimatePresence>
@@ -1820,7 +1854,15 @@ export default function SEPCheckPage() {
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      {femaResults.length === 0 ? (
+                      {zipContext && (
+                        <div className={styles.femaZipBadge}>{zipContext}</div>
+                      )}
+                      {femaError ? (
+                        <div className={styles.femaNoMatch}>
+                          <CloseFilled size={14} />
+                          <span>{femaError}</span>
+                        </div>
+                      ) : femaResults.length === 0 ? (
                         <div className={styles.femaNoMatch}>
                           <CloseFilled size={14} />
                           <span>No active declarations for &quot;{femaInput}&quot;. Verify at fema.gov/disasters before concluding no DST SEP exists.</span>
