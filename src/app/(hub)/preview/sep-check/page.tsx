@@ -1449,6 +1449,23 @@ function SignalCardItem({
 }
 
 /* ------------------------------------------------------------------ */
+/* County normalization — strips admin suffixes and standardizes      */
+/* Saint/St. so Nominatim results match declaration county names      */
+/* ------------------------------------------------------------------ */
+function normalizeCounty(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\bsaint\b/g, 'st')
+    .replace(/\./g, '')
+    .replace(/ county$/i, '')
+    .replace(/ parish$/i, '')
+    .replace(/ borough$/i, '')
+    .replace(/ census area$/i, '')
+    .replace(/ municipality$/i, '')
+    .trim()
+}
+
+/* ------------------------------------------------------------------ */
 /* Main Component                                                      */
 /* ------------------------------------------------------------------ */
 
@@ -1478,6 +1495,8 @@ export default function SEPCheckPage() {
   const femaInputRef = useRef<HTMLInputElement>(null)
   const signalRefs = useRef<Map<string, HTMLDivElement>>(new Map())
   const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const liveSearchRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const searchVersionRef = useRef(0)
 
   useEffect(() => {
     setEnrollmentPeriod(getEnrollmentPeriod(new Date()))
@@ -1489,6 +1508,27 @@ export default function SEPCheckPage() {
       })
       .catch(() => {})
   }, [])
+
+  useEffect(() => {
+    if (liveSearchRef.current) clearTimeout(liveSearchRef.current)
+    const trimmed = femaInput.trim()
+    if (!trimmed) {
+      ++searchVersionRef.current  // invalidate any in-flight async searches
+      setFemaResults([])
+      setFemaSearched(false)
+      setFemaError(null)
+      setZipContext('')
+      return
+    }
+    // Don't search partial ZIPs (1–4 digits only)
+    if (/^\d{1,4}$/.test(trimmed)) {
+      ++searchVersionRef.current  // invalidate any in-flight async searches
+      return
+    }
+    const isCompleteZip = /^\d{5}$/.test(trimmed)
+    liveSearchRef.current = setTimeout(() => runSearch(trimmed), isCompleteZip ? 0 : 350)
+    return () => { if (liveSearchRef.current) clearTimeout(liveSearchRef.current) }
+  }, [femaInput, femaDeclarations]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Derived state
   const activeSignals = Array.from(signalStates.entries()).filter(([, s]) => s === 'active').map(([id]) => id)
@@ -1519,22 +1559,45 @@ export default function SEPCheckPage() {
     setExpandedSignal(prev => prev === id ? null : id)
   }
 
-  async function handleFemaSearch() {
-    const rawQuery = femaInput.trim()
+  async function runSearch(rawQuery: string) {
     if (!rawQuery) return
+    const myVersion = ++searchVersionRef.current
     setFemaError(null)
     setZipContext('')
-    let resolvedQuery = rawQuery.toLowerCase()
+    let resolvedState: string | null = null
+    let resolvedCounty: string | null = null   // normalized form for matching
+
     if (/^\d{5}$/.test(rawQuery)) {
       try {
         const res = await fetch(`https://api.zippopotam.us/us/${rawQuery}`)
+        if (myVersion !== searchVersionRef.current) return  // stale
         if (res.ok) {
           const data = await res.json()
           const place = data.places[0]
-          const resolved = `ZIP ${rawQuery} \u2192 ${place['place name']}, ${place.state}`
-          setZipContext(resolved)
-          resolvedQuery = place.state.toLowerCase()
+          const city = place['place name']
+          const state = place.state
+          resolvedState = state.toLowerCase()
+
+          // Try to resolve county via Nominatim for precise county-level filtering
+          let countyLabel = ''
+          try {
+            const nomRes = await fetch(
+              `https://nominatim.openstreetmap.org/search?postalcode=${rawQuery}&countrycodes=US&format=json&addressdetails=1&limit=1`
+            )
+            if (myVersion !== searchVersionRef.current) return  // stale
+            if (nomRes.ok) {
+              const nomData = await nomRes.json()
+              const rawCounty: string | undefined = nomData[0]?.address?.county
+              if (rawCounty) {
+                resolvedCounty = normalizeCounty(rawCounty)
+                countyLabel = ` (${rawCounty})`
+              }
+            }
+          } catch { /* no county — fall back to state-level results */ }
+
+          setZipContext(`ZIP ${rawQuery} \u2192 ${city}, ${state}${countyLabel}`)
         } else {
+          if (myVersion !== searchVersionRef.current) return  // stale
           setFemaError(`ZIP code ${rawQuery} not found. Try searching by state or county name.`)
           setFemaSearched(true)
           return
@@ -1543,15 +1606,42 @@ export default function SEPCheckPage() {
         // Network error — fall through to text search with original input
       }
     }
+
+    if (myVersion !== searchVersionRef.current) return  // stale
+
     const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    if (resolvedState && resolvedCounty) {
+      // County-precise filter:
+      //   - exact state match (avoids "Virginia" matching "West Virginia")
+      //   - allCounties declarations always pass
+      //   - county-specific: normalize both sides so "St. Johns" === "Saint Johns County"
+      const matches = femaDeclarations.filter(d => {
+        if (new Date(d.sepEndDate + 'T00:00:00') < today) return false
+        if (d.state.toLowerCase() !== resolvedState!) return false
+        if (d.allCounties) return true
+        return d.counties.some(c => normalizeCounty(c) === resolvedCounty!)
+      })
+      setFemaResults(matches)
+      setFemaSearched(true)
+      return
+    }
+
+    // Text search (state-level fallback or manual text input)
+    const query = resolvedState ?? rawQuery.toLowerCase()
     const matches = femaDeclarations.filter(d => {
-      if (new Date(d.sepEndDate) < today) return false
-      const stateMatch = d.state.toLowerCase().includes(resolvedQuery)
-      const countyMatch = !d.allCounties && d.counties.some(c => c.toLowerCase().includes(resolvedQuery))
+      if (new Date(d.sepEndDate + 'T00:00:00') < today) return false
+      const stateMatch = d.state.toLowerCase().includes(query)
+      const countyMatch = !d.allCounties && d.counties.some(c => c.toLowerCase().includes(query))
       return stateMatch || countyMatch
     })
     setFemaResults(matches)
     setFemaSearched(true)
+  }
+
+  async function handleFemaSearch() {
+    await runSearch(femaInput.trim())
   }
 
   function resetAll() {
@@ -1589,10 +1679,15 @@ export default function SEPCheckPage() {
   }
 
   function daysUntilFema(dateStr: string) {
-    const d = new Date(dateStr)
+    const d = new Date(dateStr + 'T00:00:00')  // local midnight, not UTC
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     return Math.ceil((d.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+  }
+
+  function formatEndDate(dateStr: string): string {
+    const d = new Date(dateStr + 'T00:00:00')
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
   }
 
   // Keyboard shortcuts
@@ -1881,16 +1976,17 @@ export default function SEPCheckPage() {
                                   <span className={styles.femaState}>{d.state} — {d.disaster}</span>
                                   <span className={`${styles.femaDays} ${days <= 30 ? styles.femaDaysUrgent : ''}`}>
                                     {days}d left
+                                    <span className={styles.femaEndDate}>ends {formatEndDate(d.sepEndDate)}</span>
                                   </span>
                                 </div>
                                 <p className={styles.femaCounties}>
-                                  {d.allCounties ? 'All counties / Entire State' : d.counties.slice(0, 5).join(', ') + (d.counties.length > 5 ? ` +${d.counties.length - 5} more` : '')}
+                                  {d.allCounties ? 'All counties / Entire State' : d.counties.length === 0 ? 'Specific counties not listed — verify at fema.gov/disasters' : d.counties.slice(0, 5).join(', ') + (d.counties.length > 5 ? ` +${d.counties.length - 5} more` : '')}
                                 </p>
                                 <div className={styles.femaChecklist}>
                                   <p className={styles.femaCheckTitle}>3-point DST SEP check:</p>
                                   <ol>
                                     <li>Beneficiary lived in this county during the incident</li>
-                                    <li>AEP, IEP, or OEP was open during the incident</li>
+                                    <li>A valid election period (AEP, OEP, IEP, or another SEP) was open during the incident</li>
                                     <li>The disaster prevented them from enrolling — and they didn&apos;t make an election during that period</li>
                                   </ol>
                                   <p className={styles.femaCode}>
