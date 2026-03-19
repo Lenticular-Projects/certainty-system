@@ -106,7 +106,10 @@ export default function HomePage() {
             transition={{ ...SPRING, delay: 0.4 }}
           >
             <Link href="/objections" className={styles.ctaPrimary}>
-              Open Objection Handbook
+              Objection Handbook
+            </Link>
+            <Link href="/sep-check" className={styles.ctaPrimary}>
+              SEP Check
             </Link>
           </motion.div>
         </div>

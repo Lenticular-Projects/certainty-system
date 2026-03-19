@@ -17,6 +17,7 @@ const mainLinks = [
   { label: 'Math Breakdown', href: '/math-breakdown' },
   { label: 'Patterns', href: '/patterns' },
   { label: 'Objections', href: '/objections' },
+  { label: 'SEP Check', href: '/sep-check' },
 ]
 
 const moreLinks = [
