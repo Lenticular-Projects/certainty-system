@@ -59,7 +59,8 @@ Return ONLY valid JSON (no markdown fences) with this structure:
       "maxScore": number,
       "feedback": "Section feedback written in coaching voice (see instructions below)"
     }
-  ]
+  ],
+  "sep_flag": "(OPTIONAL — include ONLY when flagging) { signals: [{ type: string, sep_code: string, caller_quote: string, timestamp: string, explored_by_agent: false, recommended_follow_up: string }], no_sale_concern?: string, summary: string }"
 }
 
 FEEDBACK VOICE INSTRUCTIONS (critical — follow exactly):
@@ -92,7 +93,46 @@ The trainee's objections field is structured as an array of objects (quote, time
 
 Pass threshold: 65/100 AND must get Call Type and Primary Signal correct.
 
-CRITICAL CONSTRAINT: Every section's "score" value MUST be between 0 and its "maxScore". Do not return a score that exceeds maxScore under any circumstances.`
+CRITICAL CONSTRAINT: Every section's "score" value MUST be between 0 and its "maxScore". Do not return a score that exceeds maxScore under any circumstances.
+
+## SEP SIGNAL DETECTION (Informational — Not Scored)
+
+You have deep knowledge of Medicare Special Enrollment Periods. Use it here.
+
+Scan the ENTIRE transcript for moments where the caller says something — even casually — that could indicate a Special Enrollment Period. You are listening for the caller's words, not checking a rigid list. Use your judgment.
+
+Common signals (but not limited to):
+- Address/location change → MOV
+- Medicaid, Extra Help, LIS, QMB, state assistance → INT/DEP/MCD/NLS
+- Chronic conditions (diabetes, COPD, heart disease, cancer, dialysis, etc.) → CSN
+- Plan ending, termination letter, non-renewal → EOC/MYT
+- Retirement, job loss, COBRA ending, lost employer coverage → LEC
+- Just turned 65, new to Medicare, Part B just started → IEP/ICEP/IEP2
+- Recently incarcerated, returned from abroad, became citizen → INC/RUS/LAW
+- In nursing home, skilled nursing, long-term care → OEP-I/LTC
+- Lost VA, TRICARE, or other creditable coverage → LCC
+- Has drug coverage from VA/TRICARE while in MAPD → CDC
+- "Medicare put me in this plan" (auto-enrolled) → DIF
+- "I don't like this Advantage plan, want my Medigap back" (first year) → 12G/12J
+- State pharmacy assistance program → PAP
+- Left PACE program → PAC
+- Plan rated poorly for years → LPI
+- Already has MA, wants to change (Jan–Mar) → OEP
+- Enrolling in a 5-star plan (Dec 8–Nov 30) → 5ST
+- FEMA disaster prevented enrollment → DST
+- Medicaid or LIS level changed → MCD/NLS
+- Lost other creditable coverage → LCC
+
+RULES:
+1. ONLY flag when the caller said something AND the agent did not follow up on it
+2. If the agent heard the signal, explored it, and confirmed or ruled it out — that is PROPER VERIFICATION. Do not flag.
+3. If the caller volunteered their situation and the agent used it — do not flag
+4. During AEP (Oct 15–Dec 7), do not flag — everyone can enroll
+5. If the call resulted in ENROLLED, do not flag — enrollment happened
+6. For NO-SALE calls: evaluate whether the agent appeared to check for qualifying events given what the caller revealed about their situation. If the conversation suggests there might have been an unexplored SEP, note it in no_sale_concern. But be judicious — only flag when you genuinely see missed potential, not on every no-sale call.
+7. This section is INFORMATIONAL ONLY — it does NOT affect the overallScore or passed status
+
+If no signals were detected, or all signals were properly explored, OMIT the sep_flag field entirely. Only include it when there is a genuine concern.`
 
     const userPrompt = `## EXPERT ANALYSIS (Layer 1 — Deep Context)
 

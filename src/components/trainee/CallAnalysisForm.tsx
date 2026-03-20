@@ -500,6 +500,38 @@ export default function CallAnalysisForm({ callId, rubric }: Props) {
             </div>
           )}
 
+          {/* ── SEP Signal Flag (informational) ── */}
+          {(result as { sep_flag?: { signals: Array<{ type: string; sep_code: string; caller_quote: string; timestamp: string; recommended_follow_up: string }>; no_sale_concern?: string; summary: string } }).sep_flag && (() => {
+            const flag = (result as { sep_flag: { signals: Array<{ type: string; sep_code: string; caller_quote: string; timestamp: string; recommended_follow_up: string }>; no_sale_concern?: string; summary: string } }).sep_flag
+            return (
+              <div className={styles.sepFlagBlock}>
+                <div className={styles.sepFlagHeader}>
+                  <span className={styles.sepFlagIcon}>&#9888;</span>
+                  <span className={styles.sepFlagTitle}>SEP Signal — Review Recommended</span>
+                  <HubLink href="/sep-check" label="SEP Check" />
+                </div>
+                <p className={styles.sepFlagSummary}>{flag.summary}</p>
+                {flag.signals.map((sig, i) => (
+                  <div key={i} className={styles.sepFlagSignal}>
+                    <div className={styles.sepFlagSignalHeader}>
+                      <span className={styles.sepFlagSignalType}>{sig.type}</span>
+                      <span className={styles.sepFlagSignalCode}>{sig.sep_code}</span>
+                    </div>
+                    <p className={styles.sepFlagQuote}>
+                      &ldquo;{sig.caller_quote}&rdquo; <span className={styles.sepFlagTimestamp}>({sig.timestamp})</span>
+                    </p>
+                    <p className={styles.sepFlagFollowUp}>Agent should have asked: {sig.recommended_follow_up}</p>
+                  </div>
+                ))}
+                {flag.no_sale_concern && (
+                  <p className={styles.sepFlagConcern}>
+                    <strong>Note:</strong> This call ended without enrollment. {flag.no_sale_concern}
+                  </p>
+                )}
+              </div>
+            )
+          })()}
+
           {(result as { sections?: Array<{ name: string; score: number; maxScore: number; feedback: string }> }).sections && (
             <div className={styles.resultSections}>
               {((result as { sections: Array<{ name: string; score: number; maxScore: number; feedback: string }> }).sections).map((section, i) => {

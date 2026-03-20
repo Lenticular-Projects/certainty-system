@@ -1,0 +1,114 @@
+/* Psychology Overview */
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.headline {
+  color: var(--ink);
+  margin-bottom: var(--space-5);
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Thesis card */
+.thesisCard {
+  background: rgba(240, 235, 225, 0.70);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  padding: var(--space-7);
+  margin-bottom: var(--space-8);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thesisText {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* Section cards */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+  .header { text-align: left; }
+  .subtitle { margin: 0; }
+  .thesisCard { padding: var(--space-5); }
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card {
+  border-radius: 16px;
+  padding: var(--space-6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: box-shadow 200ms ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.sectionLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-2);
+}
+
+.cardTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: var(--space-3);
+}
+
+.cardDesc {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+  flex: 1;
+}
+
+.cardArrow {
+  color: var(--ink-60);
+  margin-top: var(--space-4);
+  transition: transform 200ms ease;
+}
+
+.card:hover .cardArrow {
+  transform: translateX(4px);
+}

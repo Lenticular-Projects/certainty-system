@@ -447,6 +447,114 @@
   opacity: 0.6;
 }
 
+/* ── SEP Signal Flag (informational amber block) ── */
+
+.sepFlagBlock {
+  padding: 18px 22px;
+  background: rgba(180, 83, 9, 0.05);
+  border: 1px solid rgba(180, 83, 9, 0.2);
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+
+.sepFlagHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.sepFlagIcon {
+  font-size: 0.875rem;
+  color: #92400e;
+  line-height: 1;
+}
+
+.sepFlagTitle {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #92400e;
+}
+
+.sepFlagSummary {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(19, 17, 16, 0.7);
+  margin-bottom: 14px;
+}
+
+.sepFlagSignal {
+  padding: 12px 14px;
+  background: rgba(180, 83, 9, 0.04);
+  border-radius: 7px;
+  border-left: 2px solid rgba(180, 83, 9, 0.3);
+  margin-bottom: 10px;
+}
+
+.sepFlagSignal:last-of-type {
+  margin-bottom: 0;
+}
+
+.sepFlagSignalHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.sepFlagSignalType {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(19, 17, 16, 0.8);
+}
+
+.sepFlagSignalCode {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #92400e;
+  background: rgba(180, 83, 9, 0.1);
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+}
+
+.sepFlagQuote {
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: rgba(19, 17, 16, 0.6);
+  line-height: 1.55;
+  margin-bottom: 4px;
+}
+
+.sepFlagTimestamp {
+  font-style: normal;
+  font-size: 0.75rem;
+  color: rgba(19, 17, 16, 0.4);
+  font-variant-numeric: tabular-nums;
+}
+
+.sepFlagFollowUp {
+  font-size: 0.8125rem;
+  color: rgba(19, 17, 16, 0.55);
+  line-height: 1.55;
+}
+
+.sepFlagConcern {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: rgba(19, 17, 16, 0.65);
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(180, 83, 9, 0.15);
+}
+
+.sepFlagConcern strong {
+  font-weight: 600;
+  color: #92400e;
+}
+
 /* ── Zone 3: Analysis Form ── */
 
 .formSection {
