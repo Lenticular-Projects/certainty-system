@@ -22,6 +22,7 @@ const sectionCards = [
   { label: 'Medicare 101', href: '/medicare-101', description: 'Networks, SNPs, enrollment periods, and the mistakes that cost real enrollments.', signal: 'neutral' as const },
   { label: 'Close Confirmation', href: '/close-confirmation', description: 'Every call ends here. The step between enrollment and retention.', signal: 'green' as const },
   { label: 'Nine Failure Patterns', href: '/patterns', description: 'The nine ways calls fail — and the fix for each.', signal: 'neutral' as const },
+  { label: 'Psychology of Certainty', href: '/psychology', description: 'Why the system works — at the level of how the human brain actually makes decisions.', signal: 'neutral' as const },
 ]
 
 function SectionCard({ card }: { card: typeof sectionCards[number] }) {

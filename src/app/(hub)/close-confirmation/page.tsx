@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
 import PageShell from '@/components/layout/PageShell'
@@ -127,6 +128,23 @@ export default function CloseConfirmationPage() {
       <CalloutBlock type="neutral">
         <strong>Medicare Enrollment Accuracy Note:</strong> There is no unconditional cancellation window for Medicare Advantage after enrollment. What you can commit to: &ldquo;If you enroll today and something isn&rsquo;t right, call me directly. I will work to find a resolution through the proper enrollment channels. That&rsquo;s what I&rsquo;m here for.&rdquo;
       </CalloutBlock>
+
+      <motion.section
+        className={styles.section}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={SPRING}
+      >
+        <h2 className="display-lg">Why This Works — The Science</h2>
+        <p className="body-lg">The Close Confirmation Protocol activates four psychological mechanisms simultaneously:</p>
+        <p className="body-md"><strong>The self-generation effect</strong> (Slamecka and Graf): Information a person generates themselves is remembered significantly better than identical information received passively. When the client restates why they switched in their own words, the decision encodes deeper than anything you could have told them.</p>
+        <p className="body-md"><strong>The saying-is-believing effect</strong> (Higgins and Rholes): Articulating a position shifts your subsequent memory and beliefs to align with what you said. Once the client has verbalized their reasoning, their brain restructures to support that position.</p>
+        <p className="body-md"><strong>Processing fluency</strong> (Reber and Schwarz): The brain uses ease of processing as a proxy for truth. When the client hears their own reasoning restated in their own words, fluency spikes. It feels true because it&rsquo;s already in their mind.</p>
+        <p className="body-md"><strong>The Oettingen Paradox + implementation intentions</strong> (Oettingen; Gollwitzer): Pure positive visualization can actually reduce commitment. The Forward Close avoids this by asking the client to visualize a specific next action (&ldquo;schedule that dental appointment&rdquo;). Once they&rsquo;ve mentally &ldquo;pre-experienced&rdquo; using the benefit, reversing the decision triggers loss aversion.</p>
+        <p className="body-md">Pattern 9 — the Hollow Yes — is dangerous because a &ldquo;sure, okay&rdquo; has no self-referential depth. Self-generated certainty is the only kind that holds.</p>
+        <p className="body-md"><Link href="/psychology"><strong>Read more: The Psychology of Certainty &rarr;</strong></Link></p>
+      </motion.section>
 
       <CrossLinks links={[
         { label: 'Pattern 9 — The Hollow Yes', href: '/patterns/hollow-yes' },

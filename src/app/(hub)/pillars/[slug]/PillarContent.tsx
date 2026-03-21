@@ -1,6 +1,7 @@
 'use client'
 
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import PageShell from '@/components/layout/PageShell'
 import QuickRefCard from '@/components/ui/QuickRefCard'
@@ -221,6 +222,22 @@ function PersuasionContent() {
       </Section>
 
       <Section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Why This Works — The Science</h2>
+        <p className={styles.body}>
+          Two mechanisms make Persuasion the foundation of every call:
+        </p>
+        <p className={styles.body}>
+          <strong>Emotional contagion</strong> (Hatfield, Cacioppo, Rapson): On a phone call, the client&rsquo;s brain automatically mirrors the agent&rsquo;s vocal patterns. Confident speech &mdash; steady pace, downward inflection, controlled volume &mdash; transmits neurobiological safety. Hedging, rising intonation, and filled pauses transmit uncertainty. Research confirms that falling intonation increases both perceived confidence and persuasive impact (Guyer, Fabrigar). Permission-seeking language isn&rsquo;t just weak phrasing &mdash; it&rsquo;s an acoustic signal that broadcasts doubt the client&rsquo;s nervous system mirrors before you finish the sentence.
+        </p>
+        <p className={styles.body}>
+          <strong>Psychological reactance</strong> (Brehm) + <strong>Self-Determination Theory</strong> (Deci, Ryan): When a client feels their freedom of choice is threatened, they push back &mdash; not because your recommendation is wrong, but because they feel controlled. The consultant frame works because it satisfies the client&rsquo;s need for autonomy while maintaining authority. &ldquo;Let me show you what I found&rdquo; satisfies autonomy. &ldquo;You need to switch&rdquo; threatens it. Research shows that simply reminding someone they&rsquo;re free to decide dramatically reduces reactance (Carpenter, meta-analysis).
+        </p>
+        <p className={styles.body}>
+          <Link href="/psychology"><strong>Read more: The Psychology of Certainty &rarr;</strong></Link>
+        </p>
+      </Section>
+
+      <Section className={styles.section}>
         <h2 className={styles.sectionTitle}>When Persuasion Breaks Down</h2>
         <p className={styles.body}>
           This is <strong>Pattern 4 — Permission-Seeking Language.</strong> It shows up when agents are:
@@ -349,6 +366,22 @@ function ReframingContent() {
         <CalloutBlock type="red">
           Reframing is agreement + redirection. You agree with the <em>feeling</em>. You redirect the <em>meaning</em>.
         </CalloutBlock>
+      </Section>
+
+      <Section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Why This Works — The Science</h2>
+        <p className={styles.body}>
+          When a client is afraid, the amygdala &mdash; the brain&rsquo;s threat-detection center &mdash; triggers a cascade that suppresses the prefrontal cortex. The rational brain goes offline. Logical information literally cannot be processed until the fear is addressed (Arnsten, Yale; LeDoux, NYU).
+        </p>
+        <p className={styles.body}>
+          Reframing is what neuroscience calls <strong>cognitive reappraisal</strong> &mdash; changing the meaning of a situation before the full emotional response develops. fMRI studies show that reappraisal decreases amygdala activation and restores working memory (Goldin, Gross). The opposite strategy &mdash; ignoring the emotion and pushing more information &mdash; forces the client into <strong>suppression</strong>, which <em>increases</em> amygdala activity. The fear gets louder, not quieter.
+        </p>
+        <p className={styles.body}>
+          Naming the emotion also triggers <strong>neural coupling</strong> (Stephens et al., Princeton) &mdash; the client&rsquo;s brain synchronizes with the agent&rsquo;s when they feel understood. This activates reward pathways and drops the defensive wall. You&rsquo;re not arguing the wall down. You&rsquo;re making it safe enough for the client to lower it themselves.
+        </p>
+        <p className={styles.body}>
+          <Link href="/psychology"><strong>Read more: The Psychology of Certainty &rarr;</strong></Link>
+        </p>
       </Section>
 
       <Section className={styles.section}>
@@ -488,6 +521,22 @@ function TheShiftContent() {
       </Section>
 
       <Section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Why This Works — The Science</h2>
+        <p className={styles.body}>
+          Three psychological forces keep clients anchored to their current plan: <strong>loss aversion</strong> (Kahneman and Tversky &mdash; losses feel ~2x as powerful as equivalent gains), <strong>the endowment effect</strong> (people irrationally overvalue things they own), and <strong>status quo bias</strong> (Samuelson and Zeckhauser &mdash; 80% of Medicare beneficiaries stay in the same plan year after year, forgoing $1,500+ annually).
+        </p>
+        <p className={styles.body}>
+          Step 2 works because of the <strong>anchoring effect</strong> (Tversky and Kahneman). The first number a person hears becomes the reference point for everything after. Monthly framing ($117) creates a small anchor that makes later numbers feel huge. Annual framing ($1,400) creates a large anchor that makes the new plan&rsquo;s advantages feel proportionate. Gourville&rsquo;s &ldquo;pennies-a-day&rdquo; research confirmed: framing the same cost annually vs. daily changed agreement from 30% to 52%.
+        </p>
+        <p className={styles.body}>
+          Step 3 works because older adults&rsquo; working memory for emotional information remains selectively unimpaired even as general working memory declines (Carpenter and Yoon). Humanizing the number doesn&rsquo;t just make it more persuasive &mdash; it delivers the information in the format the aging brain can still hold.
+        </p>
+        <p className={styles.body}>
+          <Link href="/psychology"><strong>Read more: The Psychology of Certainty &rarr;</strong></Link>
+        </p>
+      </Section>
+
+      <Section className={styles.section}>
         <h2 className={styles.sectionTitle}>Patterns This Fixes</h2>
         <ul className={styles.list}>
           <li><strong>Pattern 2 — Incomplete Math Breakdown</strong> — the direct cause of this pillar existing</li>
@@ -575,6 +624,22 @@ function RefocusingContent() {
         <blockquote className={styles.blockquote}>
           <em>&ldquo;[Acknowledge the personal thing they shared] — I love that. Real quick before I let you go, I need to make sure you&rsquo;ve seen this number, because this is the part that actually matters for you...&rdquo;</em>
         </blockquote>
+      </Section>
+
+      <Section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Why This Works — The Science</h2>
+        <p className={styles.body}>
+          <strong>Intolerance of uncertainty</strong> (Dugas, Freeston, Ladouceur): The brain interprets the absence of information as a potential threat. In a voice-only interaction, silence is the absence of everything. Research shows the brain enters &ldquo;mind-reading mode&rdquo; during silence &mdash; trying to simulate the other person&rsquo;s mental state &mdash; but without visual cues, this simulation defaults to anxiety. Rumination (negatively toned self-referential processing) increases under conditions of uncertainty (Kross et al.), and worry directly impairs decision-making quality (Metzger et al.).
+        </p>
+        <p className={styles.body}>
+          The client is literally thinking themselves out of the enrollment during dead air. Narrating system navigation fills the auditory void, prevents the uncertainty cascade, and keeps the cognitive channel occupied so rumination cannot begin.
+        </p>
+        <p className={styles.body}>
+          Bridge statements work for the same reason &mdash; they close the ambiguity loop. Questions invite more drift because they create new uncertainty. Forward-moving statements close uncertainty and re-engage the decision-making pathway.
+        </p>
+        <p className={styles.body}>
+          <Link href="/psychology"><strong>Read more: The Psychology of Certainty &rarr;</strong></Link>
+        </p>
       </Section>
 
       <Section className={styles.section}>

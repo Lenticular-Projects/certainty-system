@@ -1,0 +1,404 @@
+ All right.
+Welcome everybody.
+So glad that you could join us today for the SEP webinar.
+My name is Pam Harrison and I'm the Medicare Compliance Strategy and Education Lead here at SPARC.
+And I will be recording, as you just heard, I started the recording.
+I will be recording this session today and I can send that out to all of you along with the slide deck a little bit later on today, as well as a few other resources that I will go ahead and include.
+If you've got some questions that come up during the presentation, feel free to put those in the Q&A feature and I will stop a few times along the way and try and answer questions that you might have and we'll have a little bit of time at the end for questions as well.
+So again, thank you so much for joining the webinar today.
+We're glad that you could, glad that you could participate.
+So here's our agenda.
+We're going to do just a little enrollment period review because I am a trainer and I can't, I have to kind of recap and make it a complete picture.
+So we will do an enrollment period review and then we're going to talk in depth about some special enrollment periods, some of the most common SCPs, when to use them.
+We're going to talk about compliantly using SCPs and then I've got a list of resources for you at the end.
+So again, feel free to put any questions that you might have in the Q&A feature.
+So I realize most of you know this if you've been in Medicare for any period of time, but again, the trainer in me does not let me just hop into SCPs without actually backing up a step and reviewing all of the pertinent enrollment periods.
+So I'm sure most of you are familiar of course with initial enrollment period or IEP.
+This is one of beneficiary first and roles in Medicare Parts A and B.
+Of course, they can also sign up for a Medicare plan, Medicare Advantage PDP, Medicare Supplement Plan to coordinate with that start date of their Part A and B of Medicare.
+Now, if they had Medicare under the age of 65, maybe they were disabled for example and so they had Social Security Disability Benefits and then they got Medicare under the age of 65.
+When they turn 65, they actually have a second full IEP, a second full initial enrollment period.
+So they have another seven months where they can make changes to their plan.
+And then if the beneficiary sticks their head in the sand and misses all of the mountains of mail that they receive about their initial enrollment period, they do still have an opportunity each year to sign up for Medicare Parts A and B during the general enrollment period which is between January 1 and March 31.
+Now, if they've had a gap in coverage, if they haven't had Part A and B for a while since they were eligible, then they will have a late enrollment penalty.
+That's what LEP stands for is late enrollment penalty.
+And Medicare will start the first of the month after they sign up.
+This changed a few years ago to be the month following the month they signed up.
+So if they sign up for Medicare, Parts A and B in January, their Part A and B will start February 1.
+And of course, they can sign up for a plan, a Medicare plan to start the same day as that Part A and B coverage starts for them as well.
+And then most of us are familiar with AEP, Annual Enrollment Period.
+Oh, it says I'm muted.
+All right, there we go.
+That was weird.
+Annual Enrollment Period is, of course, every year between October 15 and December 7.
+And this is when beneficiaries can make a change to their plan for coverage beginning on January 1 of the following year.
+And then we have two OEPs.
+So the one most of us are familiar with is the Medicare Advantage Annual Open Enrollment Period.
+This runs January 1 through March 31 each year.
+And a beneficiary that is already on a Medicare Advantage plan can make one plan change during this time.
+And again, coverage begins the first of the month following enrollment.
+So if they make a plan change February 15, that will go into effect March 1.
+And of course, we're coming to the tail end of Medicare Advantage Annual Open Enrollment Period.
+And then there is another Medicare Advantage Open Enrollment Period for folks who are new to Medicare Advantage plans that they elected during their initial enrollment period.
+So they turned 65, for example, they signed up for Medicare Part A and B, and they took a Medicare Advantage plan at that initial enrollment period.
+They actually have a one-time election period that they can make a change.
+So if they made an incorrect plan selection that first time around during their IEP, they actually have three months that they can make one more change any time of the year, depending on when their IEP is, to make that change.
+So I hope that, I know that was just a brief recap of the Medicare Advantage and PDP enrollment periods.
+And then of course, our Medicare Supplement Open Enrollment Period is a little bit different from the Advantage Medicare Advantage plan OEP.
+So Medicare Supplement OEP is the six months after signing up for Part B and the beneficiary turning age 65.
+They have a guaranteed issue period of time during that six months where they can enroll in any Medicare Supplement Plan available in their state, and they will not be subject to any medical underwriting.
+So they can't be denied a plan, they can't be rated up, the company, the Medicare Supplement Company has to accept them at the premium for their age.
+Now, Medicare Supplement Plans, of course, don't have the same enrollment periods that we see with Medicare Advantage and PDPs, because a beneficiary can truly apply for a different Medicare Supplement Plan at any time.
+But if it is after their six month OEP Open Enrollment Period, then they will have health underwriting unless they have a guaranteed insurability, a GI, it's called, guaranteed insurability rights for some reason.
+And we'll talk briefly about that in an upcoming slide.
+So just wanted to point out the differences there.
+All right, so now let's get into the meat of why you are all here today, which is our SEPs or our special enrollment periods.
+And of course, these become more and more important now as we are coming to the end of the Medicare Advantage Open Enrollment Period.
+We're going to be using special enrollment periods for pretty much exclusively other than someone's initial election period for the remainder of the year until we hit AEP again.
+So SEPs are very important to understand how they work, how to use them compliantly, and to know all of them that are available to beneficiaries to take advantage of throughout the year.
+So first of all, what are special enrollment periods?
+So this is when a Medicare beneficiary has a change in circumstances or a qualifying life event occurs.
+They may be able to take advantage of one of the special enrollment periods that CMS has granted.
+So with the SEP, the beneficiary of course has the ability to change their Medicare plan, either their Medicare Advantage plan or their prescription drug plan.
+Now this SEP may or may not also coincide with an SEP to sign up for Medicare, which I'll talk about in just a minute here on an upcoming slide.
+And of course, each SEP comes with its own unique rules and time frames for use.
+And we'll go over that as I go over some of the enrollment periods.
+Again, any questions that you might have, feel free to put those in the Q&A.
+And I will watch for those and pause periodically to answer and address those.
+So by far the most common special enrollment period is loss of employee or coverage, because more Medicare beneficiaries are working past the age of 65 when they become eligible for Medicare, and they are staying on their employer health plan and delaying enrolling in Part B.
+Now what most beneficiaries do, if they're continuing to work beyond the age of 65, they will typically enroll in Part A of Medicare because they're not paying a premium for that, and it is just extra hospital coverage above their group coverage.
+But they will delay enrolling in Part B of Medicare because of course there's a premium that they would have to pay with Part B, and they're already on their group coverage, which is providing that medical coverage that they don't need Part B currently, and they certainly don't want to pay the premium for that.
+So this is the majority of the cases that are out there.
+If somebody is working past the age of 65, they stay on their employer health plan while they're working, and they enroll in Part A, and they delay enrolling in Part B until they retire.
+So when they leave, when they retire, when they, that is loss of employer coverage, is when they retire.
+So they have a Medicare SEP where they have an eight-month period of time where they can sign up for Part B of Medicare, and this Medicare special enrollment period begins when they stop working or when coverage through that employer ends, and again, it lasts for eight months.
+And of course the beneficiary has to actually sign up for Part B.
+Easiest way to do that is on the ssa.gov website.
+They can also call Medicare Social Security Administration, and they can go into a Social Security Administration building.
+Now, the majority of people don't take all eight months to enroll in Part B because, of course, they need to have coverage.
+They need to have a plan, a plan that goes along with their Medicare when they stop working.
+So you don't see this delay very often, but I did want to bring it up because there are circumstances you may run into where that person has delayed actually signing up for Part B even though they stopped working in their employer coverage and ended maybe a few months ago.
+Now, that is the special enrollment period to sign up for Medicare, Part A and or B.
+They have a separate SEP to sign up for a Medicare plan, and this is only for two months after their group coverage ends.
+Now, ideally, what you want the beneficiary, what you want your clients to do is call you when they're retiring and they say, hey, I'm retiring April 30th of this year.
+What do I need to do?
+And you are able then to walk them through.
+Well, you need to go online to ssa.gov and you need to sign up for Part B to begin, what did I say April 30th?
+Part B to begin May 1st.
+And then you also want to enroll in a Medicare plan to also begin on May 1st to coincide with that Part B effective date.
+So they do not have any gap in coverage.
+That's what you want to advise to your clients is that they want everything to coincide with that end of coverage date with their employer coverage so that they do not have any kind of a gap in coverage.
+Of course, you don't want them to, I mean, if they have to pay for any kind of medical procedure out of pocket or if they have to pay for prescription drugs out of pocket, etc., that's what you are trying to prevent.
+So they have two months after that group coverage ends to actually sign up for Medicare plan, but you want it to coincide with the date that their Part B is starting and that their employer coverage is ending.
+So hope that makes sense.
+That is the most common SEP that we see because again, that we've got a lot of people that are retiring past the age of 65 and so they're past their IEP, their initial enrollment period, and they have to wait to sign up.
+Okay, we've got a question about the form.
+I thought a person had to submit an L565 form in a 40B form when applying for Part B.
+That is delayed.
+Yeah, they'll probably have to fill that.
+They can fill that out on ssa.gov or they can fill that out at the Social Security Administration office to enroll in Part B.
+Okay, next SEP we're going to talk about is when a beneficiary changes their residency.
+So they change where they live.
+So the most common thing we see is when a beneficiary moves out of the plan service area.
+So they live in California and they move to Texas for example, or they move from one county in California to another county in California.
+They're moving out of their plan service area.
+If the current plan is not available at the new location, of course they can switch to a new plan.
+But even if the existing plan that they're on is still available at their new location, they can still make a change to a new plan if there are new plan options at the new location.
+So let's say they had 20 Medicare Advantage plans available to them in the county they lived at in California.
+And they move to say another county in California and maybe there are 25 plans that are available in that county.
+And maybe their existing plan is available, but there's some new plans that are available.
+Well, they can make a change.
+So as long as they have moved from one service area, so one county to another, they are able to make a plan, a plan change.
+And they have a, it's actually a two month special enrollment period.
+Part of it depends on when, when or if the beneficiary notifies the plan that they are moving.
+So if the member calls the plan and says, Hey, I'm moving from San Diego to Sacramento in April.
+Okay.
+The SEP then begins in March, begins the month before their move.
+And it continues for a full two months after the move.
+Now, if the member doesn't call the plan and tell them they rely on Social Security or Medicare to notify the plan, or if they call the plan after they've already moved, they call the plan and they say, Hey, I just moved a week ago from San Diego to Sacramento, for example, then the SEP begins the month that they tell the plan.
+So that would be now that would be March, and then it would last for two full months after that.
+So that is moving, moving outside of the plan service area.
+Now, there's some other instances where somebody is going to change where they live that technically fall underneath this moving SEP.
+So if they live in or have recently moved out of an institution, so they were in a nursing home for a period of time, maybe they were there for rehabilitation, for, you know, hip replacement surgery or something like that.
+They can, if they, when they, either when they live in or when they move out, when they are, you know, rehabbed and they go back home, then they have an opportunity to join switch or drop coverage for two full months after they move out of that institution out of that nursing home, for example.
+If they, there also is a continuous SEP for somebody who resides in an institution long term, and that's where the ISNIP, the Institution Special Needs Plans come in, I'm not going to touch a little bit, I'm not going to touch on those today, but just know that there is a continuous enrollment period for somebody who resides in an institution.
+Another situation is maybe they've lived outside of the US for a period of time, and now they have moved back to the US.
+They have a two month SEP to join a plan after moving back.
+Of course, they have to have Medicare, Parts A, B in order to join a plan.
+And if they were incarcerated and they have been released, they have a two month SEP after release to join a plan.
+Again, they have to have Part A and Part B before they join the plan if they don't, if they didn't continue to pay for Part B while they were in the incarcerated, incarcerated, incarcerated in jail, we'll say that.
+All right, so that has changed where you live.
+Now, I want to talk about LIS Extra Help and Dual Eligible, Dual DSNIP Plans.
+Okay, I've got a question here.
+For change of location with SEP, does a beneficiary have to move somewhere outside their county?
+Yes, it has to be a different service area, so that's county.
+Yeah.
+Now, if there's new plans available in the next zip code over, then that would qualify.
+But typically, it's service area, which of course, for Medicare Advantage, PDP is by county.
+All right, so let's first talk about somebody who has a change or they gain or they lose extra help, low income subsidy benefit.
+So if somebody becomes eligible for extra help, so they just applied, they got approved for extra help, but they're not going to receive Medicaid, full Medicaid, they're just going to have the extra help piece, then they have an SEP to make a change in a plan.
+Or if they lose eligibility for extra help, so maybe this year their income was higher and now they have lost eligibility for the extra help, then they will get an SEP to make a change, a plan change.
+And this SEP gives the individual three months to make a change in their MAPD or their PDP plan.
+So if they get noted, and it's from the data notification, because sometimes those letters are delayed, that if they're losing it, for example, sometimes those letters are delayed that say, hey, you're no longer eligible for extra help.
+Or maybe their letter is delayed in, hey, you are eligible, you have gained LIS or extra help.
+So they get three months to make a change.
+And then the effective date is the first day of the month following the enrollment request.
+So if they get notified today, for example, that they are now eligible for extra help, and they call their agent up and they say, hey, I've got my letter, and you hop in and you enroll them in a Medicare Advantage or PDP plan, then the coverage will start April 1 in this case.
+So it starts the first of the month following the enrollment request.
+Now, this is a different SEP than the ongoing monthly SEP for folks that have extra help, LIS, and there hasn't been any change.
+They're not new, there hasn't been any change.
+This is just, I have LIS, I have extra help.
+They actually do have a monthly SEP to enroll in a different prescription drug plan.
+Now, if you've been in Medicare for a few years, you know that this is different than what it used to be.
+So this is the somewhat new, if you will, SEP for folks that have extra help, LIS.
+They can only make a change once a month to a different prescription drug plan.
+They cannot make any other changes if they're on an MAPD plan, they can't make any other changes now.
+So this is just for PDPs.
+Now, this is not going to happen very often, but it may come into play if they have a PDP and maybe they get put on a new prescription.
+That new prescription isn't covered by their existing PDP and they need to make a change to get coverage for that new prescription they're on.
+That would certainly be an instance where they would want to change their prescription drug plan.
+And again, coverage will be effective the first of the month after the enrollment form is complete.
+So those are the two different SEPs for folks that are getting extra help.
+Now, let's talk about folks who have Medicaid.
+So they have Medicare and they also have full Medicaid benefits from their state.
+So first of all, this is very similar to the gaining, losing, having a change in coverage if they have LIS.
+So individuals who gain, lose, or have a change in their Medicaid status have an SEP that includes, maybe they become newly eligible.
+They've turned in their application and they've gotten their letter from the state saying that they are eligible for Medicaid and this can be partial or it can be full dual eligible Medicaid individuals.
+They have a three month SEP where they can make a change to their Medicare Advantage plan or their prescription drug plan.
+Now, the same is true if they have lost eligibility.
+So if they, if their income has gone up, for example, and now they have lost their Medicaid eligibility, they have a three month SEP where they can make a change to another Medicare Advantage or a PDP plan.
+And then if they have a change in the level of assistance that they receive.
+So maybe they were qualified on the QMB, the qualified Medicare beneficiary level, and now they've been notified that they qualify, they only qualify for the Slimby, the, you know, partial low income subsidy or Medicaid, Slimby Medicaid status, or they lose their Medicaid and they're just eligible for LIS.
+They still qualify for LIS.
+Then they have that three month SEP where they can make a change to a different type of plan, a different Medicare Advantage or a different PDP plan.
+And again, effective date is going to be the first day of the month following receipt of that enrollment request.
+Now, this is different than the ongoing monthly integrated SEP for full benefit dual-eligible.
+Again, this has been a change that happened a couple of years ago now.
+So there is a monthly special enrollment period for folks who are full dual-eligible.
+So they're full benefit dual-eligible, they're QMB plus or they're Slimby plus Medicaid beneficiaries.
+They have a monthly SEP where they can enroll into an integrated decent plan to align their Medicare and their Medicaid plans.
+So in next week, I've got two webinars, one that goes into more depth on extra help LIS and one that goes into in depth about dual-eligible and decent plans.
+So we're just going to touch briefly on it today.
+If you really want to dive deep, then please join me next week for those webinars.
+So Medicare beneficiaries sometimes in some states have a, it's called an MCO, managed care organization.
+Say United, Wellcare, Humana, whoever the state would, and sometimes the states have more than one Medicaid carrier provider for their MCO.
+So let's say the beneficiary has United for their Medicaid coverage.
+And maybe they have, they've chosen Humana, they've had a Humana Medicare Advantage plan.
+Okay, so that's two different carriers.
+So those plans are not integrated.
+If that Medicare beneficiary wanted to make a change in a plan, they can do so as long as they enroll into a plan that's integrated, meaning the same carrier, as their Medicaid provider, their MCO.
+So for example, in this case, in this example, that would be United.
+So they can enroll into a dual-eligible special needs plan through United in this example, so that their Medicare and their Medicaid carriers are the same or integrated and aligned.
+Hopefully that makes sense.
+So this integrated SEP can be used for full benefit dual-eligible to enroll in either a fully integrated plan, which is called FIDI, a highly integrated plan, which is called HIDI or an AIP, applicable integrated plan.
+And not all these SNPs are considered integrated, so you've got to check the carrier portals for more information and make sure that it is truly a HIDI or a FIDI plan.
+Okay, I've got a couple questions here in the Q&A, so let me take a look at these.
+If someone has been homeless, how can they apply for Medicaid Medicare?
+I believe they can use a shelter address.
+If somebody else has a little bit more information about that, go ahead and put it in the Q&A.
+And maybe we can, but that's my understanding, Caroline, is that they may be able to use a shelter address to do that.
+Okay, and then what's the difference between one and two?
+Oh, yes, thank you, Heather.
+I do have a typo there.
+So number one is a FIDI, a fully integrated dual special needs plans.
+And then number two, yes, I'm sorry, that should say highly, I have a typo there, should say highly integrated HIDIs SNP plan.
+I will change that and correct that in the deck.
+The level of integration is what is different between those two.
+Fully integrated, the Medicare and the Medicaid benefits are a lot more integrated, and a highly integrated plan is a little less integrated, but still qualifies for this SEP, this SEP for once a month.
+Hopefully that helps.
+And we'll come back to that next week as well.
+Yeah, I will correct that typo.
+Thank you so much.
+Okay, and then Heather says yes, they can use a shelter, homeless shelter as their permanent address.
+Thank you, Heather.
+Is there a good way to locate a potential members MCO?
+Yes.
+Sunfire often returns MCO info not found.
+Yes, unfortunately, there is not a good way to locate.
+The beneficiary needs to reach out.
+If it's not on their card, which chances are it's not on their Medicaid card.
+If it's not on their card, then they need to reach out to the state and find out who that MCO is.
+I would suggest you do that.
+If you're going to do a face-to-face appointment, you do that when you're sitting with them and you have them call and kind of walk them through that process.
+But unfortunately, there is not a better way at this time to get that information.
+And then last question for Heidi plans, does the MCO still has to match the carrier?
+Yes.
+For both Heidi and the AIP plans, the MCO for their Medicaid has to match what they're enrolling in for that de-SNP plan.
+Hope that helps.
+Got other questions, let me know.
+Okay, so let's now talk about C-SNP plans.
+So C-SNP plans have a year-round special enrollment period for beneficiaries that qualify.
+So, you know, I did a C-SNP webinar kind of where I went in depth maybe a month ago or so, and we talked really a lot about the C-SNP and the SEP, etc.
+So this is just an overview.
+But beneficiaries a lot of times do not know that there is a C-SNP available in their area.
+And because the statistics say there's like 17 million Medicare beneficiaries who technically would qualify for a C-SNP plan because of a chronic condition that they have.
+So I believe part of our job as agencies is to educate clients on what is available.
+It might not always be the best fit, but we do have a responsibility to educate our clients on what is available to them in the area.
+So beneficiaries who have been diagnosed with one of the qualifying chronic conditions covered by a plan can use this SEP if they're not currently in a C-SNP plan.
+So let's say you have a C-SNP plan in the beneficiaries area and it covers diabetes, COPD, and some other cardiovascular disorders.
+And you have a beneficiary, you have a client who has been diagnosed with diabetes.
+They would be a candidate to use this year-round SEP to enroll in that C-SNP plan that is available for folks that have diabetes.
+So it has to obviously, it has to be a chronic condition covered by a plan in their area and they can't already be on a C-SNP for that condition.
+So now, as we know, when we work with Medicare beneficiaries, we sometimes have beneficiaries who are managing multiple chronic conditions.
+So if they are on a C-SNP plan, say for diabetes and they get diagnosed with a new chronic condition that's not covered on their current C-SNP, they will get a new SEP to enroll in another C-SNP that can help them manage that condition if there's one available in the area.
+So they get one SEP for each new condition that qualifies, but after they join a C-SNP for their condition that SEP ends.
+Now, if they lose their C-SNP plan because they no longer meet the chronic condition, then they have a two-month SEP where they can join another plan, a non-C-SNP plan, a regular Medicare-managed plan.
+So this is a great SEP to be able to use year-round, not only because it's a year-round SEP, but also because of the sheer number of beneficiaries who could probably qualify for a C-SNP.
+When I was still in the field, I had a broker manager tell me that there were twice as many folks eligible in the state that I was in, twice as many folks eligible for a C-SNP plan as were available for D-SNP plans that were available in that state.
+So this is a huge market and a great opportunity for you as agents to help clients that have chronic conditions, that are managing chronic conditions, to get them on a great C-SNP plan for them.
+Okay, some other common special enrollment periods.
+The natural disaster SEP.
+So if CMS declares a national disaster, then they may also issue a SEP for that area.
+And so this happens when there are, you know, hurricanes, floods, tornadoes, other types of events.
+And it is CMS that issues those SEPs and it is CMS that determines the timeframe that those SEPs will run.
+Typically, they're pretty long SEP windows, but the key thing to remember here, and I will talk about this a little bit more when I get to compliance here in a few slides, but the big thing to keep in mind here is that the beneficiary is only eligible for this disaster SEP if they had another election period that they missed due to the natural disaster.
+So for example, if they were turning 65 and they were in their IEP, their initial election period, and tornado came through and took out their house, I doubt their Medicare was the top of their mind, right?
+So they didn't make a, they didn't make a selection.
+That is an election period that they missed due to this natural disaster.
+So then they would be eligible for this disaster SEP.
+It cannot be a catch-all SEP and be used.
+Carriers are really starting to watch these and I'm going to talk about this in an upcoming slide.
+And then we have a trial-right SEP.
+So let's say a beneficiary enrolled in a Medicare supplement and a PDP plan when they turned 65 and they were on a Medicare supplement plan for a couple of years and they decided they wanted to join a Medicare Advantage plan, let's say last AEP, they wanted to join a Medicare Advantage plan for the first time.
+They actually have 12 months.
+So if they, let's say it was last AEP, they enrolled in a Medicare Advantage plan for the first time, they dropped their supplement, enrolled in a Medicare Advantage plan, started January 1.
+They have this full year of 2026, this 12 months as a trial period.
+And they can at any point during that 12 months, they can come to you and they can say, I don't like this Medicare Advantage plan, I want to go back to my supplement.
+They can drop the Medicare Advantage plan and go back to original Medicare with this SEP to go back to a supplement and a PDP with no health underwriting on the Medicare supplement.
+Okay, so that is 12 months trial right.
+You'll want to, you'll want to know that one if you've got some clients that you have moved from Medicare supplement to a Medicare Advantage plan.
+Some folks love it, some folks want to go back to their supplement, so you want to know that that is available.
+Five-star plan.
+If you have some five-star plans in your area, then, or available in the beneficiaries area, I should say, then the beneficiary can use this special enrollment period once a year between December 8th, so after AEPNs and November 30th of the following year to switch from their current plan to a five-star plan.
+So if they have, if they're currently on a, you know, it doesn't really matter if they're on a three and a half star plan, a four-star plan, a five and a half star plan, it doesn't really matter, and they want to make a change to a five-star plan that's available in their area, they can do so.
+It's a one-time a year SEP that they can make that change to a five-star plan.
+State Pharmaceutical Assistance Program, SPAP.
+If a beneficiary is enrolled in the State Pharmaceutical Assistance Program, they have an opportunity to join a Medicare Advantage plan or PDP plan once during the calendar year, and that is, they can use that anytime during the calendar year, one time if they are enrolled in the State Pharmaceutical Assistance Program.
+Now, if they are in the SPAP and they lose that eligibility, typically because of income, then they have a two-month SEP where they can, again, make a plan change.
+They can join a Medicare Advantage or a PDP plan.
+Now, this is one also that gets misused quite a bit.
+I'm going to talk about that in an upcoming slide.
+You have to, you really have to make sure that the beneficiary is actually enrolled in the State Pharmaceutical Assistance Program, and you have to, again, for the second paragraph there, if they're going to use it because they lost their eligibility, you have to really make sure that they have actually lost that eligibility to the Pharmaceutical Assistance Plan, but it is available for folks who meet those conditions.
+Okay, let's talk.
+There's certainly a lot more special enrollment periods that you can find on medigear.gov or in some of our carrier guides, but those are really the highlights, and I wanted to spend a few minutes talking about compliance with SEPs because we are really starting to see CMS and carriers watch special enrollment period usage a lot more closely.
+Agents are getting flagged, they're getting allegations, they're getting, you know, suspensions over misuse of SEP up to agent termination over misuse of SEPs.
+So this has become a very big compliance deal, and I want to make sure and spend a few minutes talking to you about this so that you can use SEPs properly and compliantly.
+So first of all, it is very important that you actually have a conversation with your client and ask them enough questions to determine if they are eligible for an SEP.
+Again, we're coming to the end of open enrollment period, of MA open enrollment period.
+SEPs of course are already being used this time of year, but they're going to become even more important come April 1st, but it is really, really important that you have conversations and you make sure that this client is actually eligible for a special enrollment period.
+So of course, has the beneficiary recently moved and if so when?
+Because remember, they only have a couple of months when moving to make this election period.
+Now, some plans will give them longer than a couple months, but the CMS definition of the moving is only a couple of months that they have to make this choice.
+And they, again, they actually have to have moved in order for this SEP to apply.
+Of course, are they leaving employer coverage?
+Are they retiring?
+Okay, what's the date that they're retiring?
+What is the date that their employer group coverage will end?
+Very important that you find that out.
+Were they recently informed of, you know, eligibility into Medicaid?
+Or did they get a letter that say they've had a change in their Medicaid status or loss or extra help at LIS for that matter?
+And again, if so when?
+Because of course, they only have a few months to make that change.
+Does the beneficiary currently have Medicaid?
+Does their, you know, which MCO in their state, which managed care organization provides their Medicaid coverage so you can determine if you have that integrated SEP to be able to use?
+And of course, they have to actually have the chronic condition to qualify for a CSNIP plan in the area.
+It's very important if you're going to, if you think that they were affected by a natural disaster, it is very, very important that you talk to them about what did they have for an eligibility period that they missed due to that natural disaster that they would qualify for the disaster SEP, for example.
+So we are seeing agents get flagged for this.
+We are seeing agents when we have allegations and they turn in their call recording if it was a telephonic enrollment.
+If they did not have a conversation with the client about asking the questions, discussing and verifying that election period with the client prior to enrollment on the recorded call, then they are getting dinged for that.
+They are getting a founded allegation for that because you can't just assume, infer, or imply an SEP.
+You actually have to have a conversation with that client about the SEP.
+It's called election period verification.
+So make sure that you spend time having a conversation with your clients about that prior to enrollment and that you are sure that you can use that SEP for their instance.
+SEPs, of course, are available as we just talked about throughout the year.
+But as I said, they are subject to heightened scrutiny from both CMS and carriers.
+And we are seeing carriers scrutinize SEP usage like I have never seen before in my time in the business.
+We're now getting reports on a monthly basis of agents who have used, have overused, misused certain SEPs and certainly are getting dinged for that.
+So you have to be, you have to be sure it's a valid SEP.
+So it must be tied to a legitimate and clearly defined qualifying event.
+Agents cannot use SEP as a workaround to get the enrollment done.
+Eligibility has to be verified prior to enrollment, not assumed or inferred, as I just said.
+And the qualifying event has to be clearly explained to the beneficiary in a way that demonstrates understanding.
+So again, you can't just say we're going to use disaster SEP.
+You have to actually explain to the beneficiary what you are doing and get the affirmation that the beneficiary, the client, is understanding what it is that you're doing in the enrollment period that you are using.
+And you must be able to provide documentation in the event of a carrier audit or a CMS inquiry.
+So again, be very cautious.
+Now, here are some, not all, because carriers are watching all SEPs, but here are the five that are under the closest scrutiny.
+So of course, the weather disaster SEP and Humana, for example, is saying that that should be less than 15% of enrollment done.
+Okay.
+And the qualification, of course, is that you cannot advertise or market a disaster.
+You can't put out a blast saying we've had a tornado here in this area.
+You may be eligible to switch your plan due to that.
+You can't advertise that.
+And again, the beneficiary has to be eligible for another election period that they have missed.
+So maybe it was, you know, MA OEP.
+So they had a disaster between January and March and they didn't make a change.
+That is, they're eligible for another election period and they missed it because of the disaster.
+Okay.
+The moving SEP is under heightened scrutiny.
+And this again should be less than 10% of enrollments and carriers and CMS are checking with Medicare or Social Security to see if there has been an address change in the last two months to see if they actually qualify for this.
+And I have seen this on allegations where the carrier comes back and says there has been no change to address in the last two or three months.
+So you can't, they have to have actually moved.
+The loss of creditable coverage SEP, this should be less than 4% of enrollments.
+Again, they have to have lost other creditable coverage.
+So their plan did not renew.
+Medicare terminated the plan, you know, or the carrier has terminated that plan.
+It did not renew for 2026, for example.
+This is involuntary loss of creditable coverage.
+The ACC accessible format SEP, it should be less than 3% of enrollments.
+This one is very crazy to me because most beneficiaries do not know that this exists.
+This should only be used if a beneficiary truly needs or wants accessible format materials.
+So this is braille, large print, different language, etc.
+Do not use it unless the beneficiary truly does need or want those accessible format materials.
+And then the state pharmaceutical assistance program SEP also is on the watch list.
+It should be less than 5% of enrollments because, again, CMS carrier is going to check, are they actually, is this client actually enrolled in the state pharmaceutical assistance program?
+They're going to verify have they actually lost that eligibility if you are using that lost eligibility as an SEP.
+So just make sure that you are having conversations with your clients and that you are asking the right questions, you're explaining the special enrollment period that you are using and that you can verify and back that up in the event of a carrier or CMS inquiry.
+Okay, let me talk a little bit about resources and then I've got a few questions in the chat that I want to answer here in the Q&A.
+So for more information about special enrollment periods, I actually think Medicare.gov does a pretty decent job about with enrollment periods, so you can always search there for enrollment period information.
+We have information on the help center, both the training page and the compliance page have resources and webinars.
+And the carrier broker portals have election period job aids.
+I did actually grab a couple of examples.
+I'll send these out when I send out the recording in the slide deck a little bit later.
+So Humana, for example, has an election period guide that you can a lot of worry to hear, but here's IEP, AEP and then special election periods and they've got you know prohibited SEPs for agents, they've got an overview and then they've got, hey, here's the election period, here's who it's for, here's what it is.
+So they've got an election period.
+I think all carriers do, these are just the ones I happen to grab.
+UHC has one as well, so enrollment, election timelines, so here's MAOEP, SEPs, and then if you keep scrolling down, they give you lots of examples.
+Here's initial and next, I'm sorry if I'm making you dizzy.
+Here's SEP, change of residence.
+So here's you know when it applies, they give you some examples, five-star, SEP, and here's a cheat sheet for you.
+So they do a nice job and then I also grab devoted and they have, and of course they have pre-AP, AEP, open general, and then they have SEP, institutional, C-SNPs, DSNP, and state federal subsidy programs, disaster emergency, etc.
+So they, most carriers will have election period guides.
+I would suggest you grab a couple of these and you download them and you keep them handy and that you look at them and that you even kind of study them and say so that you know when you're talking to a beneficiary, you'll have some recollection, wait a minute, I read something about this type of situation in one of those election period guides, I think this might apply and you go back and you double check the guide to see if that client does qualify during that period of time.
+Sunfire does have a feature for assistance, again it's not perfect as one of the questions had asked, but that's going to get better as time goes on, as this becomes more and more integrated, that will get better and better, but Sunfire does have a feature for assistance with the Heidi and the FIDE plans.
+Of course you can always reach out to your immediate upline or to Spark, we are here to help you, it's always better for you to ask a question about the SEP before you turn in the enrollment rather than turning in the enrollment incorrectly, because if you turn it in with the incorrect SEP and CMS kicks it back or the carrier kicks it back, then you have to go back to the client, you have to say hey I'm sorry that enrollment didn't go through and you have to explain yourself and possibly redo the application if you choose the wrong one and it just doesn't make for a good customer experience for that beneficiary for sure, so it's always better to reach out and ask questions, if you've got questions about SEP, always reach out and ask those prior to doing the enrollment.
+Okay, so let me look some of these questions here.
+Is there a time limit from when they were diagnosed to enroll in a SEP?
+No, there is not, as long as they have not had or are not currently on or have not been on a SEP for that condition in the past, there isn't a time limit.
+I am new, how do we market to CSNP clients?
+Well, go back and watch the CSNP webinar that I did, it's, it should be on the training page, if it's not let me know and we will get it over to you.
+Okay, so within the 12 month period they are allowed to return to a supplement and PDP as guaranteed issue, yes.
+If it is the first time they have dropped their Medicare supplement to go to a Medicare Advantage plan for the next 12 months, they have a trial right, they can go back to a supplement and a PDP plan guaranteed issue, yes, that is correct.
+Sarah, I'm sorry, I don't quite understand the questions.
+Do A and B effective dates need to match for the trial right?
+I'm not sure I understand that.
+This is because the trial right SEP has to do with when they drop a Medicare supplement and go to a Medicare Advantage plan, so I'm not sure I don't quite understand that question.
+Okay, is there a way to find out if they're in, they should have a card or you should be able to, is there a way to find out if they're in the state pharmaceutical assistance program?
+They should have a card for the state pharmaceutical assistance program or they can call the state pharmaceutical assistance program and get that information.
+There isn't a way on Sunfire to tell if that's what you're asking, yeah.
+What is the SEP reason for returning to the supplement, trial right?
+What's the abbreviation on that?
+I cannot remember the abbreviation, look in one of those election period guides for the abbreviation.
+Okay, here's a question applied for Medicaid, approved with a spend down of $700, but no extra help.
+Can I enroll in a give back plan available?
+You can enroll, but they will not give the give back, so you do not want to enroll them in a give back plan if they have a Medicaid, because they're not paying for their Part B premium.
+They will not get the give back, so you do not want to enroll them in a give back plan.
+Hopefully that helps.
+Okay.
+Any other questions that I can answer for you right now?
+If not, thank you all for joining.
+Really appreciate your time today.
+I will email out the presentation as well as the recording a little bit later on today.
+If you've got any questions, please feel free to reach out to compliance at Spark Advisors, and I hope to see you on an upcoming webinar.
+Thanks so much.
+Have a great day.

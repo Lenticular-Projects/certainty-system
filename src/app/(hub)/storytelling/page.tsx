@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
 import { useSignalHover } from '@/hooks/useSignalHover'
@@ -194,6 +195,21 @@ export default function StorytellingPage() {
         <h2 className="display-lg">Building Your Own Stories</h2>
         <p className="body-lg">When you close a difficult call — one where the client was hesitant, resistant, or afraid — write down what the client&rsquo;s specific fear was, what you said or showed them that resolved it, and what they said at the end. That is a story. Store it.</p>
         <p className="body-md"><strong>The best stories are true.</strong> They are specific, they are recent, and they are yours.</p>
+      </motion.section>
+
+      <motion.section
+        className={styles.section}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={SPRING}
+      >
+        <h2 className="display-lg">Why This Works — The Deeper Science</h2>
+        <p className="body-lg">The practical reasons above — loss aversion and social proof — are accurate. The neuroscience goes deeper.</p>
+        <p className="body-md"><strong>Narrative transportation</strong> (Green and Brock): When a person is absorbed in a story, the cognitive resources required for counterarguing get redirected to processing the narrative. The brain can&rsquo;t do both simultaneously. Transportation and counterarguing are fundamentally incompatible. A meta-analysis across 7,000+ participants confirmed narratives reliably shift beliefs, attitudes, and behaviors (Braddock and Dillard). Medium doesn&rsquo;t matter — oral storytelling is as effective as written.</p>
+        <p className="body-md"><strong>Social proof requires specificity</strong> (Goldstein, Cialdini, Griskevicius): In a hotel experiment, a generic norm (&ldquo;75% of guests reuse towels&rdquo;) was outperformed by a provincial norm (&ldquo;75% of guests <em>in this room</em> reuse towels&rdquo;). The closer the reference matches the individual&rsquo;s immediate situation, the stronger the effect.</p>
+        <p className="body-md"><strong>Character identification</strong> is the mechanism (Cohen; Slater and Rouner): When the listener perceives the story&rsquo;s subject as similar to themselves, they enter the character&rsquo;s world. The brain processes the story as a lived experience, not an argument to be evaluated. That&rsquo;s why Part 1 — &ldquo;someone like you&rdquo; — isn&rsquo;t a nice touch. It&rsquo;s the entry point for the entire psychological effect.</p>
+        <p className="body-md"><Link href="/psychology"><strong>Read more: The Psychology of Certainty &rarr;</strong></Link></p>
       </motion.section>
 
       <CrossLinks links={[

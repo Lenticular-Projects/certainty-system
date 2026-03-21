@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
@@ -287,6 +288,23 @@ export default function SignalsPage() {
         <h3 className={styles.subhead}>Which pillar</h3>
         <p className={styles.body}>Refocusing</p>
       </SignalSection>
+
+      {/* ---- Science ---- */}
+      <motion.section
+        className={styles.signalSection}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={SPRING}
+      >
+        <h2 className={`${styles.signalTitle} display-lg`}>Why the Signals Work — The Science</h2>
+        <p className={styles.body}>The Three Client Signals aren&rsquo;t arbitrary categories. Each maps to a specific state of the client&rsquo;s brain.</p>
+        <p className={styles.body}><strong>RED is amygdala activation.</strong> Fear triggers a cascade that suppresses the prefrontal cortex (LeDoux, NYU; Arnsten, Yale). The rational brain goes offline. Logic cannot be processed. Naming the emotion triggers neural coupling (Stephens et al., Princeton), which activates reward pathways, quiets the amygdala, and reopens the rational brain.</p>
+        <p className={styles.body}><strong>GREEN is System 1/System 2 alignment.</strong> The client&rsquo;s emotional brain is open and their analytical brain is available. This is where the Math Breakdown lands. Don&rsquo;t waste this state on more rapport.</p>
+        <p className={styles.body}><strong>YELLOW is cognitive drift under uncertainty.</strong> Research on intolerance of uncertainty (Dugas et al.) shows the brain interprets ambiguity as threat. Questions invite more drift. Forward-moving statements close the ambiguity loop.</p>
+        <p className={styles.body}><strong>The rule — RED before YELLOW — is neurologically correct.</strong> A client who appears to be drifting may actually be afraid. The amygdala must be quieted before the cognitive channel can be redirected.</p>
+        <p className={styles.body}><Link href="/psychology"><strong>Read more: The Psychology of Certainty &rarr;</strong></Link></p>
+      </motion.section>
 
       {/* ---- Cross-links ---- */}
       <section className={styles.crossSection}>

@@ -4,6 +4,52 @@ A running log of meaningful changes to the codebase. Each entry explains what ch
 
 ---
 
+## 2026-03-21 — FEMA Active Declarations Update (March 9 Compliance Communication)
+
+**Files changed:**
+- `public/data/fema-active.json`
+
+**Source:** Humana Compliance Communication, March 9, 2026 (`public/data/march9th-sep-update/march9th-sep-update.html`)
+
+**Why:**
+Weekly SEP compliance update with new disaster/emergency declarations, date extensions, and county-level changes. The file went from 60 declarations to 125.
+
+**What changed:**
+
+*New states added (not previously in file):*
+Alaska (3), Arizona (1), Connecticut (6), Illinois (1), Kansas (3), Maine (1), Massachusetts (3), Nebraska (7), Nevada (1), Oklahoma (2), Rhode Island (2), South Dakota (1)
+
+*New declarations added to existing states:*
+DC (+2 snow emergencies), Delaware (+1), Florida (+2: Lake County Flooding, North FL Tornado 2024), Georgia (+2: Winter Storm Jan 30, Spalding Water Supply), Hawaii (+1: Feb 20-22 Rains), Louisiana (+2: Hurricane Ida extension, Tallulah Water System), Maryland (+1: Feb storm), Missouri (+4: EO 25-19 extension, March/May tornadoes, Memorial storms, Destructive storms), New Jersey (+1: Feb storm), New Mexico (+2: Flooding EO 2025-248, Flooding EO 2025-333), New York (+2: EO 55 December, EO 58 February), North Carolina (+1: EO 32), Oregon (+6 fires: Cold Spring, Cram, Elk, Flat, Highland, Moon Complex), Pennsylvania (+1: Feb storm), California (+4: Feb Storms, Tropical Storm Mario, September Lightning Complex, Late March Winter Storms), Texas (+2: Wildfires, Flooding EO 001), Wyoming (+2 specific fires: Dollar Fire, Red Canyon — replacing old generic "Wildfires" entry)
+
+*Date extensions applied:*
+- Florida: Debby/Helene/Milton extended 03/31 → 05/31; NW Tornado → 06/30
+- Hawaii: Wildfires extended 03/31 → 05/31 (kept original 2023-11-06 start date)
+- Indiana: Extended 04/30 → 05/31 (extension from HTML)
+- Kentucky: Extended 04/30 → 12/31/2026
+- Missouri: EO 25-19 extended to 05/31
+- New York: January storm (EO 57) extended 04/30 → 05/31
+- California: Canyon Fire added Ventura county (kept FEMA designation)
+- Many CA/OR/NE/MO entries with TBD (09/09/9999) end dates mapped to 2026-12-31
+
+*County-level changes:*
+- Alabama: Changed from "Entire State" to 22 specific counties per HTML source
+- Mississippi: Changed from "Entire State" to 51 specific counties per HTML source
+
+**Approach:**
+Synthesized old file with March 9 data — kept all existing entries, added new ones, extended dates where the source showed extensions, never shortened dates. Entries with 09/09/9999 (TBD) end dates mapped to 2026-12-31 as a placeholder. The code's expiration filter handles entries that reach their end date.
+
+**Preserved from old file (not in March 9 HTML but still active):**
+NJ December/January storms, DC Winter Storm (04/30), NM (FEMA Severe Storms, Trout Fire, Desert Willow, Flooding EO 2025-362, Crime declarations), TN FEMA DR-4898, WI Flooding, WY Government Shutdown, PR (3 entries), NY Healthcare Staff Shortage, WA FEMA Severe Storms (kept 05/31 end date and FEMA type), MT Statewide Flooding (kept 08/31 end date)
+
+**Verification:**
+- Valid JSON, 125 declarations, 44 states/territories
+- No 09/09/9999 dates in output
+- Build passes clean
+- All county names normalized (DeSoto, DeKalb, St. Johns, St. Lucie, McCulloch, McLennan, McMullen)
+
+---
+
 ## 2026-03-18 — SEP Check v7: Font Fix + Expandable Detail Panels for All 35 Rows
 
 **Files changed:**

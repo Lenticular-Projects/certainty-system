@@ -18,6 +18,7 @@ const mainLinks = [
   { label: 'Patterns', href: '/patterns' },
   { label: 'Objections', href: '/objections' },
   { label: 'SEP Check', href: '/sep-check' },
+  { label: 'Psychology', href: '/psychology' },
 ]
 
 const moreLinks = [
