@@ -1,0 +1,351 @@
+/* Individual SEP Category Page */
+
+/* ─── Header ─── */
+.header {
+  margin-bottom: var(--space-7);
+}
+
+.categoryLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-3);
+}
+
+.headline {
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+  max-width: 680px;
+}
+
+/* ─── Sections ─── */
+.section {
+  margin-bottom: var(--space-8);
+}
+
+.section + .section {
+  padding-top: var(--space-6);
+  border-top: var(--rule-lt);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  line-height: 1.3;
+  margin-bottom: var(--space-5);
+}
+
+/* ─── Body text ─── */
+.bodyLead {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: var(--space-5);
+}
+
+.body {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+.body:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── SEP Code Entry ─── */
+.codeEntry {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(19, 17, 16, 0.07);
+  border-radius: 12px;
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+}
+
+.codeHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.codeBadge {
+  font-family: var(--font-geist-mono, 'SF Mono', 'Fira Code', monospace), monospace;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--ink);
+  padding: 4px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.codeName {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--ink);
+}
+
+.codeDesc {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+/* ─── Trigger box ─── */
+.triggerBox {
+  background: rgba(240, 235, 225, 0.50);
+  border-radius: 8px;
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.triggerLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-2);
+}
+
+.triggerText {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+/* ─── Detail fields ─── */
+.detailRow {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.detailLabel {
+  font-weight: 700;
+}
+
+/* ─── Common Mistakes ─── */
+.mistakesLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #92400e;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.mistakesList {
+  list-style: disc;
+  padding-left: 24px;
+  margin-bottom: var(--space-4);
+}
+
+.mistakesList li {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  margin-bottom: var(--space-2);
+  color: var(--ink);
+}
+
+/* ─── Talk Track ─── */
+.talkTrack {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  font-style: italic;
+  padding: 16px 20px;
+  margin: var(--space-4) 0;
+  background: rgba(240, 235, 225, 0.50);
+  border-left: 3px solid var(--sage-dark);
+  border-radius: 0 8px 8px 0;
+}
+
+.talkTrackLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  font-style: normal;
+  margin-bottom: var(--space-2);
+}
+
+/* ─── Scenario ─── */
+.scenario {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+  background: rgba(240, 235, 225, 0.30);
+  border-radius: 8px;
+}
+
+.scenarioLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-2);
+}
+
+/* ─── Blockquotes ─── */
+.blockquote {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  padding: 16px 20px;
+  margin: var(--space-4) 0 var(--space-5);
+  background: rgba(240, 235, 225, 0.50);
+  border-left: 3px solid var(--ink-20);
+  border-radius: 0 8px 8px 0;
+}
+
+/* ─── Lists ─── */
+.list {
+  list-style: disc;
+  padding-left: 24px;
+  margin-bottom: var(--space-5);
+}
+
+.list li {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  margin-bottom: var(--space-2);
+  color: var(--ink);
+}
+
+/* ─── Comparison table ─── */
+.comparisonTable {
+  margin: var(--space-6) 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.table thead th {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: var(--rule);
+}
+
+.table tbody td {
+  padding: 12px 16px;
+  border-bottom: var(--rule-lt);
+  vertical-align: top;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:nth-child(even) {
+  background: rgba(240, 235, 225, 0.35);
+}
+
+/* ─── Compliance callout ─── */
+.complianceCallout {
+  background: rgba(251, 243, 219, 0.60);
+  border-radius: 12px;
+  padding: var(--space-5);
+  margin: var(--space-5) 0;
+  border-left: 3px solid #92400e;
+}
+
+.complianceLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #92400e;
+  margin-bottom: var(--space-2);
+}
+
+.complianceText {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* ─── Takeaway blocks ─── */
+.takeaway {
+  background: rgba(240, 235, 225, 0.50);
+  border-radius: 12px;
+  padding: var(--space-5);
+  margin: var(--space-5) 0;
+  border-left: 3px solid var(--sage-dark);
+}
+
+.takeawayLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-2);
+}
+
+.takeawayText {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.8125rem;
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: 10px 12px;
+  }
+
+  .takeaway {
+    padding: var(--space-4);
+  }
+
+  .codeEntry {
+    padding: var(--space-4);
+  }
+
+  .complianceCallout {
+    padding: var(--space-4);
+  }
+}

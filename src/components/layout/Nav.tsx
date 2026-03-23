@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronDown, Menu, Close } from '@carbon/icons-react'
@@ -8,33 +8,56 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { SPRING_FAST, EASE_SPRING } from '@/lib/motion'
 import styles from './Nav.module.css'
 
-const mainLinks = [
-  { label: 'Human Layer', href: '/human-layer' },
-  { label: 'Call Types', href: '/call-types' },
-  { label: 'Signals', href: '/signals' },
-  { label: 'Pillars', href: '/pillars' },
-  { label: 'Storytelling', href: '/storytelling' },
-  { label: 'Math Breakdown', href: '/math-breakdown' },
-  { label: 'Patterns', href: '/patterns' },
-  { label: 'Objections', href: '/objections' },
-  { label: 'SEP Check', href: '/sep-check' },
-  { label: 'Psychology', href: '/psychology' },
+const philosophyLinks = [
+  { label: 'Human Layer',        href: '/human-layer',        desc: 'The psychology of why people buy' },
+  { label: 'Call Types',         href: '/call-types',         desc: 'Know your caller before they speak' },
+  { label: 'Signals',            href: '/signals',            desc: 'Read red, yellow, green in seconds' },
+  { label: 'Pillars',            href: '/pillars',            desc: 'The three foundations of every close' },
+  { label: 'Patterns',           href: '/patterns',           desc: 'Train your pattern recognition for calls' },
+  { label: 'Storytelling',       href: '/storytelling',       desc: 'Move people with narrative' },
+  { label: 'Math Breakdown',     href: '/math-breakdown',     desc: 'Numbers that make Medicare simple' },
+  { label: 'Psychology',         href: '/psychology',         desc: 'Why agents succeed or fail' },
+  { label: 'Close Confirmation', href: '/close-confirmation', desc: 'Lock in the yes' },
 ]
 
-const moreLinks = [
-  { label: 'Close Confirmation', href: '/close-confirmation' },
-  { label: 'How Calls Are Graded', href: '/how-calls-are-graded' },
-  { label: 'Medicare 101', href: '/medicare-101' },
+const toolLinks = [
+  { label: 'Objection Handbook',    href: '/objections',           desc: "Scripts for every objection you'll face" },
+  { label: 'SEP Check',             href: '/sep-check',            desc: 'Real-time eligibility verification' },
+  { label: 'SEP Guides',            href: '/sep',                  desc: 'All 37 codes organized by category' },
+  { label: 'C-SNP Playbook',        href: '/csnp',                 desc: 'The year-round sales opportunity in Medicare' },
+  { label: 'Compliance Sheet',      href: '/sep-compliance',       desc: 'What gets agents flagged, suspended, or terminated' },
+  { label: 'How Calls Are Graded',  href: '/how-calls-are-graded', desc: 'The scoring system explained' },
+  { label: 'Medicare 101',          href: '/medicare-101',         desc: 'The essential knowledge baseline' },
 ]
 
 export default function Nav() {
   const pathname = usePathname()
-  const [moreOpen, setMoreOpen] = useState(false)
+  const [philosophyOpen, setPhilosophyOpen] = useState(false)
+  const [toolOpen, setToolOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const philosophyActive = philosophyLinks.some((l) => pathname.startsWith(l.href))
+  const toolActive = toolLinks.some((l) => pathname.startsWith(l.href))
+
+  const openPhilosophy = () => {
+    setPhilosophyOpen(true)
+    setToolOpen(false)
+  }
+  const openTool = () => {
+    setToolOpen(true)
+    setPhilosophyOpen(false)
+  }
 
   return (
     <motion.nav
-      className={styles.nav}
+      className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={SPRING_FAST}
@@ -44,31 +67,27 @@ export default function Nav() {
           The Certainty System
         </Link>
 
-        {/* Desktop links */}
+        {/* Desktop links — absolutely centered */}
         <div className={styles.desktopLinks}>
-          {mainLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`${styles.link} ${pathname.startsWith(link.href) ? styles.active : ''}`}
-            >
-              {link.label}
-            </Link>
-          ))}
-
-          {/* More dropdown */}
+          {/* Philosophy dropdown */}
           <div
             className={styles.moreWrapper}
-            onMouseEnter={() => setMoreOpen(true)}
-            onMouseLeave={() => setMoreOpen(false)}
+            onMouseEnter={openPhilosophy}
+            onMouseLeave={() => setPhilosophyOpen(false)}
           >
             <button
-              className={`${styles.link} ${styles.moreBtn}`}
-              onClick={() => setMoreOpen(!moreOpen)}
+              className={`${styles.link} ${styles.moreBtn} ${philosophyActive ? styles.active : ''}`}
+              onClick={() => {
+                if (philosophyOpen) {
+                  setPhilosophyOpen(false)
+                } else {
+                  openPhilosophy()
+                }
+              }}
             >
-              More
+              Philosophy
               <motion.span
-                animate={{ rotate: moreOpen ? 180 : 0 }}
+                animate={{ rotate: philosophyOpen ? 180 : 0 }}
                 transition={SPRING_FAST}
                 style={{ display: 'inline-flex' }}
               >
@@ -77,7 +96,7 @@ export default function Nav() {
             </button>
 
             <AnimatePresence>
-              {moreOpen && (
+              {philosophyOpen && (
                 <motion.div
                   className={styles.dropdown}
                   initial={{ opacity: 0, y: -8, scale: 0.97 }}
@@ -85,14 +104,80 @@ export default function Nav() {
                   exit={{ opacity: 0, y: -8, scale: 0.97 }}
                   transition={SPRING_FAST}
                 >
-                  {moreLinks.map((link) => (
+                  {philosophyLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`${styles.dropdownLink} ${pathname === link.href ? styles.active : ''}`}
-                      onClick={() => setMoreOpen(false)}
+                      className={`${styles.dropdownLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
+                      onClick={() => setPhilosophyOpen(false)}
                     >
-                      {link.label}
+                      <span className={styles.dropdownLinkTitle}>{link.label}</span>
+                      <span className={styles.dropdownLinkDesc}>{link.desc}</span>
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Direct links */}
+          <Link
+            href="/objections"
+            className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/objections') ? styles.active : ''}`}
+          >
+            Objection Handbook
+          </Link>
+          <Link
+            href="/sep-check"
+            className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/sep-check') ? styles.active : ''}`}
+          >
+            SEP Check
+          </Link>
+
+          {/* Tools dropdown */}
+          <div
+            className={styles.moreWrapper}
+            onMouseEnter={openTool}
+            onMouseLeave={() => setToolOpen(false)}
+          >
+            <button
+              className={`${styles.link} ${styles.moreBtn} ${toolActive ? styles.active : ''}`}
+              onClick={() => {
+                if (toolOpen) {
+                  setToolOpen(false)
+                } else {
+                  openTool()
+                }
+              }}
+            >
+              Tools
+              <motion.span
+                animate={{ rotate: toolOpen ? 180 : 0 }}
+                transition={SPRING_FAST}
+                style={{ display: 'inline-flex' }}
+              >
+                <ChevronDown size={14} />
+              </motion.span>
+            </button>
+
+            <AnimatePresence>
+              {toolOpen && (
+                <motion.div
+                  className={styles.dropdown}
+                  initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                  transition={SPRING_FAST}
+                >
+                  {toolLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`${styles.dropdownLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
+                      onClick={() => setToolOpen(false)}
+                    >
+                      <span className={styles.dropdownLinkTitle}>{link.label}</span>
+                      <span className={styles.dropdownLinkDesc}>{link.desc}</span>
                     </Link>
                   ))}
                 </motion.div>
@@ -122,7 +207,20 @@ export default function Nav() {
             transition={{ duration: 0.3, ease: EASE_SPRING }}
             style={{ overflow: 'hidden' }}
           >
-            {[...mainLinks, ...moreLinks].map((link) => (
+            <div className={styles.mobileSectionHeader}>Philosophy</div>
+            {philosophyLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${styles.mobileLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            <div className={styles.mobileSectionHeader}>Tools</div>
+            {toolLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

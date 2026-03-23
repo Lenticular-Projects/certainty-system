@@ -11,8 +11,10 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.1",
     "@carbon/icons-react": "^11.55.0",
+    "@fontsource/playfair-display": "^5.2.8",
     "@google/generative-ai": "^0.24.1",
     "@next/mdx": "^14.2.0",
+    "@react-pdf/renderer": "^4.3.2",
     "@vercel/postgres": "^0.10.0",
     "d3": "^7.9.0",
     "drizzle-orm": "^0.45.1",

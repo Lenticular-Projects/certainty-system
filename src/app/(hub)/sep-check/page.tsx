@@ -9,6 +9,7 @@ import {
 } from '@carbon/icons-react'
 import { SPRING_FAST } from '@/lib/motion'
 import PageShell from '@/components/layout/PageShell'
+import CrossLinks from '@/components/ui/CrossLinks'
 import styles from './page.module.css'
 
 /* ------------------------------------------------------------------ */
@@ -40,6 +41,7 @@ interface SignalCard {
   callout: string
   frequency: 'high' | 'medium' | 'low'
   sep: SEPDetail
+  discoveryQuestions?: string[]
 }
 
 interface FemaDeclaration {
@@ -200,27 +202,38 @@ function DeadlineCalc({ label }: { label: string }) {
 
 const SIGNALS: SignalCard[] = [
   {
-    id: 'moved',
-    label: 'Address Mismatch / Moved',
-    phase: 'min 5–8',
-    askThis: 'Is the address we have on file still correct?',
-    listenFor: ['"I moved"', 'new city or ZIP', '"staying with family"', '"house burned"', 'eviction', 'different address in system vs. what they say'],
-    callout: 'System address doesn\'t match what they said? That\'s a live SEP. Don\'t just update the field and move on.',
+    id: 'chronic',
+    label: 'Chronic Condition',
+    phase: 'min 8–15',
+    askThis: 'Do you have any ongoing health conditions — like diabetes, heart failure, or COPD?',
+    listenFor: [
+      'diabetes / metformin',
+      'heart disease / heart failure / pacemaker',
+      'COPD / emphysema',
+      'cancer / stroke / Alzheimer\'s',
+      'Parkinson\'s / MS / dialysis / kidney',
+      'HIV / lupus / RA / bipolar / schizophrenia',
+    ],
+    callout: 'If a C-SNP is available in their county for that condition, they can enroll. Check Aetna, Humana, UHC, WellCare portals.',
     frequency: 'high',
+    discoveryQuestions: [
+      '"Do you have any ongoing health conditions — like diabetes, heart failure, or COPD?"',
+      '"Have you been diagnosed with that, or are you currently managing it?"',
+      '"Are you currently enrolled in a Special Needs Plan for that condition?" — If yes: check if a different condition triggers a new SEP. If no: proceed.',
+    ],
     sep: {
-      id: 'moved',
-      name: 'Change of Permanent Residence SEP',
-      code: 'MOV',
-      window: 'Month before move (if notified in advance) + month of move + 2 full calendar months after.',
-      isTimeSensitive: true,
+      id: 'chronic',
+      name: 'Chronic Condition SNP (C-SNP) SEP',
+      code: 'CSN',
+      window: 'One-time per qualifying condition. Once enrolled, the SEP for that condition ends. A new qualifying condition triggers a new SEP.',
+      isTimeSensitive: false,
       allowed: [
-        'Enroll in any MA, MAPD, or PDP available at the new address',
-        'Switch to any plan that serves the new ZIP or county',
+        'Enroll in the matching C-SNP for that condition',
       ],
-      script: 'Good news — because you recently moved, you actually qualify for a Special Enrollment Period right now. That gives us a limited window to get you into a new plan at your current address. Let\'s look at what\'s available before that window closes.',
-      verify: 'Confirm: (1) new address and ZIP, (2) exact move date. The window starts the month before the move only if the plan was notified in advance — otherwise it starts the month of the move. House fire, eviction, or moving in with family all count as long as it\'s a different physical address. Also triggers when MARx address differs from the address on the application being submitted.',
-      nextStep: 'Confirm new ZIP, confirm move date, enter it in the deadline calculator — tell them exactly how many days they have left.',
-      warning: 'NOT valid for a PO Box change — must be a change of physical residence. A "temporary" stay at a family member\'s address while repairs are done STILL counts if the plan doesn\'t serve the new address.',
+      script: 'Because you have [condition], you may actually qualify for a Special Needs Plan designed specifically for people managing that condition. These plans often have much lower copays and benefits tailored to your exact needs — and you can enroll in one right now.',
+      verify: 'You MUST verify a C-SNP exists in their county for that condition BEFORE confirming this SEP. Check Aetna, Humana, UHC, and WellCare portals. Pacemaker = heart condition. Blood clot on anticoagulants = cardiovascular. NOT valid moving C-SNP to C-SNP for the same condition (only valid if switching to a different-condition C-SNP).',
+      nextStep: 'Look up C-SNP availability in their county on carrier portals. If a match exists, name the plan and move to enrollment.',
+      warning: 'Must be enrolling INTO a C-SNP — this SEP cannot be used for standard MA/MAPD plans. Not valid for moving from one C-SNP to another C-SNP for the same condition.',
     },
   },
   {
@@ -248,29 +261,6 @@ const SIGNALS: SignalCard[] = [
     },
   },
   {
-    id: 'chronic',
-    label: 'Chronic Condition',
-    phase: 'min 8–15',
-    askThis: 'Do you have any ongoing health conditions like diabetes, heart disease, or COPD?',
-    listenFor: ['diabetes / metformin', 'heart disease / pacemaker', 'COPD / kidney / dialysis', 'cancer / stroke', 'Alzheimer\'s / Parkinson\'s / MS'],
-    callout: 'If a C-SNP is available in their county for that condition, they can enroll. Check Aetna, Humana, UHC, WellCare portals.',
-    frequency: 'medium',
-    sep: {
-      id: 'chronic',
-      name: 'Chronic Condition SNP (C-SNP) SEP',
-      code: 'CSN',
-      window: 'One-time per qualifying condition. Once enrolled, the SEP for that condition ends. A new qualifying condition triggers a new SEP.',
-      isTimeSensitive: false,
-      allowed: [
-        'Enroll in the matching C-SNP for that condition',
-      ],
-      script: 'Because you have [condition], you may actually qualify for a Special Needs Plan designed specifically for people managing that condition. These plans often have much lower copays and benefits tailored to your exact needs — and you can enroll in one right now.',
-      verify: 'You MUST verify a C-SNP exists in their county for that condition BEFORE confirming this SEP. Check Aetna, Humana, UHC, and WellCare portals. Pacemaker = heart condition. Blood clot on anticoagulants = cardiovascular. NOT valid moving C-SNP to C-SNP for the same condition (only valid if switching to a different-condition C-SNP).',
-      nextStep: 'Look up C-SNP availability in their county on carrier portals. If a match exists, name the plan and move to enrollment.',
-      warning: 'Must be enrolling INTO a C-SNP — this SEP cannot be used for standard MA/MAPD plans. Not valid for moving from one C-SNP to another C-SNP for the same condition.',
-    },
-  },
-  {
     id: 'plan-ending',
     label: 'Plan Ending / Termination Letter',
     phase: 'min 5–12',
@@ -292,6 +282,30 @@ const SIGNALS: SignalCard[] = [
       script: 'It looks like your current plan is actually leaving your area — which means you automatically qualify for a Special Enrollment Period to get into a new plan. Let\'s make sure we get you set up before your coverage ends.',
       verify: 'Check system for plan termination status. Ask if they received a letter. EOC = carrier decided to leave that ZIP (Dec 8 – Feb 28 window for Jan 1 exits). MYT = Medicare terminated the plan\'s contract (2 months before + 1 month after end). REC = plan taken over by the state for financial issues (lasts until state action ends or member switches).',
       nextStep: 'Confirm plan termination date from their letter or system. If confirmed, proceed to enrollment — their old coverage continues through the termination date.',
+    },
+  },
+  {
+    id: 'moved',
+    label: 'Address Mismatch / Moved',
+    phase: 'min 5–8',
+    askThis: 'Is the address we have on file still correct?',
+    listenFor: ['"I moved"', 'new city or ZIP', '"staying with family"', '"house burned"', 'eviction', 'different address in system vs. what they say'],
+    callout: 'System address doesn\'t match what they said? That\'s a live SEP. Don\'t just update the field and move on.',
+    frequency: 'high',
+    sep: {
+      id: 'moved',
+      name: 'Change of Permanent Residence SEP',
+      code: 'MOV',
+      window: 'Month before move (if notified in advance) + month of move + 2 full calendar months after.',
+      isTimeSensitive: true,
+      allowed: [
+        'Enroll in any MA, MAPD, or PDP available at the new address',
+        'Switch to any plan that serves the new ZIP or county',
+      ],
+      script: 'Good news — because you recently moved, you actually qualify for a Special Enrollment Period right now. That gives us a limited window to get you into a new plan at your current address. Let\'s look at what\'s available before that window closes.',
+      verify: 'Confirm: (1) new address and ZIP, (2) exact move date. The window starts the month before the move only if the plan was notified in advance — otherwise it starts the month of the move. House fire, eviction, or moving in with family all count as long as it\'s a different physical address. Also triggers when MARx address differs from the address on the application being submitted.',
+      nextStep: 'Confirm new ZIP, confirm move date, enter it in the deadline calculator — tell them exactly how many days they have left.',
+      warning: 'NOT valid for a PO Box change — must be a change of physical residence. A "temporary" stay at a family member\'s address while repairs are done STILL counts if the plan doesn\'t serve the new address.',
     },
   },
   {
@@ -880,6 +894,22 @@ const CHEAT_SHEET: { category: string; items: CheatItem[] }[] = [
           'MARx will flag when OEP has been used — check before submitting',
         ],
       }},
+      { trigger: 'Apr 1 – Oct 14 (SEP-only season)', sep: 'SEP Season', window: 'All enrollments require a qualifying SEP.', code: 'SEP', notes: [
+        'No general enrollment available — every enrollment requires a valid Special Enrollment Period',
+        'This is the season where SEP knowledge separates professionals from amateurs',
+      ], detail: {
+        what: 'The period between MA OEP close and AEP open where the only way to enroll is through a qualifying SEP.',
+        qualify: [
+          'Apr 1 – Oct 14 each year',
+          'No open enrollment window — all enrollments require a valid SEP',
+          'Agents who understand all 37 SEP codes can still enroll beneficiaries year-round',
+        ],
+        watch: [
+          'Every enrollment during this period MUST have a qualifying SEP — no exceptions',
+          'This is when SEP knowledge matters most — agents who only know AEP sit idle for 6 months',
+          'Compliance scrutiny is highest during SEP season — verify every SEP before submitting',
+        ],
+      }},
     ],
   },
 ]
@@ -1373,6 +1403,22 @@ function SignalCardItem({
                 </button>
               </div>
 
+              {/* Condition lookup — first for chronic */}
+              {sig.id === 'chronic' && <ChronicConditionSearch />}
+
+              {/* Discovery questions */}
+              {sig.discoveryQuestions && (
+                <div className={styles.discoveryBlock}>
+                  <p className={styles.discoveryLabel}>Discovery Questions</p>
+                  {sig.discoveryQuestions.map((q, i) => (
+                    <div key={i} className={styles.discoveryItem}>
+                      <span className={styles.discoveryNum}>{i + 1}</span>
+                      <p className={styles.discoveryText}>{q}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* Callout */}
               <p className={styles.signalCallout}>{sig.callout}</p>
 
@@ -1438,7 +1484,6 @@ function SignalCardItem({
 
               {sig.id === 'dual-lis' && <MedicaidRouter />}
               {sig.id === 'new-to-medicare' && <IEPClassifier />}
-              {sig.id === 'chronic' && <ChronicConditionSearch />}
 
             </div>
           </motion.div>
@@ -2340,6 +2385,13 @@ export default function SEPCheckPage() {
           </motion.div>
         )}
       </AnimatePresence>
+      <CrossLinks
+        links={[
+          { label: 'SEP Training Guides', href: '/sep' },
+          { label: 'Objections', href: '/objections' },
+          { label: 'Call Types', href: '/call-types' },
+        ]}
+      />
     </PageShell>
   )
 }

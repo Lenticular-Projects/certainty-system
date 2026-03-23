@@ -1,0 +1,496 @@
+/* Money Codes — SEP Quick Reference */
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.eyebrow {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-3);
+}
+
+.headline {
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* C-SNP Hero Card                                                     */
+/* ------------------------------------------------------------------ */
+
+.csnpHero {
+  border-radius: 20px;
+  padding: var(--space-7) var(--space-8);
+  margin-bottom: var(--space-8);
+  border-left: 4px solid var(--sage-dark) !important;
+}
+
+.csnpLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-3);
+}
+
+.csnpTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.375rem, 3vw, 1.75rem);
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+.csnpStat {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-1);
+}
+
+.csnpStatLabel {
+  font-size: 0.9375rem;
+  color: var(--ink-60);
+  margin-bottom: var(--space-5);
+}
+
+.csnpQuestion {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--ink);
+  padding: var(--space-4) var(--space-5);
+  border-radius: 12px;
+  background: rgba(45, 90, 61, 0.06);
+  border: 1px solid rgba(45, 90, 61, 0.12);
+  margin-bottom: var(--space-5);
+}
+
+.csnpReasons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.csnpReason {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.csnpReasonDot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sage-dark);
+  margin-top: 7px;
+}
+
+.csnpConditions {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+}
+
+.csnpConditions strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.csnpNote {
+  margin-top: var(--space-4);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 10px;
+  background: rgba(180, 83, 9, 0.05);
+  border: 1px solid rgba(180, 83, 9, 0.12);
+}
+
+.csnpNote strong {
+  color: var(--tc-dark);
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sections                                                            */
+/* ------------------------------------------------------------------ */
+
+.section {
+  margin-bottom: var(--space-8);
+}
+
+.sectionHeader {
+  margin-bottom: var(--space-5);
+  max-width: 720px;
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.sectionDesc {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Code table                                                          */
+/* ------------------------------------------------------------------ */
+
+.tableWrap {
+  border-radius: 16px;
+  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.table th {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  border-bottom: 1px solid var(--ink-10);
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.20);
+}
+
+.table td {
+  padding: var(--space-4) var(--space-5);
+  vertical-align: top;
+  border-bottom: 1px solid var(--ink-10);
+  color: var(--ink);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: rgba(255, 255, 255, 0.30);
+}
+
+.codeBadge {
+  display: inline-block;
+  font-family: var(--font-geist), monospace;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  color: var(--sage-dark);
+  background: var(--sage-tint);
+  padding: 2px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.tdTrigger {
+  font-style: italic;
+  color: var(--ink-60);
+}
+
+.tdWindow {
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Timing groups                                                       */
+/* ------------------------------------------------------------------ */
+
+.timingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.timingCard {
+  border-radius: 16px;
+  padding: var(--space-5) var(--space-6);
+}
+
+.timingLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.timingLabelGreen {
+  composes: timingLabel;
+  color: var(--sage-dark);
+}
+
+.timingLabelAmber {
+  composes: timingLabel;
+  color: var(--tc-dark);
+}
+
+.timingLabelBlue {
+  composes: timingLabel;
+  color: #1e5a8a;
+}
+
+.timingList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.timingItem {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.timingItem strong {
+  font-weight: 700;
+}
+
+.timingItem span {
+  color: var(--ink-60);
+  font-size: 0.8125rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Confusion killers                                                   */
+/* ------------------------------------------------------------------ */
+
+.confusionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+.confusionCard {
+  border-radius: 16px;
+  padding: var(--space-5) var(--space-6);
+}
+
+.confusionPair {
+  font-family: var(--font-geist), monospace;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-3);
+}
+
+.confusionRule {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.confusionRule strong {
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------------ */
+/* Red lines                                                           */
+/* ------------------------------------------------------------------ */
+
+.redLinesStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 720px;
+}
+
+.redLineCard {
+  border-radius: 14px;
+  padding: var(--space-5) var(--space-6);
+  border-left: 3px solid var(--tc-dark) !important;
+}
+
+.redLineNum {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--tc-dark);
+  margin-bottom: var(--space-1);
+}
+
+.redLineRule {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.redLineDetail {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .hero {
+    text-align: left;
+  }
+
+  .subtitle {
+    margin: 0;
+  }
+
+  .csnpHero {
+    padding: var(--space-5);
+  }
+
+  .csnpStat {
+    font-size: 2rem;
+  }
+
+  .timingGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .confusionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.875rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print styles                                                        */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .hero {
+    text-align: left;
+    margin-bottom: 16pt;
+  }
+
+  .headline {
+    font-size: 22pt;
+  }
+
+  .csnpHero {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    border-left: 3px solid #2D5A3D !important;
+    box-shadow: none !important;
+    padding: 12pt;
+    break-inside: avoid;
+  }
+
+  .csnpStat {
+    font-size: 28pt;
+    color: #2D5A3D !important;
+  }
+
+  .section {
+    margin-bottom: 20pt;
+    break-inside: avoid;
+  }
+
+  .sectionTitle {
+    font-size: 14pt;
+  }
+
+  .tableWrap {
+    border-radius: 0 !important;
+    background: white !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    overflow: visible;
+  }
+
+  .table {
+    font-size: 8pt;
+  }
+
+  .table th {
+    background: #f5f5f5 !important;
+    color: #333 !important;
+    padding: 5pt 6pt;
+  }
+
+  .table td {
+    padding: 4pt 6pt;
+    color: #111 !important;
+  }
+
+  .timingGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8pt;
+  }
+
+  .timingCard,
+  .confusionCard,
+  .redLineCard {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    padding: 8pt;
+  }
+
+  .confusionGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8pt;
+  }
+}

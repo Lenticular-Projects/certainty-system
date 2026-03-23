@@ -1,0 +1,217 @@
+import { StyleSheet } from '@react-pdf/renderer'
+
+/* Design tokens matching the Certainty System site */
+export const colors = {
+  ink: '#131110',
+  ink60: '#6b6764',
+  ink20: '#c5c2bf',
+  ink10: '#e2e0de',
+  bg: '#FAFAF8',
+  white: '#FFFFFF',
+  sage: '#2D5A3D',
+  sageTint: '#e8f0eb',
+  amber: '#92400e',
+  amberTint: '#fef3c7',
+  red: '#B84420',
+  blue: '#1e5a8a',
+  blueTint: '#e0f0ff',
+} as const
+
+export const fonts = {
+  body: 'Geist',
+  heading: 'Playfair Display',
+} as const
+
+/* Shared base styles reused across all PDF documents */
+export const base = StyleSheet.create({
+  page: {
+    fontFamily: fonts.body,
+    fontSize: 9.5,
+    lineHeight: 1.55,
+    color: colors.ink,
+    backgroundColor: colors.white,
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingHorizontal: 44,
+  },
+  pageFooter: {
+    position: 'absolute',
+    bottom: 22,
+    left: 44,
+    right: 44,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    fontSize: 7,
+    color: colors.ink60,
+  },
+  coverPage: {
+    fontFamily: fonts.body,
+    backgroundColor: colors.bg,
+    paddingHorizontal: 60,
+    paddingVertical: 60,
+    justifyContent: 'center',
+  },
+  coverTitle: {
+    fontFamily: fonts.heading,
+    fontSize: 32,
+    fontWeight: 700,
+    color: colors.ink,
+    marginBottom: 12,
+  },
+  coverSubtitle: {
+    fontSize: 13,
+    color: colors.ink60,
+    lineHeight: 1.7,
+    maxWidth: 400,
+    marginBottom: 32,
+  },
+  coverMeta: {
+    fontSize: 8.5,
+    color: colors.ink60,
+    marginTop: 'auto' as unknown as number,
+  },
+  h1: {
+    fontFamily: fonts.heading,
+    fontSize: 22,
+    fontWeight: 700,
+    color: colors.ink,
+    marginBottom: 10,
+    lineHeight: 1.15,
+  },
+  h2: {
+    fontFamily: fonts.heading,
+    fontSize: 15,
+    fontWeight: 700,
+    color: colors.ink,
+    marginBottom: 5,
+    marginTop: 14,
+  },
+  h3: {
+    fontFamily: fonts.body,
+    fontSize: 11,
+    fontWeight: 700,
+    color: colors.ink,
+    marginBottom: 3,
+    marginTop: 10,
+  },
+  body: {
+    fontSize: 9.5,
+    lineHeight: 1.55,
+    color: colors.ink,
+    marginBottom: 6,
+  },
+  bodyMuted: {
+    fontSize: 9,
+    lineHeight: 1.55,
+    color: colors.ink60,
+    marginBottom: 6,
+  },
+  bold: {
+    fontWeight: 700,
+  },
+  italic: {
+    fontStyle: 'italic',
+  },
+  eyebrow: {
+    fontFamily: fonts.body,
+    fontSize: 7.5,
+    fontWeight: 700,
+    letterSpacing: 1,
+    textTransform: 'uppercase' as const,
+    color: colors.sage,
+    marginBottom: 6,
+  },
+  divider: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.ink10,
+    marginVertical: 8,
+  },
+  /* Table styles */
+  tableRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 0.5,
+    borderBottomColor: colors.ink10,
+    paddingVertical: 6,
+    paddingHorizontal: 4,
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: colors.ink20,
+    paddingVertical: 5,
+    paddingHorizontal: 4,
+    backgroundColor: colors.bg,
+  },
+  tableHeaderCell: {
+    fontSize: 7.5,
+    fontWeight: 700,
+    letterSpacing: 0.5,
+    textTransform: 'uppercase' as const,
+    color: colors.ink60,
+  },
+  tableCell: {
+    fontSize: 9,
+    lineHeight: 1.45,
+    color: colors.ink,
+  },
+  /* Badge / code chip */
+  codeBadge: {
+    fontFamily: fonts.body,
+    fontSize: 8,
+    fontWeight: 700,
+    color: colors.sage,
+    backgroundColor: colors.sageTint,
+    paddingVertical: 1.5,
+    paddingHorizontal: 5,
+    borderRadius: 3,
+  },
+  /* Cards */
+  card: {
+    backgroundColor: colors.bg,
+    borderRadius: 8,
+    padding: 14,
+    marginBottom: 8,
+    borderWidth: 0.5,
+    borderColor: colors.ink10,
+  },
+  cardAccent: {
+    backgroundColor: colors.bg,
+    borderRadius: 8,
+    padding: 14,
+    marginBottom: 8,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.sage,
+    borderWidth: 0.5,
+    borderColor: colors.ink10,
+  },
+  cardWarn: {
+    backgroundColor: colors.bg,
+    borderRadius: 8,
+    padding: 14,
+    marginBottom: 8,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.red,
+    borderWidth: 0.5,
+    borderColor: colors.ink10,
+  },
+  /* Bullet list */
+  bulletRow: {
+    flexDirection: 'row',
+    marginBottom: 3,
+    paddingLeft: 4,
+  },
+  bulletDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: colors.sage,
+    marginTop: 5,
+    marginRight: 8,
+  },
+  bulletText: {
+    fontSize: 9,
+    lineHeight: 1.5,
+    color: colors.ink,
+    flex: 1,
+  },
+})

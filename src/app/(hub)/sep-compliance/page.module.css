@@ -1,0 +1,457 @@
+/* SEP Compliance Cheat Sheet */
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.eyebrow {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-3);
+}
+
+.headline {
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Section layout                                                      */
+/* ------------------------------------------------------------------ */
+
+.section {
+  margin-bottom: var(--space-8);
+}
+
+.sectionHeader {
+  margin-bottom: var(--space-5);
+  max-width: 720px;
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.sectionDesc {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tables                                                              */
+/* ------------------------------------------------------------------ */
+
+.tableWrap {
+  border-radius: 16px;
+  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.table th {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  border-bottom: 1px solid var(--ink-10);
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.20);
+}
+
+.table td {
+  padding: var(--space-4) var(--space-5);
+  vertical-align: top;
+  border-bottom: 1px solid var(--ink-10);
+  color: var(--ink);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: rgba(255, 255, 255, 0.30);
+}
+
+.thNarrow,
+.tdNarrow {
+  width: 60px;
+}
+
+.thCenter,
+.tdCenter {
+  text-align: center;
+}
+
+.tdNum {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+.tdStrong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.tdDetail {
+  color: var(--ink-60);
+  font-size: 0.875rem;
+}
+
+.tdBenchmark {
+  font-weight: 700;
+  color: var(--tc-dark);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.codeBadge {
+  display: inline-block;
+  font-family: var(--font-geist), monospace;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  color: var(--sage-dark);
+  background: var(--sage-tint);
+  padding: 2px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.checkYes {
+  color: var(--sage-dark);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.checkNo {
+  color: var(--ink-20);
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Red flags list                                                      */
+/* ------------------------------------------------------------------ */
+
+.redFlagsList {
+  border-radius: 16px;
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.redFlagItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.redFlagDot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tc-dark);
+  margin-top: 7px;
+}
+
+.redFlagText {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* DO NOT grid                                                         */
+/* ------------------------------------------------------------------ */
+
+.doNotGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.doNotCard {
+  border-radius: 14px;
+  padding: var(--space-5);
+  border-left: 3px solid var(--tc-dark) !important;
+}
+
+.doNotRule {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+.doNotDetail {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Escalation path                                                     */
+/* ------------------------------------------------------------------ */
+
+.escalationStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 720px;
+}
+
+.escalationCard {
+  border-radius: 14px;
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.escalationNum {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sage-tint);
+  border: 1.5px solid rgba(106, 139, 110, 0.25);
+  color: var(--sage-dark);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.escalationAction {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  margin-bottom: var(--space-1);
+  text-decoration: none;
+  display: block;
+}
+
+a.escalationAction:hover {
+  color: var(--sage-dark);
+  text-decoration: underline;
+}
+
+.escalationDetail {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Habit callout                                                       */
+/* ------------------------------------------------------------------ */
+
+.habitCallout {
+  border-radius: 20px;
+  padding: var(--space-7) var(--space-8);
+  max-width: 720px;
+  margin: 0 auto var(--space-8);
+  text-align: center;
+}
+
+.habitLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-3);
+}
+
+.habitText {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.habitText strong {
+  font-style: normal;
+  color: var(--sage-dark);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .hero {
+    text-align: left;
+  }
+
+  .subtitle {
+    margin: 0;
+  }
+
+  .doNotGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .habitCallout {
+    text-align: left;
+    padding: var(--space-5);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.875rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print styles                                                        */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .hero {
+    text-align: left;
+    margin-bottom: 20pt;
+  }
+
+  .headline {
+    font-size: 24pt;
+  }
+
+  .sectionTitle {
+    font-size: 14pt;
+  }
+
+  .section {
+    margin-bottom: 24pt;
+    break-inside: avoid;
+  }
+
+  .tableWrap {
+    border-radius: 0 !important;
+    background: white !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    overflow: visible;
+  }
+
+  .table {
+    font-size: 9pt;
+  }
+
+  .table th {
+    background: #f5f5f5 !important;
+    color: #333 !important;
+    padding: 6pt 8pt;
+  }
+
+  .table td {
+    padding: 5pt 8pt;
+    color: #111 !important;
+  }
+
+  .redFlagsList {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 10pt;
+  }
+
+  .redFlagText {
+    font-size: 9pt;
+    color: #111 !important;
+  }
+
+  .doNotGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8pt;
+  }
+
+  .doNotCard {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    padding: 8pt;
+  }
+
+  .doNotRule {
+    font-size: 9pt;
+    color: #111 !important;
+  }
+
+  .doNotDetail {
+    font-size: 8pt;
+    color: #444 !important;
+  }
+
+  .escalationCard {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    padding: 6pt 8pt;
+  }
+
+  .habitCallout {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    text-align: left;
+    padding: 12pt;
+  }
+}

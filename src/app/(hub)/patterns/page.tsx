@@ -121,13 +121,13 @@ const rootCauseGroups: RootCauseGroup[] = [
     label: 'Root Cause 2',
     title: 'Wrong Response to Signal',
     description: 'The agent misread what the client needed in that moment. Logic when the client needed empathy. Information when the client needed a reframe. The wrong tool at the wrong moment costs the sale every time.',
-    patternNumbers: [2, 3, 7, 8],
+    patternNumbers: [2, 3, 8],
   },
   {
     label: 'Root Cause 3',
     title: 'Momentum Killers',
     description: 'The agent let the energy of the call die. Dead air during system navigation. Rapport that built and built with no transition to close.',
-    patternNumbers: [5, 9],
+    patternNumbers: [5, 7, 9],
   },
 ]
 

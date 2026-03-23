@@ -1,0 +1,541 @@
+/* C-SNP Playbook */
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  text-align: center;
+  margin-bottom: var(--space-7);
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.eyebrow {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-3);
+}
+
+.headline {
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stats row                                                           */
+/* ------------------------------------------------------------------ */
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.statCard {
+  border-radius: 16px;
+  padding: var(--space-5) var(--space-6);
+  text-align: center;
+}
+
+.statValue {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  color: var(--sage-dark);
+  line-height: 1.1;
+  margin-bottom: var(--space-2);
+}
+
+.statLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-60);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Section layout                                                      */
+/* ------------------------------------------------------------------ */
+
+.section {
+  margin-bottom: var(--space-9);
+}
+
+.sectionHeader {
+  margin-bottom: var(--space-6);
+  max-width: 640px;
+}
+
+.sectionEyebrow {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-2);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: var(--space-3);
+}
+
+.sectionDesc {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Conditions clusters grid (glass cards, no color)                  */
+/* ------------------------------------------------------------------ */
+
+.clustersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.clusterCard {
+  border-radius: 14px;
+  padding: var(--space-5);
+}
+
+.clusterTitle {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-3);
+}
+
+.conditionList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.conditionItem {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--ink);
+  padding-left: var(--space-3);
+  position: relative;
+}
+
+.conditionItem::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--ink-40);
+  font-size: 0.75rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Carrier portal table                                               */
+/* ------------------------------------------------------------------ */
+
+.tableWrap {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.carrierTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.carrierTable th {
+  text-align: left;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+}
+
+.carrierTable td {
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.05);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.carrierTable tr:last-child td {
+  border-bottom: none;
+}
+
+.tdCarrier {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tdPortal {
+  color: var(--ink-60);
+}
+
+.tdSearch {
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* New condition = new SEP callout (amber)                            */
+/* ------------------------------------------------------------------ */
+
+.newCondCallout {
+  border-radius: 16px;
+  padding: var(--space-5) var(--space-6);
+  border-left: 4px solid var(--mustard) !important;
+  max-width: 760px;
+  margin-bottom: var(--space-9);
+}
+
+.newCondLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mustard-dark);
+  margin-bottom: var(--space-2);
+}
+
+.newCondText {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Discovery questions                                                 */
+/* ------------------------------------------------------------------ */
+
+.questionsStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 760px;
+}
+
+.questionCard {
+  border-radius: 16px;
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  gap: var(--space-5);
+  align-items: flex-start;
+}
+
+.questionNumber {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--sage-tint);
+  border: 1.5px solid rgba(106, 139, 110, 0.25);
+  color: var(--sage-dark);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.questionBody {
+  flex: 1;
+}
+
+.questionText {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.questionNote {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Talk track                                                          */
+/* ------------------------------------------------------------------ */
+
+.talkTrackCard {
+  border-radius: 20px;
+  padding: var(--space-7) var(--space-8);
+  max-width: 760px;
+  position: relative;
+}
+
+.talkTrackQuote,
+.talkTrackQuoteClose {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--sage);
+  opacity: 0.5;
+  display: block;
+  margin-bottom: -var(--space-3);
+}
+
+.talkTrackQuoteClose {
+  text-align: right;
+  margin-top: var(--space-2);
+  margin-bottom: 0;
+}
+
+.talkTrackText {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.125rem, 2vw, 1.3125rem);
+  line-height: 1.65;
+  color: var(--ink);
+  padding: 0 var(--space-3);
+}
+
+.talkTrackVar {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--sage-dark);
+  background: var(--sage-tint);
+  padding: 1px 8px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Eligibility steps                                                   */
+/* ------------------------------------------------------------------ */
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.stepCard {
+  border-radius: 16px;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stepNumber {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--sage-tint);
+  border: 2px solid rgba(106, 139, 110, 0.3);
+  color: var(--sage-dark);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.stepDetail {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Compliance guardrails                                               */
+/* ------------------------------------------------------------------ */
+
+.guardrailsStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 760px;
+}
+
+.guardrailCard {
+  border-radius: 14px;
+  padding: var(--space-5) var(--space-6);
+  border-left: 3px solid var(--tc-dark) !important;
+}
+
+.guardrailRule {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.guardrailExplanation {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .clustersGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    text-align: left;
+  }
+
+  .statsRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .statCard {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .statValue {
+    margin-bottom: 0;
+    font-size: 1.375rem;
+    flex-shrink: 0;
+  }
+
+  .clustersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .questionCard {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .talkTrackCard {
+    padding: var(--space-5) var(--space-5);
+  }
+
+  .talkTrackQuote,
+  .talkTrackQuoteClose {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    margin: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print styles                                                        */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .hero {
+    text-align: left;
+    margin-bottom: 24pt;
+  }
+
+  .statsRow {
+    gap: 8pt;
+    margin-bottom: 32pt;
+    max-width: none;
+  }
+
+  .statCard {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    padding: 12pt;
+  }
+
+  .statValue {
+    color: #2D5A3D;
+  }
+
+  .clustersGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8pt;
+  }
+
+  .clusterCard {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  .questionCard,
+  .talkTrackCard,
+  .stepCard,
+  .guardrailCard {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  .stepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section {
+    break-inside: avoid;
+  }
+}

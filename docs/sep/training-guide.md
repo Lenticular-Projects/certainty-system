@@ -2,11 +2,11 @@
 
 ---
 
-**Purpose:** This is the master training document for Special Enrollment Periods. It covers every SEP code you will encounter on inbound Medicare calls, organized by category, with talk tracks, real-world scenarios, common mistakes, and side-by-side comparisons of the codes agents confuse most. This document is designed for NotebookLM ingestion — use it to generate podcasts, flashcards, quizzes, and other training materials.
+**Purpose:** This is the master training document for Special Enrollment Periods. It covers every SEP code you will encounter on inbound Medicare calls, organized by category, with talk tracks, real-world scenarios, common mistakes, and side-by-side comparisons of the codes agents confuse most. Print it, bookmark it, or keep it open during study sessions — this is your single source of truth for SEPs.
 
 **Audience:** Licensed Medicare Advantage sales agents handling inbound calls.
 
-**Last updated:** March 2026
+**Last updated:** Current plan year
 
 ---
 
@@ -31,6 +31,25 @@ The Medicare enrollment calendar has three distinct seasons, and the rules chang
 **SEP Season: April 1 through October 14.** This is where your SEP knowledge either makes you money or costs you enrollments. During these six-plus months, the only way to enroll someone is with a valid SEP. No SEP, no enrollment. This is the season where knowing these codes separates the professionals from the amateurs.
 
 Here is the critical insight: even during AEP and OEP, SEPs still matter. A beneficiary calling in January who has Medicaid does not need to use their one OEP change — they have an INT or DEP SEP that lets them change every single month. An agent who does not know that might waste the OEP on a dual-eligible beneficiary who did not need it. Knowledge of SEPs is not just for SEP season. It is for every season.
+
+### Standard Enrollment Periods — The Foundation
+
+Before you can understand SEPs, you need to understand the enrollment periods that every beneficiary has access to by default. These are the standard windows — no qualifying life event required.
+
+| Period | Abbreviation | When | Who | What They Can Do | Effective Date |
+|--------|-------------|------|-----|-----------------|----------------|
+| Initial Enrollment Period | IEP | 7 months around 65th birthday (3 before + birthday month + 3 after) | Newly eligible beneficiaries | Enroll in MAPD or PDP for the first time | 1st of month of eligibility (if enrolled before), or 1st of month following enrollment |
+| General Enrollment Period | GEP | January 1 – March 31 | Beneficiaries who missed their IEP | Sign up for Part B; can then enroll in MA/MAPD/PDP | Part B effective 1st of month after sign-up; plan effective same day or 1st of following month |
+| Annual Election Period | AEP | October 15 – December 7 | All Medicare beneficiaries | Join, switch, or drop MA/MAPD/PDP | January 1 of the following year |
+| MA Open Enrollment Period | MA OEP | January 1 – March 31 | Existing MA/MAPD enrollees only | One plan change: switch MA plans or return to Original Medicare with PDP | 1st of the month following enrollment |
+| New-to-MA OEP | OEP-N | Month of MA/MAPD effectuation + 2 months | First-time MA/MAPD enrollees after IEP/ICEP | One plan change if dissatisfied | 1st of month following enrollment |
+| Medicare Supplement OEP | Medigap OEP | 6 months after enrolling in Part B (and age 65+) | Beneficiaries enrolling in Part B at 65 or older | Guaranteed issue for any Medigap plan — no medical underwriting | Varies by plan |
+
+**Why this matters for SEP knowledge:** Every SEP exists because something happened *outside* these standard windows. If a beneficiary is inside one of these windows, they may not need an SEP at all. Your first job on every call is to determine whether a standard window is open before hunting for an SEP.
+
+**CMS Election Period Hierarchy:** When a beneficiary qualifies for more than one enrollment period at the same time, CMS expects you to use the one most beneficial to them. The hierarchy is: (1) IEP/ICEP, (2) MA OEP, (3) SEP, (4) AEP, (5) OEP-Institutional. Always use the enrollment period that gives the beneficiary the best effective date and the most plan options.
+
+---
 
 ### "The Client Doesn't Know They Have an SEP" — Discovery Mindset
 
@@ -94,7 +113,7 @@ This is where every Medicare journey begins. A beneficiary becomes eligible, and
 
 **Talk track:** "Since you are right in your initial enrollment window, we can get you set up with the right plan today — no special circumstances needed. You have a seven-month window, and I want to make sure we use it well."
 
-**Real-world scenario:** Imagine you are on a call and Mr. Williams mentions he just turned 65 last month. You pull up MARx and see Part A effective 06/2026 and Part B effective 06/2026 — same date. No existing plan on file. He is in his IEP with five months remaining. You tell him exactly when his window closes and move to plan comparison.
+**Real-world scenario:** Imagine you are on a call and Mr. Williams mentions he just turned 65 last month. You pull up MARx and see Part A and Part B share the same effective date — same date. No existing plan on file. He is in his IEP with five months remaining. You tell him exactly when his window closes and move to plan comparison.
 
 ---
 
@@ -104,7 +123,7 @@ This is where every Medicare journey begins. A beneficiary becomes eligible, and
 
 **Plain English:** Someone who has been on Medicare through disability is now turning 65, and they get a brand-new seven-month window — as if they were enrolling for the very first time.
 
-**What triggers it:** A Medicare beneficiary who originally qualified through disability (under 65) is now turning 65. MARx will show a Medicare Reason for Disability (MRD) code. The golden birth year to watch for right now is 1961 — those beneficiaries are aging into their IEP2 window.
+**What triggers it:** A Medicare beneficiary who originally qualified through disability (under 65) is now turning 65. MARx will show a Medicare Reason for Disability (MRD) code. Calculate the current golden birth year by subtracting 65 from the current year — those beneficiaries are aging into their IEP2 window.
 
 **Enrollment window:** Seven months — identical structure to IEP. Three months before the 65th birthday month, the birthday month, and three months after. Uses MRD on the application.
 
@@ -114,7 +133,7 @@ This is where every Medicare journey begins. A beneficiary becomes eligible, and
 
 **Talk track:** "Because you are turning 65 and you have been on Medicare through disability, you actually get a brand-new enrollment window — a fresh start. We can look at all the plans available to you right now and make sure you are in the best one going forward."
 
-**Real-world scenario:** Mrs. Thompson calls in. She has been on Medicare since age 58 due to a disability. She is turning 65 next month. You check MARx and see the MRD indicator and a 1961 DOB. She has a fresh IEP2 window opening up — seven months to get her into the right MAPD plan, regardless of what she is enrolled in now.
+**Real-world scenario:** Mrs. Thompson calls in. She has been on Medicare since age 58 due to a disability. She is turning 65 next month. You check MARx and see the MRD indicator and a DOB showing they are turning 65. She has a fresh IEP2 window opening up — seven months to get her into the right MAPD plan, regardless of what she is enrolled in now.
 
 ---
 
@@ -126,15 +145,15 @@ This is where every Medicare journey begins. A beneficiary becomes eligible, and
 
 **What triggers it:** Part B activation after a delay. The telltale sign: Part A and Part B have different effective dates in MARx. This happens most often when someone had employer coverage past 65, kept Part A, delayed Part B, and is now activating Part B because they retired or lost employer coverage.
 
-**Enrollment window:** Five months — three months before the Part B effective month, the Part B effective month, and one month after. This window was extended as of January 1, 2025 (it was previously shorter). The anchor date is the Part B effective date, not the birthday.
+**Enrollment window:** Five months — three months before the Part B effective month, the Part B effective month, and one month after. This window was recently extended from the previous shorter duration. The anchor date is the Part B effective date, not the birthday.
 
 **Who qualifies:** Beneficiaries whose Part A and Part B have different effective dates. NOT valid for PDP enrollment — ICEP is for MA or MAPD only. If they need a standalone PDP, use IEP instead.
 
-**Common mistakes:** Using ICEP when Part A and Part B share the same date (that is IEP). Using ICEP for PDP enrollment (not valid). Using outdated window calculations that predate the 1/1/2025 extension. Also, ICEP often coincides with LEC — if employer coverage is ending at the same time Part B activates, document both codes.
+**Common mistakes:** Using ICEP when Part A and Part B share the same date (that is IEP). Using ICEP for PDP enrollment (not valid). Using outdated window calculations that predate the recent extension. Also, ICEP often coincides with LEC — if employer coverage is ending at the same time Part B activates, document both codes.
 
 **Talk track:** "Since your Part B is just now starting, you are in your initial enrollment window for a Medicare Advantage plan. We have a five-month window to work with — let me show you what is available in your area."
 
-**Real-world scenario:** Mr. Garcia calls. He is 68 years old. He had Part A since turning 65 but kept his employer insurance and delayed Part B. He just retired, and his Part B starts next month. MARx shows Part A effective 07/2023, Part B effective 04/2026 — different dates. This is ICEP, not IEP. His window is three months before April, plus April, plus one month after — January through May 2026. You also check for LEC since his employer coverage is ending.
+**Real-world scenario:** Mr. Garcia calls. He is 68 years old. He had Part A since turning 65 but kept his employer insurance and delayed Part B. He just retired, and his Part B starts next month. MARx shows Part A and Part B have different effective dates — Part A started years ago, Part B is just now activating. This is ICEP, not IEP. His window is three months before the Part B effective month, plus that month, plus one month after. You also check for LEC since his employer coverage is ending.
 
 ---
 
@@ -210,11 +229,19 @@ These are the SEPs tied to Medicaid and Extra Help (Low Income Subsidy). If you 
 
 **Who qualifies:** Beneficiaries with full Medicaid enrolling into a D-SNP only. You must verify the Medicaid level before using this code. Check the INT/MCO Reference Sheet to confirm eligibility. QMB-only does NOT qualify — they need QMB+ or higher.
 
-**Common mistakes:** Using INT for someone with QMB-only (not eligible — QMB+ is required). Using INT for a PDP enrollment (INT is D-SNP only — use DEP for PDP). Not verifying Medicaid level before submitting — wrong Medicaid level equals an invalid enrollment.
+**MCO Matching — Critical Detail:** INT can only be used to enroll into one of three integrated D-SNP types: a Fully Integrated Dual-Eligible Special Needs Plan (FIDE SNP), a Highly Integrated Dual-Eligible Special Needs Plan (HIDE SNP), or a D-SNP that is an Applicable Integrated Plan (AIP). Not all D-SNPs qualify — the plan must be designated as one of these three integrated types. The MCO (Managed Care Organization) on the Medicaid side must match the carrier offering the D-SNP. There is no automated lookup for this — you must check carrier portals and state Medicaid managed care directories to confirm alignment. If the beneficiary's Medicaid MCO does not align with the D-SNP carrier, the enrollment will fail.
+
+**Common mistakes:** Using INT for someone with QMB-only (not eligible — QMB+ is required). Using INT for a PDP enrollment (INT is D-SNP only — use DEP for PDP). Not verifying Medicaid level before submitting — wrong Medicaid level equals an invalid enrollment. Enrolling into a D-SNP that is not FIDE, HIDE, or AIP — not all D-SNPs are integrated, and INT requires an integrated plan.
 
 **Talk track:** "Since you have full Medicaid, you have the ability to enroll in a Special Needs Plan designed specifically for people with both Medicare and Medicaid. These plans coordinate your benefits and often have zero or very low out-of-pocket costs. And you can make this change any time — you are not locked in."
 
 **Real-world scenario:** Mrs. Hernandez calls. She mentions the state pays for everything — her premiums, copays, and deductibles. You confirm in the system that she has full Medicaid (FBDE). She is currently in a standard MAPD plan. An aligned integrated D-SNP is available in her county through Humana. You explain the benefits of coordinated care and enroll her using INT. If next month she wants to switch to a different D-SNP, she can do that too.
+
+---
+
+> **WARNING: Give-Back Plans and Medicaid Beneficiaries**
+>
+> Never enroll a Medicaid beneficiary in a "give-back" plan (plans that reduce the Part B premium). Medicaid already pays the beneficiary's Part B premium. A give-back plan would reduce a premium the beneficiary is not paying — the savings go nowhere, and the beneficiary may end up in a plan with a narrower network or worse benefits than a properly aligned D-SNP. If a beneficiary has Medicaid, steer toward D-SNPs, not give-back plans.
 
 ---
 
@@ -230,7 +257,9 @@ These are the SEPs tied to Medicaid and Extra Help (Low Income Subsidy). If you 
 
 **Who qualifies:** Anyone with any Medicaid level or any LIS/Extra Help level. But DEP is for PDP enrollment only. Cannot use DEP for MA or MAPD plans. If they want a D-SNP, use INT instead (and verify full Medicaid).
 
-**Common mistakes:** Trying to use DEP for MA or MAPD enrollment (it is PDP only). Confusing DEP with INT — DEP has a lower bar (any Medicaid/LIS) but is limited to PDP. INT has a higher bar (full Medicaid only) but allows D-SNP enrollment. Also, if the beneficiary's Medicaid or LIS level recently changed, MCD or NLS may also apply — document all applicable codes.
+**The LIS Two-SEP Distinction:** LIS/Extra Help beneficiaries actually have access to two different SEPs, and confusing them is one of the most common errors agents make. The first is the **ongoing monthly DEP** — available every month, repeatable, for switching between standalone PDPs. This is the "always on" SEP for any LIS or dual-eligible beneficiary who wants a different drug plan. The second is the **one-time change-in-status SEP (NLS)** — triggered when the beneficiary's LIS level actually changes (gained, lost, or shifted tiers). NLS gives a three-month window and allows enrollment in MAPD or PDP, not just PDP. The key difference: DEP is ongoing and PDP-only. NLS is a one-time three-month window triggered by a status change and allows MAPD enrollment. If a beneficiary's LIS status just changed, they have both DEP and NLS available — use NLS for the broader plan options.
+
+**Common mistakes:** Trying to use DEP for MA or MAPD enrollment (it is PDP only). Confusing DEP with INT — DEP has a lower bar (any Medicaid/LIS) but is limited to PDP. INT has a higher bar (full Medicaid only) but allows D-SNP enrollment. Also, if the beneficiary's Medicaid or LIS level recently changed, MCD or NLS may also apply — document all applicable codes. Confusing the ongoing monthly DEP with the one-time NLS change-in-status SEP.
 
 **Talk track:** "Since you have Medicaid [or Extra Help], you actually have the ability to change your drug plan every single month — you are not locked in. If we find something better today, we can get that started for the first of next month."
 
@@ -399,6 +428,8 @@ These SEPs exist because some beneficiaries have conditions or circumstances tha
 
 **Code:** CSN
 
+**The Off-Season Opportunity:** C-SNP is the single biggest enrollment opportunity outside of AEP. An estimated 17 million Medicare beneficiaries have at least one qualifying chronic condition. The CSN SEP is available year-round with no time limit — as long as the beneficiary has the condition and a matching C-SNP exists in their county, they can enroll. During SEP season (April through October), when most agents sit idle waiting for AEP, agents who understand C-SNPs are still enrolling beneficiaries every day. If you know the qualifying conditions, check carrier portals for C-SNP availability in every county you serve, and ask the right health questions on every inbound call, CSN becomes your highest-volume SEP outside of AEP.
+
 **Plain English:** The beneficiary has a qualifying chronic condition and a C-SNP (Chronic Condition Special Needs Plan) is available in their county for that condition. They can enroll.
 
 **What triggers it:** The beneficiary has a severe or disabling chronic condition — diabetes, heart failure, ESRD, COPD, cancer, and many others — and a matching C-SNP exists in their county. The condition alone is not enough. A C-SNP for that specific condition must be available where they live.
@@ -414,6 +445,16 @@ These SEPs exist because some beneficiaries have conditions or circumstances tha
 **Real-world scenario:** Mrs. Washington calls. During the conversation, she mentions she takes metformin and insulin for her diabetes. You check Humana's carrier portal and find a Diabetes Management C-SNP available in her county. She qualifies for CSN. You explain the tailored benefits — lower copays for diabetes supplies, care management programs — and proceed to enrollment.
 
 **Qualifying chronic conditions include:** Chronic alcohol/drug dependence, autoimmune disorders (lupus, rheumatoid arthritis, MS), cancer, cardiovascular disorders, chronic heart failure, dementia/Alzheimer's, diabetes, end-stage liver disease, ESRD/dialysis, hematologic disorders, HIV/AIDS, chronic lung disorders (COPD, emphysema), chronic mental health conditions (schizophrenia, bipolar, major depression), neurological disorders (Parkinson's, epilepsy, ALS), and stroke/CVA.
+
+**Provider attestation requirement:** C-SNP enrollment requires the beneficiary's provider to attest that the beneficiary has been diagnosed with the qualifying chronic condition. This attestation must be completed prior to the end of the second month of enrollment. If the provider does not attest and the condition cannot be confirmed, the beneficiary will be disenrolled — but they get a two-month SEP (SNP code) to join another plan. Remind the beneficiary to follow up with their doctor about the attestation paperwork.
+
+**Why C-SNP is your biggest SEP-season tool:**
+
+1. **17 million eligible beneficiaries.** That is the estimated number of Medicare beneficiaries with at least one qualifying chronic condition.
+2. **Year-round availability.** No time limit. No expiring window. As long as the condition exists and a C-SNP is available, the SEP is open.
+3. **No time pressure on the call.** Unlike MOV (2 months) or LEC (2 months), C-SNP has no ticking clock. You can take the time to explain the benefits thoroughly.
+4. **High-value plans.** C-SNPs typically offer lower copays for condition-specific services, care management programs, and benefits tailored to the chronic condition. The value proposition sells itself.
+5. **The question that opens the door:** "Do you have any ongoing health conditions like diabetes, heart failure, or COPD?" That single question can unlock the biggest off-season enrollment opportunity in Medicare.
 
 ---
 
@@ -685,6 +726,8 @@ These SEPs are triggered by the beneficiary's own actions — leaving employer c
 
 **Common mistakes:** Calculating from the call date instead of the coverage end date — the window starts when coverage ended. Not recognizing COBRA expiration as a qualifying loss. Not checking whether Part B was also delayed (ICEP may apply simultaneously). Not checking for remaining VA or TRICARE drug coverage (CDC may also apply).
 
+**Delayed Part B forms to know:** When a beneficiary delayed Part B due to employer coverage and is now activating it, two forms come up regularly. The **CMS-L564** (Request for Employment Information) is completed by the employer to verify the beneficiary had employer coverage. The **CMS-40B** (Application for Enrollment in Medicare Part B) is the actual Part B enrollment form submitted to Social Security. If a beneficiary calls saying they are retiring and need to start Part B, they need both forms. Knowing these form numbers and being able to reference them on the call builds credibility and saves the beneficiary a trip to the Social Security office wondering what paperwork they need.
+
 **Talk track:** "Because your employer coverage just ended, you qualify for a Special Enrollment Period right now. That gives you a window from when that coverage ended to get into a new Medicare plan. When exactly did your coverage terminate?"
 
 **Real-world scenario:** Mrs. Martinez calls. She just retired last month and her employer coverage ended March 31st. She has had Part A since turning 65 but delayed Part B — which is now activating with an effective date of May 1st. This is both LEC (employer coverage loss) and ICEP (Part B activating with a different date than Part A). You document both codes and enroll her in the MAPD plan that best fits her needs.
@@ -742,6 +785,8 @@ These SEPs are triggered by the beneficiary's own actions — leaving employer c
 
 **Real-world scenario:** Mrs. Sullivan had a Medigap Plan G for years. During last AEP, she switched to an MAPD plan for the first time. It went into effect January 1st. It is now June, and she hates it — the copays are higher than she expected and her specialist is out of network. She dropped her Medigap to join MA, this is her first MA plan, and it has been less than 12 months. 12G applies. She can return to Original Medicare plus Medigap plus PDP.
 
+**Practical context for agents who moved clients last AEP:** If you sold MAPD plans during the most recent AEP and any of those clients had Medigap before, those clients have a 12G trial right through the end of the current calendar year. This is not a threat — it is a service opportunity. If you proactively check in with those clients and they are happy, you solidify the relationship. If they are unhappy, you can help them exercise 12G before the window closes rather than losing them to another agent. Either way, knowing which of your clients have active trial rights makes you a better agent. The 12-month clock starts from the MA plan effective date (usually January 1st), not from the date they signed the application.
+
 ---
 
 #### 12J — Age-65 Trial Right
@@ -773,6 +818,8 @@ These SEPs are triggered by the beneficiary's own actions — leaving employer c
 > | **PDP required?** | Yes | Yes — mandatory |
 > | **Window** | 12 months from MA effective date | 12 months from MA effective date |
 > | **Returns to** | Original Medicare + Medigap (guaranteed issue) + PDP | Original Medicare + PDP |
+
+**Why trial rights exist:** Medicare wants beneficiaries to feel safe trying Medicare Advantage without permanently giving up their Medigap or Original Medicare options. For agents, this means every first-time MA enrollment you make during AEP has a built-in trial right for the following year. Know which of your clients have active trial rights, check in with them, and you will either retain a satisfied client or help a dissatisfied one before they leave on their own.
 
 ---
 
@@ -813,6 +860,28 @@ These SEPs are triggered by the beneficiary's own actions — leaving employer c
 **Talk track:** "It looks like Medicare placed you in this plan automatically — you did not choose it yourself. That means you have a three-month window right now to switch to whatever plan actually fits your needs. Let me help you find the right one."
 
 **Real-world scenario:** Mrs. Nelson calls confused. She does not recognize the name of her current drug plan and says she never enrolled in it. You check MARx and see an "X" next to the plan code — government auto-enrollment. She is a low-income beneficiary who was automatically assigned to a benchmark LIS plan. DIF applies — three months from the effective date to switch her to a better-fitting PDP.
+
+---
+
+#### ACC — Accessible Format SEP
+
+**Code:** ACC
+
+**Plain English:** The beneficiary requested plan materials in an accessible format (large print, Braille, audio) and did not receive them in time to make an enrollment decision during their available window. This SEP gives them equal time.
+
+**What triggers it:** The beneficiary requested accessible format materials and either did not receive them or received them too late to make an informed enrollment decision within an election period they already had open.
+
+**Enrollment window:** Equal to the time lost waiting for accessible materials — essentially extends the enrollment period the beneficiary missed due to the delay.
+
+**Who qualifies:** Beneficiaries who genuinely need accessible format materials and were unable to make a timely enrollment decision because of the delay in receiving them.
+
+**Common mistakes:** This is a heavily watched SEP. Carrier benchmarks are approximately 3% of enrollments. Do NOT use ACC as a convenience code. The beneficiary must have actually requested accessible materials and been unable to enroll during their window because of the delay. Using ACC for a beneficiary who does not actually need accessible formats is a compliance violation that carriers actively audit for.
+
+> **RED FLAG WARNING:** ACC appears on every carrier's compliance watchlist. A senior compliance lead described it as "the code that tells us an agent is gaming the system if the volume does not match." If your ACC usage is above the benchmark, you will be audited. Only use this code when the beneficiary truly needs accessible format materials and was genuinely prevented from enrolling because they did not receive them in time.
+
+**Talk track:** "It sounds like you needed those materials in a different format and did not get them in time to make your decision. That actually qualifies you for additional time to make your enrollment choice. Let me help you with that now."
+
+**Real-world scenario:** Mrs. Williams is legally blind and requested large-print plan comparison materials from her carrier during AEP. The materials arrived in mid-December — after AEP closed on December 7th. She was unable to compare plans and make an informed choice. ACC gives her additional time equal to what she lost. You verify she actually requested the materials and confirm the dates before using ACC.
 
 ---
 
@@ -878,13 +947,38 @@ There is one SEP in this category, and it is the most misunderstood code in the 
 
 **Enrollment window:** Duration of the emergency plus two full months after the declared end date.
 
-**Who qualifies:** Beneficiaries who (1) were in an area affected by a FEMA declaration, (2) had an active enrollment window during the disaster period, (3) were prevented from enrolling because of the disaster, and (4) did NOT use any other SEP since the disaster. All four conditions must be met. As of March 20, 2025, agents can submit DST SEP directly — CMS reversed a planned restriction.
+**Who qualifies:** Beneficiaries who (1) were in an area affected by a FEMA declaration, (2) had an active enrollment window during the disaster period, (3) were prevented from enrolling because of the disaster, and (4) did NOT use any other SEP since the disaster. All four conditions must be met. Agents can submit DST SEP directly — CMS reversed a previously planned restriction.
 
 **Common mistakes:** The biggest one: treating DST as a standalone SEP. A disaster alone does NOT create a new enrollment window. The beneficiary must have had an existing window that was disrupted. If a hurricane hit in August but the beneficiary did not have any active SEP during August, DST does not apply. Also, if the beneficiary used ANY other SEP after the disaster, DST is no longer available. Do NOT proactively market or suggest this SEP — only use it when the beneficiary raises the situation.
+
+> **COMPLIANCE WARNING: DST Is the Most Watched SEP**
+>
+> Carrier compliance teams flag DST usage harder than any other SEP code. The industry benchmark is approximately 15% of enrollments — if your DST usage exceeds that threshold, expect an audit. Three non-negotiable rules:
+>
+> 1. **Never advertise or market DST.** You cannot send mailers, run ads, or proactively call beneficiaries about disaster SEPs. The beneficiary must raise the situation first.
+> 2. **The beneficiary must have missed another enrollment period.** DST extends a missed window — it does not create a new one. If they did not have AEP, IEP, OEP, or another SEP open during the disaster, DST does not apply. Ask: "Were you trying to make a plan change during the disaster and were unable to?"
+> 3. **Verify the FEMA declaration.** Confirm the beneficiary's county is covered by an active FEMA declaration and the dates overlap with the enrollment period they missed. Use the SEP Check page or FEMA.gov to verify.
+>
+> A senior compliance lead put it plainly: "DST is the SEP that gets agents fired fastest. Not because they use it wrong on purpose, but because they assume it is a free enrollment ticket during hurricane season. It is not."
 
 **Talk track:** "It sounds like the disaster in your area may have prevented you from enrolling during your window. If that is the case, you may have additional time. Let me check the FEMA declarations for your area and see if we can help."
 
 **Real-world scenario:** Mr. Sanchez calls in April. A hurricane hit his area in October, during AEP. He was displaced and could not complete his AEP enrollment. He has not used any other SEP since. The FEMA declaration for his county is still active with an end date two months out. DST applies — the disaster extended his missed AEP window. You verify the active declaration, confirm he did not use another SEP, and proceed to enrollment.
+
+**When completing the application:** DST requires two enrollment reasons on the application:
+1. The election period the beneficiary missed (AEP, IEP, OEP, etc.)
+2. "Affected by an emergency or major disaster (as declared by FEMA or a government entity)"
+
+The proposed enrollment period should be listed as "Government entity declared disaster."
+
+**DST Pre-Submission Checklist — verify ALL before submitting:**
+
+- [ ] Is there an active FEMA declaration for the beneficiary's county?
+- [ ] What were the declaration dates? Do they overlap with an enrollment period?
+- [ ] Which enrollment period did the beneficiary miss? (AEP, IEP, OEP, or specific SEP)
+- [ ] Was the beneficiary actually prevented from enrolling by the disaster?
+- [ ] Has the beneficiary used any other SEP since the disaster?
+- [ ] Did the beneficiary raise the disaster situation, or did you bring it up? (You should never bring it up)
 
 ---
 
@@ -948,7 +1042,7 @@ If the answer is yes — same date — it is IEP. The beneficiary got both parts
 
 If the answer is no — different dates — it is ICEP. The beneficiary delayed Part B (usually due to employer coverage) and is activating it later. Part A started earlier. The window is five months centered on the Part B effective date.
 
-A third option exists: if the beneficiary is on disability Medicare and turning 65, it is IEP2 — a completely fresh seven-month window. Look for 1961 birth year in MARx.
+A third option exists: if the beneficiary is on disability Medicare and turning 65, it is IEP2 — a completely fresh seven-month window. Look for the current turning-65 birth year in MARx.
 
 One more: if they already enrolled in an MA plan that has effectuated and they do not like it, it is OEP-N — not IEP. IEP is no longer available once a plan has effectuated.
 
@@ -1142,13 +1236,92 @@ Do not force it. Do not fabricate an SEP. An invalid enrollment will be rejected
 
 ---
 
-## Appendix: All 35 Codes Reference Table
+## Part 6: Compliance — What Gets You Flagged, What Gets You Fired
+
+### The Election Period Verification Rule
+
+Before every SEP enrollment, you must verify the election period with the beneficiary. This is not optional — it is a CMS requirement. You must ask the questions, discuss the qualifying event, and verify the election period being used *with the beneficiary* before submitting the enrollment. Election Period Verification is not a checkbox you click at the end. It is a conversation you have before you start the application.
+
+A senior compliance lead put it simply: "If you cannot explain to the beneficiary which SEP they are using and why they qualify for it, you should not be submitting that enrollment."
+
+### The 5 Most Watched SEPs
+
+Carriers track SEP usage rates against industry benchmarks. If your rates exceed these thresholds, expect a compliance review — and possibly a corrective action plan.
+
+| SEP Code | Name | Carrier Benchmark | Why It Is Watched |
+|----------|------|-------------------|-------------------|
+| DST | Disaster SEP | ~15% of enrollments | Agents treat it as a free enrollment ticket during hurricane season. It is an extension of a missed window, not a new one. |
+| MOV | Moving SEP | ~10% of enrollments | Agents accept PO Box changes or unverified address changes as valid moves. Address must be verified with Social Security. |
+| LCC | Loss of Creditable Coverage | ~4% of enrollments | Agents use LCC for voluntary coverage lapses (missed premiums). Must be involuntary loss only. |
+| ACC | Accessible Format | ~3% of enrollments | Agents use ACC as a convenience code when no other SEP applies. Must be a genuine accessibility need. |
+| PAP | SPAP | ~5% of enrollments | Agents enroll beneficiaries who are not actually in a qualifying state pharmaceutical assistance program. |
+
+### What Happens When You Submit the Wrong SEP
+
+The consequences escalate quickly:
+
+1. **Enrollment rejection.** The enrollment is denied. The beneficiary is left without the plan they thought they were getting. You wasted their time and yours.
+2. **Retroactive disenrollment.** If the enrollment was initially accepted but later audited, CMS can retroactively disenroll the beneficiary — sometimes months later. The beneficiary suddenly loses coverage they thought was active.
+3. **Carrier compliance review.** Your enrollment patterns are flagged. You receive a corrective action plan with mandatory retraining.
+4. **Suspension of enrollment privileges.** The carrier suspends your ability to submit enrollments, sometimes across all products.
+5. **Contract termination.** Repeated violations or egregious misuse leads to carrier contract termination and potential CMS sanction.
+
+The cost of getting it wrong is not just a rejected application. It is a cascading failure that damages the beneficiary, your book of business, and your career.
+
+### The "Ask Before You Submit" Protocol
+
+Before every SEP enrollment, run through these five questions. If you cannot answer all five with confidence, stop and verify before submitting.
+
+1. **What is the qualifying event?** Can you name the specific life event that triggered this SEP? (Moved, lost coverage, gained Medicaid, etc.)
+2. **When did it happen?** Do you have the specific date of the qualifying event? Is the enrollment window still open?
+3. **Does the beneficiary understand?** Can the beneficiary explain in their own words why they qualify for this enrollment? If you explained it and they just said "okay," that is not verification.
+4. **Is this the right SEP code?** Are you using the most appropriate code? Is there a more beneficial enrollment period available (per the CMS hierarchy)?
+5. **Is the plan type valid?** Does this SEP code allow enrollment in the plan type you are submitting? (INT = D-SNP only, DEP = PDP only, ICEP = MA/MAPD only, etc.)
+
+### Red Flags That Get You Flagged
+
+These patterns trigger automated compliance alerts at carrier and CMS level:
+
+- **High DST volume without a matching FEMA declaration.** If your disaster SEP enrollments do not correlate with active FEMA declarations in your service area, you will be reviewed.
+- **MOV enrollments without address verification.** If MARx still shows the old address after your MOV enrollment, the carrier will question whether the move actually happened.
+- **ACC usage above 3%.** If more than 3% of your enrollments use the accessible format code, compliance will investigate whether those beneficiaries actually requested accessible materials.
+- **Multiple SEP codes on the same beneficiary.** Using two or three different SEP codes for the same beneficiary in a short period suggests fishing for a valid code rather than identifying the correct one.
+- **SEP enrollments clustered at the end of enrollment windows.** Submitting enrollments on the last day of an SEP window, repeatedly, suggests retroactive code-matching rather than real-time discovery.
+- **LCC for beneficiaries who simply stopped paying premiums.** LCC requires involuntary loss. If the beneficiary's coverage lapsed due to non-payment, LCC is not valid.
+
+### The DO NOT List
+
+These are bright-line rules. There is no gray area.
+
+- **DO NOT** enroll Medicaid beneficiaries in give-back plans. Medicaid pays their Part B premium — the give-back goes nowhere.
+- **DO NOT** advertise, market, or proactively contact beneficiaries about the Disaster SEP.
+- **DO NOT** assume or infer an SEP. The qualifying event must be confirmed by the beneficiary and verified in the system.
+- **DO NOT** use ACC for a beneficiary who does not actually need accessible format materials.
+- **DO NOT** submit an enrollment without verifying the election period with the beneficiary first.
+- **DO NOT** use DST as a standalone SEP — it is an extension of a missed window, not a new enrollment period.
+- **DO NOT** use LCC when the beneficiary voluntarily dropped their coverage or missed premium payments.
+- **DO NOT** submit an INT enrollment without confirming the D-SNP is an integrated plan (FIDE, HIDE, or AIP) and that the Medicaid MCO aligns with the carrier.
+
+### When in Doubt
+
+If you are unsure whether an SEP applies, do not guess. The escalation path:
+
+1. **Check the SEP Check tool** in the Certainty System at `/sep-check`. It has all 37 codes with eligibility criteria.
+2. **Check carrier portals.** Each carrier has election period job aids and decision trees (Humana's Vantage/Mentor system has DMS-024; UHC has the Election Period Booklet; Devoted has the Agent Portal SEP tracker).
+3. **Contact your upline.** Your immediate upline has dealt with edge cases you have not seen yet.
+4. **Contact carrier compliance.** If the situation is genuinely ambiguous, reach out to the carrier's compliance team before submitting. A pre-submission question is always better than a post-audit correction.
+
+The single best habit you can develop: if you are not 100% sure the SEP is valid, pause and verify. The five minutes it takes to confirm will save you weeks of dealing with a compliance review.
+
+---
+
+## Appendix: All 37 Codes Reference Table
 
 | Code | Full Name | Trigger | Window | Key Detail |
 |------|-----------|---------|--------|------------|
 | IEP | Initial Enrollment Period | Turning 65 / first Medicare eligibility | 7 months (3 before + birthday month + 3 after) | Part A and Part B must share same effective date. NOT valid for MA-only plans. |
-| IEP2 | IEP2 (Fresh Window at 65) | Disability beneficiary turning 65 | 7 months around 65th birthday | Uses MRD on application. Watch for 1961 DOB. MA-only prohibited. |
-| ICEP | Initial Coverage Election Period | Delayed Part B, now activating | 5 months (3 before + Part B month + 1 after) | Part A/B have different effective dates. NOT valid for PDP. Extended 1/1/2025. |
+| IEP2 | IEP2 (Fresh Window at 65) | Disability beneficiary turning 65 | 7 months around 65th birthday | Uses MRD on application. Watch for turning-65 DOB. MA-only prohibited. |
+| ICEP | Initial Coverage Election Period | Delayed Part B, now activating | 5 months (3 before + Part B month + 1 after) | Part A/B have different effective dates. NOT valid for PDP. Recently extended window. |
 | OEP-N | New Enrollee OEP | First MA/MAPD effectuated, wants to change | Month of effectuation + 2 months | One change only. Not for PDP-only or Medigap-only beneficiaries. |
 | RET | Retroactive Entitlement | Notified of A/B after coverage already started | Month of notice + 2 months | Clock starts from notification date, not coverage date. |
 | INT | Integrated Care SEP | Full Medicaid, enrolling in D-SNP | Any month, repeatable | Requires FBDE, QMB+, SLMB+, or Full Medicaid. D-SNP enrollment only. |
@@ -1179,6 +1352,7 @@ Do not force it. Do not fabricate an SEP. An invalid enrollment will be rejected
 | 5ST | 5-Star SEP | 5-star plan available in area | December 8 – November 30 (once per year) | Verify plan still holds 5 stars for current year. |
 | LPI | Low-Performing Plan SEP | Plan rated 2.5 stars or below for 3 years | Anytime while enrolled | Must enroll into plan rated 3+ stars. |
 | DST | Disaster SEP | FEMA disaster prevented enrollment | Duration of emergency + 2 months after end | Extension only — not standalone. Must have had active window during disaster. |
+| ACC | Accessible Format SEP | Requested accessible materials, not received in time | Equal to time lost | Only for genuine accessibility needs. Carrier benchmark ~3%. Heavily audited. |
 | AEP | Annual Election Period | Calendar (Oct 15 – Dec 7) | Coverage effective January 1. Last plan wins. | Open to all. No SEP required. Multiple submissions OK — last one counts. |
 | OEP | MA Open Enrollment Period | Calendar (Jan 1 – Mar 31) for existing MA members | One change. Effective 1st of following month. | MA members only. One change per year. MARx shows if used. |
 
@@ -1186,6 +1360,4 @@ Do not force it. Do not fabricate an SEP. An invalid enrollment will be rejected
 
 **End of Training Guide**
 
-This document contains all 35 SEP codes with complete details for each: what triggers them, who qualifies, how long the window lasts, what agents get wrong, what to say on the call, and real-world scenarios. Use it as the foundation for all SEP training, podcast generation, flashcard creation, and quiz development.
-
-For the most current FEMA declarations and real-time SEP checking tools, use the SEP Check page in the Certainty System at `/sep-check`.
+This document contains all 37 SEP codes with complete details for each: what triggers them, who qualifies, how long the window lasts, what agents get wrong, what to say on the call, and real-world scenarios. For the most current FEMA declarations and real-time SEP verification, use the SEP Check tool in the Certainty System at `/sep-check`.
