@@ -21,6 +21,7 @@ interface ExpandCollapseProps {
   responses: Response[]
   pillar: string
   signal: 'red' | 'yellow' | 'green'
+  defaultExpanded?: boolean
 }
 
 export default function ExpandCollapse({
@@ -30,8 +31,9 @@ export default function ExpandCollapse({
   responses,
   pillar,
   signal,
+  defaultExpanded = false,
 }: ExpandCollapseProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(defaultExpanded)
   const hover = useSignalHover(signal)
 
   const earlyResponses = responses.filter(r => r.position === 'early')

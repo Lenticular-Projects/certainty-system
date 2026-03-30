@@ -126,11 +126,45 @@
   color: var(--ink);
 }
 
+/* Inline search results panel */
+.searchResults {
+  margin-bottom: var(--space-6);
+}
+
+.searchResults .count {
+  margin-bottom: var(--space-5);
+}
+
+/* Browse header — count + expand-all toggle */
+.browseHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
 /* Results count */
 .count {
   font-size: 0.8125rem;
   color: var(--ink-60);
-  margin-bottom: var(--space-5);
+  margin-bottom: 0;
+}
+
+/* Expand all / Collapse all */
+.expandAllBtn {
+  background: none;
+  border: none;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+  cursor: pointer;
+  padding: 0;
+  transition: color 150ms ease;
+  flex-shrink: 0;
+}
+
+.expandAllBtn:hover {
+  color: var(--ink);
 }
 
 /* Cards */

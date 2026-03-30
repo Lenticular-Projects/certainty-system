@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import Fuse from 'fuse.js'
 import { Search, Close, ArrowRight } from '@carbon/icons-react'
 import { motion } from 'framer-motion'
-import { SPRING, SPRING_FAST } from '@/lib/motion'
+import { SPRING } from '@/lib/motion'
 import PageShell from '@/components/layout/PageShell'
 import ExpandCollapse from '@/components/ui/ExpandCollapse'
 import CrossLinks from '@/components/ui/CrossLinks'
@@ -30,40 +30,48 @@ import styles from './page.module.css'
 export default function ObjectionsPage() {
   const [query, setQuery] = useState('')
   const [activeTab, setActiveTab] = useState('All')
+  const [browseExpanded, setBrowseExpanded] = useState(false)
+  const [browseVersion, setBrowseVersion] = useState(0)
+  const searchRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    searchRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    setBrowseExpanded(false)
+    setBrowseVersion(0)
+  }, [activeTab])
 
   const fuse = useMemo(
     () =>
       new Fuse(objections, {
-        keys: ['clientPhrase', 'tags'],
+        keys: [
+          { name: 'clientPhrase', weight: 1 },
+          { name: 'tags', weight: 0.8 },
+          { name: 'underneath', weight: 0.4 },
+        ],
         threshold: 0.35,
         ignoreLocation: true,
       }),
     []
   )
 
-  const counts = useMemo(() => {
-    const map: Record<string, number> = { All: objections.length }
-    for (const obj of objections) {
-      map[obj.section] = (map[obj.section] || 0) + 1
-    }
-    return map
-  }, [])
+  const isSearching = query.trim().length > 0
 
-  const filtered = useMemo(() => {
-    let results = objections
-
-    // Search filter
-    if (query.trim()) {
-      results = fuse.search(query).map((r) => r.item)
-    }
-
-    // Tab filter
+  const searchResults = useMemo(() => {
+    if (!isSearching) return []
+    const results = fuse.search(query).map((r) => r.item)
     if (activeTab !== 'All') {
-      results = results.filter((o) => o.section === activeTab)
+      return results.filter((o) => o.section === activeTab)
     }
-
     return results
-  }, [query, activeTab, fuse])
+  }, [query, fuse, isSearching, activeTab])
+
+  const browseResults = useMemo(() => {
+    if (activeTab === 'All') return objections
+    return objections.filter((o) => o.section === activeTab)
+  }, [activeTab])
 
   return (
     <PageShell signal="neutral">
@@ -94,6 +102,7 @@ export default function ObjectionsPage() {
       >
         <Search size={20} className={styles.searchIcon} />
         <input
+          ref={searchRef}
           type="text"
           className={styles.searchInput}
           placeholder="Search by what the client said..."
@@ -110,6 +119,35 @@ export default function ObjectionsPage() {
           </button>
         )}
       </motion.div>
+
+      {/* Inline search results — between search bar and category tabs */}
+      {isSearching && (
+        <div className={styles.searchResults}>
+          <p className={styles.count}>
+            {searchResults.length} {searchResults.length === 1 ? 'objection' : 'objections'} matching &ldquo;{query}&rdquo;
+            {activeTab !== 'All' && ` in ${activeTab}`}
+          </p>
+          <div className={styles.cards}>
+            {searchResults.map((obj) => (
+              <ExpandCollapse
+                key={obj.id + '-search'}
+                defaultExpanded={true}
+                clientPhrase={obj.clientPhrase}
+                underneath={obj.underneath}
+                doNotSay={obj.doNotSay}
+                responses={obj.responses}
+                pillar={obj.pillar}
+                signal={obj.signal}
+              />
+            ))}
+            {searchResults.length === 0 && (
+              <div className={styles.empty}>
+                <p>No objections found. Try different words.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Filter cards */}
       <div className={styles.tabs}>
@@ -129,33 +167,41 @@ export default function ObjectionsPage() {
         ))}
       </div>
 
-      {/* Results count */}
-      <p className={styles.count}>
-        {filtered.length} {filtered.length === 1 ? 'objection' : 'objections'}
-        {query && ` matching "${query}"`}
-        {activeTab !== 'All' && ` in ${activeTab}`}
-      </p>
-
-      {/* Cards */}
-      <div className={styles.cards}>
-        {filtered.map((obj) => (
-          <ExpandCollapse
-            key={obj.id}
-            clientPhrase={obj.clientPhrase}
-            underneath={obj.underneath}
-            doNotSay={obj.doNotSay}
-            responses={obj.responses}
-            pillar={obj.pillar}
-            signal={obj.signal}
-          />
-        ))}
-
-        {filtered.length === 0 && (
-          <div className={styles.empty}>
-            <p>No objections found. Try a different search or filter.</p>
+      {/* Browse list — hidden while searching */}
+      {!isSearching && (
+        <>
+          <div className={styles.browseHeader}>
+            <p className={styles.count}>
+              {browseResults.length} {browseResults.length === 1 ? 'objection' : 'objections'}
+              {activeTab !== 'All' && ` in ${activeTab}`}
+            </p>
+            <button
+              className={styles.expandAllBtn}
+              onClick={() => {
+                setBrowseExpanded(!browseExpanded)
+                setBrowseVersion(v => v + 1)
+              }}
+            >
+              {browseExpanded ? 'Collapse all' : 'Expand all'}
+            </button>
           </div>
-        )}
-      </div>
+
+          <div className={styles.cards}>
+            {browseResults.map((obj) => (
+              <ExpandCollapse
+                key={obj.id + '-' + browseVersion}
+                defaultExpanded={browseExpanded}
+                clientPhrase={obj.clientPhrase}
+                underneath={obj.underneath}
+                doNotSay={obj.doNotSay}
+                responses={obj.responses}
+                pillar={obj.pillar}
+                signal={obj.signal}
+              />
+            ))}
+          </div>
+        </>
+      )}
 
       <CrossLinks links={[
         { label: 'Four Pillars', href: '/pillars' },
