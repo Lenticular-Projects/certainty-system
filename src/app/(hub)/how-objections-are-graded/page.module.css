@@ -1,0 +1,201 @@
+.intro {
+  color: var(--ink-60);
+  max-width: 720px;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+
+.section {
+  margin-top: var(--space-9);
+  max-width: 800px;
+}
+
+.section h2 {
+  margin-bottom: var(--space-4);
+}
+
+/* Rating cards */
+.ratingGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .ratingGrid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .ratingGrid { grid-template-columns: 1fr; }
+}
+
+.ratingCard {
+  background: rgba(240, 235, 225, 0.70);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: var(--space-5);
+}
+
+.ratingCard h3 {
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ratingStrong { border-top: 3px solid var(--sage-dark); }
+.ratingWeak { border-top: 3px solid #c8a84b; }
+.ratingSurrendered { border-top: 3px solid var(--tc-dark); }
+
+/* OHS score table */
+.scoreTable {
+  width: 100%;
+  max-width: 560px;
+  border-collapse: collapse;
+  margin: var(--space-5) 0;
+}
+
+.scoreTable th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--rule);
+}
+
+.scoreTable td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--rule-lt);
+  font-size: 0.9375rem;
+}
+
+.totalRow td {
+  border-top: var(--rule);
+  border-bottom: none;
+  font-weight: 700;
+}
+
+/* Tier table */
+.tierTable {
+  width: 100%;
+  max-width: 480px;
+  border-collapse: collapse;
+  margin: var(--space-5) 0;
+}
+
+.tierTable th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--rule);
+}
+
+.tierTable td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--rule-lt);
+  font-size: 0.9375rem;
+}
+
+/* Formula block */
+.formulaBlock {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 10px;
+  padding: var(--space-5) var(--space-6);
+  margin: var(--space-6) 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  max-width: 600px;
+}
+
+/* Rule callout */
+.ruleBlock {
+  border-left: 3px solid var(--ink);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-6) 0;
+  max-width: 680px;
+  background: rgba(240, 235, 225, 0.50);
+  border-radius: 0 8px 8px 0;
+}
+
+.ruleBlock p {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* Example block */
+.exampleBlock {
+  background: var(--sage-tint);
+  border-left: 3px solid var(--sage-dark);
+  border-radius: 0 8px 8px 0;
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-5) 0;
+  max-width: 680px;
+}
+
+.exampleBlock .label {
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.exampleBlock p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+/* Warning block */
+.warningBlock {
+  background: var(--tc-tint);
+  border-left: 3px solid var(--tc-dark);
+  border-radius: 0 8px 8px 0;
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-5) 0;
+  max-width: 680px;
+}
+
+.warningBlock .label {
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.warningBlock p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.seeLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--space-4);
+}
+
+.seeLink {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-60);
+  padding: 4px 10px;
+  border: 1px solid var(--ink-20);
+  border-radius: 999px;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.seeLink:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}

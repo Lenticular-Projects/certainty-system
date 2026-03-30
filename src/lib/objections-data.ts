@@ -1267,4 +1267,270 @@ export const objections: Objection[] = [
     pillar: 'Persuasion — own the error in one beat, correct it immediately, keep moving; don\'t dwell',
   },
 
+  // ─── NEW ENTRIES FROM OBJECTION BREAKDOWN ────────────────────────────────
+
+  {
+    id: 'agent-found-unauthorized-switch',
+    section: 'Fear of Change & Switching',
+    clientPhrase: '"Someone switched me off my plan and I didn\'t know it." / "I was with [carrier] and now I\'m on something different."',
+    signal: 'red',
+    underneath: 'This consumer\'s resistance isn\'t about the new plan — it\'s about having been moved before without their knowledge. The fear isn\'t change itself, it\'s unauthorized change. The agent who investigates the switch becomes an advocate. The agent who pitches benefits becomes enemy number six.',
+    tags: ['switched without knowing', 'didn\'t authorize', 'how did I end up', 'never changed', 'was with', 'not my plan', 'someone changed it', 'unauthorized switch', 'slamming', 'didn\'t know'],
+    doNotSay: [
+      'Launching into a benefits pitch before addressing the unauthorized switch — they will not hear it',
+      '"That sometimes happens." — dismisses a real violation',
+      'Any framing that positions you as another agent trying to move them',
+    ],
+    responses: [
+      {
+        label: 'When agent identifies the switch in the system',
+        text: '"Before we go any further — I\'m showing you were with [carrier A], and then someone moved you to [carrier B] at the end of the year. Did you authorize that switch? Because if you didn\'t, what we\'re actually talking about right now is getting you back to where you wanted to be — and giving you more benefits while we do it."',
+      },
+      {
+        label: 'If the switch was confirmed unauthorized',
+        text: '"What happened to you has a name — it\'s called slamming, and it\'s a violation. Every enrollment I submit goes directly through CMS — the federal government — and within 5 business days you\'ll receive a letter from CMS confirming your new coverage. You can verify it yourself with that letter. That is how you know it is real this time."',
+      },
+    ],
+    pillar: 'Reframing — recontextualize the call from switching to correcting; their resistance to change becomes the reason to change back',
+  },
+
+  {
+    id: 'agent-fatigue',
+    section: 'Fear of Change & Switching',
+    clientPhrase: '"I\'m tired of being bounced between agents." / "Nobody gives me the same answer." / "Stop sending me up and down the ladder."',
+    signal: 'red',
+    underneath: 'This consumer is not resistant to a better plan — they are resistant to another pitch that leads nowhere. The differentiator is not the plan. It is the honest explanation of why the prior calls failed. Reassurance without explanation makes you pitch number six.',
+    tags: ['tired of agents', 'bounced around', 'different answer', 'different every time', 'keep calling', 'third person', 'same thing', 'sick of this', 'everyone says', 'agent after agent', 'ladder', 'keep getting called'],
+    doNotSay: [
+      '"I understand how you feel" followed immediately by your pitch — you become the next agent on the list',
+      'Defending other agents or the industry',
+      'Generic reassurance without explaining why this call is structurally different',
+    ],
+    responses: [
+      {
+        text: '"You\'re right to be tired of it — and here\'s the honest reason it keeps happening. Most agents can only show you one or two plans because of how their contracts work. That\'s a licensing constraint, not a coincidence. They\'re showing you a slice of what\'s available. I can see everything in your zip code. What I found isn\'t another pitch — it\'s the full comparison you haven\'t been shown. Let me put the numbers side by side and you tell me what you see."',
+      },
+    ],
+    pillar: 'Reframing — validate the fatigue, explain the structural reason for it honestly, reposition this call as the exception',
+  },
+
+  {
+    id: 'medicaid-blocks-enrollment',
+    section: 'Network & Coverage',
+    clientPhrase: '"I already have Medicaid — they won\'t let me have this." / "Medicaid locks me in." / "Someone told me Medicaid restricts what I can do."',
+    signal: 'red',
+    underneath: 'The consumer has a false belief — from a prior agent, a family member, or a doctor\'s office — that Medicaid and Medicare Advantage are in conflict or that Medicaid restricts plan access. The opposite is true. Having Medicaid typically expands access through the Special Enrollment Period and C-SNP eligibility.',
+    tags: ['medicaid', 'already have medicaid', 'locks me in', 'restricts', 'can\'t change', 'medicaid won\'t let', 'because of medicaid', 'told me medicaid', 'medicaid problem'],
+    doNotSay: [
+      'Accepting the misconception as the reason to end the call',
+      'A complicated Medicaid/Medicare explanation before confirming eligibility live',
+      '"That\'s not exactly right" — vague; they need the correct information stated with authority',
+    ],
+    responses: [
+      {
+        text: '"Actually — your Medicaid is exactly why you have more options than most people, not fewer. Because you have Medicaid, you qualify for a Special Enrollment Period that lets you change plans throughout the year. And the plan I\'m looking at for you is specifically designed for people with your conditions — that\'s why it exists. Your Medicaid isn\'t a restriction. It\'s your qualification."',
+      },
+      {
+        label: 'If they heard this from a trusted source',
+        text: '"Whoever told you that was thinking of a different situation. Let me confirm your eligibility right now in the system while we\'re on the phone — that way you\'ll know for certain, not just because I said so." [Verify live. State result specifically.]',
+      },
+    ],
+    pillar: 'Reframing — convert the perceived limitation into the enrollment qualification',
+  },
+
+  {
+    id: 'specific-carrier-preference',
+    section: 'Loyalty',
+    clientPhrase: '"Just give me [specific carrier]. I already know what I want." / "I don\'t want United — give me Humana." / "I told you what I want."',
+    signal: 'red',
+    underneath: 'The consumer has made a decision. Arguing with it ends the call. Honoring it — at least visibly — keeps it open. The correct first move is to fulfill the stated request, not redirect it. A consumer who asked for something and received it will trust you. A consumer who asked and was argued out of it will not.',
+    tags: ['give me humana', 'give me aetna', 'give me uhc', 'specific carrier', 'I want', 'told you what I want', 'already decided', 'just that one', 'name the plans', 'I\'ll pick', 'my choice'],
+    doNotSay: [
+      '"[Preferred carrier] doesn\'t have anything good in your area." — this is an argument before you\'ve even looked',
+      '"But [other carrier] is better because..." — the consumer hears: you are not listening to me',
+      'Any reframe before you have at least attempted to fulfill the request',
+    ],
+    responses: [
+      {
+        label: 'First move — always fulfill',
+        text: '"No problem — let me pull up [carrier] in your area right now and see what they have available. Give me one moment."',
+      },
+      {
+        label: 'If the preferred carrier genuinely cannot serve them',
+        text: '"I looked — and I want to be straight with you. [Carrier] in your zip code [specific limitation — no plan / doesn\'t cover your doctor / giveback is $X vs $Y available elsewhere]. I\'m not trying to steer you — I\'m telling you what I found. Do you want to see what else is available, or do you want to stay with [carrier] on those terms?"',
+      },
+    ],
+    pillar: 'Persuasion — fulfill first, earn trust, introduce the comparison from a position of compliance',
+  },
+
+  {
+    id: 'close-line-deferral',
+    section: 'Resistance at Close',
+    clientPhrase: '"Call me back tomorrow to finish it up." / "Let\'s pick this back up later." / "I need to think about it overnight."',
+    signal: 'red',
+    underneath: 'This is not mid-call resistance — the consumer has gone through the full call and is stalling at the final steps. Close-line deferral is almost never about the plan. It is discomfort at the physical moment of committing. The agent\'s job is to name the finish line and close the distance. Re-explaining benefits signals the enrollment isn\'t actually done.',
+    tags: ['call me back', 'tomorrow', 'finish later', 'call you back', 'pick this up', 'think overnight', 'not right now', 'call back', 'later today', 'finish up', 'come back to it'],
+    doNotSay: [
+      '"Of course — I\'ll call you back tomorrow." — the re-engagement rate on these callbacks is very low',
+      'Re-explaining benefits — signals the enrollment is not actually complete',
+      'Opening a new conversation when you are in the final enrollment steps',
+    ],
+    responses: [
+      {
+        label: 'Name the finish line',
+        text: '"We\'re actually at the end. I just need [specific item: phone number / date of birth / one last confirmation] and we are completely done. Two minutes. Can you give me two minutes?"',
+      },
+      {
+        label: 'If they push back again',
+        text: '"[Name] — you are at the finish line right now. When we hang up, you are covered starting [date], $[benefit] is on its way, and every one of your doctors is taken care of. Two minutes is the only thing between you and done."',
+      },
+    ],
+    pillar: 'Persuasion — name the specific endpoint; make completion feel closer than the alternative exit',
+  },
+
+  {
+    id: 'rollover-concern',
+    section: 'Financial',
+    clientPhrase: '"I don\'t want to lose what I don\'t spend." / "Does it roll over?" / "I have a balance and I don\'t want to lose it."',
+    signal: 'red',
+    underneath: 'The consumer is focused on what they\'d leave behind rather than what they\'d gain. The rollover concern is often strongest when the consumer has a balance they haven\'t spent — which means they\'re not fully using the benefit they\'re trying to protect. You can\'t roll over zero.',
+    tags: ['rollover', 'roll over', 'don\'t want to lose', 'balance', 'unused', 'what I don\'t spend', 'save up', 'accumulate', 'carries over', 'saved up', 'leftover'],
+    doNotSay: [
+      'Accepting the rollover concern without checking whether they actually use their full balance',
+      'Arguing that the new benefit is bigger without addressing the specific fear of leaving money behind',
+    ],
+    responses: [
+      {
+        label: 'Verify usage first',
+        text: '"Before we talk about rollover — how much of your current card are you actually using each month? Because if your balance is building up, what we\'re really talking about is moving from a benefit you\'re not fully using to one that gives you more. You can\'t roll over zero. And unused benefits expire at year-end — they don\'t accumulate forever."',
+      },
+      {
+        label: 'If they have a genuine accumulated balance',
+        text: '"I hear you — that balance is real. Here\'s the honest trade: you keep [balance] and keep earning [current amount]. Or you start fresh on a plan that gives you $[new amount] every month — which in [X] months puts you ahead of where you are right now. The break-even point is [specific month]. After that, every month is ahead."',
+      },
+    ],
+    pillar: 'The Shift — make the comparison forward-looking; verify actual usage before conceding; quantify the break-even point',
+  },
+
+  {
+    id: 'prior-agent-abandoned',
+    section: 'Trust & Credibility',
+    clientPhrase: '"The last agent never called me back." / "The last person just disappeared." / "I\'ve been left hanging before."',
+    signal: 'red',
+    underneath: 'The consumer extended trust once and got nothing back. They are not resisting you specifically — they are protecting themselves from experiencing that again. Every agent who abandoned them also had a license. The correct response is a personal, specific, immediate commitment — not a credential statement. Specificity is what separates a commitment from a promise.',
+    tags: ['never called back', 'disappeared', 'left me hanging', 'didn\'t follow up', 'last agent', 'previous agent', 'ghosted', 'never heard back', 'promised to call', 'didn\'t call back', 'texted once', 'abandoned'],
+    doNotSay: [
+      '"I\'m sorry that happened." — sympathy without differentiation',
+      'Listing your qualifications — every agent who abandoned them also had a license',
+      '"That shouldn\'t happen." — confirms it does happen without confirming it won\'t happen with you',
+    ],
+    responses: [
+      {
+        text: '"You don\'t have to worry about that with me. I\'ll call you back. If we get disconnected right now, I\'m calling you within five minutes. What\'s the best number?"',
+      },
+      {
+        label: 'If they remain skeptical',
+        text: '"Before we go any further, I want you to have my direct number. [Give it.] If I don\'t follow through, you have every right to hang up on the next call. I\'m just asking for a chance to be different."',
+      },
+    ],
+    pillar: 'Persuasion — specific personal commitment with a time frame, not a credential; "within five minutes" is verifiable',
+  },
+
+  {
+    id: 'license-verification-request',
+    section: 'Trust & Credibility',
+    clientPhrase: '"How do I know you\'re actually licensed? I want to check." / "I\'m going to look you up." / "Can I verify your license?"',
+    signal: 'red',
+    underneath: 'This is not an objection — it is a reasonable request. The worst response is to slow it down or redirect. The best response is to make verification as easy and immediate as possible and let the verification do the closing work. Inviting real-time verification while staying on the call proves legitimacy through action and creates a shared task that keeps the consumer engaged.',
+    tags: ['licensed', 'check your license', 'look you up', 'verify you', 'prove it', 'how do I know licensed', 'license number', 'state license', 'want to verify', 'going to check'],
+    doNotSay: [
+      '"I promise I\'m legitimate." — identical to what a scammer says',
+      'Pivoting away from the verification request before it is complete',
+      'Offering credentials verbally only — give them something they can check themselves in real time',
+    ],
+    responses: [
+      {
+        text: '"The fact that you\'re checking is exactly the right instinct. Go to insurance.[their state].gov right now and type in my name — I\'ll wait. If I\'m not there, hang up. If I am, I found a plan in your area with [specific benefit] and the enrollment window closes [date]. Can we look that up together while we\'re on the phone?"',
+      },
+    ],
+    pillar: 'Persuasion — demonstrate legitimacy through action; the license lookup becomes the bridge back to the enrollment',
+  },
+
+  {
+    id: 'plan-identity-panic',
+    section: 'Resistance at Close',
+    clientPhrase: '"Wait — does this mean I\'m losing [my current plan]?" / "You\'re taking me off [carrier]?" / "I thought you were just adding something."',
+    signal: 'red',
+    underneath: 'The consumer thought they understood what was happening and just realized they didn\'t. More explanation escalates the panic — they are not in a logical state. The correct tool is one clear, simple sentence naming exactly what is and is not changing. Then silence to let it land.',
+    tags: ['losing my plan', 'taking me off', 'leaving my carrier', 'thought adding', 'didn\'t know switching', 'losing coverage', 'wait what', 'not what I thought', 'changing everything', 'panic', 'confused at close'],
+    doNotSay: [
+      'Re-explaining plan mechanics — more detail when someone is afraid confirms something complex and risky is happening',
+      '"Let me clarify" followed by a technical walkthrough — same mistake at higher volume',
+      '"You can always switch back if you don\'t like it." — frames the enrollment as a risky experiment; destroys confidence',
+    ],
+    responses: [
+      {
+        label: 'Stop and simplify — name exactly what changes',
+        text: '"[Name], stop — nothing scary is happening. You are not losing anything. Same doctors. Same Medicare. Same coverage type. The only things that change are [benefit 1] goes from [X] to [Y] and [benefit 2] goes from [X] to [Y]. That is it. Can I say that one more time in plain English before we go any further?"',
+      },
+      {
+        label: 'If the carrier switch was never made explicit',
+        text: '"You\'re absolutely right — I should have been clearer about this earlier. Here is exactly what is happening: you are moving from [carrier A] to [carrier B]. Your doctors stay the same. Your Medicare stays the same. The reason is [specific benefit difference]. You are not losing anything you have. You are gaining [specific thing]."',
+      },
+    ],
+    pillar: 'Reframing — emotional reassurance first, plain-language summary second, specifics last',
+  },
+
+  {
+    id: 'no-card-no-bottles',
+    section: 'Resistance at Close',
+    clientPhrase: '"I don\'t have my Medicare card with me." / "I can\'t find my pill bottles." / "Can I call back when I find it?"',
+    signal: 'red',
+    underneath: 'This is almost always a logistical obstacle, not a decision. The consumer is not saying no — they are naming a missing piece. The agent has an alternative path available in almost every case. Accepting the obstacle as a reason to end the call is one of the most common surrenders. The callback almost never happens.',
+    tags: ['don\'t have card', 'can\'t find', 'Medicare card', 'pill bottles', 'not with me', 'out of town', 'call back', 'when I find', 'don\'t have it here', 'need to look', 'locate it'],
+    doNotSay: [
+      '"No problem — give us a call back when you have it." — the consumer will not call back',
+      '"I don\'t want to pressure you." — defines continuing as pressure and hands them the exit',
+    ],
+    responses: [
+      {
+        label: 'For medications',
+        text: '"No problem at all — I can pull up your medication history from here. Give me one second and I\'ll read you what\'s on file. You just confirm whether it looks right."',
+      },
+      {
+        label: 'For the Medicare card',
+        text: '"You don\'t need the card in your hand — if you know your Social Security number, I can pull the same information. Or if you\'d rather not use that, your date of birth and the state you were born in gets me there. Which is easier?"',
+      },
+      {
+        label: 'If they are genuinely unavailable',
+        text: '"Totally understand — before we hang up, let me get your number and I\'ll call you back at [specific time]. I already have your zip code pulled up. When we reconnect it\'ll take four minutes. What\'s the best number and time?"',
+      },
+    ],
+    pillar: 'Persuasion — treat the obstacle as a problem to solve; always have an alternative path ready before accepting the exit',
+  },
+
+  {
+    id: 'systemic-inequity',
+    section: 'Trust & Credibility',
+    clientPhrase: '"They treat people in [my neighborhood / my situation] differently." / "People like me don\'t get the same benefits." / "I\'ve been cheated by the system before."',
+    signal: 'red',
+    underneath: 'This is not a plan objection. It is a statement about lived experience with systems that have not treated this consumer fairly. Responding with a benefit figure before acknowledging that experience communicates the concern is irrelevant. A consumer who does not feel heard does not stay enrolled — and is at elevated disenrollment risk even if they do enroll.',
+    tags: ['treat differently', 'people like me', 'my neighborhood', 'systemic', 'cheated by system', 'not for us', 'government doesn\'t care', 'discrimination', 'unfair', 'not equal', 'ghetto', 'zip code', 'inequity', 'system fails'],
+    doNotSay: [
+      'Repeating the benefit figure without any acknowledgment — signals the consumer was not heard',
+      '"That\'s not how it works." — dismisses lived experience',
+      '"Everyone gets the same benefits." — technically true but completely misses the emotional signal',
+    ],
+    responses: [
+      {
+        text: '"You\'re right to say that — and it\'s a fair question to bring to this call. Medicare Advantage benefits are set by zip code, and what\'s available in your area is the same number for everyone in it — regardless of anything else. That\'s exactly why I want to make sure every dollar of it goes to you. You are entitled to this. My job is making sure you actually get it."',
+      },
+      {
+        label: 'If the concern goes deeper — government distrust, prior documented harm',
+        text: '"I hear you — and I\'m not going to tell you that concern isn\'t real. What I can show you is what\'s on my screen right now: [specific benefit] in your zip code. That number doesn\'t know who you are. It just needs you to claim it. That\'s what we\'re doing."',
+      },
+    ],
+    pillar: 'Reframing — acknowledge the systemic concern; anchor to the specific zip-code number as evidence of entitlement, not charity',
+  },
+
 ]

@@ -21,13 +21,13 @@ const philosophyLinks = [
 ]
 
 const toolLinks = [
-  { label: 'Objection Handbook',    href: '/objections',           desc: "Scripts for every objection you'll face" },
-  { label: 'SEP Check',             href: '/sep-check',            desc: 'Real-time eligibility verification' },
-  { label: 'SEP Guides',            href: '/sep',                  desc: 'All 37 codes organized by category' },
-  { label: 'C-SNP Playbook',        href: '/csnp',                 desc: 'The year-round sales opportunity in Medicare' },
-  { label: 'Compliance Sheet',      href: '/sep-compliance',       desc: 'What gets agents flagged, suspended, or terminated' },
-  { label: 'How Calls Are Graded',  href: '/how-calls-are-graded', desc: 'The scoring system explained' },
-  { label: 'Medicare 101',          href: '/medicare-101',         desc: 'The essential knowledge baseline' },
+  { label: 'Objection Handbook',   href: '/objections',           desc: "Scripts for every objection you'll face" },
+  { label: 'SEP Check',            href: '/sep-check',            desc: 'Real-time eligibility verification' },
+  { label: 'SEP Guides',           href: '/sep',                  desc: 'All 37 codes organized by category' },
+  { label: 'C-SNP Playbook',       href: '/csnp',                 desc: 'The year-round sales opportunity in Medicare' },
+  { label: 'Compliance Sheet',     href: '/sep-compliance',       desc: 'What gets agents flagged, suspended, or terminated' },
+  { label: 'How Calls Are Graded', href: '/how-calls-are-graded', desc: 'The scoring system explained' },
+  { label: 'Medicare 101',         href: '/medicare-101',         desc: 'The essential knowledge baseline' },
 ]
 
 export default function Nav() {
@@ -46,14 +46,8 @@ export default function Nav() {
   const philosophyActive = philosophyLinks.some((l) => pathname.startsWith(l.href))
   const toolActive = toolLinks.some((l) => pathname.startsWith(l.href))
 
-  const openPhilosophy = () => {
-    setPhilosophyOpen(true)
-    setToolOpen(false)
-  }
-  const openTool = () => {
-    setToolOpen(true)
-    setPhilosophyOpen(false)
-  }
+  const openPhilosophy = () => { setPhilosophyOpen(true); setToolOpen(false) }
+  const openTool = () => { setToolOpen(true); setPhilosophyOpen(false) }
 
   return (
     <motion.nav
@@ -67,7 +61,6 @@ export default function Nav() {
           The Certainty System
         </Link>
 
-        {/* Desktop links — absolutely centered */}
         <div className={styles.desktopLinks}>
           {/* Philosophy dropdown */}
           <div
@@ -77,24 +70,13 @@ export default function Nav() {
           >
             <button
               className={`${styles.link} ${styles.moreBtn} ${philosophyActive ? styles.active : ''}`}
-              onClick={() => {
-                if (philosophyOpen) {
-                  setPhilosophyOpen(false)
-                } else {
-                  openPhilosophy()
-                }
-              }}
+              onClick={() => philosophyOpen ? setPhilosophyOpen(false) : openPhilosophy()}
             >
               Philosophy
-              <motion.span
-                animate={{ rotate: philosophyOpen ? 180 : 0 }}
-                transition={SPRING_FAST}
-                style={{ display: 'inline-flex' }}
-              >
+              <motion.span animate={{ rotate: philosophyOpen ? 180 : 0 }} transition={SPRING_FAST} style={{ display: 'inline-flex' }}>
                 <ChevronDown size={14} />
               </motion.span>
             </button>
-
             <AnimatePresence>
               {philosophyOpen && (
                 <motion.div
@@ -105,9 +87,7 @@ export default function Nav() {
                   transition={SPRING_FAST}
                 >
                   {philosophyLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
+                    <Link key={link.href} href={link.href}
                       className={`${styles.dropdownLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
                       onClick={() => setPhilosophyOpen(false)}
                     >
@@ -120,17 +100,10 @@ export default function Nav() {
             </AnimatePresence>
           </div>
 
-          {/* Direct links */}
-          <Link
-            href="/objections"
-            className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/objections') ? styles.active : ''}`}
-          >
+          <Link href="/objections" className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/objections') ? styles.active : ''}`}>
             Objection Handbook
           </Link>
-          <Link
-            href="/sep-check"
-            className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/sep-check') ? styles.active : ''}`}
-          >
+          <Link href="/sep-check" className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/sep-check') ? styles.active : ''}`}>
             SEP Check
           </Link>
 
@@ -142,24 +115,13 @@ export default function Nav() {
           >
             <button
               className={`${styles.link} ${styles.moreBtn} ${toolActive ? styles.active : ''}`}
-              onClick={() => {
-                if (toolOpen) {
-                  setToolOpen(false)
-                } else {
-                  openTool()
-                }
-              }}
+              onClick={() => toolOpen ? setToolOpen(false) : openTool()}
             >
               Tools
-              <motion.span
-                animate={{ rotate: toolOpen ? 180 : 0 }}
-                transition={SPRING_FAST}
-                style={{ display: 'inline-flex' }}
-              >
+              <motion.span animate={{ rotate: toolOpen ? 180 : 0 }} transition={SPRING_FAST} style={{ display: 'inline-flex' }}>
                 <ChevronDown size={14} />
               </motion.span>
             </button>
-
             <AnimatePresence>
               {toolOpen && (
                 <motion.div
@@ -170,9 +132,7 @@ export default function Nav() {
                   transition={SPRING_FAST}
                 >
                   {toolLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
+                    <Link key={link.href} href={link.href}
                       className={`${styles.dropdownLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
                       onClick={() => setToolOpen(false)}
                     >
@@ -186,17 +146,11 @@ export default function Nav() {
           </div>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className={styles.hamburger}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-        >
+        <button className={styles.hamburger} onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? 'Close menu' : 'Open menu'}>
           {mobileOpen ? <Close size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -209,26 +163,17 @@ export default function Nav() {
           >
             <div className={styles.mobileSectionHeader}>Philosophy</div>
             {philosophyLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
+              <Link key={link.href} href={link.href}
                 className={`${styles.mobileLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
                 onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </Link>
+              >{link.label}</Link>
             ))}
-
             <div className={styles.mobileSectionHeader}>Tools</div>
             {toolLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
+              <Link key={link.href} href={link.href}
                 className={`${styles.mobileLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
                 onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </Link>
+              >{link.label}</Link>
             ))}
           </motion.div>
         )}
