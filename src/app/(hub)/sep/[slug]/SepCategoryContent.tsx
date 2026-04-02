@@ -1141,6 +1141,47 @@ function DisasterExtensionContent() {
       </Section>
 
       <Section>
+        <h2 className={styles.sectionTitle}>Qualifying Scenarios — Which Situation Fits?</h2>
+        <p className={styles.body}>Before applying DST, confirm the beneficiary fits at least one of these interrupted enrollment scenarios caused by a disaster or emergency.</p>
+        <div className={styles.infoGrid}>
+          <div className={styles.infoCard}>
+            <p className={styles.infoCardLabel}>Scenario A — Interrupted MA Open Enrollment</p>
+            <p className={styles.infoCardBody}>The beneficiary was in their MA Open Enrollment Period (MA OEP, Jan 1–Mar 31). A disaster prevented them from completing research or submitting an application.</p>
+          </div>
+          <div className={styles.infoCard}>
+            <p className={styles.infoCardLabel}>Scenario B — Missed Enrollment Window</p>
+            <p className={styles.infoCardBody}>The beneficiary&rsquo;s Initial Enrollment Period (IEP) or another valid Special Election Period expired during the disaster incident period, preventing timely action.</p>
+          </div>
+          <div className={styles.infoCard}>
+            <p className={styles.infoCardLabel}>Scenario C — Disaster-Driven Second Chance</p>
+            <p className={styles.infoCardBody}>The beneficiary already used their one-time MA OEP election for the year. Disaster-related circumstances now require an additional enrollment or disenrollment action that they would not otherwise have access to.</p>
+          </div>
+        </div>
+        <div className={styles.blockquote}>
+          DST applies only when a missed opportunity is <strong>directly caused by the disaster</strong> &mdash; not by preference, procrastination, or delay.
+        </div>
+      </Section>
+
+      <Section>
+        <h2 className={styles.sectionTitle}>Agent Verification Requirements</h2>
+        <p className={styles.body}>Confirm all four of the following before submitting with the DST code.</p>
+        <ol className={styles.list} style={{ listStyle: 'decimal' }}>
+          <li>
+            <strong>Residency Confirmation</strong> &mdash; The beneficiary currently resides, or resided at the start of the incident, in a government-declared disaster area. This also applies to beneficiaries who rely on a healthcare decision-maker living in the affected area.
+          </li>
+          <li>
+            <strong>Missed Election Confirmation</strong> &mdash; The beneficiary confirms they were eligible for another valid election period during the incident, and the disaster directly prevented timely enrollment or disenrollment.
+          </li>
+          <li>
+            <strong>Verification Protocol</strong> &mdash; Ask for proof of residency in the impacted area. If documentation is unavailable, obtain a <strong>verbal attestation</strong> from the beneficiary confirming they were affected. Document this on the call.
+          </li>
+          <li>
+            <strong>Effective Date Rule</strong> &mdash; Elections made under SEP DST are effective the <strong>first day of the month following receipt</strong> of the enrollment request. Set this expectation with the beneficiary before submitting.
+          </li>
+        </ol>
+      </Section>
+
+      <Section>
         <ComplianceCallout>
           <strong>DST is the most watched SEP.</strong> Carrier compliance teams flag DST usage harder than any other SEP code. The industry benchmark is approximately <strong>15% of enrollments</strong> &mdash; if your DST usage exceeds that threshold, expect an audit.
         </ComplianceCallout>

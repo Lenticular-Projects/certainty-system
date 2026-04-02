@@ -1840,6 +1840,268 @@
   margin: var(--space-2) 0 0;
 }
 
+/* ---- DST Verification Guide ---- */
+.dstGuide {
+  overflow: hidden;
+  border-top: var(--rule-lt);
+}
+
+.dstSection {
+  padding: var(--space-5);
+  border-bottom: var(--rule-lt);
+}
+
+.dstSectionLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-3);
+}
+
+.dstScenarioGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.dstCard {
+  padding: var(--space-3) var(--space-4);
+  background: var(--cream-2);
+  border: 1px solid rgba(19, 17, 16, 0.08);
+  border-radius: 8px;
+}
+
+.dstCardHead {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: var(--space-1);
+}
+
+.dstCardBody {
+  font-size: 0.8125rem;
+  color: var(--ink-80);
+  line-height: 1.5;
+}
+
+.dstNote {
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
+.dstVerifyList {
+  margin: 0;
+  padding-left: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.dstVerifyList li {
+  font-size: 0.875rem;
+  color: var(--ink-80);
+  line-height: 1.55;
+}
+
+.dstCompliance {
+  padding: var(--space-4) var(--space-5);
+  font-size: 0.8125rem;
+  color: #92400e;
+  background: rgba(180, 83, 9, 0.06);
+  border-top: 1px solid rgba(180, 83, 9, 0.15);
+  line-height: 1.55;
+}
+
+/* ---- DST inline script (inside FEMA results) ---- */
+.dstInlineToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(45, 90, 61, 0.05);
+  border: 1px solid rgba(45, 90, 61, 0.18);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.15s;
+  margin-top: var(--space-1);
+}
+.dstInlineToggle:hover { background: rgba(45, 90, 61, 0.09); }
+
+.dstInlineToggleLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+}
+
+.dstInlinePanel {
+  overflow: hidden;
+  border: 1px solid rgba(45, 90, 61, 0.15);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  background: rgba(255,255,255,0.6);
+}
+
+/* ---- DST filled-in values & declaration pill switcher ---- */
+.dstFilled {
+  background: rgba(45, 90, 61, 0.1);
+  color: var(--sage-dark);
+  border-radius: 3px;
+  padding: 0 3px;
+  font-weight: 600;
+}
+
+.dstDeclPills {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid rgba(45, 90, 61, 0.12);
+  background: rgba(45, 90, 61, 0.03);
+  flex-wrap: wrap;
+}
+
+.dstDeclPillLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  margin-right: 2px;
+}
+
+.dstDeclPill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  background: transparent;
+  border: 1px solid rgba(45, 90, 61, 0.3);
+  border-radius: 20px;
+  color: var(--sage-dark);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s, color 0.12s;
+}
+.dstDeclPill:hover { background: rgba(45, 90, 61, 0.08); }
+
+.dstDeclPillActive {
+  background: var(--sage-dark);
+  border-color: var(--sage-dark);
+  color: #fff;
+}
+.dstDeclPillActive:hover { background: var(--sage-dark); }
+
+/* ---- DST additions ---- */
+.dstCoreRule {
+  padding: var(--space-3) var(--space-5);
+  background: rgba(45, 90, 61, 0.07);
+  border-bottom: 1px solid rgba(45, 90, 61, 0.12);
+  font-size: 0.8125rem;
+  color: var(--sage-dark);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.dstCoreRuleLabel {
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.dstScript {
+  background: rgba(240, 235, 220, 0.5);
+  border-left: 3px solid rgba(19, 17, 16, 0.2);
+  border-radius: 0 6px 6px 0;
+  padding: var(--space-4) var(--space-5);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink);
+  white-space: pre-wrap;
+  margin-bottom: var(--space-3);
+}
+
+.dstPlaceholder {
+  background: rgba(45, 90, 61, 0.12);
+  color: var(--sage-dark);
+  border-radius: 3px;
+  padding: 0 3px;
+  font-style: italic;
+}
+
+.dstScriptWhy {
+  margin-top: var(--space-2);
+}
+
+.dstScriptWhyLabel {
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  margin-bottom: var(--space-2);
+}
+
+.dstScriptWhyList {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dstScriptWhyList li {
+  font-size: 0.8rem;
+  color: var(--ink-60);
+  line-height: 1.5;
+}
+
+.dstProbe {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink-80);
+  margin-bottom: var(--space-3);
+  font-style: italic;
+}
+
+.dstSignalChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.dstSignalChip {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  background: rgba(19, 17, 16, 0.06);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+  border-radius: 20px;
+  color: var(--ink-80);
+}
+
+.dstChipNote {
+  font-size: 0.8rem;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
 /* ---- Focus states ---- */
 .signalTap:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
 .resetBtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }

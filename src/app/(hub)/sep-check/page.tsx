@@ -1497,6 +1497,10 @@ function SignalCardItem({
 /* County normalization — strips admin suffixes and standardizes      */
 /* Saint/St. so Nominatim results match declaration county names      */
 /* ------------------------------------------------------------------ */
+function cleanDisasterName(raw: string): string {
+  return raw.replace(/\s*\([^)]*\)/g, '').trim()
+}
+
 function normalizeCounty(name: string): string {
   return name
     .toLowerCase()
@@ -1528,8 +1532,11 @@ export default function SEPCheckPage() {
   const [femaLastUpdated, setFemaLastUpdated] = useState<string>('')
   const [femaError, setFemaError] = useState<string | null>(null)
   const [zipContext, setZipContext] = useState<string>('')
+  const [zipCounty, setZipCounty] = useState<string>('')
+  const [dstSelectedDecl, setDstSelectedDecl] = useState(0)
   const [enrollmentPeriod, setEnrollmentPeriod] = useState<EnrollmentPeriod | null>(null)
   const [showCheatSheet, setShowCheatSheet] = useState(false)
+  const [showDstGuide, setShowDstGuide] = useState(false)
   const [oepChoice, setOepChoice] = useState<'yes' | 'no' | null>(null)
   const [expandedCheat, setExpandedCheat] = useState<string | null>(null)
   const [undoSnapshot, setUndoSnapshot] = useState<{
@@ -1563,6 +1570,8 @@ export default function SEPCheckPage() {
       setFemaSearched(false)
       setFemaError(null)
       setZipContext('')
+      setZipCounty('')
+      setDstSelectedDecl(0)
       return
     }
     // Don't search partial ZIPs (1–4 digits only)
@@ -1636,6 +1645,7 @@ export default function SEPCheckPage() {
               if (rawCounty) {
                 resolvedCounty = normalizeCounty(rawCounty)
                 countyLabel = ` (${rawCounty})`
+                setZipCounty(rawCounty.replace(/ County$/i, '').replace(/ Parish$/i, '').trim() + ' County')
               }
             }
           } catch { /* no county — fall back to state-level results */ }
@@ -1703,6 +1713,8 @@ export default function SEPCheckPage() {
     setFemaSearched(false)
     setFemaError(null)
     setZipContext('')
+    setZipCounty('')
+    setDstSelectedDecl(0)
     setOepChoice(null)
     setExpandedCheat(null)
     undoTimerRef.current = setTimeout(() => setUndoSnapshot(null), 8000)
@@ -2043,6 +2055,69 @@ export default function SEPCheckPage() {
                               </div>
                             )
                           })}
+
+                          {/* ── DST Script — auto-expanded below declarations ── */}
+                          {(() => {
+                            const decl = femaResults[dstSelectedDecl] ?? femaResults[0]
+                            const disasterName = decl ? cleanDisasterName(decl.disaster) : ''
+                            const stateDisplay = decl?.state ?? ''
+                            return (
+                              <div className={styles.dstInlinePanel} style={{ borderRadius: 6, border: '1px solid rgba(45,90,61,0.15)', marginTop: 4 }}>
+                                {/* Pill switcher — only when multiple declarations */}
+                                {femaResults.length > 1 && (
+                                  <div className={styles.dstDeclPills}>
+                                    <span className={styles.dstDeclPillLabel}>Using:</span>
+                                    {femaResults.map((d, i) => (
+                                      <button
+                                        key={i}
+                                        className={`${styles.dstDeclPill}${dstSelectedDecl === i ? ` ${styles.dstDeclPillActive}` : ''}`}
+                                        onClick={() => setDstSelectedDecl(i)}
+                                      >
+                                        {cleanDisasterName(d.disaster)}
+                                      </button>
+                                    ))}
+                                  </div>
+                                )}
+                                {/* Core rule */}
+                                <div className={styles.dstCoreRule}>
+                                  <span className={styles.dstCoreRuleLabel}>Core Rule</span>
+                                  Never ask &ldquo;were you affected?&rdquo; — ask open-ended so they tell their story.
+                                </div>
+                                {/* Opening script */}
+                                <div className={styles.dstSection}>
+                                  <p className={styles.dstSectionLabel}>Assumptive Opening — Set the Frame</p>
+                                  <div className={styles.dstScript}>
+                                    <span className={styles.dstPlaceholder}>[Name]</span>, I&rsquo;m showing you&rsquo;re in {zipCounty ? <><span className={styles.dstFilled}>{zipCounty}</span>, </> : ''}<span className={styles.dstFilled}>{stateDisplay}</span>. As you probably know, there was a <span className={styles.dstFilled}>{disasterName}</span> that recently impacted your area.{'\n\n'}
+                                    Because of that declared emergency, CMS has opened a Special Enrollment Period for residents in affected counties. What that means is you have an opportunity right now to review and change your Medicare coverage if needed — something that&rsquo;s normally only available during specific times of the year.{'\n\n'}
+                                    This window is temporary and tied to the emergency declaration, so I want to make sure we take advantage of it while it&rsquo;s available.{'\n\n'}
+                                    Let me ask you: when that <span className={styles.dstFilled}>{disasterName}</span> happened, how did it affect your day-to-day life?
+                                  </div>
+                                  <div className={styles.dstScriptWhy}>
+                                    <p className={styles.dstScriptWhyLabel}>Why this works</p>
+                                    <ul className={styles.dstScriptWhyList}>
+                                      <li>Assumes impact — most people in declared areas were affected</li>
+                                      <li>Frames the SEP as an opportunity, not a yes/no gate</li>
+                                      <li>Creates urgency — the window is tied to the declaration</li>
+                                      <li>Open-ended question gets their story without leading</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                {/* If not affected */}
+                                <div className={styles.dstSection}>
+                                  <p className={styles.dstSectionLabel}>If They Say They Weren&rsquo;t Affected</p>
+                                  <p className={styles.dstProbe}>
+                                    &ldquo;I hear you — even if you were fine personally, did the <span className={styles.dstFilled}>{disasterName}</span> impact things around you?&rdquo;
+                                  </p>
+                                  <div className={styles.dstSignalChips}>
+                                    {['Power Outage', 'Mail Delays', 'Phone / Internet Out', 'Evacuation', 'Pharmacy / Doctor Closed', 'Roads Closed'].map(chip => (
+                                      <span key={chip} className={styles.dstSignalChip}>{chip}</span>
+                                    ))}
+                                  </div>
+                                  <p className={styles.dstChipNote}>Any one of these counts. CMS considers disruptions to daily life part of the impact.</p>
+                                </div>
+                              </div>
+                            )
+                          })()}
                         </div>
                       )}
                     </motion.div>
@@ -2360,6 +2435,66 @@ export default function SEPCheckPage() {
                       })}
                     </div>
                   ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ── DST Verification Guide ──────────────────────────── */}
+        <div className={styles.refSection}>
+          <button
+            className={styles.cheatToggle}
+            onClick={() => setShowDstGuide(!showDstGuide)}
+            aria-expanded={showDstGuide}
+          >
+            <span className={styles.cheatToggleLabel}>DST (Disaster SEP) Verification Guide</span>
+            {showDstGuide ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+          </button>
+
+          <AnimatePresence>
+            {showDstGuide && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.25 }}
+                className={styles.dstGuide}
+              >
+                {/* Qualifying Scenarios */}
+                <div className={styles.dstSection}>
+                  <p className={styles.dstSectionLabel}>Step 1 — Qualifying Scenario (must match at least one)</p>
+                  <div className={styles.dstScenarioGrid}>
+                    <div className={styles.dstCard}>
+                      <p className={styles.dstCardHead}>Scenario A</p>
+                      <p className={styles.dstCardBody}>MA Open Enrollment Period (Jan 1–Mar 31) was interrupted — beneficiary couldn&rsquo;t research or submit due to the disaster.</p>
+                    </div>
+                    <div className={styles.dstCard}>
+                      <p className={styles.dstCardHead}>Scenario B</p>
+                      <p className={styles.dstCardBody}>IEP or another valid SEP <em>expired</em> during the disaster incident period — the window closed before they could act.</p>
+                    </div>
+                    <div className={styles.dstCard}>
+                      <p className={styles.dstCardHead}>Scenario C</p>
+                      <p className={styles.dstCardBody}>Already used their one-time MA OEP election. Disaster-driven circumstances require a second enrollment action they can&rsquo;t otherwise make.</p>
+                    </div>
+                  </div>
+                  <p className={styles.dstNote}>DST only applies when the missed opportunity was <strong>directly caused by the disaster</strong> — not preference, procrastination, or general delay.</p>
+                </div>
+
+                {/* Verification Steps */}
+                <div className={styles.dstSection}>
+                  <p className={styles.dstSectionLabel}>Step 2 — Confirm all four before submitting with DST code</p>
+                  <ol className={styles.dstVerifyList}>
+                    <li><strong>Residency</strong> — Beneficiary currently lives, or lived at incident start, in the declared disaster area. Also applies if their healthcare decision-maker is in the affected area.</li>
+                    <li><strong>Missed Election</strong> — Beneficiary confirms they had a valid election period during the incident and the disaster directly prevented timely enrollment or disenrollment.</li>
+                    <li><strong>Documentation</strong> — Ask for proof of residency in the impacted area. If unavailable, obtain a <strong>verbal attestation</strong> on the call confirming they were affected — document it.</li>
+                    <li><strong>Effective Date</strong> — Elections under DST take effect the <strong>first of the month following receipt</strong> of the enrollment request. Set this expectation with the beneficiary before submitting.</li>
+                  </ol>
+                </div>
+
+                {/* Compliance callout */}
+                <div className={styles.dstCompliance}>
+                  <strong>DST is the most-watched SEP.</strong> Carrier compliance teams flag DST usage harder than any other code. The industry benchmark is ~15% of enrollments — exceeding that triggers an audit. If the beneficiary doesn&rsquo;t clearly fit a scenario above, do not use DST.
                 </div>
               </motion.div>
             )}
