@@ -51,6 +51,10 @@ export const objections: Objection[] = [
         position: 'late',
         text: '"I hear you — and you\'ve now seen the comparison. Staying where you are is your call, but it\'s not a neutral one anymore — it\'s a decision to leave [annualized difference] on the table this year. I just want to make sure that\'s a choice you\'re making on purpose."',
       },
+      {
+        label: 'Maximize your benefits',
+        text: '"That makes perfect sense, and I wouldn\'t want you to change anything — but there are gaps in your current policy. Keep in mind, my job is to maximize your benefits. Did I not help you find a plan that has stronger benefits than your current plan?"',
+      },
     ],
     pillar: 'Reframing — don\'t challenge the plan, make inaction visible; early is about looking, late is about the cost of staying',
   },
@@ -74,6 +78,10 @@ export const objections: Objection[] = [
       {
         position: 'late',
         text: '"I hear you — and you\'ve already seen what\'s available. Staying where you are isn\'t neutral anymore — it\'s a decision that costs you [annualized difference] this year. That\'s the only thing I want to make sure you\'re seeing clearly before you decide."',
+      },
+      {
+        label: 'Maximize your benefits',
+        text: '"That makes perfect sense, and I wouldn\'t want you to change anything — but there are gaps in your current policy. Keep in mind, my job is to maximize your benefits. Did I not help you find a plan that has stronger benefits than your current plan?"',
       },
     ],
     pillar: 'Reframing — early: adding not replacing; late: inaction now has a specific cost',
@@ -121,6 +129,10 @@ export const objections: Objection[] = [
       {
         text: '"I completely understand — you just went through this and the last thing you want is more confusion. What I want to make sure is that the plan you moved to is actually giving you everything you\'re entitled to. It takes me a couple minutes to verify. If you\'re on the right plan, I\'ll tell you and you\'ll know for certain."',
       },
+      {
+        label: 'Maximize your benefits',
+        text: '"I completely understand — and I wouldn\'t want you to change anything unnecessarily. I just want to make sure you\'re maximizing your benefits with the plan you moved to. Let me take a quick look and confirm you\'re getting the most out of it."',
+      },
     ],
     pillar: 'Reframing — validate the fatigue, reframe the purpose as verification not selling',
   },
@@ -139,8 +151,31 @@ export const objections: Objection[] = [
       {
         text: '"I hear you — and I\'m not asking you to decide anything today. I\'m asking you to look at a number. The decision you make after that is yours. Can I show you the comparison?"',
       },
+      {
+        label: 'Maximize your benefits',
+        text: '"I completely understand — and I\'m not here to pressure you into anything. I just want to make sure you\'re maximizing your benefits before you go. It takes 60 seconds to look. If you\'re already on the best plan, I\'ll tell you."',
+      },
     ],
     pillar: 'The Shift — reduce the perceived commitment to looking, not deciding',
+  },
+
+  {
+    id: 'do-i-have-to-switch',
+    section: 'Fear of Change & Switching',
+    clientPhrase: '"Do I have to switch?" / "Do I have to change carriers?" / "Will this change my plan?"',
+    signal: 'yellow',
+    underneath: 'This is not resistance — it\'s a question about what\'s required. They\'re open but anxious. Reassure them that nothing changes without their explicit consent, then pivot to the maximize frame.',
+    tags: ['do I have to switch', 'do I have to change', 'have to switch carriers', 'will this change my plan', 'forced to switch', 'required to change', 'do I have to', 'change carriers', 'switch plans'],
+    responses: [
+      {
+        text: '"You don\'t have to do anything — nothing changes without your say-so. All I\'m doing right now is looking at what\'s available to you. My job is to make sure you\'re maximizing your benefits. If what you have is already the best fit, I\'ll tell you straight."',
+      },
+      {
+        label: 'Maximize your benefits',
+        text: '"I completely understand — and no, you don\'t have to switch anything. I just want to make sure you\'re getting the maximum amount of benefits available to you. If your current plan is already doing that, great. Let me just verify."',
+      },
+    ],
+    pillar: 'Reframing — remove the fear of obligation; pivot to maximize frame',
   },
 
   // ─── SECTION 2: COMMERCIAL & BENEFIT ─────────────────────────────────────

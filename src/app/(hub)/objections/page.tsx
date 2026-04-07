@@ -50,6 +50,7 @@ export default function ObjectionsPage() {
           { name: 'clientPhrase', weight: 1 },
           { name: 'tags', weight: 0.8 },
           { name: 'underneath', weight: 0.4 },
+          { name: 'responses.text', weight: 0.6 },
         ],
         threshold: 0.35,
         ignoreLocation: true,
