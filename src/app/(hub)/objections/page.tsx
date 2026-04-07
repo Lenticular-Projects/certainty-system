@@ -174,6 +174,7 @@ export default function ObjectionsPage() {
             <p className={styles.count}>
               {browseResults.length} {browseResults.length === 1 ? 'objection' : 'objections'}
               {activeTab !== 'All' && ` in ${activeTab}`}
+              {' · '}{browseResults.reduce((sum, o) => sum + o.responses.length, 0)} rebuttals
             </p>
             <button
               className={styles.expandAllBtn}
