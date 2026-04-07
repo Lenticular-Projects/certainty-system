@@ -99,6 +99,10 @@ export const objections: Objection[] = [
         position: 'late',
         text: '"I hear you — and you\'ve now seen what\'s on the other side. The devil you know is costing you [annualized difference] this year compared to what\'s available. That\'s the one thing I want to make sure you\'re weighing before you decide."',
       },
+      {
+        label: 'Gaps in current policy',
+        text: '"That makes perfect sense, and I wouldn\'t want you to change anything — but there are gaps in your current policy. Keep in mind, my job is to maximize your benefits. Did I not help you find a plan that has stronger benefits than your current plan?"',
+      },
     ],
     pillar: 'Reframing — early: looking is safe; late: the familiar option now has a visible price tag',
   },
@@ -246,6 +250,10 @@ export const objections: Objection[] = [
         label: 'Make waiting expensive',
         text: '"You\'ve already seen the full picture — [benefit comparison, annualized amount]. Every month you wait is [monthly amount] that doesn\'t come back. I\'m not asking you to make a permanent decision, I\'m asking you not to leave [annualized amount] on the table. Give me five more minutes."',
       },
+      {
+        label: 'Find the one concern',
+        text: '"I absolutely want you to be 100% sure — but when a client says they need to think about it, it usually means I haven\'t answered one specific question for them yet. What is the single biggest concern that you have about the plan that I confirmed maximizes your benefits?"',
+      },
     ],
     pillar: 'The Shift — early: find the real objection; late: make inaction have a visible monthly cost',
   },
@@ -263,6 +271,10 @@ export const objections: Objection[] = [
     responses: [
       {
         text: '"I hear you — and honestly, anything I\'d send right now wouldn\'t have your specific numbers on it anyway. What I can show you right now is built around your zip code, your situation, your doctors. That\'s more useful than any brochure. What was the main thing you were hoping to learn from it?"',
+      },
+      {
+        label: 'AEP deadline urgency',
+        text: '"That is completely understandable — but frankly, if I just send you a packet, it won\'t tell you if this plan actually fixes and maximizes your benefits before the AEP deadline. Would it be fair to spend 60 seconds right now just to verify that this plan will maximize your benefits for 2026, or are you comfortable risking losing out on benefits heading into the new year?"',
       },
     ],
     pillar: 'Refocusing — redirect from the exit back to their actual need',
@@ -533,8 +545,12 @@ export const objections: Objection[] = [
       {
         text: '"No problem — let me pull up your zip code and see what\'s available."',
       },
+      {
+        label: 'Prioritize overall value',
+        text: '"A Part B Giveback is fantastic savings — but we need to make sure those savings don\'t cost you more when you use the plan. Plans with the biggest giveback often have higher copays. Let\'s find the plan that saves you the most overall — that\'s how we make sure you\'re maximizing your benefits, not just your monthly savings."',
+      },
     ],
-    pillar: 'Persuasion — green signal; acknowledge and move immediately',
+    pillar: 'Persuasion — green signal; acknowledge and move immediately; prioritize total value over giveback figure',
   },
 
   {
@@ -619,6 +635,10 @@ export const objections: Objection[] = [
       {
         label: 'For "The government says not to give out info"',
         text: '"You\'re right — and those warnings exist because scammers call seniors every day. Here\'s the difference: I\'m not asking for money or a bank account. I\'m looking up Medicare benefits that already exist in your name — the same thing your doctor\'s office does every time you check in for an appointment."',
+      },
+      {
+        label: 'Licensed agent, maximize frame',
+        text: '"I completely understand why you\'d be careful — and that\'s a great question. I\'m a licensed, independent agent and I follow all Medicare rules. I can give you my State License Number so you can verify it. I\'m only here to confirm if you qualify for benefits you saw advertised, like the Part B Giveback. My focus is always helping you maximize your benefits safely and accurately."',
       },
     ],
     pillar: 'Persuasion — early: demonstrate before asking; late: point to what\'s already been verified on this call',
@@ -857,6 +877,10 @@ export const objections: Objection[] = [
       {
         label: 'If they can\'t get on — arm the caller',
         text: '"Understood. Here\'s what to tell them: your doctor is confirmed in-network, medications are covered, and this plan pays [annualized amount] more per year than what you have now. Write those three things down — that\'s everything they\'ll want to know."',
+      },
+      {
+        label: 'Call spouse right now',
+        text: '"That is completely understandable, and the last thing I want is for you to enroll without being completely aligned. Let\'s give them a fast call right now so I can spend a few minutes showing your spouse the plan that will maximize your benefits for 2026. What is your spouse\'s number?"',
       },
     ],
     pillar: 'Persuasion — first move is always a three-way call right now; if that fails, arm the caller with the three facts',
@@ -1531,6 +1555,68 @@ export const objections: Objection[] = [
       },
     ],
     pillar: 'Reframing — acknowledge the systemic concern; anchor to the specific zip-code number as evidence of entitlement, not charity',
+  },
+
+  // ─── ADDITIONAL: COMMERCIAL BENEFIT — AD INQUIRIES & SPECIFIC PERKS ─────
+
+  {
+    id: 'online-ad-inquiry',
+    section: 'Commercial & Benefit',
+    clientPhrase: '"I saw this ad online — what is this about?" / "What is this for?"',
+    signal: 'green',
+    underneath: 'Inbound motivated caller — they took action by calling. High intent but likely unclear on what they actually qualify for. Acknowledge the ad warmly, bridge directly to an eligibility check, and stay in the maximize-your-benefits frame throughout.',
+    tags: ['online ad', 'saw online', 'ad on facebook', 'what is this about', 'what does this mean', 'what am I calling about', 'saw an ad', 'what\'s this for', 'facebook ad', 'internet ad'],
+    responses: [
+      {
+        text: '"That\'s a great question — I\'m glad you called in! You likely saw one of our Medicare benefit ads online. My job is to confirm if you qualify for programs that can lower your costs or give you extra benefits like dental, vision, or a Part B Giveback. Let\'s take a quick look together so I can see what you\'re eligible for. My main goal is to ensure you\'re maximizing your Medicare benefits."',
+      },
+    ],
+    pillar: 'Persuasion — warm acknowledgment of ad, bridge to eligibility check, stay in maximize frame',
+  },
+
+  {
+    id: 'dental-comparison',
+    section: 'Benefit & Plan Comparison',
+    clientPhrase: '"I saw a plan with $3,000 for dental, and yours only has $1,000."',
+    signal: 'yellow',
+    underneath: 'They\'re being pulled by a headline number. High allowance does not equal high value — network quality and out-of-pocket structure often mean a smaller allowance plan delivers more actual dental benefit. Reframe from allowance size to total dental value.',
+    tags: ['dental allowance', 'dental coverage', 'more dental', '$3000 dental', '$1000 dental', 'higher dental', 'better dental benefits', 'dental comparison', 'dental benefits'],
+    responses: [
+      {
+        text: '"That\'s a high allowance — and the key question is how that allowance is structured. High allowances often mean smaller networks or higher out-of-pocket costs. A slightly smaller allowance with great provider coverage usually helps you get more out of your benefits long-term."',
+      },
+    ],
+    pillar: 'The Shift — headline allowance vs. actual dental value; network quality and OOP structure determine real outcome',
+  },
+
+  {
+    id: 'grocery-card',
+    section: 'Commercial & Benefit',
+    clientPhrase: '"I heard about a card that gives me $200 a month for groceries."',
+    signal: 'yellow',
+    underneath: 'That level of grocery benefit typically requires Special Needs Plan (SNP) qualification. Don\'t dismiss the benefit — check eligibility first. If they don\'t qualify, pivot to the strongest available alternative and stay in the maximize-your-benefits frame.',
+    tags: ['grocery card', 'food card', 'grocery benefit', '$200 groceries', 'food allowance', 'monthly grocery', 'OTC grocery', 'flex card groceries', 'food benefit', 'grocery allowance'],
+    responses: [
+      {
+        text: '"That grocery benefit is a huge help — and that level of benefit is usually available only on a Special Needs Plan for those who qualify. Let\'s check your eligibility first — if you don\'t qualify, we\'ll look for strong alternatives. Either way, I\'ll help you make sure you\'re getting the most overall value from your plan."',
+      },
+    ],
+    pillar: 'Persuasion — check SNP eligibility first; if not eligible, pivot to strongest available alternative',
+  },
+
+  {
+    id: 'flex-card-tv',
+    section: 'Commercial & Benefit',
+    clientPhrase: '"I want the Flex Card they showed on TV that I can use anywhere."',
+    signal: 'yellow',
+    underneath: 'Flex Cards are pre-loaded debit cards for dental, vision, and OTC benefits — not general-use credit cards. Callers frequently misunderstand the scope from TV ads. Correct the expectation without making them feel wrong, then pivot to overall plan fit and the maximize-your-benefits frame.',
+    tags: ['flex card', 'debit card', 'use anywhere', 'TV card', 'spend anywhere', 'prepaid card', 'Medicare card', 'flex card benefit', 'card from TV', 'the card'],
+    responses: [
+      {
+        text: '"Those Flex Cards are gaining popularity — they\'re pre-loaded debit cards for dental, vision, and OTC benefits, not general credit cards. Let\'s focus on the plan that gives you the best coverage overall so you\'re truly maximizing your Medicare benefits."',
+      },
+    ],
+    pillar: 'Reframing — correct the expectation; pivot from one specific card to overall plan value',
   },
 
 ]
