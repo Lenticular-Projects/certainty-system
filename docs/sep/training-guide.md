@@ -1,4 +1,4 @@
-# The Complete SEP Training Guide — For Medicare Advantage Sales Agents
+ # The Complete SEP Training Guide — For Medicare Advantage Sales Agents
 
 ---
 

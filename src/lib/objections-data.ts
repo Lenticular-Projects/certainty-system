@@ -1129,6 +1129,57 @@ export const objections: Objection[] = [
   },
 
   {
+    id: 'wont-give-ssn',
+    section: 'Trust & Credibility',
+    clientPhrase: '"I don\'t want to give my social." / "I don\'t give out that kind of information." / "I\'ve been scammed before." / "My doctor / lawyer / son told me not to give out my social."',
+    signal: 'red',
+    underneath: 'This almost always comes up after the agent has already asked for the Medicare card and the consumer doesn\'t have it — the SSN is the backup verification path, and that\'s when the pushback lands. Rebuttals that redirect back to the Medicare card don\'t work here. The consumer isn\'t being unreasonable — they\'ve been told their whole life to protect their social, and some have been burned before. The move is not to argue, not to over-agree, and never to go backwards. Explain why you need it ("I wouldn\'t ask if I didn\'t have to"), what you\'re accountable for (licensed agent, recorded line, CMS), and what\'s at stake for them (the benefits they called about). Position yourself as their advocate — you\'re not extracting information, you\'re removing the one barrier between them and what they came for.',
+    tags: ['social security number', 'social security', 'SSN', 'social', 'don\'t want to give', 'don\'t give that out', 'not comfortable', 'won\'t give', 'sensitive information', 'over the phone', 'don\'t know you', 'identity', 'privacy', 'personal information', 'why do you need that', 'been scammed', 'scammed before', 'doctor told me', 'lawyer told me', 'son told me', 'family told me', 'told not to'],
+    doNotSay: [
+      '"That\'s okay, no worries." — full surrender; the call is over',
+      '"I wouldn\'t give mine out either." — over-agreement; reinforces the resistance instead of moving past it',
+      '"Do you have your Medicare card?" (again) — they already said they don\'t; going backwards loses the call',
+      '"Your information is encrypted and secure." — tech-security talk they don\'t care about',
+      'Asking for it a second time without repositioning the ask — now you are the person they were afraid of',
+    ],
+    responses: [
+      {
+        label: '"I wouldn\'t ask if I didn\'t have to" — the core move',
+        text: '"Honestly, if I didn\'t need it to help you, I wouldn\'t ask. The only reason I\'m asking is so I can verify your Medicare and see which benefits you actually qualify for — that\'s the whole reason you called in. My job is to make sure you\'re not leaving anything on the table."',
+      },
+      {
+        label: 'License on the line',
+        text: '"I hear you — and here\'s what you need to know. I\'m a licensed agent, this call is recorded, and CMS can pull it at any time. If anything goes sideways, I\'m the one being investigated. I\'d lose my license, I\'d lose my livelihood. I\'m not risking that. I\'m asking because it\'s the only way I can confirm what you qualify for."',
+      },
+      {
+        label: 'Help me help you',
+        text: '"Help me help you. I can\'t show you what you\'re entitled to without verifying your Medicare, and this is the way the system lets me do it. We\'ll make this as painless and as quick as possible, and then we\'re right back to what you called about."',
+      },
+      {
+        label: 'Licensed-agent duty — maximize your benefits',
+        text: '"My whole job is making sure you\'re in the best possible policy and getting every benefit you\'re entitled to. As a licensed agent, that\'s my responsibility to you. I can\'t do that without verifying your Medicare on my end. If there was another way, I wouldn\'t be asking."',
+      },
+      {
+        label: 'For "I\'ve been scammed before"',
+        text: '"I\'m sorry that happened to you — and that\'s exactly why this is a recorded line with a licensed agent, not some random caller. If anything goes wrong here, I\'m the one on the hook with CMS. I\'m not risking my license for anybody. I\'m asking because it\'s the only way I can check if you qualify for the benefit you called about."',
+      },
+      {
+        label: 'For "My doctor / lawyer / son told me not to"',
+        text: '"They\'re right to tell you that — and in most cases, I\'d tell you the exact same thing. The difference is you called a licensed agent on a recorded line about a specific Medicare benefit, and the only way the system lets me verify your eligibility is this one step. If I didn\'t need it, I wouldn\'t ask."',
+      },
+      {
+        label: 'Don\'t leave it on the table',
+        text: '"You called in to see if you qualified for those benefits you saw in the ad. I can\'t answer that question without verifying your Medicare, and this is the way it\'s done. I\'d hate for you to hang up and leave those benefits on the table over the one step that takes ten seconds. Let\'s just get through it."',
+      },
+      {
+        label: '"I mean it" — when they\'re on the fence',
+        text: '"I mean it — if I didn\'t need it, I wouldn\'t ask. Nothing about this call works for you unless I can verify your Medicare. You called because you wanted to know if you qualify for those benefits you saw. Let me help you finish what you started."',
+      },
+    ],
+    pillar: 'Persuasion — never argue, never over-agree; position yourself as their advocate; the ask exists because the benefit exists',
+  },
+
+  {
     id: 'just-signed-up',
     section: 'Fear of Change & Switching',
     clientPhrase: '"I literally just signed up." / "I just changed plans this month."',
