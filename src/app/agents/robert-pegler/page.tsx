@@ -3,14 +3,15 @@
 import PageShell from '@/components/layout/PageShell'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
+import Link from 'next/link'
 import styles from './page.module.css'
 
 // ── Daily Brief: April 13, 2026 ─────────────────────────────────────────────
 
 const dayCalls = [
-  { consumer: 'TJ', date: '04-13', duration: '2:22', score: 29, outcome: 'MISSED OPPORTUNITY', type: 'The Money Caller' },
-  { consumer: 'Unknown', date: '04-13', duration: '5:31', score: 42, outcome: 'INCOMPLETE', type: 'Dual-Eligible — Dropped Call' },
-  { consumer: 'Dwight Chattahill', date: '04-13', duration: '18:47', score: 56, outcome: 'CORRECT NO-SALE', type: 'Complex — Network Conflict' },
+  { consumer: 'TJ', date: '04-13', duration: '2:22', score: 29, outcome: 'MISSED OPPORTUNITY', type: 'The Money Caller', href: '/agents/robert-pegler/calls/tj' },
+  { consumer: 'Unknown', date: '04-13', duration: '5:31', score: 42, outcome: 'INCOMPLETE', type: 'Dual-Eligible — Dropped Call', href: '/agents/robert-pegler/calls/unknown-consumer-5m31s' },
+  { consumer: 'Dwight Chattahill', date: '04-13', duration: '18:47', score: 56, outcome: 'CORRECT NO-SALE', type: 'Complex — Network Conflict', href: '/agents/robert-pegler/calls/dwight-chattahill' },
 ]
 
 const patterns = [
@@ -154,7 +155,13 @@ export default function RobertPeglerPage() {
             </div>
             {dayCalls.map((call, i) => (
               <div key={i} className={styles.callRow}>
-                <span className={styles.consumerName}>{call.consumer}</span>
+                <span className={styles.consumerName}>
+                  {call.href ? (
+                    <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
+                      {call.consumer}
+                    </Link>
+                  ) : call.consumer}
+                </span>
                 <span className={styles.callMeta}>{call.date}</span>
                 <span className={styles.callMeta}>{call.duration}</span>
                 <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
