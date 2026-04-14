@@ -3,14 +3,15 @@
 import PageShell from '@/components/layout/PageShell'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
+import Link from 'next/link'
 import styles from './page.module.css'
 
 // ── Daily Brief: April 13, 2026 ─────────────────────────────────────────────
 
 const dayCalls = [
-  { consumer: 'Glinda Robinson', date: '04-13', duration: '53:44', score: 53, outcome: 'MISSED OPPORTUNITY', type: 'The Detail Staller' },
-  { consumer: 'Not Stated', date: '04-13', duration: '4:14', score: 35, outcome: 'MISSED OPPORTUNITY', type: 'Commercial Myth Caller' },
-  { consumer: 'Not Stated', date: '04-13', duration: '6:26', score: 32, outcome: 'MISSED OPPORTUNITY', type: 'The Scared Switcher' },
+  { consumer: 'Glinda Robinson', date: '04-13', duration: '53:44', score: 53, outcome: 'MISSED OPPORTUNITY', type: 'The Detail Staller', href: '/agents/tavares-smith/calls/glinda-robinson' },
+  { consumer: 'Not Stated', date: '04-13', duration: '4:14', score: 35, outcome: 'MISSED OPPORTUNITY', type: 'Commercial Myth Caller', href: '/agents/tavares-smith/calls/not-stated-4m14s' },
+  { consumer: 'Not Stated', date: '04-13', duration: '6:26', score: 32, outcome: 'MISSED OPPORTUNITY', type: 'The Scared Switcher', href: '/agents/tavares-smith/calls/not-stated-6m26s' },
 ]
 
 const patterns = [
@@ -154,7 +155,13 @@ export default function TavaresSmithPage() {
             </div>
             {dayCalls.map((call, i) => (
               <div key={i} className={styles.callRow}>
-                <span className={styles.consumerName}>{call.consumer}</span>
+                <span className={styles.consumerName}>
+                  {call.href ? (
+                    <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
+                      {call.consumer}
+                    </Link>
+                  ) : call.consumer}
+                </span>
                 <span className={styles.callMeta}>{call.date}</span>
                 <span className={styles.callMeta}>{call.duration}</span>
                 <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
