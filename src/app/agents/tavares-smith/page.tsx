@@ -6,67 +6,69 @@ import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
 import styles from './page.module.css'
 
-// ── Daily Brief: April 13, 2026 ─────────────────────────────────────────────
+// ── Weekly Brief: April 13, 2026 + Coaching Session April 15 ────────────────
 
-const dayCalls = [
-  { consumer: 'Glinda Robinson', date: '04-13', duration: '53:44', score: 53, outcome: 'MISSED OPPORTUNITY', type: 'The Detail Staller', href: '/agents/tavares-smith/calls/glinda-robinson' },
-  { consumer: 'Not Stated', date: '04-13', duration: '4:14', score: 35, outcome: 'MISSED OPPORTUNITY', type: 'Commercial Myth Caller', href: '/agents/tavares-smith/calls/not-stated-4m14s' },
-  { consumer: 'Not Stated', date: '04-13', duration: '6:26', score: 32, outcome: 'MISSED OPPORTUNITY', type: 'The Scared Switcher', href: '/agents/tavares-smith/calls/not-stated-6m26s' },
+const callsByDate = [
+  {
+    date: 'Monday, April 13',
+    calls: [
+      { consumer: 'Glinda Robinson', duration: '53:44', score: 53, outcome: 'MISSED OPPORTUNITY', type: 'The Detail Staller', href: '/agents/tavares-smith/calls/glinda-robinson' },
+      { consumer: 'Not Stated', duration: '4:14', score: 35, outcome: 'MISSED OPPORTUNITY', type: 'Commercial Myth Caller', href: '/agents/tavares-smith/calls/not-stated-4m14s' },
+      { consumer: 'Not Stated', duration: '6:26', score: 32, outcome: 'MISSED OPPORTUNITY', type: 'The Scared Switcher', href: '/agents/tavares-smith/calls/not-stated-6m26s' },
+    ],
+  },
 ]
 
 const patterns = [
   {
-    title: 'Logic Against Emotion — All Three Calls',
-    rc: 'RC2 — Wrong Response to Signal',
+    title: 'Logic against emotion — all three calls',
+    rc: 'RC2',
     urgency: 'critical' as const,
-    body: `Every call today hit the same wall: when a consumer pushed back emotionally, you explained the product instead of naming the feeling. On Glinda's call at 49:29, when she said she needed her insurance lady, you tried to replace the relationship instead of validating it. On the 6:26 call, when the new enrollee said he wasn't comfortable giving information, you explained system security — he wasn't arguing with your security, he was afraid.
-
-The correction is the same on every call: name the emotion first, then make one small ask. "That makes complete sense — you should never give out information until you're comfortable. Let me tell you how the card benefit works without any personal info, and if it sounds good, we'll figure out verification after." Practice this tonight. The move is: validate → small ask. Never justify → push.`,
+    summary: 'Every call hit the same wall: consumer pushed back emotionally, you explained the product. Glinda\'s insurance lady (49:29) → you tried to replace the relationship. New enrollee afraid of giving info → you explained system security. Logic doesn\'t reach fear.',
+    fix: 'Name the feeling first, then one small ask. "That makes complete sense — you should never give info until you\'re comfortable. Let me tell you how the card benefit works without any personal info first."',
   },
   {
-    title: 'Passive Callback Releases the Lead Permanently',
-    rc: 'RC1 — Loss of Lead',
+    title: 'Passive callbacks release leads permanently',
+    rc: 'RC1',
     urgency: 'high' as const,
-    body: `On your 4:14 call, the consumer said he was in the street and would call back. You ended with "whenever you can get to that information, give us a call back." That callback will not happen. The consumer had a reason to call — he saw an ad about groceries — and you had him on the line. At 4:05, the correct move was to name a specific time: "I have an opening at 3:30 this afternoon. Will you be home? I'll call you directly."
-
-On Glinda Robinson's call at 49:29, you had a 53-minute closeable call — dual-eligible, plan comparison done, $2,880 annual gain identified — and surrendered it on an objection you could have reframed. Before any passive callback, say one thing that gives the consumer a reason to stay or a specific next step that locks the lead.`,
+    summary: '4:14 call: consumer in the street, you ended with "give us a call back whenever." That callback won\'t happen. The consumer had a reason to call — you had them live. At 4:05 you still had the lead.',
+    fix: 'Detective work: "What\'s the first number of your social? Just that one." You\'re jogging memory, not demanding PII. Pull on the thread before releasing the line.',
   },
   {
-    title: 'Math Breakdown Stops One Step Before the Close',
-    rc: 'RC3 — Math Breakdown Incomplete',
+    title: 'Math breakdown stops one step before the close',
+    rc: 'RC3',
     urgency: 'medium' as const,
-    body: `On Glinda Robinson's call you ran Steps 1 and 2 correctly — plan comparison, annualized savings ($2,880). Step 3, Humanization, was never delivered. That step is the close. Glinda told you at 2:23 she lives on a low income. That sentence was the humanization bridge: "Glinda, that's nearly $3,000 more per year. You mentioned you're on a low income — what would an extra $250 a month for groceries and utilities mean for you?"
-
-That question is the one that converts. You built the entire case and stopped one sentence before the end. Tomorrow, after every annualization number, connect it back to something the consumer said.`,
+    summary: 'Glinda: ran Steps 1 and 2 (plan comparison, $2,880 annualized). Step 3, Humanization, was never delivered. She told you at 2:23 she lives on low income — that was the bridge that closes it.',
+    fix: '"That\'s $250 more a month for groceries and utilities. You mentioned you\'re on a low income — what would that extra money mean for your budget?" That question is the close.',
   },
 ]
 
-const workOns = [
+const coachingSession = [
   {
     num: '01',
-    title: 'Validate the emotion before you explain the solution.',
-    detail: 'On Glinda\'s call at 49:29 and on the 6:26 call at 5:14, consumers were in fear. Your logical responses made it worse. Tomorrow, the first thing out of your mouth after any emotional resistance is: "That makes complete sense." Then — and only then — make one small ask. This sequence works on every objection type.',
+    title: 'AJ\'s technique: "What question would you ask your insurance lady?"',
+    detail: '"That makes sense. What\'s the one question you\'d want to ask her? I have the full plan details right here — I can likely answer it right now." Shifts the dynamic: instead of you defending yourself, the consumer has to think. If they can\'t come up with a question, you\'ve made the case.',
   },
   {
     num: '02',
-    title: 'Replace passive callbacks with specific appointment times.',
-    detail: 'At 4:05 on the 4:14 call, you released the lead with a vague invitation. Instead: "I have an opening at 3:30 this afternoon — will you be home? I\'ll call you directly." A time converts a maybe into a commitment. If they say no to 3:30, offer another time. Never end without a specific next step.',
+    title: 'Cut all permission-seeking language',
+    detail: 'No "if you want," no "regrettably," no "if you\'re interested." You\'re a licensed professional. Direct: "I need your full name, date of birth, and social." You corrected this mid-day Monday and people started giving the info up — keep going.',
   },
   {
     num: '03',
-    title: 'Complete the Math Breakdown through Step 3 — Humanize the number.',
-    detail: 'After you state the annual figure, connect it to what the consumer told you. Glinda said she was low income at 2:23. That was your bridge: "That\'s $250 more a month for groceries and utilities — for someone on a fixed income, that\'s real." The math sets up the close. Step 3 is the close.',
+    title: 'Give context before asking for personal info',
+    detail: 'Educate on Medicare Advantage first: "With just Part A and Part B, you won\'t get any food card, OTC benefit, dental, or Part B give-back. Once I look up your account, I\'ll give you your Medicare number right now so you have it before your card arrives." Now the info request serves them.',
+  },
+  {
+    num: '04',
+    title: 'Frame what they\'re losing — loss aversion is 2× more powerful',
+    detail: '"You\'ve already been on the phone four minutes. If we take care of this now, you don\'t have to call back, navigate hold times, start from scratch. You can walk away with the benefit locked in." Frame the cost of inaction, not just the benefit of acting.',
   },
 ]
 
 const pastReports = [
-  {
-    title: 'Daily Brief — April 13, 2026',
-    type: 'Daily Brief',
-    date: 'April 14, 2026',
-    score: '40 / 100',
-    active: true,
-  },
+  { title: 'Weekly Brief — April 13 + Coaching Apr 15', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '40 / 100', active: true },
+  { title: 'Daily Brief — April 13', type: 'Daily Brief', date: 'Apr 14, 2026', score: '40 / 100', active: false },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -95,24 +97,24 @@ export default function TavaresSmithPage() {
           <div className={styles.headerMeta}>
             <span className={styles.systemLabel}>The Certainty System</span>
             <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>Daily Brief</span>
+            <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
           <h1 className={styles.agentName}>Tavares Smith</h1>
-          <p className={styles.period}>April 13, 2026 → Going into April 14</p>
-          <p className={styles.updatedAt}>Generated April 14, 2026 · 3 calls reviewed</p>
+          <p className={styles.period}>Week of April 13–17, 2026</p>
+          <p className={styles.updatedAt}>Updated April 15 · 3 calls reviewed + coaching session</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: scoreColor(40) }}>40</span>
-            <span className={styles.scoreLabel}>Day Average</span>
-            <span className={styles.scoreRange}>Out of 100</span>
+            <span className={styles.scoreLabel}>Week Average</span>
+            <span className={styles.scoreRange}>Mon · 3 calls</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue}>3</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>April 13, 2026</span>
+            <span className={styles.scoreRange}>Apr 13, 2026</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0</span>
@@ -126,69 +128,62 @@ export default function TavaresSmithPage() {
           </div>
         </motion.div>
 
-        {/* ── Executive Summary ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Today</h2>
-          <div className={styles.summaryCard}>
-            <p>Your best work today happened on the Glinda Robinson call — 53 minutes, a dual-eligible Ohio consumer who called about food assistance, and you found her a plan that more than doubled her monthly OTC benefit. You ran full compliance, identified the INT/DEP SEP correctly, verified her doctors and drugs. That is real discovery work. Most agents can't carry a 53-minute call. You can, and the technical case you built was sound.</p>
-            <p>The pattern that cost you all three calls today is the same one: when a consumer pushed back with emotion — Glinda's loyalty to her insurance lady, the consumer in the street who didn't have his information, the new enrollee who wasn't ready to share personal data — you responded with logic. You explained why the process is quick, why your systems are secure, why the plan is a no-brainer. None of that reached them. Tomorrow, the correction is one behavior: name the feeling before you explain anything.</p>
-          </div>
-        </motion.div>
-
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a consumer resists, stop explaining why the plan is good — start acknowledging why the hesitation is real, then give them one reason to stay on the line for 60 more seconds.</p>
+          <p className={styles.oneThingText}>When a consumer resists, stop explaining why the plan is good — acknowledge why the hesitation is real, then give them one reason to stay on the line for 60 more seconds.</p>
         </motion.div>
 
-        {/* ── Today's Calls ── */}
+        {/* ── This Week's Calls — grouped by date ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Today&apos;s Calls</h2>
-          <div className={styles.callTable}>
-            <div className={styles.callTableHeader}>
-              <span>Consumer</span>
-              <span>Date</span>
-              <span>Duration</span>
-              <span>Score</span>
-              <span>Outcome</span>
-              <span>Call Type</span>
-            </div>
-            {dayCalls.map((call, i) => (
-              <div key={i} className={styles.callRow}>
-                <span className={styles.consumerName}>
-                  {call.href ? (
-                    <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
-                      {call.consumer}
-                    </Link>
-                  ) : call.consumer}
-                </span>
-                <span className={styles.callMeta}>{call.date}</span>
-                <span className={styles.callMeta}>{call.duration}</span>
-                <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
-                <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
-                <span className={styles.callType}>{call.type}</span>
+          <h2 className={styles.sectionTitle}>This Week&apos;s Calls</h2>
+          {callsByDate.map((group) => (
+            <div key={group.date} style={{ marginBottom: '1.5rem' }}>
+              <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
+                {group.date}
+              </p>
+              <div className={styles.callTable}>
+                <div className={styles.callTableHeader}>
+                  <span>Consumer</span>
+                  <span>Duration</span>
+                  <span>Score</span>
+                  <span>Outcome</span>
+                  <span>Call Type</span>
+                </div>
+                {group.calls.map((call, i) => (
+                  <div key={i} className={styles.callRow}>
+                    <span className={styles.consumerName}>
+                      <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
+                        {call.consumer}
+                      </Link>
+                    </span>
+                    <span className={styles.callMeta}>{call.duration}</span>
+                    <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
+                    <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                    <span className={styles.callType}>{call.type}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-            <div className={styles.callTableFooter}>
-              <span>Day Average: <strong>40 / 100</strong></span>
-              <span>Enrolled: <strong>0 of 3</strong></span>
             </div>
+          ))}
+          <div className={styles.callTableFooter}>
+            <span>Week Average: <strong>40 / 100</strong></span>
+            <span>Enrolled: <strong>0 of 3</strong></span>
           </div>
         </motion.div>
 
         {/* ── What You Did Well ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>What You Did Well Today</h2>
+          <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>Glinda Robinson (04-13):</strong> 53 minutes of disciplined discovery — compliance clean from the jump, INT/DEP SEP correctly identified at 7:15, plan comparison built with specific dollar figures, doctor and drug verification completed. You identified that the new plan more than doubled her OTC monthly benefit and annualized the savings. The technical case was complete. The only thing missing was the humanization that closes it.</p>
-            <p><strong>Compliance execution (all 3 calls):</strong> Your compliance openings were consistent. On your third call today, you scored 15/15 in compliance — perfect execution of TPMO and SOA on a new Medicare enrollee who didn't yet have his card. That discipline doesn't disappear; it compounds.</p>
-            <p><strong>Alternative verification (4:14 call, 3:34):</strong> When the consumer said he didn't have his Medicare card, you correctly pivoted to offer name, date of birth, and social as an alternative path. The right tactical move — the problem wasn't the knowledge, it was the emotional bridge needed to deliver it.</p>
+            <p><strong>Glinda Robinson (04-13):</strong> 53 minutes of real discovery work. Compliance clean, INT/DEP SEP correctly identified, plan comparison built with specific dollar figures, doctor and drug verification completed. The technical case was complete — the only missing piece was the humanization that closes it.</p>
+            <p><strong>Self-correction (4:14 call):</strong> You caught yourself using &quot;if you want&quot; mid-day and adjusted. Went direct — people started giving up the info. That real-time adjustment is the skill that makes improvement compound.</p>
           </div>
         </motion.div>
 
         {/* ── Patterns ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Patterns Today</h2>
+          <h2 className={styles.sectionTitle}>Patterns This Week</h2>
           <div className={styles.priorityList}>
             {patterns.map((p, i) => (
               <div key={i} className={`${styles.priorityCard} ${styles[`priority_${p.urgency}`]}`}>
@@ -199,9 +194,10 @@ export default function TavaresSmithPage() {
                   <span className={styles.rcCode}>{p.rc}</span>
                 </div>
                 <p className={styles.priorityTitle}>{p.title}</p>
-                {p.body.split('\n\n').map((para, j) => (
-                  <p key={j} className={styles.priorityDetail}>{para}</p>
-                ))}
+                <p className={styles.priorityDetail}>{p.summary}</p>
+                <p className={styles.priorityDetail} style={{ fontStyle: 'italic', opacity: 0.75, marginTop: '0.25rem' }}>
+                  Instead: {p.fix}
+                </p>
               </div>
             ))}
           </div>
@@ -209,21 +205,50 @@ export default function TavaresSmithPage() {
 
         {/* ── What to Work On ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>What to Work On Going Into Tomorrow</h2>
+          <h2 className={styles.sectionTitle}>What to Work On</h2>
           <div className={styles.workOnList}>
-            {workOns.map((w, i) => (
-              <div key={i} className={styles.workOnCard}>
-                <span className={styles.workOnNum}>{w.num}</span>
+            <div className={styles.workOnCard}>
+              <span className={styles.workOnNum}>01</span>
+              <div>
+                <p className={styles.workOnTitle}>Validate → small ask (never justify → push)</p>
+                <p className={styles.workOnDetail}>&ldquo;That makes complete sense.&rdquo; — then one small ask. Every time. The sequence is always validate first, then ask. Never explain the plan when someone is in fear.</p>
+              </div>
+            </div>
+            <div className={styles.workOnCard}>
+              <span className={styles.workOnNum}>02</span>
+              <div>
+                <p className={styles.workOnTitle}>Social refusal → ask for the first three numbers</p>
+                <p className={styles.workOnDetail}>&ldquo;Do you remember the first three numbers? Just those three.&rdquo; Jog memory. Don&apos;t demand — pull on the thread. Most people know their social. This shifts the dynamic from confrontation to collaboration.</p>
+              </div>
+            </div>
+            <div className={styles.workOnCard}>
+              <span className={styles.workOnNum}>03</span>
+              <div>
+                <p className={styles.workOnTitle}>Humanize the number — that&apos;s the close</p>
+                <p className={styles.workOnDetail}>After annualizing: &ldquo;You mentioned you&apos;re on a low income — what would an extra $250 a month for groceries and utilities mean for your budget?&rdquo; Step 3 is the close. Never skip it.</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Coaching Session ── */}
+        <motion.div className={styles.section} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Coaching Session — April 15, 2026</h2>
+          <p style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginBottom: '1rem' }}>Session with Jon Hall · Calls reviewed: Glinda Robinson, Not Stated (4:14), Not Stated (6:26)</p>
+          <div className={styles.workOnList}>
+            {coachingSession.map((n) => (
+              <div key={n.num} className={styles.workOnCard}>
+                <span className={styles.workOnNum}>{n.num}</span>
                 <div>
-                  <p className={styles.workOnTitle}>{w.title}</p>
-                  <p className={styles.workOnDetail}>{w.detail}</p>
+                  <p className={styles.workOnTitle}>{n.title}</p>
+                  <p className={styles.workOnDetail}>{n.detail}</p>
                 </div>
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* ── Past Reports ── */}
+        {/* ── Reports ── */}
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>Reports</h2>
           <div className={styles.reportList}>
@@ -244,8 +269,8 @@ export default function TavaresSmithPage() {
 
         {/* ── Footer ── */}
         <div className={styles.footer}>
-          <p>The Certainty System · Tavares Smith · April 13, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC3 · Phase IV · Math Breakdown Step 3 · Emotional Reframe</p>
+          <p>The Certainty System · Tavares Smith · Week of April 13–17, 2026</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC3 · Emotional Reframe · Loss Aversion · Permission Language</p>
         </div>
 
       </div>

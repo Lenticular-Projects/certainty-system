@@ -12,41 +12,44 @@ const callsByDate = [
   {
     date: 'Monday, April 13',
     calls: [
-      { consumer: 'Archie Daphne', duration: '4:02', score: 42, outcome: 'INCOMPLETE', type: 'The Money Caller', href: '/agents/monique-williams/calls/archie-daphne' },
-      { consumer: 'Unknown', duration: '4:17', score: 42, outcome: 'MISSED OPPORTUNITY', type: 'The Money Caller', href: '/agents/monique-williams/calls/unknown-consumer-4m17s' },
-      { consumer: 'Unknown', duration: '3:39', score: 42, outcome: 'MISSED OPPORTUNITY', type: 'The Money Caller', href: '/agents/monique-williams/calls/unknown-consumer-3m39s' },
-      { consumer: 'Unknown', duration: '3:17', score: 32, outcome: 'INCOMPLETE', type: 'The Money Caller', href: '/agents/monique-williams/calls/unknown-consumer-3m17s' },
+      { consumer: 'Carol Hill', duration: '27:22', score: 32, outcome: 'MISSED OPPORTUNITY', type: 'The Compliant Non-Closer', href: '/agents/manuel-medrano/calls/carol-hill' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'The food card acknowledged — never deployed as the close',
-    rc: 'RC2',
+    title: 'INT SEP confirmed — AEP callback given instead',
+    rc: 'RC6',
     urgency: 'critical' as const,
-    summary: 'Every single call came through the same door: someone saw a grocery card ad and called. On every call, the food card was acknowledged once and then disappeared. That card is not a topic to acknowledge and move past — it\'s the enrollment engine.',
-    fix: '"The food card benefit is available in your area — give me your zip code and I\'ll pull up exactly what you qualify for right now." Then every question runs in service of delivering it.',
+    summary: 'Carol\'s Medicaid was confirmed at 8:27. That opened an INT SEP — enrollment available right then, not in October. At 23:03 you told her she\'d need to wait for AEP. She was trusting, cooperative, and ready to follow your lead.',
+    fix: '"Ms. Hill, because you have Medicaid, you have a special enrollment window open right now — not just in October. Let\'s get you into this plan today."',
   },
   {
-    title: 'Product list before value anchor — "too complicated"',
+    title: 'DST SEP invoked — this is a compliance violation',
+    rc: 'RC4',
+    urgency: 'critical' as const,
+    summary: 'At 21:52 you told Carol "CMS has opened a special enrollment period for residents of affected counties" due to a winter storm. DST is a CMS-declared emergency tool — agents are prohibited from raising it. This is an audit exposure event.',
+    fix: 'Never mention storm SEPs. When Medicaid is confirmed, INT SEP is the only tool you need — and it\'s open year-round.',
+  },
+  {
+    title: 'Client Gold not deployed — 3 life-fear moments',
+    rc: 'RC2',
+    urgency: 'high' as const,
+    summary: 'Carol said her dog "sat next to me when I fell and waited for somebody to come." She lives alone at 91. "She had my last breath." Three powerful signals — all heard, none deployed. The $3,012 annual benefit was never connected to her specific life.',
+    fix: '"That story about your dog waiting with you when you fell — that\'s exactly why we need to get this handled today. This plan puts $251 a month in your pocket and your doctor is already in-network. Let\'s do it."',
+  },
+  {
+    title: 'Medication blocker accepted — 3 workarounds available',
     rc: 'RC1',
     urgency: 'high' as const,
-    summary: '4:17 call: listed all product types (MAPD, PDP, Medigap, stand-alone dental, stand-alone vision) before establishing the food card value. Consumer said "it\'s getting too complicated" — call was effectively over.',
-    fix: 'Never open the menu before they know what they\'re ordering. The food card first. Everything else only when relevant to their specific situation.',
-  },
-  {
-    title: 'Dead air during research — no check-in',
-    rc: 'RC1',
-    urgency: 'medium' as const,
-    summary: '3:17 call: silent periods from 1:27 through 4:02 without communicating. Dead air reads as abandonment. The consumer didn\'t know what was happening.',
-    fix: 'Every 30 seconds during any lookup: "Still pulling this up for you, hang tight — just a moment." One line prevents hang-ups.',
+    summary: 'Daughter wasn\'t available for meds list. Carol herself had already named two workaround paths: Drug Mart in New Philly (4:12) and Dr. Harder\'s office (19:51). Neither was attempted.',
+    fix: '"I can call Drug Mart right now while we\'re on the line — that takes 2 minutes and we can get everything handled today."',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '40 / 100', active: true },
-  { title: 'Daily Brief — April 13', type: 'Daily Brief', date: 'Apr 14, 2026', score: '40 / 100', active: false },
+  { title: 'Weekly Brief — April 13', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '32 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -65,7 +68,7 @@ function scoreColor(score: number) {
   return 'var(--terracotta)'
 }
 
-export default function MoniqueWilliamsPage() {
+export default function ManuelMedranoPage() {
   return (
     <PageShell signal="green">
       <div className={styles.page}>
@@ -77,39 +80,39 @@ export default function MoniqueWilliamsPage() {
             <span className={styles.dot}>·</span>
             <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
-          <h1 className={styles.agentName}>Monique Williams</h1>
+          <h1 className={styles.agentName}>Manuel Medrano</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 15 · 4 calls reviewed (Mon)</p>
+          <p className={styles.updatedAt}>Updated April 15 · 1 call reviewed (Mon)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(40) }}>40</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(32) }}>32</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Mon · 4 calls</span>
+            <span className={styles.scoreRange}>Mon · 1 call</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>4</span>
+            <span className={styles.scoreValue}>1</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
             <span className={styles.scoreRange}>Apr 13, 2026</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0</span>
             <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>2 Missed · 2 Incomplete</span>
+            <span className={styles.scoreRange}>1 Missed Opportunity</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC2</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC6</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Food card never deployed</span>
+            <span className={styles.scoreRange}>Missed INT SEP</span>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>The food card is not a topic you acknowledge — it&apos;s the enrollment offer, and every question you ask is in the service of delivering it.</p>
+          <p className={styles.oneThingText}>When Medicaid is confirmed, the enrollment window is open right now — not in October. &ldquo;Ms. Hill, because you have Medicaid, we can get you into this plan today.&rdquo; That&apos;s the sentence that changes the outcome.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -145,8 +148,8 @@ export default function MoniqueWilliamsPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>40 / 100</strong></span>
-            <span>Enrolled: <strong>0 of 4</strong></span>
+            <span>Week Average: <strong>32 / 100</strong></span>
+            <span>Enrolled: <strong>0 of 1</strong></span>
           </div>
         </motion.div>
 
@@ -154,8 +157,10 @@ export default function MoniqueWilliamsPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>TPMO compliance — all 4 calls:</strong> Every call opened with a complete, clean compliance disclosure. That discipline is the right foundation and it keeps you out of audit risk.</p>
-            <p><strong>Post-call awareness:</strong> You debriefed yourself accurately after one of the calls — you knew exactly what went wrong. That analytical clarity is real. The gap isn&apos;t awareness — it&apos;s running that same analysis in real time, while the consumer is still on the line.</p>
+            <p><strong>Compliant open (0:52):</strong> Full TPMO disclaimer with correct organization count (six organizations, 36 products), 1-800-MEDICARE reference, and recorded-line disclosure — all within the first 16 seconds. That&apos;s textbook execution and the foundation the rest of the call gets built on.</p>
+            <p><strong>Patience with a cognitively challenged consumer:</strong> Carol is 91, living alone, and needed extra time with SSNs, medication names, and phone numbers. You handled every confusion with consistent warmth and never showed frustration. That patience kept her on the phone and trusting you — most agents lose consumers like Carol in the first five minutes.</p>
+            <p><strong>Annualization at 24:26:</strong> When Carol asked what the benefit was for a year, you answered immediately: &ldquo;$3,000 a year.&rdquo; That&apos;s Step 2 executed correctly. The number was in front of her.</p>
+            <p><strong>Correct DST exit (23:03):</strong> Once Carol confirmed the storm didn&apos;t affect her, you backed off cleanly and didn&apos;t try to manufacture storm impact. That exit was right — the invocation was the violation, not the exit.</p>
           </div>
         </motion.div>
 
@@ -188,22 +193,22 @@ export default function MoniqueWilliamsPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>The food card is the close — not just the opening</p>
-                <p className={styles.workOnDetail}>When a consumer says they&apos;re calling about the grocery card: &ldquo;That benefit is available in your area — give me your zip code and I&apos;ll show you exactly what you qualify for.&rdquo; Then every question runs in service of unlocking that card.</p>
+                <p className={styles.workOnTitle}>Execute INT SEP when Medicaid is confirmed</p>
+                <p className={styles.workOnDetail}>The moment Medicaid is confirmed, say: &ldquo;Ms. Hill, because you have Medicaid, your enrollment window is open right now — not just in October. That means we can get you into this plan today. I just need a few more pieces and we&apos;re done before we hang up.&rdquo; You already have the qualification — use it.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>One reframe before every callback or release</p>
-                <p className={styles.workOnDetail}>Before you offer any callback, say one thing that gives the consumer a reason to stay. &ldquo;You don&apos;t need the card — I can look you up with just your date of birth and zip code. What&apos;s your birthday?&rdquo;</p>
+                <p className={styles.workOnTitle}>Connect the number to their life — Step 3</p>
+                <p className={styles.workOnDetail}>You got to $3,000 a year — that&apos;s Step 2. Step 3 is connecting it to Carol specifically: &ldquo;That&apos;s your dog food, your Tylenol, your personal care. That&apos;s your daughter not having to pick up your over-the-counter items every visit. Real money in your pocket.&rdquo; Numbers alone don&apos;t close. Numbers tied to a person&apos;s life do.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>When the call goes quiet, name it</p>
-                <p className={styles.workOnDetail}>During any system lookup: &ldquo;Still pulling this up for you, hang tight.&rdquo; Every 30 seconds. Your 3:17 call showed 2+ minutes of silence — that silence cost the call.</p>
+                <p className={styles.workOnTitle}>Medication blocker: try the pharmacy first</p>
+                <p className={styles.workOnDetail}>When the consumer doesn&apos;t have their medication list: &ldquo;No problem — you mentioned Drug Mart in New Philly has your records on file. Can I call them right now while we&apos;re on the line? That takes about two minutes and we can keep this moving.&rdquo; The workaround exists. Try it before converting to a callback.</p>
               </div>
             </div>
           </div>
@@ -230,8 +235,8 @@ export default function MoniqueWilliamsPage() {
 
         {/* ── Footer ── */}
         <div className={styles.footer}>
-          <p>The Certainty System · Monique Williams · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · The Money Caller · Value Anchor Before Qualification</p>
+          <p>The Certainty System · Manuel Medrano · Week of April 13–17, 2026</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC6 · RC4 · RC2 · RC1 · INT SEP · DST Compliance · Client Gold</p>
         </div>
 
       </div>
