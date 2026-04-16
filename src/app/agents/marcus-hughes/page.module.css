@@ -99,6 +99,23 @@
   opacity: 0.7;
 }
 
+/* ── Executive Summary ── */
+.execSummary {
+  margin-bottom: 48px;
+}
+
+.execSummaryInner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.execSummaryInner p {
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
 /* ── Sections ── */
 .section { margin-bottom: 48px; }
 
@@ -172,7 +189,7 @@
 
 .callTableHeader {
   display: grid;
-  grid-template-columns: 2fr 0.6fr 0.7fr 0.6fr 1.4fr 2fr;
+  grid-template-columns: 2fr 0.75fr 0.65fr 1.5fr 2fr;
   padding: 12px 20px;
   background: rgba(19, 17, 16, 0.04);
   border-bottom: var(--rule-lt);
@@ -189,7 +206,7 @@
 
 .callRow {
   display: grid;
-  grid-template-columns: 2fr 0.6fr 0.7fr 0.6fr 1.4fr 2fr;
+  grid-template-columns: 2fr 0.75fr 0.65fr 1.5fr 2fr;
   padding: 14px 20px;
   gap: 12px;
   align-items: center;
@@ -197,6 +214,18 @@
 }
 
 .callRow:last-of-type { border-bottom: none; }
+
+.outcomeCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.outcomeNote {
+  font-size: 0.6875rem;
+  color: var(--ink-60);
+  line-height: 1.4;
+}
 
 .callTableFooter {
   display: flex;
@@ -247,67 +276,6 @@
 .pillMissed { background: var(--tc-tint); color: var(--terracotta); }
 .pillIncomplete { background: var(--mustard-tint); color: var(--mustard-dark); }
 .pillNeutral { background: rgba(19,17,16,0.06); color: var(--ink-60); }
-
-/* ── Week-over-Week Table ── */
-.wowTable {
-  background: rgba(251, 248, 243, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-
-.wowHeader {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  padding: 12px 20px;
-  background: rgba(19, 17, 16, 0.04);
-  border-bottom: var(--rule-lt);
-  gap: 12px;
-}
-
-.wowHeader span {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--ink-60);
-}
-
-.wowRow {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  padding: 12px 20px;
-  gap: 12px;
-  border-bottom: var(--rule-lt);
-  align-items: center;
-}
-
-.wowRow:last-child { border-bottom: none; }
-
-.wowMetric {
-  font-size: 0.875rem;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.wowVal {
-  font-size: 0.875rem;
-  color: var(--ink-60);
-  font-variant-numeric: tabular-nums;
-}
-
-.wowDelta {
-  font-size: 0.875rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink-60);
-}
-
-.deltaDown { color: var(--terracotta); }
-.deltaUp { color: var(--sage-dark); }
 
 /* ── Pattern Cards ── */
 .priorityList { display: flex; flex-direction: column; gap: 12px; }
@@ -380,6 +348,46 @@
   font-size: 0.875rem;
   line-height: 1.7;
   color: var(--ink-60);
+}
+
+.priorityRule {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.6;
+  border-left: 3px solid var(--terracotta);
+  padding-left: 10px;
+}
+
+.priorityCallRef {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
+.priorityMove {
+  background: rgba(19, 17, 16, 0.04);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.priorityMoveLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.priorityMoveText {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink);
+  font-style: italic;
 }
 
 /* ── Work On Cards ── */

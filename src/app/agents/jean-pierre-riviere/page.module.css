@@ -196,6 +196,8 @@
   border-bottom: var(--rule-lt);
 }
 
+.callRow:last-of-type { border-bottom: none; }
+
 /* ── Executive Summary ── */
 .execSummary {
   margin-bottom: 48px;
@@ -213,8 +215,7 @@
   color: var(--ink);
 }
 
-.callRow:last-of-type { border-bottom: none; }
-
+/* ── Outcome Cell ── */
 .outcomeCell {
   display: flex;
   flex-direction: column;

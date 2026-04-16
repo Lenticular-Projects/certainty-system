@@ -12,39 +12,57 @@ const callsByDate = [
   {
     date: 'Monday, April 13',
     calls: [
-      { consumer: 'Unknown', duration: '5:25', score: 32, outcome: 'MISSED OPPORTUNITY', type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-5m25s' },
-      { consumer: 'Unknown', duration: '6:47', score: 26, outcome: 'MISSED OPPORTUNITY', type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m47s' },
+      { consumer: 'Unknown Consumer', duration: '5:25', score: 32, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-5m25s' },
+      { consumer: 'Unknown Consumer', duration: '6:47', score: 26, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m47s' },
+      { consumer: 'Dennis Carroll', duration: '7:49', score: 54, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — no presentation', type: 'Discovery Complete — No Presentation', href: '/agents/alicia-moore-williams/calls/dennis-carroll' },
+    ],
+  },
+  {
+    date: 'Tuesday, April 14',
+    calls: [
+      { consumer: 'Annie Bellamy', duration: '13:04', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'Stuck in research — never transitioned', type: 'Research Phase — Never Exited', href: '/agents/alicia-moore-williams/calls/annie-l-bellamy' },
+      { consumer: 'Carol Kissinger', duration: '16:59', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'Discovery Done — Close Not Attempted', href: '/agents/alicia-moore-williams/calls/carol-lynn-kissinger' },
+      { consumer: 'Lenny Thompson', duration: '28:31', score: 64, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Brand-Loyal UHC — Correct No-Sale', href: '/agents/alicia-moore-williams/calls/lenny-a-thompson' },
+      { consumer: 'Unknown Consumer', duration: '6:11', score: 28, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Food Card — No Anchor, No Close', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m11s' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'Surrenders on first objection — both calls',
+    title: 'First objection = the call you stopped fighting for',
     rc: 'RC1',
     urgency: 'critical' as const,
-    summary: 'Both calls ended the same way: consumer objected once → callback offered, no reframe. 5:25 call at 2:37: "What if I choose not to?" → offered callback. 6:47 call: "I had somebody check already" → sent to Medicare.gov. Both recoverable. Neither attempted.',
-    fix: '"What did they find? Plans changed in 2026 and I\'m looking at your area right now — there are plans here with $150 a month for groceries. Give me two minutes and I\'ll tell you if what you have is the best available."',
+    body: 'Every objection a consumer gives you before they\'ve heard a dollar figure is a question disguised as a no. "What if I choose not to?" isn\'t a decision — she hasn\'t heard the plan yet. "Someone already checked" isn\'t a closed door — she doesn\'t know what they found or if anything changed. When you offer a callback at that moment, you\'re treating a question like a verdict.',
+    rule: 'If they haven\'t heard a number, the objection isn\'t real yet. One question gets a number into the conversation before you decide the call is over.',
+    callRef: 'On a Monday call, an Unknown Consumer said "I had somebody check already" — and the call ended. She called about a grocery benefit. She never heard what the plan actually pays.',
+    moveLabel: 'Ask what they know, then give them something they don\'t.',
+    move: '"What did they find? I want to make sure you\'re seeing the most current options — plans in your area changed this year and I\'m looking at $150 a month for groceries right now. Give me two minutes."',
   },
   {
-    title: '"Do I get more money?" — buying signal ignored',
+    title: 'The open door you walked past',
     rc: 'RC2',
     urgency: 'high' as const,
-    summary: '5:25 call: consumer asked whether they\'d get more money on their card. That\'s a HOT buying signal — the consumer is telling you they\'d switch if the answer is yes. You acknowledged it once and never came back.',
-    fix: '"Yes — $150 a month on this plan, compared to what you have now. That\'s the benefit we can lock in today." Then ask for the Medicare card. Don\'t acknowledge and move on — use it.',
+    body: 'When a consumer asks "Do I get more money on my card?" — that\'s not a question to acknowledge and move on from. That\'s the close. They\'re telling you they\'d switch if the answer is yes. The move at that exact moment is to confirm the number and pivot to enrollment — not to keep presenting as if they didn\'t just give you permission to close.',
+    rule: null,
+    callRef: 'On a Monday call, an Unknown Consumer asked exactly that. The answer was yes — $150 a month. She never heard it.',
+    moveLabel: 'Answer it, state the number, go directly to the card.',
+    move: '"Yes — $150 a month for groceries on this plan. That\'s what we can lock in today. Let me grab your Medicare card and we\'ll get it done."',
   },
   {
-    title: 'No dollar figure stated on either call',
+    title: 'Discovery done — nothing offered',
     rc: 'RC3',
     urgency: 'medium' as const,
-    summary: 'Both consumers were warm inbound Money Callers — called specifically about a grocery benefit — and neither heard a specific dollar amount. The dollar figure is the close.',
-    fix: 'After compliance and zip: "I\'m looking at plans in your area right now — there are options with up to $150 a month for groceries. Let me pull up exactly what you qualify for."',
+    body: 'Discovery is how you earn the right to present, not the destination. On three calls this week, you had ZIP, situation, and benefit interest confirmed — and the call stalled there. When the consumer hasn\'t heard a plan name or a dollar figure, they have no decision in front of them. You can\'t close what you haven\'t offered.',
+    rule: null,
+    callRef: 'This happened on calls with Dennis Carroll, Annie Bellamy, and Carol Kissinger. All three had complete discovery. None of the three heard a plan presented.',
+    moveLabel: 'ZIP and situation confirmed = cue to present, not to keep gathering.',
+    move: '"Based on what you\'ve told me, I\'m looking at a plan with $150 a month for groceries. Let me confirm your doctors are covered and we can talk about getting this started today."',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '29 / 100', active: true },
-  { title: 'Daily Brief — April 13', type: 'Daily Brief', date: 'Apr 14, 2026', score: '29 / 100', active: false },
+  { title: 'Weekly Brief — April 13–14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '44 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -77,37 +95,46 @@ export default function AliciaMooreWilliamsPage() {
           </div>
           <h1 className={styles.agentName}>Alicia Moore Williams</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 15 · 2 calls reviewed (Mon)</p>
+          <p className={styles.updatedAt}>Updated April 16 · 7 calls reviewed (Mon–Tue)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(29) }}>29</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(44) }}>44</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Mon · 2 calls</span>
+            <span className={styles.scoreRange}>Mon–Tue · 7 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>2</span>
+            <span className={styles.scoreValue}>7</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 13, 2026</span>
+            <span className={styles.scoreRange}>Apr 13–14, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0</span>
-            <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>2 Missed Opportunity</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>1</span>
+            <span className={styles.scoreLabel}>Correct No-Sale</span>
+            <span className={styles.scoreRange}>3 Missed · 3 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC1</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Surrendered on first objection</span>
+            <span className={styles.scoreRange}>Exits before the offer</span>
+          </div>
+        </motion.div>
+
+        {/* ── Executive Summary ── */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <div className={styles.execSummaryInner}>
+            <p>These are the calls we pulled this week where the conversation was fully alive — the consumer was engaged, on the line, and open. What we&apos;re working through is what happened in those moments and where it could have gone differently.</p>
+            <p><strong>What&apos;s working:</strong> your consumers stay on the phone and stay open. No one shut you down in the first 30 seconds, no one got hostile. And on the Lenny Thompson call — 28 minutes in, a UHC member who had already made up his mind — you read it correctly, made the right exit, and didn&apos;t push. That judgment matters. Not every agent gets that right.</p>
+            <p><strong>What&apos;s costing you:</strong> three of your calls ended with full discovery complete and no presentation made. You had the ZIP, the situation, the benefit interest confirmed — and the call stalled. Two more ended the moment a consumer pushed back — one question, one callback offer, call over. The close wasn&apos;t missed because these consumers said no. It was missed because the ask never came.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Before you offer a callback, say one line that gives the consumer a concrete reason to stay on the call.</p>
+          <p className={styles.oneThingText}>Once you know where they live and what they&apos;re looking for — that&apos;s your cue to present. Name the plan. State the dollar amount. You can&apos;t close a call where the consumer hasn&apos;t heard the offer yet.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -135,7 +162,10 @@ export default function AliciaMooreWilliamsPage() {
                     </span>
                     <span className={styles.callMeta}>{call.duration}</span>
                     <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
-                    <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                    <span className={styles.outcomeCell}>
+                      <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                      {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
+                    </span>
                     <span className={styles.callType}>{call.type}</span>
                   </div>
                 ))}
@@ -143,8 +173,8 @@ export default function AliciaMooreWilliamsPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>29 / 100</strong></span>
-            <span>Enrolled: <strong>0 of 2</strong></span>
+            <span>Week Average: <strong>44 / 100</strong></span>
+            <span>Correct No-Sales: <strong>1 of 7</strong></span>
           </div>
         </motion.div>
 
@@ -152,8 +182,8 @@ export default function AliciaMooreWilliamsPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>Compliance opens — both calls:</strong> TPMO and SOA delivered cleanly on both calls, with your second call clocking in at 13 seconds. That&apos;s one of the fastest clean compliance opens on the team. That discipline is the foundation everything else gets built on.</p>
-            <p><strong>Consumer rapport:</strong> Both consumers were warm and comfortable throughout. Neither had hostility or suspicion. The trust you build in the first 60 seconds is real — a consumer who trusts you stays on the phone long enough to hear the offer.</p>
+            <p><strong>You read the Lenny Thompson call correctly.</strong> Twenty-eight minutes in, a UHC member who had already made up his mind — you identified the wall, handled the exit cleanly, and didn&apos;t push. That&apos;s a correct no-sale, and it&apos;s the right call. Knowing when to stop is as important as knowing how to close.</p>
+            <p><strong>Your consumers stay engaged.</strong> Across seven calls this week, no one hung up on you, no one got hostile, no one went defensive. Callers with food card questions and grocery benefit questions stayed on the line and let you ask questions. The trust you build in the opening is what buys you the time to do the actual work — and you&apos;re building it consistently.</p>
           </div>
         </motion.div>
 
@@ -170,10 +200,13 @@ export default function AliciaMooreWilliamsPage() {
                   <span className={styles.rcCode}>{p.rc}</span>
                 </div>
                 <p className={styles.priorityTitle}>{p.title}</p>
-                <p className={styles.priorityDetail}>{p.summary}</p>
-                <p className={styles.priorityDetail} style={{ fontStyle: 'italic', opacity: 0.75, marginTop: '0.25rem' }}>
-                  Instead: {p.fix}
-                </p>
+                <p className={styles.priorityDetail}>{p.body}</p>
+                {p.rule && <p className={styles.priorityRule}>{p.rule}</p>}
+                <p className={styles.priorityCallRef}>{p.callRef}</p>
+                <div className={styles.priorityMove}>
+                  <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
+                  <p className={styles.priorityMoveText}>{p.move}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -186,22 +219,22 @@ export default function AliciaMooreWilliamsPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>One reframe before you let anyone go</p>
-                <p className={styles.workOnDetail}>&ldquo;What did they find? Plans changed this year and I&apos;m looking at $150 a month for groceries in your area. Give me two minutes.&rdquo; That one sentence keeps the lead alive. Practice it until it&apos;s automatic.</p>
+                <p className={styles.workOnTitle}>One question before any exit</p>
+                <p className={styles.workOnDetail}>When a consumer pushes back, the instinct is to offer a callback. Replace that instinct with a question — about what they already know, what they found, what they&apos;re worried about. One question tells you whether the objection is real. A callback offered before a question is a lead you chose to release.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>State the dollar figure early — it&apos;s the close</p>
-                <p className={styles.workOnDetail}>After zip code: &ldquo;I&apos;m showing plans in your area with up to $150 a month for groceries. Let me pull up exactly what you qualify for.&rdquo; The number gives the consumer something concrete to say yes to.</p>
+                <p className={styles.workOnTitle}>Name the plan and state the number</p>
+                <p className={styles.workOnDetail}>Discovery is the setup. The moment you have ZIP and situation, the next sentence should name a plan and a dollar amount. &ldquo;I&apos;m looking at a plan with $150 a month for groceries — let me confirm your doctors are covered.&rdquo; That sentence moves the call forward. Staying in discovery after you have what you need doesn&apos;t.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>When they ask &ldquo;do I get more?&rdquo; — treat it as a yes</p>
-                <p className={styles.workOnDetail}>&ldquo;Yes — $150 a month on this plan. That&apos;s the benefit we can lock in today.&rdquo; Then ask for the Medicare card. Don&apos;t acknowledge it and move on — use it.</p>
+                <p className={styles.workOnTitle}>Treat buying signals as the close</p>
+                <p className={styles.workOnDetail}>When a consumer asks &ldquo;do I get more?&rdquo; or &ldquo;is there something better?&rdquo; — that&apos;s not a follow-up item. That&apos;s the open door. Confirm the answer, state the number, and ask for the Medicare card. Don&apos;t acknowledge it and move on. Use it.</p>
               </div>
             </div>
           </div>

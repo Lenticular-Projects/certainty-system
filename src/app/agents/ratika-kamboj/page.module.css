@@ -196,36 +196,7 @@
   border-bottom: var(--rule-lt);
 }
 
-/* ── Executive Summary ── */
-.execSummary {
-  margin-bottom: 48px;
-}
-
-.execSummaryInner {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.execSummaryInner p {
-  font-size: 0.9375rem;
-  line-height: 1.8;
-  color: var(--ink);
-}
-
 .callRow:last-of-type { border-bottom: none; }
-
-.outcomeCell {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.outcomeNote {
-  font-size: 0.6875rem;
-  color: var(--ink-60);
-  line-height: 1.4;
-}
 
 .callTableFooter {
   display: flex;
@@ -411,46 +382,6 @@
   color: var(--ink-60);
 }
 
-.priorityRule {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--ink);
-  line-height: 1.6;
-  border-left: 3px solid var(--terracotta);
-  padding-left: 10px;
-}
-
-.priorityCallRef {
-  font-size: 0.8125rem;
-  line-height: 1.65;
-  color: var(--ink-60);
-  font-style: italic;
-}
-
-.priorityMove {
-  background: rgba(19, 17, 16, 0.04);
-  border-radius: 8px;
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.priorityMoveLabel {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-60);
-}
-
-.priorityMoveText {
-  font-size: 0.875rem;
-  line-height: 1.65;
-  color: var(--ink);
-  font-style: italic;
-}
-
 /* ── Work On Cards ── */
 .workOnList { display: flex; flex-direction: column; gap: 12px; }
 
@@ -565,4 +496,86 @@
   font-size: 0.75rem;
   color: var(--ink-60);
   opacity: 0.6;
+}
+
+/* ── Executive Summary ── */
+.execSummary {
+  margin-bottom: 48px;
+}
+
+.execSummaryInner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.execSummaryInner p {
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+/* ── Outcome Cell (with sub-label) ── */
+.outcomeCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.outcomeNote {
+  font-size: 0.6875rem;
+  color: var(--ink-60);
+  line-height: 1.4;
+}
+
+/* ── Pattern Card Extended Fields ── */
+.priorityRule {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.6;
+  border-left: 3px solid var(--terracotta);
+  padding-left: 10px;
+}
+
+.priorityCallRef {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
+.priorityMove {
+  background: rgba(19, 17, 16, 0.04);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.priorityMoveLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.priorityMoveText {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink);
+  font-style: italic;
+}
+
+/* ── Call Table Footer ── */
+.callTableFooter {
+  display: flex;
+  gap: 32px;
+  padding: 12px 20px;
+  background: rgba(19, 17, 16, 0.03);
+  border-top: var(--rule-lt);
+  font-size: 0.8125rem;
+  color: var(--ink-60);
 }

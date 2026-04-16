@@ -12,44 +12,46 @@ const callsByDate = [
   {
     date: 'Monday, April 13',
     calls: [
-      { consumer: 'Carol Hill', duration: '27:22', score: 32, outcome: 'MISSED OPPORTUNITY', type: 'The Compliant Non-Closer', href: '/agents/manuel-medrano/calls/carol-hill' },
+      { consumer: 'Carol Hill', duration: '27:22', score: 32, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Compliant Non-Closer', href: '/agents/manuel-medrano/calls/carol-hill' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'INT SEP confirmed — AEP callback given instead',
+    title: 'Medicaid confirmed — AEP callback given instead of INT SEP',
     rc: 'RC6',
     urgency: 'critical' as const,
-    summary: 'Carol\'s Medicaid was confirmed at 8:27. That opened an INT SEP — enrollment available right then, not in October. At 23:03 you told her she\'d need to wait for AEP. She was trusting, cooperative, and ready to follow your lead.',
-    fix: '"Ms. Hill, because you have Medicaid, you have a special enrollment window open right now — not just in October. Let\'s get you into this plan today."',
+    body: 'When a consumer confirms Medicaid, that opens an INT SEP — enrollment available right now, not in October. This is one of the most important SEP triggers in the system. If you don\'t name it, the consumer has no reason to enroll today. "AEP" sounds like a wall. "You can enroll right now because of Medicaid" sounds like an open door. The framing you use determines whether the call closes.',
+    rule: 'The moment Medicaid is confirmed, name the enrollment window. Do not wait. Do not continue to the next topic. Say it immediately.',
+    callRef: 'Carol Hill\'s Medicaid was confirmed at 8:27. At 23:03, you told her she\'d need to wait for AEP. She was cooperative and ready to follow your lead the whole call.',
+    moveLabel: 'When Medicaid is confirmed:',
+    move: '"Ms. Hill, because you have Medicaid, you have a special enrollment window open right now — not just in October. Let\'s get you into this plan today."',
   },
   {
-    title: 'DST SEP invoked — this is a compliance violation',
+    title: 'DST SEP named to the consumer — compliance violation',
     rc: 'RC4',
     urgency: 'critical' as const,
-    summary: 'At 21:52 you told Carol "CMS has opened a special enrollment period for residents of affected counties" due to a winter storm. DST is a CMS-declared emergency tool — agents are prohibited from raising it. This is an audit exposure event.',
-    fix: 'Never mention storm SEPs. When Medicaid is confirmed, INT SEP is the only tool you need — and it\'s open year-round.',
+    body: 'Disaster SEPs are a CMS-authorized tool agents can use internally to open an enrollment window in affected areas. They are not something agents are permitted to explain to consumers or invoke by name. Mentioning the storm, naming the SEP type, or explaining its basis to the consumer is an audit exposure event — regardless of whether the DST would have been valid in this case. When Medicaid was already confirmed, INT SEP was the only tool needed.',
+    rule: 'Never name a disaster SEP to a consumer. Process it silently, or don\'t use it. When Medicaid is present, INT SEP is your answer.',
+    callRef: 'At 21:52, you told Carol that "CMS has opened a special enrollment period for residents of affected counties" due to a winter storm. That invocation was the violation, not the exit.',
+    moveLabel: 'If ever using DST in the future:',
+    move: '"We\'re processing your enrollment under a Special Enrollment Period that applies to your situation." That\'s it. Nothing more.',
   },
   {
-    title: 'Client Gold not deployed — 3 life-fear moments',
+    title: 'Three Client Gold moments heard and not deployed',
     rc: 'RC2',
     urgency: 'high' as const,
-    summary: 'Carol said her dog "sat next to me when I fell and waited for somebody to come." She lives alone at 91. "She had my last breath." Three powerful signals — all heard, none deployed. The $3,012 annual benefit was never connected to her specific life.',
-    fix: '"That story about your dog waiting with you when you fell — that\'s exactly why we need to get this handled today. This plan puts $251 a month in your pocket and your doctor is already in-network. Let\'s do it."',
-  },
-  {
-    title: 'Medication blocker accepted — 3 workarounds available',
-    rc: 'RC1',
-    urgency: 'high' as const,
-    summary: 'Daughter wasn\'t available for meds list. Carol herself had already named two workaround paths: Drug Mart in New Philly (4:12) and Dr. Harder\'s office (19:51). Neither was attempted.',
-    fix: '"I can call Drug Mart right now while we\'re on the line — that takes 2 minutes and we can get everything handled today."',
+    body: 'Client Gold is the emotional truth a consumer gives you that makes the enrollment personal. When you hear it, you stop and use it. Carol gave you three: her dog staying with her when she fell, living alone at 91, and "she had my last breath." Those aren\'t background details — they\'re the close. The plan\'s annual benefit is $3,012. That number means something different connected to her life than it does as a standalone figure.',
+    rule: null,
+    callRef: 'Carol\'s dog story, her fall, and her comment about "my last breath" all came through clearly on the call. None of them were reflected back or used to anchor the benefit.',
+    moveLabel: 'When the Client Gold moment arrives:',
+    move: '"That story about your dog staying with you when you fell — that\'s exactly why we need to get this handled today. This plan puts $251 a month in your pocket and your doctor is already in-network. Let\'s do it."',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '32 / 100', active: true },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '32 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -82,7 +84,7 @@ export default function ManuelMedranoPage() {
           </div>
           <h1 className={styles.agentName}>Manuel Medrano</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 15 · 1 call reviewed (Mon)</p>
+          <p className={styles.updatedAt}>Updated April 16 · 1 call reviewed (Mon)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
@@ -109,10 +111,19 @@ export default function ManuelMedranoPage() {
           </div>
         </motion.div>
 
+        {/* ── Executive Summary ── */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <div className={styles.execSummaryInner}>
+            <p>This is the Carol Hill call from Monday — a 27-minute conversation with a 91-year-old consumer who was cooperative, trusted you, and gave you everything you needed to enroll her. What we&apos;re working through is what happened in the moments where the close was right there.</p>
+            <p><strong>What&apos;s working:</strong> your patience with Carol was real and it mattered. She&apos;s 91, living alone, and needed extra time with every number — SSNs, medication names, phone numbers. You handled every confusion with warmth and never showed frustration. That kept her on the phone and trusting you for 27 minutes. You also annualized the benefit immediately when she asked: &ldquo;$3,000 a year&rdquo; came out fast and correctly. That&apos;s the right instinct.</p>
+            <p><strong>What&apos;s costing you:</strong> two things, and one of them has a compliance dimension. Medicaid was confirmed at 8:27 — that opened an INT SEP, which means enrollment available today, not in October. You told her AEP instead. And at 21:52, you named the disaster SEP to her directly, which is a CMS violation. The enrollment was achievable. The path closed because the wrong tools were named at the wrong moment.</p>
+          </div>
+        </motion.div>
+
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When Medicaid is confirmed, the enrollment window is open right now — not in October. &ldquo;Ms. Hill, because you have Medicaid, we can get you into this plan today.&rdquo; That&apos;s the sentence that changes the outcome.</p>
+          <p className={styles.oneThingText}>When Medicaid is confirmed, the enrollment window is open right now — not in October. The moment you hear it, say it: &ldquo;Because you have Medicaid, we can get you into this plan today.&rdquo; That&apos;s the sentence that changes the outcome.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -140,7 +151,10 @@ export default function ManuelMedranoPage() {
                     </span>
                     <span className={styles.callMeta}>{call.duration}</span>
                     <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
-                    <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                    <span className={styles.outcomeCell}>
+                      <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                      {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
+                    </span>
                     <span className={styles.callType}>{call.type}</span>
                   </div>
                 ))}
@@ -157,10 +171,8 @@ export default function ManuelMedranoPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>Compliant open (0:52):</strong> Full TPMO disclaimer with correct organization count (six organizations, 36 products), 1-800-MEDICARE reference, and recorded-line disclosure — all within the first 16 seconds. That&apos;s textbook execution and the foundation the rest of the call gets built on.</p>
-            <p><strong>Patience with a cognitively challenged consumer:</strong> Carol is 91, living alone, and needed extra time with SSNs, medication names, and phone numbers. You handled every confusion with consistent warmth and never showed frustration. That patience kept her on the phone and trusting you — most agents lose consumers like Carol in the first five minutes.</p>
-            <p><strong>Annualization at 24:26:</strong> When Carol asked what the benefit was for a year, you answered immediately: &ldquo;$3,000 a year.&rdquo; That&apos;s Step 2 executed correctly. The number was in front of her.</p>
-            <p><strong>Correct DST exit (23:03):</strong> Once Carol confirmed the storm didn&apos;t affect her, you backed off cleanly and didn&apos;t try to manufacture storm impact. That exit was right — the invocation was the violation, not the exit.</p>
+            <p><strong>Your patience with Carol was the only reason the call lasted 27 minutes.</strong> She&apos;s 91, living alone, and needed extra time with every piece of information. You handled every confusion with consistent warmth — no frustration, no rushing her, no shortcuts. That kept her trusting you. Most agents lose consumers like Carol in the first five minutes.</p>
+            <p><strong>You annualized the benefit immediately when she asked.</strong> At 24:26, Carol asked what the annual benefit was. You answered immediately: &ldquo;$3,000 a year.&rdquo; That&apos;s the right instinct and the right answer. The number was in front of her. The next step — connecting it to her specific life — is the work for next time.</p>
           </div>
         </motion.div>
 
@@ -177,10 +189,13 @@ export default function ManuelMedranoPage() {
                   <span className={styles.rcCode}>{p.rc}</span>
                 </div>
                 <p className={styles.priorityTitle}>{p.title}</p>
-                <p className={styles.priorityDetail}>{p.summary}</p>
-                <p className={styles.priorityDetail} style={{ fontStyle: 'italic', opacity: 0.75, marginTop: '0.25rem' }}>
-                  Instead: {p.fix}
-                </p>
+                <p className={styles.priorityDetail}>{p.body}</p>
+                {p.rule && <p className={styles.priorityRule}>{p.rule}</p>}
+                <p className={styles.priorityCallRef}>{p.callRef}</p>
+                <div className={styles.priorityMove}>
+                  <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
+                  <p className={styles.priorityMoveText}>{p.move}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -193,22 +208,22 @@ export default function ManuelMedranoPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>Execute INT SEP when Medicaid is confirmed</p>
-                <p className={styles.workOnDetail}>The moment Medicaid is confirmed, say: &ldquo;Ms. Hill, because you have Medicaid, your enrollment window is open right now — not just in October. That means we can get you into this plan today. I just need a few more pieces and we&apos;re done before we hang up.&rdquo; You already have the qualification — use it.</p>
+                <p className={styles.workOnTitle}>Execute INT SEP the moment Medicaid is confirmed</p>
+                <p className={styles.workOnDetail}>Medicaid confirmed = enrollment window open now. Say it immediately: &ldquo;Because you have Medicaid, your enrollment window is open right now — not just in October. That means we can get you into this plan today. I just need a few more pieces and we&apos;re done before we hang up.&rdquo; You already have the qualification — use it.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>Connect the number to their life — Step 3</p>
-                <p className={styles.workOnDetail}>You got to $3,000 a year — that&apos;s Step 2. Step 3 is connecting it to Carol specifically: &ldquo;That&apos;s your dog food, your Tylenol, your personal care. That&apos;s your daughter not having to pick up your over-the-counter items every visit. Real money in your pocket.&rdquo; Numbers alone don&apos;t close. Numbers tied to a person&apos;s life do.</p>
+                <p className={styles.workOnTitle}>Connect the dollar amount to their actual life</p>
+                <p className={styles.workOnDetail}>You got to $3,000 a year — that&apos;s the number. The next step is tying it to Carol: &ldquo;That&apos;s your dog food, your Tylenol, your personal care items. That&apos;s your daughter not having to pick up your over-the-counter supplies every visit. Real money in your pocket.&rdquo; Numbers alone don&apos;t close. Numbers tied to a person&apos;s life do.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
                 <p className={styles.workOnTitle}>Medication blocker: try the pharmacy first</p>
-                <p className={styles.workOnDetail}>When the consumer doesn&apos;t have their medication list: &ldquo;No problem — you mentioned Drug Mart in New Philly has your records on file. Can I call them right now while we&apos;re on the line? That takes about two minutes and we can keep this moving.&rdquo; The workaround exists. Try it before converting to a callback.</p>
+                <p className={styles.workOnDetail}>When the medication list isn&apos;t available: &ldquo;No problem — you mentioned Drug Mart in New Philly has your records on file. Can I call them right now while we&apos;re on the line? That takes about two minutes.&rdquo; Carol gave you the workaround. Try it before converting to a callback.</p>
               </div>
             </div>
           </div>

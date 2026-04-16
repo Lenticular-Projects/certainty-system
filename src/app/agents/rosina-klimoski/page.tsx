@@ -6,47 +6,63 @@ import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
 import styles from './page.module.css'
 
-// ── Weekly Brief: April 13–17, 2026 ─────────────────────────────────────────
+// ── Weekly Brief: April 13–14, 2026 ─────────────────────────────────────────
 
 const callsByDate = [
   {
     date: 'Monday, April 13',
     calls: [
-      { consumer: 'Robin Hargett', duration: '10:24', score: 58, outcome: 'CORRECT NO-SALE', type: 'Complex Dual-Eligible', href: '/agents/rosina-klimoski/calls/robin-hargett' },
-      { consumer: 'Frank Yannis', duration: '18:06', score: 52, outcome: 'MISSED OPPORTUNITY', type: 'Closeable Dual-Eligible', href: '/agents/rosina-klimoski/calls/frank-yannis' },
-      { consumer: 'Mary Lancaster', duration: '13:08', score: 33, outcome: 'MISSED OPPORTUNITY', type: 'Money Caller — MOV SEP', href: '/agents/rosina-klimoski/calls/mary-lancaster' },
-      { consumer: 'Unknown', duration: '3:02', score: 35, outcome: 'MISSED OPPORTUNITY', type: 'Money Caller — Veteran', href: '/agents/rosina-klimoski/calls/unknown-consumer-3m02s' },
+      { consumer: 'Frank Yannis', duration: '18:06', score: 52, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Money Caller / Doctor-Loyal', href: '/agents/rosina-klimoski/calls/frank-yannis' },
+      { consumer: 'Mary Lancaster', duration: '13:08', score: 33, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Money Caller', href: '/agents/rosina-klimoski/calls/mary-lancaster' },
+      { consumer: 'Robin Hargett', duration: '10:24', score: 58, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Money Caller / Dual Eligible Review', href: '/agents/rosina-klimoski/calls/robin-hargett' },
+      { consumer: 'Unknown Consumer', duration: '3:02', score: 35, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Inbound Buyer', href: '/agents/rosina-klimoski/calls/unknown-consumer-3m02s' },
+    ],
+  },
+  {
+    date: 'Tuesday, April 14',
+    calls: [
+      { consumer: 'Jessie Blakely', duration: '16:33', score: 42, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Motivated Switcher / D-SNP Eligible', href: '/agents/rosina-klimoski/calls/jessie-blakely' },
+      { consumer: 'Judith Steding', duration: '4:20', score: 27, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Quick Exit', href: '/agents/rosina-klimoski/calls/judith-steding' },
+      { consumer: 'Mr. Kenniskopf', duration: '7:25', score: 42, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'Window Shopper', href: '/agents/rosina-klimoski/calls/mr-kenniskopf' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'Does all the work — surrenders the close at the end',
+    title: 'You do all the work — then accept the exit when it comes',
     rc: 'RC1',
     urgency: 'critical' as const,
-    summary: 'Frank Yannis: 18 minutes of correct execution, then at 17:36 he asked for a brochure and you ended with "unfortunately I can\'t send one." Full case built. Close handed away. The brochure ask means "show me more before I commit" — it\'s not a no.',
-    fix: '"I can\'t mail one, but I can walk you through the key details right now, and you\'ll receive everything in writing once you\'re enrolled. Let\'s take care of this today."',
+    body: 'The call isn\'t over until you\'ve made one attempt to change the outcome. When a consumer gives you an exit — a brochure request, a transportation concern, a single "I\'m going to pass" — your first response has to be a reframe. Not an apology, not an agreement, not "I do apologize for that." The reframe doesn\'t have to be perfect. It has to happen. On five calls this week, it didn\'t.',
+    rule: 'Before any call ends without an enrollment, you make one attempt to keep it going. Every time. No exceptions.',
+    callRef: 'On the Jessie Blakely call, you had $111 more per month confirmed, a consumer who said "I\'m glad I called" at 11:16, and math that answered her exact problem. At 15:35 she said transportation was a concern. You said "I do apologize for that." The call ended.',
+    moveLabel: 'Consumer raises one objection after a strong case — hold your ground.',
+    move: '"Jessie — hold on. Before you decide, hear me out for 30 seconds. With this plan, you\'d have $111 more every single month in groceries. That\'s $1,332 more every year. You told me you\'ve been having trouble keeping up with food. Does that change how you\'re thinking about it?"',
   },
   {
-    title: 'SEP identified — callback offered instead of enrollment',
-    rc: 'RC6',
+    title: 'Monthly numbers need to become annual numbers — every time',
+    rc: 'RC3',
     urgency: 'high' as const,
-    summary: 'Mary Lancaster: correctly identified a MOV SEP — then offered a callback. When you find a SEP, you have the legal justification to enroll today. The SEP is the enrollment hook, not a detail to pass along.',
-    fix: '"Because you moved recently, you have a special window to change your coverage right now — this isn\'t something we have to schedule, we can take care of it today."',
+    body: 'You are consistently executing the first step of the math breakdown — the monthly comparison — and stopping. "$111 more per month" is forgettable. "$1,332 more a year for groceries" is the answer to the exact problem Jessie called about. "$800 a year for vitamins and glucose monitors you\'re already buying" is real to Frank. The annual number is what creates urgency. The connection between the annual number and something specific the consumer said — that\'s the close.',
+    rule: null,
+    callRef: 'On Frank Yannis, you presented the OTC benefit as "$200 a quarter" and moved on. On Jessie Blakely, you said "$111 more per month" and moved on. Neither number was ever converted to annual. Neither was ever connected to what the consumer told you about their life.',
+    moveLabel: 'After stating any monthly benefit — annualize immediately.',
+    move: '"That\'s $1,332 more a year, Jessie. You told me you\'ve been having trouble keeping up with food. This is $1,332 more a year for groceries. Does that change how you\'re thinking about it?"',
   },
   {
-    title: 'SSN declined — no alternative offered before release',
-    rc: 'RC1',
+    title: 'Medical signals after a "no" on chronic conditions — follow up anyway',
+    rc: 'RC6',
     urgency: 'medium' as const,
-    summary: '3:02 call: veteran declined SSN, call ended. The alternative (name + DOB) was never offered. One sentence keeps this lead alive.',
-    fix: '"No problem at all — I can also pull you up with just your name and date of birth. What\'s your full name?"',
+    body: 'A consumer who says no to the chronic conditions screen can still reveal a qualifying condition two minutes later. When that happens, you stop and ask one follow-up question. That question opens a C-SNP or CSN enrollment window that doesn\'t require any annual period. And when a consumer mentions they just moved, that\'s a MOV SEP — a year-round enrollment window that you can walk through on the same call.',
+    rule: null,
+    callRef: 'Mary Lancaster said "I\'m trying to get me an appointment so I can get back on my blood pressure pills" at 11:08 — after she had already said no to chronic conditions. Judith Steding said "I just moved here" at 0:22. Both signals were acknowledged and set aside.',
+    moveLabel: 'Consumer mentions a medical condition or recent move — stop and qualify.',
+    move: '"Mary, is that something your doctor has diagnosed you with — like hypertension?" / "Judith, when did you move? Were you on a Medicare Advantage plan before you got here?"',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '44 / 100', active: true },
-  { title: 'Daily Brief — April 13', type: 'Daily Brief', date: 'Apr 14, 2026', score: '44 / 100', active: false },
+  { title: 'Weekly Brief — April 13–14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '41 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -79,25 +95,25 @@ export default function RosinaKlimoskiPage() {
           </div>
           <h1 className={styles.agentName}>Rosina Klimoski</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 15 · 4 calls reviewed (Mon)</p>
+          <p className={styles.updatedAt}>Updated April 16 · 7 calls reviewed (Mon–Tue)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(44) }}>44</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(41) }}>41</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Mon · 4 calls</span>
+            <span className={styles.scoreRange}>Mon–Tue · 7 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>4</span>
+            <span className={styles.scoreValue}>7</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 13, 2026</span>
+            <span className={styles.scoreRange}>Apr 13–14, 2026</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>1</span>
             <span className={styles.scoreLabel}>Correct No-Sale</span>
-            <span className={styles.scoreRange}>3 Missed Opportunity</span>
+            <span className={styles.scoreRange}>5 Missed · 1 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC1</span>
@@ -106,10 +122,19 @@ export default function RosinaKlimoskiPage() {
           </div>
         </motion.div>
 
+        {/* ── Executive Summary ── */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <div className={styles.execSummaryInner}>
+            <p>These are the calls we pulled this week where the conversation was fully alive — engaged consumers who stayed on the line through discovery and gave you real information to work with. What we&apos;re working through is what happened at the moments when the call was ready to close and where it went a different direction.</p>
+            <p><strong>What&apos;s working:</strong> the fastest lead recovery we saw all week came in the first 20 seconds of Frank Yannis&apos;s call. He said no at 0:11 — done before the conversation started. You said &ldquo;The grocery benefit card?&rdquo; and turned a hang-up into an 18-minute conversation. That instinct is yours. And on Robin Hargett, you corrected your own comparison at 9:01, told her the truth about the numbers, and called the correct no-sale with a commission on the table. That&apos;s integrity that a consumer will remember and call you back for.</p>
+            <p><strong>What&apos;s costing you:</strong> five calls this week ended with a single sentence that you didn&apos;t use. On Jessie Blakely you had $1,332 more a year and a consumer who said "I&apos;m glad I called." On Frank Yannis you had 18 minutes of correct discovery and a plan comparison he understood. In both cases — and three others — when the consumer gave you an exit, you accepted it. One reframe attempt, every time, before any call ends. That&apos;s the correction.</p>
+          </div>
+        </motion.div>
+
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When you&apos;ve identified the SEP and done the full discovery, the only thing left is to ask — don&apos;t hand them a callback, hand them the enrollment.</p>
+          <p className={styles.oneThingText}>Before you pick up the phone this week, remind yourself: the call isn&apos;t over until you&apos;ve made one attempt to keep it going — because you had five calls this week where one sentence would have changed the outcome.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -137,7 +162,10 @@ export default function RosinaKlimoskiPage() {
                     </span>
                     <span className={styles.callMeta}>{call.duration}</span>
                     <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
-                    <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                    <span className={styles.outcomeCell}>
+                      <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                      {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
+                    </span>
                     <span className={styles.callType}>{call.type}</span>
                   </div>
                 ))}
@@ -145,8 +173,8 @@ export default function RosinaKlimoskiPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>44 / 100</strong></span>
-            <span>Correct No-Sales: <strong>1 of 4</strong></span>
+            <span>Week Average: <strong>41 / 100</strong></span>
+            <span>Correct No-Sales: <strong>1 of 7</strong></span>
           </div>
         </motion.div>
 
@@ -154,8 +182,8 @@ export default function RosinaKlimoskiPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>Robin Hargett (04-13):</strong> Ran the comparison, caught your own screen error at 9:01, reversed your framing, and told Robin the truth — the numbers don&apos;t support switching. That&apos;s a correct no-sale with commission on the table. Professional integrity.</p>
-            <p><strong>Frank Yannis (04-13):</strong> 18 minutes of correct execution — plan comparison, dental and OTC comparison, doctor network, medications. You can carry a complex dual-eligible call all the way through the technical work. The problem is the close, not the discovery.</p>
+            <p>The fastest lead recovery of the week came in the first 20 seconds of Frank Yannis&apos;s call. Frank said no at 0:11 — he was done before the conversation started. You said &ldquo;The grocery benefit card?&rdquo; and he said yes. That pivot shows you understand what these consumers are calling about and you can meet them there before they hang up. Most agents let that call end. You converted it into 18 minutes of discovery work.</p>
+            <p>On Robin Hargett, you did something harder. At 9:01 you came back from a hold and corrected your own plan comparison because you had misread the screen. You told Robin the United benefit was actually slightly lower, not higher. Then you told her she was already on the best plan for her situation and walked her off the call without pushing an enrollment. You prioritized accuracy over momentum on a call where the commission was real. That&apos;s the kind of agent behavior that makes consumers trust you and call back when something changes.</p>
           </div>
         </motion.div>
 
@@ -172,10 +200,13 @@ export default function RosinaKlimoskiPage() {
                   <span className={styles.rcCode}>{p.rc}</span>
                 </div>
                 <p className={styles.priorityTitle}>{p.title}</p>
-                <p className={styles.priorityDetail}>{p.summary}</p>
-                <p className={styles.priorityDetail} style={{ fontStyle: 'italic', opacity: 0.75, marginTop: '0.25rem' }}>
-                  Instead: {p.fix}
-                </p>
+                <p className={styles.priorityDetail}>{p.body}</p>
+                {p.rule && <p className={styles.priorityRule}>{p.rule}</p>}
+                <p className={styles.priorityCallRef}>{p.callRef}</p>
+                <div className={styles.priorityMove}>
+                  <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
+                  <p className={styles.priorityMoveText}>{p.move}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -188,22 +219,22 @@ export default function RosinaKlimoskiPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>When you&apos;ve built the case — ask for the enrollment</p>
-                <p className={styles.workOnDetail}>Frank Yannis 17:36: &ldquo;I can&apos;t mail one, but I can walk you through the key details right now, and you&apos;ll receive everything in writing once you&apos;re enrolled. Let&apos;s take care of this today.&rdquo;</p>
+                <p className={styles.workOnTitle}>One reframe attempt before every call ends — no exceptions</p>
+                <p className={styles.workOnDetail}>When any consumer gives you an exit — brochure request, transportation concern, &ldquo;I&apos;m going to pass&rdquo; — your first response is a reframe. On Frank Yannis: &ldquo;I wish I could mail you something — but a brochure would just tell you what I already know. You qualify today. Can I get you started so it&apos;s in effect on the first of next month?&rdquo; Practice that sentence until it&apos;s automatic.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>The MOV SEP means enroll today — say it</p>
-                <p className={styles.workOnDetail}>&ldquo;Because you moved recently, you have a window to change your coverage right now — not something we need to schedule, we can handle it today.&rdquo; The SEP is the close.</p>
+                <p className={styles.workOnTitle}>Annualize every number — then connect it to their life</p>
+                <p className={styles.workOnDetail}>After any benefit figure, say the annual equivalent and connect it to something the consumer said. &ldquo;$111 more per month — that&apos;s $1,332 more a year. You told me you&apos;re having trouble keeping up with food. This is $1,332 more a year for groceries.&rdquo; Do not leave numbers as abstract monthly figures.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>SSN declined → offer name + DOB</p>
-                <p className={styles.workOnDetail}>&ldquo;No problem — I can also pull you up with just your name and date of birth. What&apos;s your full name?&rdquo; That one question keeps the call alive when SSN is off the table.</p>
+                <p className={styles.workOnTitle}>Medical signals and move mentions always get a follow-up question</p>
+                <p className={styles.workOnDetail}>When a consumer mentions a medical condition — even after they said no to chronic conditions — one follow-up question: &ldquo;Is that something your doctor has diagnosed you with?&rdquo; When a consumer mentions they just moved: &ldquo;When did you move? Were you on a plan before?&rdquo; Those two questions can open year-round enrollment windows that have nothing to do with October.</p>
               </div>
             </div>
           </div>
@@ -231,7 +262,7 @@ export default function RosinaKlimoskiPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Rosina Klimoski · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC6 · MOV SEP · Brochure Reframe · Robin Hargett: Correct No-Sale</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC6 · Brochure Reframe · Annualization · Robin Hargett: Correct No-Sale</p>
         </div>
 
       </div>
