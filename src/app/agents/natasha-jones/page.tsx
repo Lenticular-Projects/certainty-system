@@ -132,7 +132,7 @@ export default function NatashaJonesPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When the math lands and the consumer confirms it — stop building the case and ask for the enrollment. The next sentence is the close, not another explanation.</p>
+          <p className={styles.oneThingText}>Your discovery work is strong &mdash; you catch the things most agents miss and you build real trust fast. The move that keeps more calls alive is leading with the Medicare card instead of the SSN: &ldquo;I can look you up with your Medicare card &mdash; it&apos;s the red, white, and blue card. Do you have that nearby?&rdquo; Build the value first, then ask for what you need to deliver it. Assume they&apos;re saying yes and push for the enrollment. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

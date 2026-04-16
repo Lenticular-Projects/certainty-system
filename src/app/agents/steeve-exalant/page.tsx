@@ -125,7 +125,7 @@ export default function SteeveExalantPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>You know the move — now make the ask: every strategy you describe, every benefit you name, every plan you introduce ends with &ldquo;Do you want me to get that done right now?&rdquo;</p>
+          <p className={styles.oneThingText}>You explain strategies with real precision &mdash; the plan, the benefit, the timeline &mdash; and that builds genuine trust. The move that turns those explanations into enrollments is a direct ask at the end of every one: &ldquo;Do you want me to get that done right now?&rdquo; Every strategy you describe, every benefit you name, every plan you lay out is the setup &mdash; that one sentence is the close. Assume they&apos;re saying yes. That&apos;s where the enrollment lives.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

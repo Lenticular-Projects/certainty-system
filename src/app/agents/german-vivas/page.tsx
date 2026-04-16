@@ -123,7 +123,7 @@ export default function GermanVivasPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a consumer refuses the SSN, your next words are: &ldquo;No problem — I can pull you up with your Medicare card number instead. Do you have that nearby?&rdquo; That one sentence keeps the call alive. &ldquo;I get it. Bye.&rdquo; ends it.</p>
+          <p className={styles.oneThingText}>When a trust objection comes up, you have one bridge that keeps the call alive: &ldquo;I completely understand &mdash; I can pull you up with your Medicare card number instead. Do you have that nearby?&rdquo; That pivot gives the consumer a path forward without the friction. The call isn&apos;t over until you&apos;ve offered the alternative &mdash; assume they&apos;re enrolling.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

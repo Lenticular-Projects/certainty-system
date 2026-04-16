@@ -132,7 +132,7 @@ export default function RobertPeglerPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>You know the product — now trust it enough to hold your ground when a consumer pushes back, because the first objection is almost never the last word.</p>
+          <p className={styles.oneThingText}>You have the product knowledge to find the gap and make the case &mdash; that&apos;s the hard part, and you do it well. The move that keeps more calls alive is holding your ground once when the call gets uncomfortable: name exactly what the consumer called for and put the number in front of them before you give them the exit. When you feel resistance, one reframe &mdash; &ldquo;Here&apos;s what I found for you&rdquo; &mdash; is all it takes to stay in the conversation. You&apos;ve already done the work. Use it.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

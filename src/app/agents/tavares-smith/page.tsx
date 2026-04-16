@@ -156,7 +156,7 @@ export default function TavaresSmithPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a consumer pushes back, stop talking about the plan and start acknowledging what they&apos;re feeling — that&apos;s the only move that keeps them on the line.</p>
+          <p className={styles.oneThingText}>When a consumer pushes back emotionally, the sequence that moves them is feeling first, then dollars. Acknowledge what they&apos;re feeling &mdash; &ldquo;I hear you, this feels like a lot&rdquo; &mdash; then connect the number directly to their life: &ldquo;This is $1,400 a year back in your pocket.&rdquo; That sequence &mdash; name the feeling, then land the dollar figure &mdash; is what gets someone through hesitation and into the enrollment. Logic alone won&apos;t get there. Lead with the feeling, then make the number real.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

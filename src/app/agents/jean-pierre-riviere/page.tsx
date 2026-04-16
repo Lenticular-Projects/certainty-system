@@ -129,7 +129,7 @@ export default function JeanPierreRivierePage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When the consumer tells you which plan they want, your next sentence is &ldquo;Let me get you locked in right now&rdquo; — not another verification question. The choice is the close. Everything else happens after.</p>
+          <p className={styles.oneThingText}>Your instinct to verify doctors and confirm coverage details is thorough &mdash; and when a consumer&apos;s primary care is confirmed in-network, that&apos;s your signal to close. The move is: &ldquo;Perfect &mdash; let me get you enrolled right now. It takes about three minutes and we&apos;ll have everything confirmed while we do it.&rdquo; Primary care in-network is enough to enroll. Specialists get verified after submission &mdash; assume they&apos;re saying yes and move.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

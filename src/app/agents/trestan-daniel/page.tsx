@@ -125,7 +125,7 @@ export default function TrestanDanielPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a consumer says &ldquo;Yes, I&apos;m ready,&rdquo; that is the moment you execute the enrollment — not the moment you look for someone else to do it.</p>
+          <p className={styles.oneThingText}>You do the discovery, you build the case, you earn the trust &mdash; that&apos;s the hardest part of this job and you do it consistently. The move that converts more of those calls is finishing what you started: when a consumer gives you the green light, your next words are &ldquo;Perfect &mdash; I&apos;m getting you enrolled right now&rdquo; and you run the enrollment yourself. You built the relationship. You own the close. See it through.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

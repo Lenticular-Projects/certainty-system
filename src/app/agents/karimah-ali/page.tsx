@@ -124,7 +124,7 @@ export default function KarimahAliPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Before you move to your next step, ask: did this person just tell me something important — and did I respond to the person, not the procedure? Two sentences of acknowledgment is the difference between a compliance call and a trusted conversation.</p>
+          <p className={styles.oneThingText}>When a consumer shares something real &mdash; a diagnosis, managing alone, a financial fight &mdash; two sentences of acknowledgment turns a script into a conversation they want to finish. Pause, name what they just told you, let them know you heard it, then move forward and push for the enrollment. That&apos;s what makes someone say yes &mdash; and it&apos;s the only conversation that closes.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

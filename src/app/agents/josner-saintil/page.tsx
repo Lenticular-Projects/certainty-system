@@ -124,7 +124,7 @@ export default function JosnerSaintilPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Every time a consumer says &ldquo;Medicaid,&rdquo; stop and ask: &ldquo;Is your Medicaid active right now?&rdquo; That one question is the difference between a dead call and a year-round enrollment window.</p>
+          <p className={styles.oneThingText}>You have something they need &mdash; don&apos;t apologize for having it. When someone pushes back at the open, don&apos;t explain yourself. State your value and move: &ldquo;I check benefits for people already on Medicare in your area &mdash; are you on Part A and B?&rdquo; One sentence, one question, forward. Assume they&apos;re enrolling.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

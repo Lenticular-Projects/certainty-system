@@ -134,7 +134,7 @@ export default function RosinaKlimoskiPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Before you pick up the phone this week, remind yourself: the call isn&apos;t over until you&apos;ve made one attempt to keep it going — because you had five calls this week where one sentence would have changed the outcome.</p>
+          <p className={styles.oneThingText}>When a consumer raises a barrier, you already have the number that answers it &mdash; that&apos;s the move. Instead of stepping back, step into the dollar figure: &ldquo;Before you go, I want to make sure you know what you&apos;d be leaving &mdash; this is $1,332 a year. Does that change anything?&rdquo; Naming the money keeps the call alive and gives the consumer a real reason to stay. You&apos;ve run the math. Say it out loud and let them decide.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

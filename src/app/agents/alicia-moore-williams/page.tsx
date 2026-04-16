@@ -134,7 +134,7 @@ export default function AliciaMooreWilliamsPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Once you know where they live and what they&apos;re looking for — that&apos;s your cue to present. Name the plan. State the dollar amount. You can&apos;t close a call where the consumer hasn&apos;t heard the offer yet.</p>
+          <p className={styles.oneThingText}>You build rapport and find the right plan &mdash; that&apos;s the hard part, and you&apos;re doing it. The move that converts more of those calls is a direct recommendation the moment discovery is done: state what you found, name the number, and push for the enrollment. Assume they&apos;re saying yes. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

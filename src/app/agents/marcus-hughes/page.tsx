@@ -141,7 +141,7 @@ export default function MarcusHughesPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When they tell you dialysis is coming, or $600 a month in meds, or that they called because they want that food card — stop and say it back to them. That moment is your close. Don&apos;t file it away and move on.</p>
+          <p className={styles.oneThingText}>Your diagnostic reads are sharp &mdash; you find the right plan, you spot the C-SNP match, you confirm the doctor. The move that converts more of that work is a specific script when a third party gets invoked: &ldquo;Absolutely &mdash; and let&apos;s get this started while I have you, so she has something concrete to look at.&rdquo; Keep the call moving forward, submit the application, give the cancellation window. Assume they&apos;re saying yes. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

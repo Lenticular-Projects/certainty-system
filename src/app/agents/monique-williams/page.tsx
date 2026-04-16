@@ -135,7 +135,7 @@ export default function MoniqueWilliamsPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>The food card is not a topic you acknowledge and move past — it&apos;s the enrollment offer, and every question you ask is in the service of delivering it.</p>
+          <p className={styles.oneThingText}>The consumer called you &mdash; they already said yes when they picked up the phone. The move that keeps more of them enrolled is walking through the call like you&apos;re delivering something they came for, not asking permission at every step: &ldquo;Let me pull up what&apos;s available in your area&rdquo; instead of &ldquo;Is it okay if I check?&rdquo; Lead with certainty, state the dollar amount early, and push for the enrollment. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

@@ -124,7 +124,7 @@ export default function AndresDuranPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When the math lands and they react — &ldquo;Oh my God,&rdquo; &ldquo;that&apos;s huge,&rdquo; anything like that — stop presenting. That reaction is the close. Your next sentence is a date-of-birth question, not another benefit.</p>
+          <p className={styles.oneThingText}>Your math execution is the best in the batch &mdash; when a consumer reacts to those numbers, that reaction is your close signal. The move is to stop presenting and go directly to enrollment: &ldquo;Exactly &mdash; let&apos;s get you enrolled today.&rdquo; When the math lands, assume they&apos;re saying yes and push for the enrollment. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

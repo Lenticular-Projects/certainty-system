@@ -123,7 +123,7 @@ export default function ManuelMedranoPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When Medicaid is confirmed, the enrollment window is open right now — not in October. The moment you hear it, say it: &ldquo;Because you have Medicaid, we can get you into this plan today.&rdquo; That&apos;s the sentence that changes the outcome.</p>
+          <p className={styles.oneThingText}>Your warmth is what keeps consumers on the phone &mdash; and that&apos;s a real skill, because without it the call ends before the plan ever gets presented. The move that turns that warmth into closes is using it to push forward instead of ease out: &ldquo;I want to make sure we get this handled for you today while I have you.&rdquo; You built the case, you found the plan, the consumer trusts you. Now assume they&apos;re saying yes and walk them through the enrollment. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

@@ -136,7 +136,7 @@ export default function RudySchprejerPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a consumer shows comfort, that is not a no — it is the cue to take them back to why they called. Their words are your close, and you already have them on the line.</p>
+          <p className={styles.oneThingText}>When a consumer sounds comfortable or hesitant, the move is to anchor them back to the reason they picked up the phone. Take them back to their original reason &mdash; &ldquo;You called me today about extra money. I found $5,880 a year. Let&apos;s finish this&rdquo; &mdash; and keep the close alive. Comfort isn&apos;t a no; it&apos;s a consumer who hasn&apos;t felt the number yet. Bring them back to why they called, assume they&apos;re saying yes, and finish it.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

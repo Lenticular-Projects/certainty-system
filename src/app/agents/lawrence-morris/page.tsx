@@ -124,7 +124,7 @@ export default function LawrenceMorrisPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>A correct no-sale is a future enrollment — always plant the seed before you hang up. &ldquo;When this resolves, I want to be the one who calls you.&rdquo; That sentence turns a dead end into a pipeline.</p>
+          <p className={styles.oneThingText}>You build solid cases and get consumers warm &mdash; the hard part is done by the time the barrier comes up. When someone says &ldquo;I need my medication list&rdquo; or &ldquo;my daughter handles that,&rdquo; the move is to stay in it: &ldquo;No problem &mdash; your pharmacy has that on file, let me check it right now while I have you&rdquo; or &ldquo;Let&apos;s get this started so you have something concrete to show her.&rdquo; Push through those last five yards. That&apos;s where the enrollment is.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

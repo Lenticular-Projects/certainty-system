@@ -145,7 +145,7 @@ export default function MichelleMarreroPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When someone tells you they&apos;re scared of losing money, don&apos;t say &ldquo;I hear you&rdquo; — show them the math. The numbers were there on every call this week. Use them.</p>
+          <p className={styles.oneThingText}>You do the full work &mdash; you verify the doctors, run the math, earn the agreement &mdash; and that&apos;s the hard part. The move that converts more of those closes is staying in it when the hesitation comes: &ldquo;I hear you &mdash; give me 60 seconds and let me show you exactly what this means for you.&rdquo; Run the math, state the number, and push for the enrollment. Assume they&apos;re saying yes. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}

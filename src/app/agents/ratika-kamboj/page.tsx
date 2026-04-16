@@ -131,7 +131,7 @@ export default function RatikaKambojPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>The moment you confirm their current benefit amount and a plan that beats it — stop researching. Name the plan. State the dollar amount. The research phase ending is the close beginning.</p>
+          <p className={styles.oneThingText}>You do the hardest part of the job &mdash; you get in the system, you find the number, you confirm the match. The move that converts more of those calls is a clean pivot the moment the data lands: &ldquo;I found something &mdash; let me walk you through it.&rdquo; Confirmed data straight to the offer, no extra loop. You already have everything you need. Start presenting.</p>
         </motion.div>
 
         {/* ── This Week&apos;s Calls ── */}

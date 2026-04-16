@@ -133,7 +133,7 @@ export default function AshleyWhitehurstPage() {
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Lead with the Medicare card — never the SSN. &ldquo;I completely understand. Your Medicare card works just as well. Do you have that handy?&rdquo; That one line keeps three calls alive this week.</p>
+          <p className={styles.oneThingText}>Your C-SNP read on the DeWitt call shows you know exactly how to find the right plan &mdash; the move that converts more of those calls is treating any form of consumer agreement as your green light to close. When the objections dissolve and they say anything that isn&apos;t a firm no, move straight to enrollment: &ldquo;Perfect &mdash; let me get you enrolled right now.&rdquo; Assume they&apos;re saying yes. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
