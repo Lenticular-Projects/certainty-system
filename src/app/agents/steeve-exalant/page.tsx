@@ -19,7 +19,7 @@ const callsByDate = [
   },
 ]
 
-const patterns = [
+const patterns: { title: string; rc: string; urgency: 'critical' | 'high' | 'medium'; body: string; rule: string | null; callRef: string; moveLabel: string; move: string }[] = [
   {
     title: 'You described the move — but didn\'t make the ask',
     rc: 'RC1',
