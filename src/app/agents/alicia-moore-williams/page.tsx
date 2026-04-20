@@ -11,9 +11,8 @@ import styles from './page.module.css'
 // Scores: Dennis Carroll 54, Francis Wardlaw 72, Lamar Bull 68,
 //         Unknown 5m25s 32, Unknown 6m47s 26,
 //         Annie Bellamy 52, Carol Kissinger 52, Lenny Thompson 64,
-//         Unknown 6m11s 28, Katherine Curtis 38, Malika Muhammad 55
-//         Joseph Rinaldi (Apr 17) 36 — no JSON, from brief data
-// Avg of 12 scored calls: (54+72+68+32+26+52+52+64+28+38+55+36) / 12 = 577/12 ≈ 48
+//         Unknown 6m11s 28, Katherine Curtis 38, Joseph Rinaldi 36
+// Avg of 11 scored calls: (54+72+68+32+26+52+52+64+28+38+36) / 11 = 522/11 ≈ 48
 
 const callsByDate = [
   {
@@ -22,65 +21,63 @@ const callsByDate = [
       { consumer: 'Unknown Consumer', duration: '5:25', score: 32, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-5m25s' },
       { consumer: 'Unknown Consumer', duration: '6:47', score: 26, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m47s' },
       { consumer: 'Dennis Carroll', duration: '7:49', score: 54, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — SEP missed, no presentation', type: 'The OTC Card Caller', href: '/agents/alicia-moore-williams/calls/dennis-carroll' },
-      { consumer: 'Francis Wardlaw', duration: '60:00', score: 72, outcome: 'ENROLLED', outcomeNote: null, type: 'D-SNP Correction', href: '#' },
-      { consumer: 'Lamar Bull', duration: '66:00', score: 68, outcome: 'ENROLLED', outcomeNote: null, type: 'D-SNP Correction', href: '#' },
+      { consumer: 'Francis Wardlaw', duration: '60:00', score: 72, outcome: 'INCOMPLETE', outcomeNote: 'D-SNP correction enrolled — call ran 60 min, no math assembled', type: 'D-SNP Correction', href: '/agents/alicia-moore-williams/calls/francis-wardlaw' },
+      { consumer: 'Lamar Bull', duration: '66:00', score: 68, outcome: 'INCOMPLETE', outcomeNote: 'D-SNP correction enrolled — call ran 66 min, Schedule II coverage unresolved', type: 'D-SNP Correction', href: '/agents/alicia-moore-williams/calls/lamar-bull' },
     ],
   },
   {
     date: 'Tuesday, April 14',
     calls: [
-      { consumer: 'Annie Bellamy', duration: '13:04', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'SEP missed — never transitioned to presentation', type: 'The OTC Card Caller', href: '/agents/alicia-moore-williams/calls/annie-l-bellamy' },
+      { consumer: 'Annie L. Bellamy', duration: '13:04', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'SEP missed — never transitioned to presentation', type: 'The OTC Card Caller', href: '/agents/alicia-moore-williams/calls/annie-l-bellamy' },
       { consumer: 'Carol Lynn Kissinger', duration: '16:59', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/carol-lynn-kissinger' },
-      { consumer: 'Lenny Thompson', duration: '28:31', score: 64, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/lenny-a-thompson' },
+      { consumer: 'Lenny A. Thompson', duration: '28:31', score: 64, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'The Brand Loyalist', href: '/agents/alicia-moore-williams/calls/lenny-a-thompson' },
       { consumer: 'Unknown Consumer', duration: '6:11', score: 28, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m11s' },
-      { consumer: 'Unknown/Voicemail', duration: '4:49', score: 0, outcome: 'INCOMPLETE', outcomeNote: 'No live contact — voicemail', type: 'No Contact', href: '#' },
     ],
   },
   {
     date: 'Wednesday, April 15',
     calls: [
-      { consumer: 'Katherine Curtis', duration: '60:00', score: 38, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Aetna objection surrendered — 60 min with no enrollment', type: 'The Chronic Caller', href: '#' },
-      { consumer: 'Malika Muhammad', duration: '—', score: 55, outcome: 'CORRECT NO-SALE', outcomeNote: 'No Medicare credentials — correct no-sale', type: 'Missing Credentials', href: '#' },
+      { consumer: 'Katherine Curtis', duration: '60:00', score: 38, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Aetna objection surrendered — 60 min with no enrollment', type: 'The Chronic Caller', href: '/agents/alicia-moore-williams/calls/katherine-curtis' },
     ],
   },
   {
     date: 'Thursday, April 17',
     calls: [
-      { consumer: 'Joseph Rinaldi', duration: '40:15', score: 36, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Extended call — no close attempt made', type: 'The Money Caller', href: '#' },
+      { consumer: 'Joseph Rinaldi', duration: '40:15', score: 36, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Consumer said yes at 14:39 — close attempted 20 min too late', type: 'Dual-Eligible Plan Upgrade', href: '/agents/alicia-moore-williams/calls/joseph-rinaldi' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'Objection on a call that never had a number — that is not a real objection yet',
+    title: 'When a consumer says yes at minute 14, close at minute 14 — not minute 34',
     rc: 'RC1',
     urgency: 'critical' as const,
-    body: 'Three calls this week ended the moment a consumer pushed back — before they had heard a plan name or a dollar figure. When you offer a callback at the first sign of friction, you are treating a question like a verdict. A consumer who says "I already had someone check" or "what if I choose not to?" has not been given anything to evaluate yet. One question before the exit keeps the call alive.',
-    rule: 'If they have not heard a number, the objection is not real yet. One question gets a number into the conversation before you decide the call is over.',
-    callRef: 'The Unknown Consumer (5:25) said "I had somebody check already" — the call ended without her ever hearing what the plan pays. She called about a grocery benefit.',
-    moveLabel: 'When they push back before you have presented:',
-    move: '"What did they find? I want to make sure you\'re seeing the most current options — plans in your area changed this year and I\'m looking at $150 a month for groceries right now. Give me two minutes."',
+    body: 'Joseph Rinaldi said "Yes, it sounds interesting" at 14:39. That was the close signal. The response is: "Great — let me get you enrolled right now, it takes about five minutes and your new benefits start May 1st." Instead, Delisha spent 20 more minutes on verification. By the time she asked for the enrollment at 34:19, Joseph was exhausted and said no. The close window is not at the end of the call — it is the moment the consumer says yes. Everything after that either confirms the enrollment or bleeds the energy out of it.',
+    rule: 'When a consumer confirms interest, pivot to enrollment immediately. Every minute after the "yes" is a minute you can lose.',
+    callRef: 'Joseph Rinaldi at 14:39: "Yes, it does" (does it sound interesting to you?). Twenty minutes of continued verification followed. He declined at 34:19.',
+    moveLabel: 'Consumer confirms interest — close immediately:',
+    move: '"I\'m glad it sounds good — let me get you started right now. It takes about five minutes and your new benefits start May 1st. I just need to verify your doctor is in network and confirm your medications. Ready?"',
   },
   {
-    title: 'Sixty minutes on a call that ended with nothing offered is a recovery failure',
-    rc: 'RC1',
+    title: 'Emotional objections — find out what went wrong, don\'t add more math',
+    rc: 'RC2',
     urgency: 'high' as const,
-    body: 'The Katherine Curtis call ran a full hour. She had Medicaid, COPD, insulin-dependent diabetes, and was paying out of pocket on $500 a month — the highest-urgency lead profile in the system. The Aetna objection came up three times and was answered with data each time. Data does not reach an emotional objection. When someone tells you they had a bad experience, the move is to find out exactly what happened and address it directly — not to run more math.',
+    body: 'The Katherine Curtis call ran a full hour. She had Medicaid, COPD, insulin-dependent diabetes, and was paying out of pocket for insulin on $500 a month — the highest-urgency lead in the system. The Aetna objection came up repeatedly and was answered with data each time. Data does not reach an emotional objection. When someone tells you they had a bad experience, the move is one specific question: "What went wrong?" Find out the exact complaint. Then either show it is fixed, or find a different plan.',
     rule: null,
-    callRef: 'Katherine said "I already had Aetna and it was terrible" three times. She never heard: "What went wrong? Because I want to make sure that doesn\'t happen again."',
-    moveLabel: 'When the objection is a bad past experience:',
-    move: '"What went wrong with them? I want to know exactly what happened — because if that\'s still the issue today, I\'ll find you a different plan. But if it\'s fixed, you\'re leaving $1,960 a year on the table for no reason."',
+    callRef: 'Katherine said she had Aetna before and it was terrible — multiple times. She never heard: "What went wrong with Aetna specifically? Because if it was a specific plan issue, this 2026 D-SNP is a different product. Tell me what happened."',
+    moveLabel: 'When the objection is a bad past experience with the same carrier:',
+    move: '"What went wrong with them? I want to know exactly what happened — because if it was something in the plan design, this 2026 D-SNP is structured differently. And if the same problem exists, I\'ll find you a different carrier. But I can\'t fix it until I know what it was."',
   },
   {
-    title: 'Discovery ends when you have ZIP and situation — not when you have more questions',
+    title: 'D-SNP corrections are enrolled — but the math was never assembled',
     rc: 'RC3',
     urgency: 'medium' as const,
-    body: 'On four calls this week — Dennis Carroll, Annie Bellamy, Carol Kissinger, and the Unknown Consumer (6:11) — you had everything needed to present a plan and did not present one. Discovery is how you earn the right to present. It is not the destination. The moment you have ZIP, benefit interest, and at least a rough picture of coverage, the next sentence should name a plan and a dollar amount.',
+    body: 'Francis Wardlaw and Lamar Bull were both corrected from C-SNP to D-SNP — real wins. But on neither call was the benefit difference assembled into a single number. Francis heard individual improvements named: $283 OTC, $4,000 dental, $0 ambulance. She never heard: "$283 a month is $3,396 a year. Plus $4,000 dental. You are getting thousands of dollars more in benefits, still on UnitedHealthcare." The enrollment happened — but the consumer left without understanding the full scope of what changed for her. That one sentence is the difference between a consumer who stays enrolled and one who gets talked out of it by a family member next week.',
     rule: null,
-    callRef: 'All four calls had complete discovery. None of the four heard a plan name or a benefit figure.',
-    moveLabel: 'ZIP and situation confirmed — cue to present:',
-    move: '"Based on what you\'ve told me, I\'m looking at a plan with $150 a month for groceries. Let me confirm your doctors are covered and we can talk about getting this started today."',
+    callRef: 'Francis Wardlaw at 15:19 — OTC, dental, and ambulance savings named separately. Never assembled. "$7,000+ in annual improvements, still on UHC" was never said.',
+    moveLabel: 'After naming benefits individually — assemble them into a total:',
+    move: '"Between $283 a month in OTC — that\'s $3,396 a year — plus the $4,000 dental and zero ambulance instead of $275, we\'re talking over $7,000 in annual improvements. All still with the same UnitedHealthcare card you already have."',
   },
 ]
 
@@ -96,7 +93,7 @@ const pastReports = [
     active: false,
     type: 'Weekly Brief',
     title: 'Weekly Brief — April 13–14, 2026',
-    score: '44 / 100',
+    score: '56 / 100',
     date: 'Apr 16, 2026',
   },
 ]
@@ -137,7 +134,7 @@ export default function AliciaMooreWilliamsPage() {
           </div>
           <h1 className={styles.agentName}>Alicia Moore Williams</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 20 · 13 calls reviewed</p>
+          <p className={styles.updatedAt}>Updated April 20 · 11 calls reviewed</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
@@ -145,22 +142,53 @@ export default function AliciaMooreWilliamsPage() {
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: scoreColor(48) }}>48</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Apr 13–17 · 12 scored calls</span>
+            <span className={styles.scoreRange}>Apr 13–17 · 11 scored calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>13</span>
+            <span className={styles.scoreValue}>11</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
             <span className={styles.scoreRange}>Apr 13–17, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
-            <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>4 Missed · 2 No-Sale · 5 Incomplete</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>4</span>
+            <span className={styles.scoreLabel}>Missed Opportunity</span>
+            <span className={styles.scoreRange}>1 No-Sale · 4 Incomplete · 2 D-SNP</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC1</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Exits before the number lands</span>
+            <span className={styles.scoreRange}>Close window missed on live yes</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>6</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>6.67% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 3 (3.70%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$207</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ from $342
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>90</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>68 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 81 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
@@ -168,15 +196,15 @@ export default function AliciaMooreWilliamsPage() {
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
             <p>These are the calls we pulled this week where the conversation was alive — consumers who engaged, stayed on the line, and gave you real information to work with. What we are working through is what happened in the moments where the call could have moved forward and did not.</p>
-            <p><strong>What&apos;s working:</strong> you caught two D-SNP corrections this week — Francis Wardlaw and Lamar Bull were both on C-SNP plans when they should have been on D-SNPs, and you identified it, explained why it mattered, and moved them. That is expertise most agents do not have. The Lenny Thompson call was also correctly handled: you read a brand-loyal UHC dual member who was already on the right plan and made the right exit without pushing. Those two enrollments and that no-sale read are genuine wins.</p>
-            <p><strong>What&apos;s costing you:</strong> four calls this week had complete discovery and no presentation. Three more ended at the first sign of friction before a number ever landed. The Katherine Curtis call ran 60 minutes against the highest-urgency lead profile in the system and ended with nothing offered. The pattern holding you back is not your knowledge — it is the gap between finding the plan and presenting it.</p>
+            <p><strong>What&apos;s working:</strong> you caught two D-SNP corrections this week — Francis Wardlaw and Lamar Bull were both on C-SNP plans when they qualified for D-SNPs, and you identified it, explained why it mattered, and moved them within the same carrier. That is a specific skill most agents never develop. The Lenny Thompson call was also read correctly: a QMB+ dual member who was already on the right plan, and you made the right exit without pushing. He complimented you by name.</p>
+            <p><strong>What&apos;s costing you:</strong> Joseph Rinaldi said &ldquo;yes, it sounds interesting&rdquo; at 14:39. Delisha spent 20 more minutes on verification. By the time she asked for the enrollment at 34:19, he was exhausted and said no. That call had an enrollment in it. The Katherine Curtis call ran 60 minutes against the highest-urgency lead profile in the system — insulin-dependent diabetic on $500 a month — and ended with no enrollment because the Aetna objection was answered with data instead of a question. The pattern this week is not knowledge. It is timing and emotional response at the close.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>You are finding the right plan on call after call &mdash; the D-SNP corrections prove it. The move that converts more of those calls is a decision rule: the moment discovery is done, name the plan and state the number. Do not wait for the consumer to ask. Assume they are saying yes and push for the enrollment. That is the job.</p>
+          <p className={styles.oneThingText}>You are finding the right plan on call after call &mdash; the D-SNP corrections prove it. The move that converts more is this: when a consumer says yes, close immediately. &ldquo;Great &mdash; I&apos;m going to get you set up right now. It takes five minutes and your benefits start May 1st.&rdquo; Do not keep building the case after you already have the yes. Assume they are saying yes, lock it in, and move.</p>
         </motion.div>
 
         {/* ── This Week&apos;s Calls ── */}
@@ -222,7 +250,7 @@ export default function AliciaMooreWilliamsPage() {
           ))}
           <div className={styles.callTableFooter}>
             <span>Week Average: <strong>48 / 100</strong></span>
-            <span>Enrolled: <strong>2 of 12 scored</strong></span>
+            <span>Missed Opportunity: <strong>4 of 11</strong></span>
           </div>
         </motion.div>
 
@@ -230,8 +258,8 @@ export default function AliciaMooreWilliamsPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>The D-SNP corrections on Monday were the strongest moves of the week.</strong> Francis Wardlaw and Lamar Bull were both sitting on C-SNP plans when they had Medicaid — and you caught it, explained the difference in plain language, and moved them to plans that actually matched their eligibility. That is a specific skill most agents do not develop. You protected both consumers from a plan type mismatch that was costing them real benefits, and you did it cleanly.</p>
-            <p><strong>You read the Lenny Thompson call correctly.</strong> Twenty-eight minutes in, a QMB+ dual-eligible who had already moved to Humana voluntarily and was happy with it — you identified the wall, confirmed he was already on the right plan, and made the right exit without pushing. He complimented you by name. That judgment is real, and correct no-sales are as important as enrollments when the situation calls for one.</p>
+            <p><strong>The D-SNP corrections on Monday were the strongest moves of the week.</strong> Francis Wardlaw and Lamar Bull were both sitting on C-SNP plans when they qualified for D-SNPs, and you caught it, explained the difference in plain language, and moved them to the right plan within UnitedHealthcare — the carrier they already trusted. On the Wardlaw call you correctly identified the unauthorized switch that had put her on the wrong plan and told her how to protect herself going forward. That is the kind of specific, protective expertise that builds long-term consumer loyalty.</p>
+            <p><strong>You read the Lenny Thompson call correctly.</strong> Twenty-eight minutes in, a QMB+ dual-eligible who had already moved to Humana voluntarily and was satisfied — you identified the wall, confirmed he was already on the right plan, and made the right exit without pushing. He complimented you by name. Correct no-sales are as important as enrollments when the situation calls for one. Knowing when to stop is a real skill.</p>
           </div>
         </motion.div>
 
@@ -267,22 +295,22 @@ export default function AliciaMooreWilliamsPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>One question before any exit</p>
-                <p className={styles.workOnDetail}>When a consumer pushes back and you have not presented a number yet, the instinct to offer a callback is costing you leads. Replace it with a question — about what they already know, what they found, what they are worried about. One question tells you whether the objection is real. A callback offered before a question is a lead you chose to release.</p>
+                <p className={styles.workOnTitle}>Close when the consumer says yes — not twenty minutes later</p>
+                <p className={styles.workOnDetail}>When a consumer confirms interest, the response is immediate: &ldquo;I&apos;m going to get you set up right now — it takes about five minutes and your benefits start May 1st.&rdquo; Do not continue building the case after you already have the yes. Continued verification after interest is confirmed bleeds the energy and gives the consumer time to change their mind. Joseph Rinaldi said yes at 14:39. The close came at 34:19. That is 20 minutes too late.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>Discovery done means present now</p>
-                <p className={styles.workOnDetail}>The moment you have ZIP, benefit interest, and situation — the next sentence names a plan and a dollar amount. Not another question. Not more discovery. &ldquo;I&apos;m looking at a plan with $150 a month for groceries — let me confirm your doctors are covered.&rdquo; That sentence moves the call. Staying in discovery after you have what you need does not.</p>
+                <p className={styles.workOnTitle}>Emotional objections — ask what went wrong, do not add more math</p>
+                <p className={styles.workOnDetail}>The Katherine Curtis call ran 60 minutes against the highest-urgency lead in the system and ended with no enrollment. She raised the Aetna objection repeatedly. The response each time was data. Data does not reach a past bad experience. The one move that could have converted that call: &ldquo;What went wrong with Aetna? Tell me exactly what happened — because if it was a plan design issue, this 2026 D-SNP is structured differently. And if the same problem exists, I will find you a different carrier.&rdquo;</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>Emotional objections need a specific question, not more math</p>
-                <p className={styles.workOnDetail}>On the Katherine Curtis call, three rounds of math against an Aetna objection did not move her. When the objection is rooted in a bad past experience, the move is &ldquo;What went wrong?&rdquo; — not another benefit comparison. Find out exactly what happened. Address it directly. That is the only reframe that works on an identity-level resistance.</p>
+                <p className={styles.workOnTitle}>Assemble the math into one total before the close</p>
+                <p className={styles.workOnDetail}>On both D-SNP corrections this week, individual benefits were named but never assembled into a single number. A consumer who hears &ldquo;$283 OTC, $4,000 dental, zero ambulance&rdquo; cannot easily repeat that to a family member. A consumer who hears &ldquo;over $7,000 more in annual benefits, still on your same UnitedHealthcare card&rdquo; can. Assemble the total before you close — it is the sentence that protects the enrollment after you hang up.</p>
               </div>
             </div>
           </div>

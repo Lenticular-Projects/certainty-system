@@ -12,50 +12,59 @@ const callsByDate = [
   {
     date: 'Tuesday, April 14',
     calls: [
+      { consumer: 'Dennis Brendel', duration: '20:19', score: 36, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Daughter Gatekeeper — $580 Left on Table', href: '/agents/michelle-marrero/calls/dennis-brendel' },
+      { consumer: 'Jerry Hawley', duration: '20:24', score: 29, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Qualification Collapse', href: '/agents/michelle-marrero/calls/jerry-hawley' },
       { consumer: 'Regina DePaiva', duration: '36:36', score: 47, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Voice Signature Confusion — No Recovery', href: '/agents/michelle-marrero/calls/regina-depaiva' },
-      { consumer: 'Unknown Consumer', duration: '3:33', score: 55, outcome: 'INCOMPLETE', outcomeNote: 'Consumer disconnected', type: 'Dual-Eligible — Phone Died Before MBI', href: '/agents/michelle-marrero/calls/unknown-consumer-3m33s' },
+      { consumer: 'Unknown Consumer', duration: '3:03', score: 42, outcome: 'INCOMPLETE', outcomeNote: 'Discovery — consumer disconnected', type: 'Short Call', href: '/agents/michelle-marrero/calls/unknown-consumer-3m03s' },
+      { consumer: 'Unknown Consumer', duration: '3:33', score: 55, outcome: 'INCOMPLETE', outcomeNote: 'Dual-Eligible — Phone died before MBI', type: 'Disconnected Before MBI', href: '/agents/michelle-marrero/calls/unknown-consumer-3m33s' },
+      { consumer: 'Unknown Consumer', duration: '2:08', score: 55, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Short — Already Enrolled', href: '/agents/michelle-marrero/calls/unknown-consumer-2m08s' },
+      { consumer: 'William McCown', duration: '6:35', score: 62, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Already on Best Plan', href: '/agents/michelle-marrero/calls/william-mccown' },
+      { consumer: 'William White', duration: '11:44', score: 28, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Benefit Confusion — Early Exit', href: '/agents/michelle-marrero/calls/william-white' },
     ],
   },
   {
     date: 'Wednesday, April 15',
     calls: [
-      { consumer: 'John Pettipas', duration: '47:13', score: 68, outcome: 'INCOMPLETE', outcomeNote: 'Presentation started — not completed', type: 'Enrollment Agreement Reached — Lost on Hold', href: '/agents/michelle-marrero/calls/john-pettipas' },
-      { consumer: 'John Petipas (reconnect)', duration: '20:06', score: 40, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Giveback Gap — Math Never Run', href: '/agents/michelle-marrero/calls/john-petipas' },
+      { consumer: 'John Petipas', duration: '20:06', score: 40, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Giveback Gap — Math Never Run', href: '/agents/michelle-marrero/calls/john-petipas' },
+      { consumer: 'John Pettipas', duration: '47:13', score: 68, outcome: 'INCOMPLETE', outcomeNote: 'Enrollment agreed — Phase VI not completed', type: 'Enrollment Agreement Reached — Lost on Hold', href: '/agents/michelle-marrero/calls/john-pettipas' },
       { consumer: 'Michelle Sedita', duration: '3:38', score: 38, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'SSN Refused — No Reframe, No Anchor', href: '/agents/michelle-marrero/calls/michelle-sedita' },
+    ],
+  },
+  {
+    date: 'Thursday, April 16',
+    calls: [
+      { consumer: 'Carleen Isaacs', duration: '37:32', score: 42, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'OTC Card Troubleshoot — No Switch Path', href: '/agents/michelle-marrero/calls/carleen-isaacs' },
+    ],
+  },
+  {
+    date: 'Friday, April 17',
+    calls: [
+      { consumer: 'Dara Martin', duration: '5:54', score: 35, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'No Medicare Card — Callback', href: '/agents/michelle-marrero/calls/dara-martin' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'Never name a disaster SEP to a consumer',
+    title: 'The close is done — complete Phase VI before anything else',
     rc: 'RC4',
     urgency: 'critical' as const,
-    body: 'Disaster SEPs are a CMS-authorized enrollment tool that agents may use internally. They are not something agents explain to consumers, name on calls, or invoke by referencing weather events or emergencies. The moment you name the SEP type or explain its basis to a consumer, you have a compliance violation. This is not a gray area. If you use DST, process it silently — the consumer does not need to know what it is or why it applies.',
-    rule: 'If you ever use DST: say one sentence and nothing more. Never name the SEP type. Never say "disaster." Never explain the basis.',
-    callRef: 'On the John Petipas reconnect call, you named the DST SEP to John and explained that it was a weather emergency basis. That conversation is the violation.',
-    moveLabel: 'The only acceptable DST script:',
-    move: '"We\'re processing your enrollment under a Special Enrollment Period that applies to your situation." That\'s it. Move directly to enrollment.',
+    summary: 'When a consumer agrees to enroll, the compliance close is the only thing that makes it real. Everything else — gym research, wellness tips, texting addresses — comes after the voice signature. The John Pettipas 47-minute call ended mid-hold with no voice signature because 8 minutes of bonus value-adds were delivered before the compliance chain was closed.',
+    fix: 'Instead: The moment you hear yes, say "Give me two minutes to read two quick disclosures and get your verbal confirmation — then we\'re all set." Voice signature first. Bonus value after.',
   },
   {
-    title: 'When someone says they\'re losing money — show them the math',
+    title: 'When the math is done, say the number out loud',
     rc: 'RC3',
     urgency: 'high' as const,
-    body: 'When a consumer raises a financial objection, empathy is not a close. Acknowledging the concern three times without running the numbers isn\'t handling the objection — it\'s avoiding it. The math was available on the John Petipas reconnect call. Specialist copay, urgent care, MOOP reduction. Any one of those numbers would have given John something concrete to evaluate instead of a feeling about what he was losing.',
-    rule: null,
-    callRef: 'John Petipas raised the $85/month giveback concern three times across the reconnect call. Each time the response was empathy. The comparison math was never run.',
-    moveLabel: 'When the giveback objection comes:',
-    move: '"John, give me 60 seconds. That $85 is real. But look at what this plan costs you: specialist visits are $35, urgent care is $50. One visit a month and you\'re already ahead. Can we spend one minute on the numbers before you decide?"',
+    summary: 'John Pettipas called because he needed $200 a month for groceries. The plan savings — $370 deductible reduction, $35 drug reduction, $100 OTC — totaled $63/month. That number was never spoken. The math was completed but the humanization step ("that\'s your grocery money") was skipped on both John Pettipas calls and on Dennis Brendel.',
+    fix: 'Instead: After the comparison, say "John, you told me you needed $200 a month for groceries. On this plan, you\'re keeping $370 in your deductible pocket and getting $100 in OTC. That\'s close to $63 a month back. I just found your grocery money." State the number. Connect it to what they told you.',
   },
   {
-    title: 'The same objection acknowledged three times is a surrender',
+    title: 'Every third-party gatekeeper gets one direct close — then own it',
     rc: 'RC1',
     urgency: 'high' as const,
-    body: 'The first time you acknowledge an objection, you earn goodwill. The second time, you signal you heard it. The third time, without a counter, you\'ve accepted it as true. Each acknowledgment without a number or a question is a step toward the door. After the second acknowledgment on a financial objection, the only move is to run the math or ask a diagnostic question that reframes the stakes.',
-    rule: null,
-    callRef: 'John Petipas raised the giveback concern at 15:35, again at 16:43, and again at 17:15. Three acknowledgments. No numbers. No reframe. The call ended on his terms.',
-    moveLabel: 'After the second acknowledgment:',
-    move: '"John, I hear that. Before we stop, give me 60 seconds to show you the actual numbers. If the math doesn\'t work for you, I will completely respect that. Fair?" Then run it.',
+    summary: 'Dennis Brendel told you his daughter made the Humana decision, that he makes his own choices, and said "No, no" when you told him Humana takes $20 a month from Social Security. That was the close trigger. The correct move was: "Dennis, you said no, no — that\'s your gut. You told me you make your own decisions. Let me lock you back in Devoted right now." Instead, the offer was to call the daughter, which handed the decision off the call.',
+    fix: 'Instead: When a consumer owns their decision-making and reacts emotionally to bad news, close directly. Never hand off to a third party as your primary strategy. "Dennis, $580 a year is yours — let\'s keep it. I just need 60 seconds."',
   },
 ]
 
@@ -70,8 +79,8 @@ const pastReports = [
   {
     title: 'Weekly Brief — April 13–17',
     type: 'Weekly Brief',
-    date: 'Apr 16, 2026',
-    score: '50 / 100',
+    date: 'Apr 20, 2026',
+    score: '44 / 100',
     active: true,
   },
 ]
@@ -106,46 +115,77 @@ export default function MichelleMarreroPage() {
           </div>
           <h1 className={styles.agentName}>Michelle Marrero</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 5 calls reviewed (Tue–Wed)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 13 calls reviewed (Tue–Fri)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(50) }}>50</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(44) }}>44</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue–Wed · 5 calls</span>
+            <span className={styles.scoreRange}>Tue–Fri · 13 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>5</span>
+            <span className={styles.scoreValue}>13</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14–15, 2026</span>
+            <span className={styles.scoreRange}>Apr 14–17, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>2</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>5</span>
             <span className={styles.scoreLabel}>Missed Opportunities</span>
-            <span className={styles.scoreRange}>3 Incomplete · 0 Enrolled</span>
+            <span className={styles.scoreRange}>3 Incomplete · 4 Correct No-Sale · 0 Enrolled</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC4</span>
             <span className={styles.scoreLabel}>Critical Flag</span>
-            <span className={styles.scoreRange}>DST disclosed to consumer</span>
+            <span className={styles.scoreRange}>Phase VI before value-adds</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>7</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>5.65% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↓ from 11 (11.00%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>$214</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↑ from $90
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>124</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>77 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 100 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are five calls from Tuesday and Wednesday — two missed opportunities and three incompletes. The John Pettipas call came the closest: 47 minutes, enrollment agreement reached, doctor confirmed in-network. What we&apos;re working through is what happened in the moments that broke the close and what comes off the script permanently starting now.</p>
-            <p><strong>What&apos;s working:</strong> your discovery and verification work is thorough. On the John Pettipas call, you stopped selling when John said his doctor wasn&apos;t covered and looked it up before pitching — and he came back in-network. That move turned a deal-breaker into a deal-maker. You also went above and beyond: researching local wellness options for his arthritis and committing to being his agent for the life of the policy. That relationship-building is real and it matters. On Regina DePaiva, you were in control of a 36-minute call — C-SNP identified, all three doctors verified, formulary handled honestly. The work on both calls was strong.</p>
-            <p><strong>What&apos;s costing you:</strong> one thing needs to come out of your script today — naming disaster SEPs to consumers. That&apos;s a CMS violation and it happened on the reconnect call. Beyond that: John Petipas raised the $85 giveback concern three times and each time you acknowledged it without running the math. Empathy is not a close. The numbers were there. Use them.</p>
+            <p>Thirteen calls across four days — five missed opportunities, three incompletes, four correct no-sales. The John Pettipas call was the week in one story: 47 minutes, all doctors verified, enrollment agreement reached, and then eight minutes of gym research before the voice signature. When his son called, there was nothing to show for it. This week is about what happens after the yes.</p>
+            <p><strong>What&apos;s working:</strong> your discovery and verification work is thorough and consistent. On the John Pettipas 47-minute call, you stopped selling when John raised the prior UHC doctor concern and verified Dr. Mitchell before pitching — that one move turned a deal-breaker into a deal-maker. On Regina DePaiva, you identified the C-SNP opportunity immediately, verified all three specialists, and had her agreeing through the entire call. The relationship work — loyalty anchors, going above-and-beyond on arthritis resources — is real. Your correct no-sales (William McCown, the 2:08 short call) show you know when not to push. That judgment is important.</p>
+            <p><strong>What&apos;s costing you:</strong> three patterns showed up across multiple calls this week. First: Phase VI is not optional once there&apos;s agreement — the voice signature comes before any bonus activity, every time. Second: when you complete the math comparison, say the dollar number and connect it to what the consumer told you they need — the humanization step is the close. Third: when a consumer reacts emotionally to bad news, that&apos;s the close trigger — close directly, don&apos;t hand off to third parties.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>You do the full work &mdash; you verify the doctors, run the math, earn the agreement &mdash; and that&apos;s the hard part. The move that converts more of those closes is staying in it when the hesitation comes: &ldquo;I hear you &mdash; give me 60 seconds and let me show you exactly what this means for you.&rdquo; Run the math, state the number, and push for the enrollment. Assume they&apos;re saying yes. That&apos;s the job.</p>
+          <p className={styles.oneThingText}>You earn the agreement — the doctor verification, the math, the relationship. The move that converts more of those into enrollments is closing the compliance chain the moment you have the yes: &ldquo;Two minutes for two quick disclosures and you&apos;re locked in.&rdquo; Get the voice signature. Then deliver the bonus value. That&apos;s the sequence.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -184,8 +224,8 @@ export default function MichelleMarreroPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>50 / 100</strong></span>
-            <span>Enrolled: <strong>0 of 5</strong></span>
+            <span>Week Average: <strong>44 / 100</strong></span>
+            <span>Enrolled: <strong>0 of 13</strong></span>
           </div>
         </motion.div>
 
@@ -193,8 +233,9 @@ export default function MichelleMarreroPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>John Pettipas was your best call of the week.</strong> When John said his doctor wasn&apos;t covered, you stopped selling and started verifying. You looked up Dr. Charles Mitchell before pitching and he came back in-network. That one move turned a deal-breaker into a deal-maker. You confirmed all his medications at $0, researched local wellness options for his arthritis, and got a clear enrollment agreement at 35:46. You earned that agreement — the right behavioral moves were all there.</p>
-            <p><strong>Regina DePaiva — 36 minutes of correct diagnostic work.</strong> C-SNP opportunity identified right away, all three doctors verified, formulary exception for Entresto and Plavix handled honestly with the consumer. You kept a time-pressured consumer on the phone and in a trusting conversation. The call was yours entering the close. One recovery script at the voice signature confirmation would have closed it.</p>
+            <p><strong>The John Pettipas 47-minute call had your best technical move of the week.</strong> At 24:10, John told you UHC hadn&apos;t covered his doctor — the same reason he left UHC and went back to Humana. Instead of defending the plan or talking past it, you stopped and verified Dr. Charles Mitchell before saying another word about UHC. He came back in-network at 32:25. That one instinct turned a potential deal-breaker into the moment the enrollment became inevitable. The loyalty anchor and the arthritis research after that were above-and-beyond — real relationship investment.</p>
+            <p><strong>Regina DePaiva — 36 minutes of correct diagnostic work.</strong> C-SNP identified right away, all three specialists verified ($60 vs $35 flex card), formulary exception for Entresto and Plavix handled honestly. You had a medically complex consumer trusting you through the whole call. The call fell apart in the final 60 seconds on a voice signature question she misread — one recovery line (&ldquo;Regina, saying yes just confirms what we already discussed&rdquo;) would have closed it. The setup was yours.</p>
+            <p><strong>Your correct no-sales show real judgment.</strong> William McCown and the 2:08 short call were both called correctly — you read the situations and didn&apos;t push. That accuracy protects your compliance record and your reputation with consumers.</p>
           </div>
         </motion.div>
 
@@ -211,12 +252,10 @@ export default function MichelleMarreroPage() {
                   <span className={styles.rcCode}>{p.rc}</span>
                 </div>
                 <p className={styles.priorityTitle}>{p.title}</p>
-                <p className={styles.priorityDetail}>{p.body}</p>
-                {p.rule && <p className={styles.priorityRule}>{p.rule}</p>}
-                <p className={styles.priorityCallRef}>{p.callRef}</p>
+                <p className={styles.priorityDetail}>{p.summary}</p>
                 <div className={styles.priorityMove}>
-                  <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
-                  <p className={styles.priorityMoveText}>{p.move}</p>
+                  <span className={styles.priorityMoveLabel}>Instead:</span>
+                  <p className={styles.priorityMoveText}>{p.fix}</p>
                 </div>
               </div>
             ))}
@@ -230,22 +269,22 @@ export default function MichelleMarreroPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>Stop using the word &ldquo;disaster&rdquo; on calls — fix this today</p>
-                <p className={styles.workOnDetail}>You named the DST SEP basis to John Petipas and explained it. That is a CMS violation. If you are using a disaster SEP to open an enrollment window, say: &ldquo;We are processing your enrollment under a Special Enrollment Period that applies to your situation.&rdquo; Nothing more. This needs to come out of your script immediately.</p>
+                <p className={styles.workOnTitle}>Voice signature before value-adds — every time</p>
+                <p className={styles.workOnDetail}>The moment you have enrollment agreement, the next two sentences are: &ldquo;I need two quick minutes for two disclosures and your verbal confirmation — then you&apos;re locked in.&rdquo; That sequence closes the call. After the voice signature, give them everything — gym research, wellness tips, referrals. But the compliance chain closes first. No exceptions.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>Run the math before you accept a no</p>
-                <p className={styles.workOnDetail}>John Petipas said no three times and you accepted it each time. After the second, pull out numbers: &ldquo;Give me 60 seconds. Your specialist visits are $35. Urgent care is $50. One visit a month and you cover the $85. Can we look at that together before you decide?&rdquo; Empathy is not a close. Math is a close.</p>
+                <p className={styles.workOnTitle}>Say the number and connect it to what they told you</p>
+                <p className={styles.workOnDetail}>John Pettipas told you he needed $200 a month for groceries. The math showed $63/month in savings. Those two facts were never connected on the call. After any comparison, land the humanization: &ldquo;John, you told me you needed grocery money. On this plan, you&apos;re keeping $370 in your deductible and getting $100 in OTC. That&apos;s close to $63 a month back. I just found your grocery money.&rdquo; The savings mean nothing until they&apos;re attached to what the consumer actually needs.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>Finish the compliance close before any value-add work</p>
-                <p className={styles.workOnDetail}>John Pettipas gave you enrollment agreement at 35:46. The next 8 minutes went to gym research and wellness tips. When his son called at 47:13, the voice signature wasn&apos;t done. The enrollment wasn&apos;t real yet. Always complete the plan name, disclaimers, and voice signature before any bonus activity. The value-add comes after the close, not before it.</p>
+                <p className={styles.workOnTitle}>Emotional reactions are close triggers — act on them immediately</p>
+                <p className={styles.workOnDetail}>Dennis Brendel said &ldquo;No, no&rdquo; when you told him Humana takes $20 a month from Social Security. That was his gut saying no to the switch. The correct move at that moment: &ldquo;Dennis, you said no, no — that&apos;s your answer. Let me lock you back in Devoted right now. 60 seconds.&rdquo; When a consumer reacts emotionally to bad news, that emotion is the close. Don&apos;t offer to call a third party. Close the person who&apos;s on the phone.</p>
               </div>
             </div>
           </div>
@@ -273,7 +312,7 @@ export default function MichelleMarreroPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Michelle Marrero · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC4 · DST Violation · Math Surrender · Voice Signature</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC4 · Phase VI · Math Humanization · Close Triggers</p>
         </div>
 
       </div>

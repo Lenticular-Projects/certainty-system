@@ -130,6 +130,37 @@ export default function JeriVivasPage() {
           </div>
         </motion.div>
 
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>4</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>4.65% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↓ from 9 (7.76%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>$322</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↑ from $193
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>86</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>67 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 116 calls
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>

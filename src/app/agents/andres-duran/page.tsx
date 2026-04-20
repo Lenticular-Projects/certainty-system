@@ -10,49 +10,70 @@ import styles from './page.module.css'
 
 const callsByDate = [
   {
+    date: 'Monday, April 13',
+    calls: [
+      { consumer: 'Patricia Kendrick', duration: '18:01', score: 57, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Loyal UHC — Informed No', href: '/agents/andres-duran/calls/patricia-kendrick' },
+      { consumer: 'Robin Weston', duration: '25:40', score: 79, outcome: 'ENROLLED', outcomeNote: null, type: 'MCD SEP — Medicaid Loss', href: '/agents/andres-duran/calls/robin-weston' },
+    ],
+  },
+  {
     date: 'Tuesday, April 14',
     calls: [
       { consumer: 'Robert Nalem', duration: '3:49', score: 22, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Confused Caller', href: '/agents/andres-duran/calls/robert-nalem' },
-      { consumer: 'Sylvia Stripling', duration: '22:37', score: 55, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Brand-Loyal UHC 10 Years', href: '/agents/andres-duran/calls/sylvia-stripling' },
+      { consumer: 'Sylvia Stripling', duration: '22:37', score: 55, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Brand-Loyal UHC — Surrendered Close', href: '/agents/andres-duran/calls/sylvia-stripling' },
+    ],
+  },
+  {
+    date: 'Wednesday, April 15',
+    calls: [
+      { consumer: 'Thomas', duration: '1:55', score: 58, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'TV Ad — Unverifiable', href: '/agents/andres-duran/calls/thomas' },
+      { consumer: 'William Kosar', duration: '27:38', score: 76, outcome: 'ENROLLED', outcomeNote: null, type: 'The Food Card Caller', href: '/agents/andres-duran/calls/william-kosar' },
+    ],
+  },
+  {
+    date: 'Thursday, April 16',
+    calls: [
+      { consumer: 'Linda Kellogg', duration: '3:10', score: 58, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Privacy-Concerned Consumer', href: '/agents/andres-duran/calls/linda-kellogg' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'Peak emotion hit — kept presenting instead of closing',
+    title: 'Close window opens — presenting continues instead of closing',
     rc: 'RC1',
     urgency: 'critical' as const,
-    body: 'When a consumer reacts emotionally to your math — "Oh my God," "that\'s huge," "wow" — that reaction is the close signal, not the cue to keep presenting. Further presentation after the emotional peak gives the resistance time to return. On the Sylvia Stripling call, you had a consumer at full buy-in at 16:24 and kept going for three more minutes. By the time you tried to close, she had re-anchored to UHC loyalty and the window was gone.',
-    rule: 'The emotional peak is the close window. Anything you say after it gives the resistance time to return.',
-    callRef: 'Sylvia said "Oh my God" twice — the second time at 16:24 after the full benefits stack. That was the close. The next sentence should have been a date-of-birth question.',
-    moveLabel: 'Stop presenting. Ask for the enrollment.',
-    move: '"Sylvia, right — that\'s exactly why I\'m calling you today. Your doctor isn\'t going anywhere. Your copays stay at zero. The only thing that changes is you stop leaving $230 on the table every single month. Let\'s get that fixed right now. Can I get your date of birth?"',
+    body: 'On both enrolled calls this week and on the Sylvia Stripling call, the close window opened before you acted on it. Robin Weston enrolled cleanly once the MCD SEP was named. William Kosar enrolled once the $160/month giveback was clear. Sylvia\'s "Oh my God" at 16:24 was the exact same signal — but the presentation kept going and the resistance came back. The gap between your enrolled calls and your missed calls is the same gap: stop presenting the moment the consumer reacts emotionally to the math.',
+    rule: 'Emotional reaction = close signal. The presentation is over. Move directly to enrollment.',
+    callRef: 'Sylvia said "Oh my God" at 16:24 after the $230/month delta was delivered. Three more minutes of presentation followed. By the time you asked, she had re-anchored to UHC loyalty.',
+    moveLabel: 'Stop presenting. Go to enrollment.',
+    move: '"Sylvia — exactly. That\'s why I\'m calling you today. Your doctor stays, your copays stay at zero, and you stop leaving $230 on the table every month. Let\'s get that locked in right now. Can I confirm your date of birth?"',
   },
   {
-    title: 'Loyalty objection answered with logic — needs emotion',
+    title: 'Surrendered close after consumer pushback',
     rc: 'RC2',
     urgency: 'high' as const,
-    body: 'Every time Sylvia said "I\'ve been with UHC for 10 years," you countered with plan data. Loyalty is an identity, not a product comparison. Logic doesn\'t reach it — it reinforces the resistance. She needed permission to switch, not a reason. The move is to honor the loyalty first, then use it as the reason the new plan matters.',
+    body: 'When Sylvia said "You\'re pushing me" at 20:52, the close attempt stopped entirely. You ended with "You\'re not going to call me back. But okay, have a good one." This is the full surrender — after building the case for 20 minutes with a Medicaid consumer whose doctor was confirmed in network. The call was closeable. The consumer was a gift lead who called in voluntarily. A single reframe at the right moment keeps this call alive.',
     rule: null,
-    callRef: 'Sylvia invoked UHC loyalty three times between 16:34 and 20:52. Each time, the response was plan data. Each time, the resistance held.',
-    moveLabel: 'Honor the loyalty, then redirect it.',
-    move: '"Ten years with the same doctor — that tells me you take your coverage seriously. That\'s exactly why I want you to have every dollar you\'ve earned. This plan protects Dr. Ferriere AND gives you $230 more every month."',
+    callRef: 'At 22:18, Andres said "You\'re not going to call me back. But okay, have a good one." That is not a close — it is a concession that confirmed her resistance was correct.',
+    moveLabel: 'Acknowledge and redirect — never concede.',
+    move: '"I hear you, Sylvia — I\'m not trying to push. I want to make sure you have the information before we hang up, because this window closes. You called about improving what you have. This plan improves what you have by $230 a month and your doctor doesn\'t change. If you want to sleep on it, that\'s fair — but let me at least show you the plan so you have something specific to think about. Thirty more seconds."',
   },
   {
-    title: 'Confusion and surprise are entry points — not exits',
+    title: 'Confusion and plan change — not treated as a live investigation',
     rc: 'RC6',
     urgency: 'medium' as const,
-    body: 'When a consumer expresses confusion or surprise about their own coverage — "I did?", "When did that happen?", "I had no idea" — that signals they need guidance. That is the job. Moving toward that moment means asking what happened and showing them the options. Robert Nalem\'s plan had changed without his knowledge, which is a textbook deemed enrollment signal and a live investigation opportunity. You delivered the information and went quiet.',
+    body: 'Robert Nalem called about the savings card and said "I want to stay with Cigna." When you pulled up his record and found he had already transitioned to Humana on April 1st, he said "I did?" — genuine shock. That reaction was a DIF SEP trigger and a live Client Gold moment. A consumer who didn\'t know his plan changed may have a 3-month enrollment window. You relayed the information and went quiet while he disengaged.',
     rule: null,
-    callRef: 'Robert said "I did?" at 3:31 when you told him his plan had changed from Cigna to Humana. Nine seconds later he said "I better check with my daughter" and the call ended.',
-    moveLabel: 'Turn confusion into an investigation — not a relay.',
-    move: '"Yes sir — and because this caught you off guard, you may actually have a window right now to choose a plan that works for you. Did you choose to switch to Humana, or did this happen without you selecting it? Because if it happened without your choice, there\'s a special enrollment period right now."',
+    callRef: 'Robert said "I did?" at 3:31. Eighteen seconds later he said "I better check with my daughter. Thank you." The call ended. The original savings card question was never answered.',
+    moveLabel: 'Turn confusion into an investigation.',
+    move: '"Robert, yes — that change may have happened without you choosing it, which means you may have a special window right now to select a plan that actually works for you. Did you pick Humana, or did this happen on its own? Because if it happened without your choice, we should look at your options — including that food card you called about. Let me take two minutes."',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '38 / 100', active: true },
+  { title: 'Weekly Brief — April 14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '38 / 100', active: false },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '58 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -85,25 +106,25 @@ export default function AndresDuranPage() {
           </div>
           <h1 className={styles.agentName}>Andres Duran</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 2 calls reviewed (Tue)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 7 calls reviewed</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(38) }}>38</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(58) }}>58</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue · 2 calls</span>
+            <span className={styles.scoreRange}>7 calls · Mon–Thu</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>2</span>
+            <span className={styles.scoreValue}>7</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14, 2026</span>
+            <span className={styles.scoreRange}>Apr 13–16, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
             <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>2 Missed Opportunity</span>
+            <span className={styles.scoreRange}>2 Missed · 3 Correct No-Sale</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC1</span>
@@ -112,19 +133,50 @@ export default function AndresDuranPage() {
           </div>
         </motion.div>
 
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>15</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>10.64% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 2 (2.08%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$128</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ improved from $649
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>141</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>99 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 96 calls
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are the two calls we pulled this week where the conversation was alive. What we&apos;re working through is what happened in those moments — and where things could have gone differently.</p>
-            <p><strong>What&apos;s working:</strong> your technical execution on the Sylvia Stripling call was the strongest in the batch. You identified full Medicaid status at 6:26, unlocked the highest spending card tier in her area, and ran clean math from 14:34 to 15:43 — $101 versus $333, $230 a month, $2,760 a year, all in plain language. Her &ldquo;Oh my God&rdquo; confirmed it landed. You can find the right plan and make the number real. That foundation is there.</p>
-            <p><strong>What&apos;s costing you:</strong> you let the consumer set the ceiling. On the Sylvia call, you had her at peak emotional buy-in and kept presenting instead of closing. By the time you asked, the resistance had rebuilt. On the Robert Nalem call, you delivered critical plan intelligence and then went quiet while the lead walked out the door. Both calls ended without a close attempt after the window opened. The correction is one behavior: when the consumer reacts to the math, stop presenting and move to enrollment.</p>
+            <p>Seven calls this week — two enrollments, two missed opportunities, three correct no-sales. The week tells two stories in parallel: the Robin Weston and William Kosar enrollments show exactly what you&apos;re capable of when you move at the right moment. The Sylvia Stripling call shows what happens when you don&apos;t.</p>
+            <p><strong>What&apos;s working:</strong> the Robin Weston enrollment was sharp and precise — you caught the Medicaid loss in real time, named the MCD SEP, and closed in under 26 minutes. That&apos;s the kind of signal-reading and SEP execution that separates closers from recorders. William Kosar enrolled on a clean value proposition: $160/month giveback versus $140/quarter, PPO flexibility, $0 premium. The math was simple and you made it simple. Both calls closed because you identified the lever and pulled it.</p>
+            <p><strong>What&apos;s costing you:</strong> Sylvia Stripling called in voluntarily with Medicaid, her doctor confirmed in-network, and $230/month on the table. She said &ldquo;Oh my God&rdquo; twice and you kept presenting. At 22:18 you said &ldquo;You&apos;re not going to call me back. But okay, have a good one.&rdquo; That is not a close — it is a surrender. The correction is not finding better leads. It is ending the presentation the moment the consumer reacts to the math and going directly to enrollment.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Your math execution is the best in the batch &mdash; when a consumer reacts to those numbers, that reaction is your close signal. The move is to stop presenting and go directly to enrollment: &ldquo;Exactly &mdash; let&apos;s get you enrolled today.&rdquo; When the math lands, assume they&apos;re saying yes and push for the enrollment. That&apos;s the job.</p>
+          <p className={styles.oneThingText}>When a consumer reacts to your math &mdash; &ldquo;Oh my God,&rdquo; a long pause, &ldquo;wow&rdquo; &mdash; that is the close signal and the presentation is over. The next sentence is enrollment. &ldquo;Exactly &mdash; let&apos;s get you locked in right now.&rdquo; Every second after that reaction gives the resistance time to return. You proved you can build the case. Now close the moment it lands.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -163,8 +215,8 @@ export default function AndresDuranPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>38 / 100</strong></span>
-            <span>Enrolled: <strong>0 of 2</strong></span>
+            <span>Week Average: <strong>58 / 100</strong></span>
+            <span>Enrolled: <strong>2 of 7</strong></span>
           </div>
         </motion.div>
 
@@ -172,8 +224,8 @@ export default function AndresDuranPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>The Sylvia Stripling math sequence was the strongest single sequence in the batch.</strong> At 6:26 you diagnosed her Medicaid tier proactively — most agents wait to be told. You used it to unlock $333 per month when she could have walked away with a generic pitch. Your math execution from 14:34 to 15:43 was clean and complete: you named both numbers, calculated the delta, annualized it, and delivered it in plain language. Her response confirmed it landed. You can run math. That skill is real.</p>
-            <p><strong>Your discovery on both calls was efficient and correct.</strong> You collected ZIP, county, and Medicare ID in sequence, ran qualification questions in order, and maintained a professional frame throughout. On the Robert Nalem call, you caught his plan transition from Cigna to Humana in real time at 3:23 — that&apos;s a genuine information advantage that most agents miss. The problem wasn&apos;t finding the intelligence. It was what happened in the 18 seconds after you delivered it.</p>
+            <p><strong>The Robin Weston enrollment was textbook SEP execution.</strong> You caught Medicaid loss in real time at 3:24, pivoted to MCD SEP framing immediately, confirmed LIS status, verified the doctor in-network, and enrolled Robin in the Aetna Medicare Value Plus HMO at $0 premium — all in under 26 minutes. Most agents don&apos;t recognize the Medicaid-loss signal in real time. You acted on it without hesitation. That&apos;s working knowledge deployed under pressure.</p>
+            <p><strong>The William Kosar enrollment shows clean math and clear value positioning.</strong> You benchmarked his current $140/quarter spending card, presented $160/month as a direct upgrade — a 3x improvement deposited into his Social Security — and closed on that single variable. When Kosar said &ldquo;I&apos;m pretty happy with the plans I have now,&rdquo; you turned it into a discovery question: &ldquo;And how much are you getting with them?&rdquo; That one move opened the comparison. The close followed naturally from the math.</p>
           </div>
         </motion.div>
 
@@ -210,21 +262,21 @@ export default function AndresDuranPage() {
               <span className={styles.workOnNum}>01</span>
               <div>
                 <p className={styles.workOnTitle}>Emotional reaction = close signal — move immediately</p>
-                <p className={styles.workOnDetail}>&ldquo;Oh my God&rdquo; after the math is your green light. Stop presenting. &ldquo;Exactly — let&apos;s get that set up for you today. Can I confirm your date of birth?&rdquo; The case is already made. Ask for the enrollment. Every second you keep presenting after that reaction gives the resistance time to return.</p>
+                <p className={styles.workOnDetail}>When the consumer reacts to your math — any gasp, long pause, or &ldquo;Oh my God&rdquo; — stop presenting. &ldquo;Exactly — let&apos;s get that locked in right now. Can I confirm your date of birth?&rdquo; You have two enrolled calls this week that prove you know how to build the case. The work now is trusting it and closing the moment it lands.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>Loyalty objection — honor it, then redirect</p>
-                <p className={styles.workOnDetail}>&ldquo;Ten years with the same doctor — that tells me you take your coverage seriously. That&apos;s why I want you to have every dollar you&apos;ve earned.&rdquo; Never argue against loyalty. Give them permission to switch. The argument reinforces the wall. The honor dissolves it.</p>
+                <p className={styles.workOnTitle}>Never end a call without a committed next step</p>
+                <p className={styles.workOnDetail}>Robert said &ldquo;I better check with my daughter&rdquo; — that is a scheduling opportunity, not a goodbye. &ldquo;Of course — what time tomorrow works for both of you? I&apos;ll call you together so she can hear it straight from me.&rdquo; Even an unenrolled call needs to end with a specific callback time. Zero next steps means the lead is gone.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>Never end a call without a committed next step</p>
-                <p className={styles.workOnDetail}>Both calls ended with zero forward commitment. When a consumer says &ldquo;I better check with my daughter&rdquo; — that&apos;s a scheduling opportunity, not an exit. &ldquo;Of course — what time works for both of you tomorrow? I&apos;ll call you together.&rdquo; Even when you can&apos;t close today, close the loop on a next step. Never hang up without one.</p>
+                <p className={styles.workOnTitle}>Answer the consumer&apos;s actual question first</p>
+                <p className={styles.workOnDetail}>Patricia Kendrick&apos;s first words were &ldquo;is there anything newer on UnitedHealthcare?&rdquo; You went to Devoted. Her UHC food card was $230/month — Devoted&apos;s was $185. When you pitch a consumer less than they have without answering their question first, you lose credibility on everything that follows. Start with their carrier, then introduce alternatives if UHC can&apos;t beat it.</p>
               </div>
             </div>
           </div>
@@ -252,7 +304,7 @@ export default function AndresDuranPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Andres Duran · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC6 · Close Window · Loyalty Objection · Deemed Enrollment</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC6 · Close Window · MCD SEP · DIF SEP · Loyalty Objection</p>
         </div>
 
       </div>

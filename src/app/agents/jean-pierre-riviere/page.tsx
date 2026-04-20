@@ -21,6 +21,19 @@ const callsByDate = [
       { consumer: 'Dolores Vance Valadares', duration: '34:23', score: 47, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'Consumer Chose the Plan — No Enrollment Executed', href: '/agents/jean-pierre-riviere/calls/dolores-vance-valadares' },
     ],
   },
+  {
+    date: 'Wednesday, April 15',
+    calls: [
+      { consumer: 'Sheila Barbour', duration: '4:19', score: 52, outcome: 'CORRECT NO-SALE', outcomeNote: 'Medicare card compromised — consumer unverifiable', type: 'Unverifiable Consumer — Card Theft Disclosed', href: '/agents/jean-pierre-riviere/calls/sheila-barbour' },
+    ],
+  },
+  {
+    date: 'Thursday, April 16',
+    calls: [
+      { consumer: 'Michelle Fisher', duration: '4:53', score: 22, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'False SSN Claim Collapsed Trust', href: '/agents/jean-pierre-riviere/calls/michelle-fisher' },
+      { consumer: 'Suzy Young', duration: '33:12', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'Enrollment underway — voice signature not captured', type: 'Plan Correction — Advocate Framing', href: '/agents/jean-pierre-riviere/calls/suzy-young' },
+    ],
+  },
 ]
 
 const patterns = [
@@ -54,10 +67,20 @@ const patterns = [
     moveLabel: 'Pull the plan first. Then make the comparison.',
     move: '"Mr. Iset, I\'m looking at your current plan right now — here\'s the specific difference between what you have and what I\'m seeing for your county." Numbers on the screen. Not a general pitch.',
   },
+  {
+    title: 'When the consumer only has the old Medicare card — pivot to name and DOB',
+    rc: 'RC4',
+    urgency: 'critical' as const,
+    body: 'When a consumer says their Medicare card has their Social Security number on it, that is a routine situation with a routine fix. The pivot is immediate: "I don\'t need that number at all — I can pull you up with your name, date of birth, and zip code right now." Never claim the SSN is encrypted, never imply it is safe to share. That false reassurance is exactly what scammers say. A consumer who works in healthcare — as Michelle Fisher did — will call it out immediately, and the call is over.',
+    rule: 'Old card disclosed = DOB/name lookup. No explanation. No claims about encryption. Just pivot.',
+    callRef: 'On the Michelle Fisher call, "It\'s encrypted" at 3:26 turned a cooperative grocery-card buyer into someone who was done talking. The call ended 87 seconds later. She still wanted the card.',
+    moveLabel: 'Consumer says old card with SSN — pivot immediately.',
+    move: '"You are absolutely right not to share that, Michelle — and here\'s the good news: you don\'t need to. I can pull you right up with your name and date of birth. What is your date of birth?"',
+  },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '41 / 100', active: true },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '42 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -90,46 +113,77 @@ export default function JeanPierreRivierePage() {
           </div>
           <h1 className={styles.agentName}>Jean Pierre Riviere</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 7 calls reviewed (Tue)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 10 calls reviewed (Tue–Thu)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(41) }}>41</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(42) }}>42</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue · 7 calls</span>
+            <span className={styles.scoreRange}>Tue–Thu · 10 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>7</span>
+            <span className={styles.scoreValue}>10</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14, 2026</span>
+            <span className={styles.scoreRange}>Apr 14–16, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>3</span>
             <span className={styles.scoreLabel}>Correct No-Sales</span>
-            <span className={styles.scoreRange}>3 Missed · 2 Incomplete</span>
+            <span className={styles.scoreRange}>3 Missed · 3 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC4</span>
             <span className={styles.scoreLabel}>Critical Flag</span>
-            <span className={styles.scoreRange}>DST SEP invocation — audit risk</span>
+            <span className={styles.scoreRange}>DST SEP invocation + false SSN claim</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>8</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>7.34% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↓ from 9 (8.11%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$142</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ from $152
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>109</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>72 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 111 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>Seven calls in one day — these are the ones we pulled to work through what happened in the moments where the call was alive and could have gone further. Two of these calls ended correctly. The others have specific moments we can build from.</p>
-            <p><strong>What&apos;s working:</strong> your pivot instinct is high-ceiling. On the Ed Smith call, you recognized an ineligible caller and immediately asked whether anyone else in the household might qualify — most agents would have thanked her and hung up. You found the lead inside the call. Your C-SNP recognition on the Dolores call was also real: the moment she confirmed diabetes and blood pressure at 11:21, you repositioned the entire call around the chronic plan. And the Francine Goldstein call was the right call — you looked at her plan, confirmed she was already maximized, and did not push for a change she didn&apos;t need. That&apos;s integrity.</p>
-            <p><strong>What&apos;s costing you:</strong> the pattern across three calls is the same — when the consumer makes a choice or shows you the close signal, you keep going instead of closing. Dolores chose the plan at 24:01 and you ran ten more minutes of doctor verification. On the Ed Smith call, the line &ldquo;she lost a lot of benefits throughout the years&rdquo; was the most powerful moment in the call — latent outrage about a system that failed her — and you moved past it. And the Faith Light call has a compliance violation that has to stop completely.</p>
+            <p>Ten calls across three days — these are the ones we pulled to work through what happened in the moments where the call was alive and could have gone further. Three of these calls ended correctly. The others have specific moments we can build from.</p>
+            <p><strong>What&apos;s working:</strong> your pivot instinct is high-ceiling. On the Ed Smith call, you recognized an ineligible caller and immediately asked whether anyone else in the household might qualify. You found the lead inside the call. On the Suzy Young call Thursday, your emotional attunement was elite — the &ldquo;I want to be your agent and your defender&rdquo; speech at 8:44 opened her completely and you navigated a complex plan-correction call for 33 minutes with her full cooperation. The Francine Goldstein call was the right call — you recognized she was already maximized and did not push for a change she didn&apos;t need. That&apos;s integrity.</p>
+            <p><strong>What&apos;s costing you:</strong> there are two compliance violations this week that have to stop. On Faith Light, you fabricated a DST SEP — the INT SEP was available and legitimate from minute one. On Michelle Fisher, you told a consumer her Social Security number was &ldquo;encrypted&rdquo; — that false claim ended the call and is exactly what scammers say. Both of these are avoidable. The instincts are good; the tools being used in those moments are wrong.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Your instinct to verify doctors and confirm coverage details is thorough &mdash; and when a consumer&apos;s primary care is confirmed in-network, that&apos;s your signal to close. The move is: &ldquo;Perfect &mdash; let me get you enrolled right now. It takes about three minutes and we&apos;ll have everything confirmed while we do it.&rdquo; Primary care in-network is enough to enroll. Specialists get verified after submission &mdash; assume they&apos;re saying yes and move.</p>
+          <p className={styles.oneThingText}>When a consumer with no Medicare card says their old card has their Social Security number, the response is: &ldquo;I don&apos;t need that number at all &mdash; I&apos;m going to pull you up with your name and date of birth right now.&rdquo; That pivot keeps the call alive. Claiming the SSN is encrypted destroys trust in one sentence. Pivot to name and DOB. Keep the call moving.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -168,8 +222,8 @@ export default function JeanPierreRivierePage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>41 / 100</strong></span>
-            <span>Correct No-Sales: <strong>2 of 7</strong></span>
+            <span>Week Average: <strong>42 / 100</strong></span>
+            <span>Correct No-Sales: <strong>3 of 10</strong></span>
           </div>
         </motion.div>
 
@@ -232,6 +286,13 @@ export default function JeanPierreRivierePage() {
                 <p className={styles.workOnDetail}>On the Dolores call, SSN was collected at 7:57 — before a single plan benefit had been presented and sixteen minutes before Dolores expressed any enrollment intent. The sequence is: discovery → Medicare number → benefits presentation → consumer interest → Phase VI → SSN. Collect the Medicare number early. Save the SSN for the enrollment window. Never before.</p>
               </div>
             </div>
+            <div className={styles.workOnCard}>
+              <span className={styles.workOnNum}>04</span>
+              <div>
+                <p className={styles.workOnTitle}>Old Medicare card = DOB/name pivot — drill it until it is automatic</p>
+                <p className={styles.workOnDetail}>When a consumer says &ldquo;I only have the old card with my Social Security number,&rdquo; the response comes out immediately: &ldquo;I don&apos;t need that number at all &mdash; I&apos;m pulling you up right now with your name, date of birth, and zip code. What is your date of birth?&rdquo; Never explain, never claim it is safe. Just pivot and move. The Michelle Fisher call ended because this pivot did not exist. It has to be automatic now.</p>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -257,7 +318,7 @@ export default function JeanPierreRivierePage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Jean Pierre Riviere · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC4 · DST Violation · Close Signal · INT SEP · Phase VI</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC4 · DST Violation · SSN Pivot · Close Signal · INT SEP · Phase VI</p>
         </div>
 
       </div>

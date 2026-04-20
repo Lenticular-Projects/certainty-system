@@ -16,6 +16,25 @@ const callsByDate = [
       { consumer: 'David Harrington', duration: '21:58', score: 48, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'Medication Barrier — Callback Default', href: '/agents/lawrence-morris/calls/david-harrington' },
     ],
   },
+  {
+    date: 'Wednesday, April 15',
+    calls: [
+      { consumer: 'Josephine Powell', duration: '7:05', score: 65, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Unverifiable — No Medicare Card Available', href: '/agents/lawrence-morris/calls/josephine-powell' },
+    ],
+  },
+  {
+    date: 'Thursday, April 16',
+    calls: [
+      { consumer: 'Paula Johnston', duration: '38:23', score: 79, outcome: 'ENROLLED', outcomeNote: null, type: 'C-SNP — COPD/Cardiac, Give-Back Upgrade', href: '/agents/lawrence-morris/calls/paula-johnston' },
+      { consumer: 'Unknown Consumer', duration: '2:50', score: 68, outcome: 'CORRECT NO-SALE', outcomeNote: 'Family emergency disconnect', type: 'Emergency Disconnect — D-SNP Profile', href: '/agents/lawrence-morris/calls/unknown-consumer-2m50s' },
+    ],
+  },
+  {
+    date: 'Friday, April 17',
+    calls: [
+      { consumer: 'Larry Bankston', duration: '35:54', score: 58, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Benefit Optimizer — Survival Anchor Blocked', href: '/agents/lawrence-morris/calls/larry-bankston' },
+    ],
+  },
 ]
 
 const patterns = [
@@ -32,27 +51,27 @@ const patterns = [
   {
     title: 'Monthly figure stated — annual impact never made real',
     rc: 'RC3',
-    urgency: 'high' as const,
-    body: 'Monthly numbers are forgettable. When someone is deciding whether to switch, a $30/month difference doesn\'t feel like a decision — it feels like noise. The same number, said as $360 a year, is a car payment. It\'s a car registration. It\'s something a person can picture. The math was there on the David Harrington call. You just stopped one step too early.',
+    urgency: 'critical' as const,
+    body: 'Monthly numbers are forgettable. When someone is deciding whether to switch, a $30/month difference doesn\'t feel like a decision — it feels like noise. The same number said as $360 a year is a car payment. Paula Johnston was getting a $184.70/month give-back — that\'s $2,216 a year going back on her Social Security check. You never said that number. Larry Bankston had a $267 food card versus a $100 food card, but Humana had 60 free rides and $4,000 dental — the annual comparison was never totaled. The math was there on every call. It just never landed.',
     rule: null,
-    callRef: 'On the David Harrington call, you found the $294 plan and ran the comparison — but the $30/month difference was never annualized. The number never hit.',
-    moveLabel: 'Turn the monthly number into a year:',
-    move: '"The difference between where you are now and this plan is $360 a year — that\'s $30 every single month, in your pocket. What does $360 mean to you?"',
+    callRef: 'Paula Johnston (Apr 16): $184.70/month give-back never stated as $2,216/year. David Harrington (Apr 14): $30/month difference never stated as $360/year. Larry Bankston (Apr 17): two-plan comparison never annualized.',
+    moveLabel: 'After every monthly figure — state the year:',
+    move: '"Paula, $184.70 a month going back on your Social Security — that\'s over $2,200 a year. Compared to the $49 food card, that\'s almost $1,700 more every year, just on those two options. And you still get the OTC card on top of that."',
   },
   {
-    title: 'Chronic condition mentioned — CSN SEP not explored',
-    rc: 'RC6',
-    urgency: 'medium' as const,
-    body: 'When a consumer names a chronic condition during discovery, that mention is a year-round enrollment trigger if the right plan exists. Cerebral palsy is a potential C-SNP qualifier — which means open enrollment all year, not just in October. One follow-up question unlocks the whole conversation. Missing it doesn\'t just mean a missed enrollment — it means the consumer stays on a worse plan indefinitely.',
+    title: 'Survival-anchor objection — acknowledged but not reframed',
+    rc: 'RC2',
+    urgency: 'high' as const,
+    body: 'When a consumer names a specific benefit as a survival mechanism — not a preference, a survival mechanism — the correct move is to reframe the full annual picture, not just accept the anchor. Larry Bankston said his $267 food card meant a lot to him at 63. He was right. But the Humana package included 60 free rides, $4,000 dental, and $100 food card — the total annual value of that package exceeded what he was protecting, once you annualize all of it. You heard the emotion correctly. You needed to match it with math.',
     rule: null,
-    callRef: 'David Harrington mentioned cerebral palsy during the call. The mention was noted and not followed up. A CSN SEP question was never asked.',
-    moveLabel: 'When a chronic condition comes up:',
-    move: '"David, you mentioned cerebral palsy — is that a condition you\'re being treated for by a specialist right now? Because that may open some specific plan options for you that aren\'t available to everyone."',
+    callRef: 'Larry Bankston (Apr 17) at 29:23: "I don\'t want to change over right now... that little $267 in my — for me right now, I\'m 63 years old and that means a lot." Lawrence acknowledged the emotion and let the call end without a full comparative math reframe.',
+    moveLabel: 'When the survival anchor comes up:',
+    move: '"Larry, I hear you — $267 means a lot, especially right now. Here\'s what I want you to see: on Humana you\'d get $100 food card, but you\'d also get 60 free rides to the doctor. Right now you\'re spending $4.50 a week on the bus — that\'s $234 a year just in bus fare. Plus $4,000 in dental. When I add it all up, Humana puts more money in your hands than you\'re protecting. That\'s the number I want you to take with you."',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '56 / 100', active: true },
+  { title: 'Weekly Brief — April 13–17, 2026', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '64 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -85,46 +104,77 @@ export default function LawrenceMorrisPage() {
           </div>
           <h1 className={styles.agentName}>Lawrence Morris</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 2 calls reviewed (Tue)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 6 calls reviewed</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(56) }}>56</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(64) }}>64</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue · 2 calls</span>
+            <span className={styles.scoreRange}>Apr 14–17 · 6 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>2</span>
+            <span className={styles.scoreValue}>6</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14, 2026</span>
+            <span className={styles.scoreRange}>Apr 14–17, 2026</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>1</span>
-            <span className={styles.scoreLabel}>Correct No-Sale</span>
-            <span className={styles.scoreRange}>1 Incomplete</span>
+            <span className={styles.scoreLabel}>Enrolled</span>
+            <span className={styles.scoreRange}>4 No-Sale · 1 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC1</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC3</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Correct no-sale, no future locked in</span>
+            <span className={styles.scoreRange}>Math never annualized</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>13</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>10.83% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 8 (6.90%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$106</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ improved from $159
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>120</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>79 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 116 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are the two calls we pulled this week where the conversation had room to go further — one was a genuine no-sale handled correctly, and one stalled before the close was attempted. Here&apos;s what we&apos;re working through.</p>
-            <p><strong>What&apos;s working:</strong> your diagnostic work is thorough. On both calls you ran a complete qualification — Medicare ID, plan identification, doctor network check, medication review. You didn&apos;t rush past the discovery phase and you didn&apos;t pitch before you had the information. On Christine Poore, you identified the network incompatibility clearly and called the correct no-sale with integrity. That&apos;s the right call, and most agents don&apos;t have the knowledge or honesty to make it.</p>
-            <p><strong>What&apos;s costing you:</strong> two things. First: every correct no-sale needs a follow-up hook before you hang up — Christine is a warm lead for the fall, and the call ended without one. Second: the math on the David Harrington call stopped at the monthly figure. The $30 difference doesn&apos;t close anything. The $360 a year might.</p>
+            <p>Six calls this week — one enrolled, four correct no-sales, one incomplete. The Paula Johnston call on Thursday is the one to study. The other five had the right instincts but each stalled at a different point on the way to the close.</p>
+            <p><strong>What&apos;s working:</strong> Paula Johnston is a complete enrollment. You identified C-SNP eligibility from COPD and two prior heart attacks at 10:23, paused mid-call to find a better plan, and upgraded her from a $49 food card to a $184.70/month Social Security give-back. The &ldquo;I think I found something better for you&rdquo; move is exactly right — you earned that upgrade by staying curious longer than most agents would. Your discovery process is also consistently thorough: every call this week had a complete qualification before any recommendation was made.</p>
+            <p><strong>What&apos;s costing you:</strong> the math stops too early on every call. Paula&apos;s give-back was $184.70/month — you never said $2,216 a year. Larry Bankston had a $267 food card you were trying to improve — you never annualized either side of the comparison. David Harrington had a $30 monthly difference — you never said $360 a year. Monthly figures are forgettable. Annual figures are decisions. Every dollar amount you state needs a &ldquo;which is X per year&rdquo; before you move on.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>You build solid cases and get consumers warm &mdash; the hard part is done by the time the barrier comes up. When someone says &ldquo;I need my medication list&rdquo; or &ldquo;my daughter handles that,&rdquo; the move is to stay in it: &ldquo;No problem &mdash; your pharmacy has that on file, let me check it right now while I have you&rdquo; or &ldquo;Let&apos;s get this started so you have something concrete to show her.&rdquo; Push through those last five yards. That&apos;s where the enrollment is.</p>
+          <p className={styles.oneThingText}>You identified the right plan on the Paula Johnston call, paused mid-call to find something better, and upgraded her to $2,216 a year on her Social Security check. That instinct to keep looking is real and it shows. The move that makes more of those calls land is saying the annual number out loud before you move on: &ldquo;$184.70 a month &mdash; that&apos;s over $2,200 going back to you every year.&rdquo; Monthly figures are forgettable. Annual figures are decisions. Say the year number. Every time.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -163,8 +213,8 @@ export default function LawrenceMorrisPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>56 / 100</strong></span>
-            <span>Correct No-Sales: <strong>1 of 2</strong></span>
+            <span>Week Average: <strong>64 / 100</strong></span>
+            <span>Enrolled: <strong>1 of 6</strong></span>
           </div>
         </motion.div>
 
@@ -172,8 +222,8 @@ export default function LawrenceMorrisPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>You called the Christine Poore no-sale correctly.</strong> Network incompatibility identified, plan ruled out, call ended professionally. That&apos;s a 65 — the knowledge to recognize when switching isn&apos;t right and the honesty to say so. Consumers remember agents who don&apos;t push them into the wrong plan. That trust is what generates referrals and callbacks in the fall.</p>
-            <p><strong>Your discovery process is complete and consistent.</strong> Both calls had thorough qualification — you ran through Medicare ID, plan identification, doctor network verification, and medication review before making any recommendation. You didn&apos;t skip steps. That diagnostic discipline is the foundation everything else builds on, and it&apos;s not something every agent brings to every call.</p>
+            <p><strong>Paula Johnston — you found a better plan mid-call and went back for it.</strong> Paula came in for a food card and had COPD plus two prior heart attacks. You caught the C-SNP eligibility at 10:23, presented the $49 food card option, and then paused: &ldquo;Let me check one more — I think there&apos;s a better one for you.&rdquo; You found the Devoted Give-Back PPO at $184.70/month Social Security give-back — almost $1,700 more per year than the food card option. That instinct to keep looking even after you&apos;ve found a valid option is what separates a good call from a great one. You also ran a full compliance read, a health risk assessment survey, got a confirmation number, and gave the Devoted contact number. Complete execution. Score: 79.</p>
+            <p><strong>Your discovery is thorough and honest.</strong> Every call this week had a complete qualification — Medicare ID, plan identification, doctor network check, medication review — before any recommendation was made. On Christine Poore you identified a genuine network incompatibility and called the no-sale correctly at 65. On Josephine Powell you handled the SSN refusal without pressure, explained why the Medicare card avoids the need for SSN, and directed her to call back. Consumers remember agents who don&apos;t push them into situations they&apos;re not comfortable with. That integrity builds the relationships that come back in the fall.</p>
           </div>
         </motion.div>
 
@@ -209,22 +259,22 @@ export default function LawrenceMorrisPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>End every no-sale with a future enrollment hook</p>
-                <p className={styles.workOnDetail}>Before you hang up on any correct no-sale: &ldquo;Christine, when your network situation changes or open enrollment starts, I want to be your first call. Can I take down your best number?&rdquo; One sentence. Every correct no-sale is a warm lead for fall — don&apos;t leave them on the table.</p>
+                <p className={styles.workOnTitle}>Annualize every dollar figure — say the year number out loud</p>
+                <p className={styles.workOnDetail}>After every monthly figure, say the annual equivalent before you move on: &ldquo;$184.70 a month — that&apos;s over $2,200 a year going back on your Social Security check.&rdquo; Then compare it: &ldquo;The food card would have been $588 a year. That&apos;s a $1,600 difference.&rdquo; Monthly figures disappear. Annual figures are decisions.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>Annualize every dollar figure — monthly is forgettable</p>
-                <p className={styles.workOnDetail}>When you have the monthly difference, say the annual figure out loud before you move on: &ldquo;That&apos;s $30 a month — which is $360 a year. What does $360 mean to you?&rdquo; The annual number makes the math feel real. Monthly figures disappear.</p>
+                <p className={styles.workOnTitle}>When they protect a benefit — total the full picture first</p>
+                <p className={styles.workOnDetail}>Larry Bankston was protecting his $267 food card. The correct response is to annualize both sides and add the non-cash benefits: &ldquo;Larry, I know $267 matters. Let me show you the full math: 60 free rides is $234 a year in bus fare you stop paying. Four-thousand in dental. And $100 food card. When I add it all up, Humana puts more total value in your hands than what you&apos;re protecting.&rdquo; Let him decide with the real numbers in front of him.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>Chronic condition mention = CSN qualifier check</p>
-                <p className={styles.workOnDetail}>Cerebral palsy, kidney disease, diabetes, heart failure — any of these opens a potential C-SNP Special Enrollment Period. The moment you hear one: &ldquo;Is that a condition you&apos;re being actively treated for right now? Because that may open some specific plan options.&rdquo; One question. Don&apos;t move on without asking it.</p>
+                <p className={styles.workOnTitle}>End every correct no-sale with a fall enrollment hook</p>
+                <p className={styles.workOnDetail}>Before you hang up on any correct no-sale: &ldquo;Christine, when your network situation changes or open enrollment starts, I want to be your first call. Can I take down your best number?&rdquo; One sentence. You had four correct no-sales this week — each one is a warm lead for October. Don&apos;t leave them on the table.</p>
               </div>
             </div>
           </div>
@@ -252,7 +302,7 @@ export default function LawrenceMorrisPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Lawrence Morris · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC6 · No-Sale Pipeline · Annualization · CSN SEP</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC3 · C-SNP · Give-Back Upgrade · Annualization · No-Sale Pipeline · Paula Johnston: Enrolled</p>
         </div>
 
       </div>

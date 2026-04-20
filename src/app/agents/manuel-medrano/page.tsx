@@ -15,43 +15,58 @@ const callsByDate = [
       { consumer: 'Carol Hill', duration: '27:22', score: 32, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Compliant Non-Closer', href: '/agents/manuel-medrano/calls/carol-hill' },
     ],
   },
+  {
+    date: 'Wednesday, April 15',
+    calls: [
+      { consumer: 'Diane Hill', duration: '3:03', score: 22, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'SSN Hesitation — Aborted Call', href: '/agents/manuel-medrano/calls/diane-hill' },
+      { consumer: 'Eileen Stewart', duration: '11:27', score: 63, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Transportation-Dependent Consumer', href: '/agents/manuel-medrano/calls/eileen-stewart' },
+      { consumer: 'Gail Waters', duration: '53:14', score: 79, outcome: 'ENROLLED', outcomeNote: null, type: 'New Medicare Beneficiary — Dual Eligible', href: '/agents/manuel-medrano/calls/gail-waters' },
+    ],
+  },
+  {
+    date: 'Thursday, April 16',
+    calls: [
+      { consumer: 'Dolores Harris', duration: '26:02', score: 58, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'The Loyal Incumbent', href: '/agents/manuel-medrano/calls/dolores-harris' },
+    ],
+  },
 ]
 
 const patterns = [
   {
-    title: 'Medicaid confirmed — AEP callback given instead of INT SEP',
-    rc: 'RC6',
-    urgency: 'critical' as const,
-    body: 'When a consumer confirms Medicaid, that opens an INT SEP — enrollment available right now, not in October. This is one of the most important SEP triggers in the system. If you don\'t name it, the consumer has no reason to enroll today. "AEP" sounds like a wall. "You can enroll right now because of Medicaid" sounds like an open door. The framing you use determines whether the call closes.',
-    rule: 'The moment Medicaid is confirmed, name the enrollment window. Do not wait. Do not continue to the next topic. Say it immediately.',
-    callRef: 'Carol Hill\'s Medicaid was confirmed at 8:27. At 23:03, you told her she\'d need to wait for AEP. She was cooperative and ready to follow your lead the whole call.',
-    moveLabel: 'When Medicaid is confirmed:',
-    move: '"Ms. Hill, because you have Medicaid, you have a special enrollment window open right now — not just in October. Let\'s get you into this plan today."',
-  },
-  {
-    title: 'DST SEP named to the consumer — compliance violation',
-    rc: 'RC4',
-    urgency: 'critical' as const,
-    body: 'Disaster SEPs are a CMS-authorized tool agents can use internally to open an enrollment window in affected areas. They are not something agents are permitted to explain to consumers or invoke by name. Mentioning the storm, naming the SEP type, or explaining its basis to the consumer is an audit exposure event — regardless of whether the DST would have been valid in this case. When Medicaid was already confirmed, INT SEP was the only tool needed.',
-    rule: 'Never name a disaster SEP to a consumer. Process it silently, or don\'t use it. When Medicaid is present, INT SEP is your answer.',
-    callRef: 'At 21:52, you told Carol that "CMS has opened a special enrollment period for residents of affected counties" due to a winter storm. That invocation was the violation, not the exit.',
-    moveLabel: 'If ever using DST in the future:',
-    move: '"We\'re processing your enrollment under a Special Enrollment Period that applies to your situation." That\'s it. Nothing more.',
-  },
-  {
-    title: 'Three Client Gold moments heard and not deployed',
+    title: 'Client Gold heard and not deployed — three times this week',
     rc: 'RC2',
+    urgency: 'critical' as const,
+    body: 'On Carol Hill, Gail Waters, and Dolores Harris — across three different calls — a consumer gave you something real and the call moved on without acknowledging it. Carol gave you her dog, her fall, and "my last breath." Gail said "kind of" when asked if she skips meals — food insecurity, on a call where the whole product is a $240/month grocery card. Dolores had cancer, heart surgery, multiple specialists. None of it was connected to the benefit. Client Gold is the reason someone says yes instead of maybe.',
+    rule: 'When a consumer gives you something personal — stop. Two sentences of acknowledgment. Then tie it to the plan value. That is the close.',
+    callRef: 'Gail said "kind of" about skipping meals at 43:47. The OTC food card is $240/month. Those two facts are the entire pitch — and they were never connected.',
+    moveLabel: 'Connect the plan to their actual life.',
+    move: '"Gail, you just told me you sometimes skip a meal. Starting May 1st, you don\'t. That card loads $240 every single month. That\'s your grocery budget handled. That\'s why I\'m glad we got this set up today."',
+  },
+  {
+    title: 'Math presented but never annualized',
+    rc: 'RC3',
     urgency: 'high' as const,
-    body: 'Client Gold is the emotional truth a consumer gives you that makes the enrollment personal. When you hear it, you stop and use it. Carol gave you three: her dog staying with her when she fell, living alone at 91, and "she had my last breath." Those aren\'t background details — they\'re the close. The plan\'s annual benefit is $3,012. That number means something different connected to her life than it does as a standalone figure.',
+    body: 'On the Gail Waters enrollment, $240/month was stated — but $2,880/year was never said. On the Carol Hill call, $251/month was presented — but $3,012/year was never connected to her life. On Dolores Harris, $4,260/year was annualized at 23:21 — which was actually the strongest math moment of the week. The annual number matters because monthly numbers feel abstract. "Two hundred and forty dollars a month" is a payment. "Almost three thousand dollars a year in groceries" is a transformation.',
     rule: null,
-    callRef: 'Carol\'s dog story, her fall, and her comment about "my last breath" all came through clearly on the call. None of them were reflected back or used to anchor the benefit.',
-    moveLabel: 'When the Client Gold moment arrives:',
-    move: '"That story about your dog staying with you when you fell — that\'s exactly why we need to get this handled today. This plan puts $251 a month in your pocket and your doctor is already in-network. Let\'s do it."',
+    callRef: 'Gail asked about the card delivery date at 14:19 — she was mentally enrolled. At that point the annual number would have confirmed she made the right decision. It was never stated.',
+    moveLabel: 'Take 15 seconds to say the annual number.',
+    move: '"That\'s $240 a month — which comes out to $2,880 a year. Almost three thousand dollars in groceries. For someone just starting out on Medicare, that\'s real money."',
+  },
+  {
+    title: 'SSN hesitation handled clinically — not with warmth',
+    rc: 'RC1',
+    urgency: 'high' as const,
+    body: 'On the Diane Hill call, she said "I might give you my social" — soft hesitation, not refusal. The response was a compliance explanation. The call ended at 3:03. This is one of the most common and most winnable objections in Medicare sales. The consumer is not saying no — they\'re saying they need a safer path. The pivot to the Medicare card gives them that path. Validate the fear first, then offer the alternative.',
+    rule: null,
+    callRef: 'Diane said "I might give you my social" at 2:49. She had already given her name and date of birth without resistance. The trust barrier was specifically about the SSN.',
+    moveLabel: 'Validate and pivot immediately.',
+    move: '"I completely understand — you\'re being smart. Your Medicare card number is actually the safer option — no financial information on it at all. It\'s the red, white, and blue card that says Medicare Health Insurance on the front. Do you know where it is?"',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '32 / 100', active: true },
+  { title: 'Weekly Brief — April 13–17 (partial)', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '32 / 100', active: false },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '51 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -84,46 +99,77 @@ export default function ManuelMedranoPage() {
           </div>
           <h1 className={styles.agentName}>Manuel Medrano</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 1 call reviewed (Mon)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 5 calls reviewed</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(32) }}>32</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(51) }}>51</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Mon · 1 call</span>
+            <span className={styles.scoreRange}>5 calls · Mon, Wed, Thu</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>1</span>
+            <span className={styles.scoreValue}>5</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 13, 2026</span>
+            <span className={styles.scoreRange}>Apr 13–16, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>1</span>
             <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>1 Missed Opportunity</span>
+            <span className={styles.scoreRange}>2 Missed · 2 Correct No-Sale</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC6</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC2</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Missed INT SEP</span>
+            <span className={styles.scoreRange}>Client Gold heard — not deployed</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>14</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>12.96% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 3 (2.83%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$101</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ from $428
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>108</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>73 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 106 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>This is the Carol Hill call from Monday — a 27-minute conversation with a 91-year-old consumer who was cooperative, trusted you, and gave you everything you needed to enroll her. What we&apos;re working through is what happened in the moments where the close was right there.</p>
-            <p><strong>What&apos;s working:</strong> your patience with Carol was real and it mattered. She&apos;s 91, living alone, and needed extra time with every number — SSNs, medication names, phone numbers. You handled every confusion with warmth and never showed frustration. That kept her on the phone and trusting you for 27 minutes. You also annualized the benefit immediately when she asked: &ldquo;$3,000 a year&rdquo; came out fast and correctly. That&apos;s the right instinct.</p>
-            <p><strong>What&apos;s costing you:</strong> two things, and one of them has a compliance dimension. Medicaid was confirmed at 8:27 — that opened an INT SEP, which means enrollment available today, not in October. You told her AEP instead. And at 21:52, you named the disaster SEP to her directly, which is a CMS violation. The enrollment was achievable. The path closed because the wrong tools were named at the wrong moment.</p>
+            <p>Five calls this week — one enrollment, two missed opportunities, two correct no-sales. The Gail Waters enrollment was real and clean. The two misses both had consumers who gave you everything you needed to close, and both calls ended without those moments being used.</p>
+            <p><strong>What&apos;s working:</strong> your rapport is genuine and it drives results. Gail Waters was a brand-new Medicare beneficiary who had never had a plan before. You confirmed full Medicaid eligibility in under 6 minutes, found the UHC Dual Complete at $240/month, ran the WellCare comparison ($1.99 vs. $240), and closed before she finished asking about card delivery. She was laughing and engaged the entire call. That warmth is not a soft skill — it&apos;s the thing that keeps consumers on the phone long enough to enroll. You also completed the full Health Risk Assessment post-enrollment, which most agents skip. That shows professional discipline.</p>
+            <p><strong>What&apos;s costing you:</strong> on the Gail call and on the Carol Hill call, consumers gave you Client Gold that connected directly to the product you were selling — and both moments passed without being used. Gail said she sometimes skips meals. The product is a $240/month grocery card. Those two facts are the entire pitch, and they were never connected. On the Carol Hill call, her dog, her fall, and &ldquo;my last breath&rdquo; were all on the table. Neither call needed a better plan or a better discovery. Both needed one sentence connecting the benefit to the life.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Your warmth is what keeps consumers on the phone &mdash; and that&apos;s a real skill, because without it the call ends before the plan ever gets presented. The move that turns that warmth into closes is using it to push forward instead of ease out: &ldquo;I want to make sure we get this handled for you today while I have you.&rdquo; You built the case, you found the plan, the consumer trusts you. Now assume they&apos;re saying yes and walk them through the enrollment. That&apos;s the job.</p>
+          <p className={styles.oneThingText}>When a consumer tells you something real &mdash; that they skip meals, that they fell and their dog didn&apos;t leave them, that they&apos;re dealing with a loss &mdash; stop and connect it to the plan. &ldquo;That&apos;s exactly why I&apos;m glad we got this set up today &mdash; starting May 1st, that card loads $240 every month. You don&apos;t skip meals.&rdquo; That sentence turns a transaction into a reason. It&apos;s the line that closes.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -162,8 +208,8 @@ export default function ManuelMedranoPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>32 / 100</strong></span>
-            <span>Enrolled: <strong>0 of 1</strong></span>
+            <span>Week Average: <strong>51 / 100</strong></span>
+            <span>Enrolled: <strong>1 of 5</strong></span>
           </div>
         </motion.div>
 
@@ -171,8 +217,8 @@ export default function ManuelMedranoPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>Your patience with Carol was the only reason the call lasted 27 minutes.</strong> She&apos;s 91, living alone, and needed extra time with every piece of information. You handled every confusion with consistent warmth — no frustration, no rushing her, no shortcuts. That kept her trusting you. Most agents lose consumers like Carol in the first five minutes.</p>
-            <p><strong>You annualized the benefit immediately when she asked.</strong> At 24:26, Carol asked what the annual benefit was. You answered immediately: &ldquo;$3,000 a year.&rdquo; That&apos;s the right instinct and the right answer. The number was in front of her. The next step — connecting it to her specific life — is the work for next time.</p>
+            <p><strong>The Gail Waters enrollment was a clean, warm close on a new beneficiary who needed guidance.</strong> You confirmed full Medicaid eligibility at 5:30, immediately searched for the highest OTC D-SNP plan, and presented the WellCare vs. UHC comparison — $1.99 versus $240/month — as a clear decision. Gail was laughing by 13:51 when you told her she couldn&apos;t use the card to go to the club. She asked about card delivery at 14:19, before enrollment had even started. That&apos;s the enrolled mindset — and it happened because of your rapport. You also completed the full Health Risk Assessment post-enrollment. Most agents skip it. You didn&apos;t.</p>
+            <p><strong>The Eileen Stewart correct no-sale was handled with real professionalism.</strong> Eileen&apos;s transportation benefit was genuine and specific — she recently took a 90-minute Uber to McKinney for a cardiology appointment, and none of the plans you surfaced could confirm that coverage. Your reframe at 10:48 was strong: you named the $1,200 annual cost of staying and asked whether transportation justified it. She said yes, and her reasoning was sound. You accepted the outcome without pressure. A consumer who makes an informed no is not a lost sale — it&apos;s a well-served consumer who may call back when her situation changes.</p>
           </div>
         </motion.div>
 
@@ -208,22 +254,22 @@ export default function ManuelMedranoPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>Execute INT SEP the moment Medicaid is confirmed</p>
-                <p className={styles.workOnDetail}>Medicaid confirmed = enrollment window open now. Say it immediately: &ldquo;Because you have Medicaid, your enrollment window is open right now — not just in October. That means we can get you into this plan today. I just need a few more pieces and we&apos;re done before we hang up.&rdquo; You already have the qualification — use it.</p>
+                <p className={styles.workOnTitle}>Connect the benefit to the specific life — every call</p>
+                <p className={styles.workOnDetail}>When a consumer tells you something real — skipping meals, a fall, living alone — stop. &ldquo;That&apos;s exactly why I&apos;m glad we got this handled today. Starting May 1st, that $240 loads every month. You don&apos;t skip meals.&rdquo; That sentence costs 10 seconds. It is the difference between a transaction and a close that sticks.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>Connect the dollar amount to their actual life</p>
-                <p className={styles.workOnDetail}>You got to $3,000 a year — that&apos;s the number. The next step is tying it to Carol: &ldquo;That&apos;s your dog food, your Tylenol, your personal care items. That&apos;s your daughter not having to pick up your over-the-counter supplies every visit. Real money in your pocket.&rdquo; Numbers alone don&apos;t close. Numbers tied to a person&apos;s life do.</p>
+                <p className={styles.workOnTitle}>Annualize the OTC on every call where it&apos;s the main benefit</p>
+                <p className={styles.workOnDetail}>$240/month = $2,880/year. Say the annual number out loud. For a consumer who just started Medicare and doesn&apos;t fully understand what they&apos;re getting, &ldquo;almost three thousand dollars a year&rdquo; is the number that makes it real. Monthly numbers feel like bills. Annual numbers feel like windfalls. Take 15 seconds.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>Medication blocker: try the pharmacy first</p>
-                <p className={styles.workOnDetail}>When the medication list isn&apos;t available: &ldquo;No problem — you mentioned Drug Mart in New Philly has your records on file. Can I call them right now while we&apos;re on the line? That takes about two minutes.&rdquo; Carol gave you the workaround. Try it before converting to a callback.</p>
+                <p className={styles.workOnTitle}>SSN hesitation = Medicare card pivot, immediately</p>
+                <p className={styles.workOnDetail}>Any hesitation on the SSN gets one response: &ldquo;You don&apos;t need to give me your social at all — your Medicare card number is actually the safer option. It&apos;s just a combination of letters and numbers, no financial information. Red, white, and blue card. Do you know where it is?&rdquo; That sentence is a reflex. Practice it before your next shift.</p>
               </div>
             </div>
           </div>
@@ -251,7 +297,7 @@ export default function ManuelMedranoPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Manuel Medrano · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC6 · RC4 · RC2 · RC1 · INT SEP · DST Compliance · Client Gold</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC3 · Client Gold · OTC Annualization · SSN Objection · D-SNP</p>
         </div>
 
       </div>

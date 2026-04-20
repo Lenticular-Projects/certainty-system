@@ -6,54 +6,70 @@ import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
 import styles from './page.module.css'
 
-// ── Weekly Brief: April 14, 2026 ─────────────────────────────────────────────
+// ── Weekly Brief: April 13–17, 2026 ─────────────────────────────────────────
 
 const callsByDate = [
   {
     date: 'Tuesday, April 14',
     calls: [
       { consumer: 'Timothy Hemingway', duration: '45:08', score: 72, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Complex — Textbook Counsel and No-Sale', href: '/agents/steeve-exalant/calls/timothy-hemingway' },
-      { consumer: 'Unknown Consumer', duration: '1:44', score: 52, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Skeptic', href: '/agents/steeve-exalant/calls/unknown-consumer-1m44s' },
-      { consumer: 'Unknown Consumer', duration: '3:26', score: 62, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'The Money Caller', href: '/agents/steeve-exalant/calls/unknown-consumer-3m26s' },
+      { consumer: 'Unknown Consumer', duration: '1:44', score: 52, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Skeptic — MBI Refused', href: '/agents/steeve-exalant/calls/unknown-consumer-1m44s' },
+      { consumer: 'Unknown Consumer', duration: '3:26', score: 62, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'The Money Caller — Correct No-Sale', href: '/agents/steeve-exalant/calls/unknown-consumer-3m26s' },
+    ],
+  },
+  {
+    date: 'Wednesday, April 15',
+    calls: [
+      { consumer: 'Bobby Hopkins', duration: '48:14', score: 82, outcome: 'ENROLLED', outcomeNote: null, type: 'C-SNP — COPD Chronic Plan, $2,600 Med Savings', href: '/agents/steeve-exalant/calls/bobby-hopkins' },
+    ],
+  },
+  {
+    date: 'Thursday, April 16',
+    calls: [
+      { consumer: 'Andre Young', duration: '35:42', score: 51, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Third Party Takeover — Wife Vetoed at 32:18', href: '/agents/steeve-exalant/calls/andre-young' },
+      { consumer: 'Mary Merritt', duration: '—', score: 52, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Consumer Declined — No Reframe Attempted', href: '/agents/steeve-exalant/calls/mary-merritt' },
+      { consumer: 'Norman Weaver', duration: '38:33', score: 72, outcome: 'ENROLLED', outcomeNote: null, type: 'OTC Upgrade — Compliance Gap at Close', href: '/agents/steeve-exalant/calls/norman-weaver' },
+      { consumer: 'Vance Adams', duration: '40:36', score: 82, outcome: 'ENROLLED', outcomeNote: null, type: 'LIS/Extra Help Update — NLS SEP', href: '/agents/steeve-exalant/calls/vance-adams' },
     ],
   },
 ]
 
 const patterns: { title: string; rc: string; urgency: 'critical' | 'high' | 'medium'; body: string; rule: string | null; callRef: string; moveLabel: string; move: string }[] = [
   {
-    title: 'You described the move — but didn\'t make the ask',
+    title: 'Third party in the room — find out before you build the case',
     rc: 'RC1',
-    urgency: 'high' as const,
-    body: 'Describing a strategy and asking for the enrollment are two different things. On the Timothy Hemingway call, you introduced a sound month-to-month approach — specific plan, specific benefit amount, specific timeline — and presented it as a possibility instead of a close. Any time you name a plan, a dollar amount, and a timeline in the same sentence, the next sentence has to be a direct question. If you don\'t ask, the consumer leaves with information and no action.',
-    rule: 'Every strategy you describe, every benefit you name, every plan you introduce ends with: "Do you want me to get that done right now?"',
-    callRef: 'Timothy told you at 9:29 that his fridge was empty and he was two years behind on electric. At 35:09 you described the WellPoint month-to-month strategy in detail. The ask — "Do you want me to get that done right now?" — never came.',
-    moveLabel: 'Strategy described, urgency real — convert description to ask.',
-    move: '"Mr. Hemingway, I want to come back to something you told me — you said your fridge is empty right now and you\'re two years behind on electric. That\'s exactly what this $175 card solves. I can enroll you in WellPoint today, the card loads within a week. Do you want me to get that done right now?"',
+    urgency: 'critical' as const,
+    body: 'You spent 32 minutes building the case for Andre Young — the right plan, the right star rating upgrade, the annualized math — and at 32:18 his wife Riva walked in and vetoed the entire call in under two minutes. The enrollment collapsed not because your work was wrong but because you never asked who else was in the decision. One question at the start of every call protects 32 minutes of work.',
+    rule: 'On every call: "Mr. Young, do you typically make decisions like this on your own, or is there a spouse or family member you like to loop in?"',
+    callRef: 'Andre Young, April 16. At 32:18 his wife said "What exactly is this call for?" You responded with a logical explanation about star ratings. She was protecting him — not asking for data. The call ended without a recovery attempt.',
+    moveLabel: 'When the third party enters the call:',
+    move: '"Mrs. Young — thank you for jumping in. I completely understand. We\'re not switching companies at all. He\'s staying with UnitedHealthcare, we\'re just upgrading him to their 5-star plan so he gets more benefits. With your okay, I can finalize that for him right now."',
   },
   {
-    title: 'Build one reframe for the MBI objection and deploy it every time',
-    rc: 'RC1',
-    urgency: 'high' as const,
-    body: '"I\'ve been told not to give that out over the phone" is the most common objection seniors give on inbound calls. It is not unusual, and it is not a hard no. It is a trust gap that closes with a prepared explanation. Your Medicare ID is different from your Social Security number — it only shows what plan you\'re on, nothing else, and it can\'t access any account or change any benefit. That explanation, followed by a soft ask about the card, keeps the call alive without pressure.',
-    rule: null,
-    callRef: 'On the Sevier County call at 1:26, the consumer said she\'d been told not to give out her Medicare number. Your response was: "if you\'re not willing to give that out, then we can\'t help you." The consumer said "okeydoke, bye-bye." She was still open.',
-    moveLabel: 'Consumer refuses Medicare number — reframe, then soft ask.',
-    move: '"That\'s a really smart habit. Here\'s what I want you to know: your Medicare ID is completely different from your Social Security number. It only shows what plan you\'re currently on — it can\'t touch any accounts or change any benefits. In Sevier County, you could get up to $174 a month credited back to your Social Security check. Is your card somewhere you can grab it from, or would you like a minute to look?"',
-  },
-  {
-    title: 'Lead with the dollar amount before you ask for the card',
+    title: 'Chronic condition signal = C-SNP pivot, every time',
     rc: 'RC2',
-    urgency: 'medium' as const,
-    body: 'When a consumer calls in about a specific benefit — the Part B giveback, a grocery card, an OTC allowance — they want to know how much before they want to know anything else. The dollar amount creates an emotional stake in the outcome. Without it, the MBI ask feels like a one-sided exchange: you\'re asking for something before you\'ve given anything. Give them the number first. The ask that follows has a reason behind it.',
+    urgency: 'high' as const,
+    body: 'Bobby Hopkins disclosed COPD in the first minute of the call. You caught it, pivoted from food card to C-SNP plan, and enrolled him on a UnitedHealthcare Chronic PPO with $2,600 in annual medication savings. That is the correct sequence — chronic condition disclosed, C-SNP identified, entire call restructured around higher value. The same move was available on the Hemingway call earlier in the week. The skill is in recognizing the signal fast enough to pivot before the wrong conversation starts.',
+    rule: 'Any time a consumer names a chronic condition — COPD, heart failure, diabetes, kidney disease — ask immediately: "Is that a condition you\'re currently being treated for? Because that may qualify you for a specific plan other people can\'t get."',
+    callRef: 'Bobby Hopkins, April 15. COPD disclosed at 2:57. Pivot to C-SNP at 3:07. Enrollment completed with $2,600/year medication savings demonstrated. This is the model.',
+    moveLabel: 'Chronic condition disclosed — pivot to C-SNP:',
+    move: '"Bobby, you mentioned COPD — I want to check something. That may qualify you for a chronic condition plan that most people don\'t have access to. The benefits are much better. Let me look that up before we go any further."',
+  },
+  {
+    title: 'Math stated — never annualized',
+    rc: 'RC3',
+    urgency: 'high' as const,
+    body: 'Three enrolled calls this week — Bobby Hopkins, Norman Weaver, Vance Adams — and on all three the math was stated in monthly figures and never annualized. Bobby heard "$45 a month." The correct statement is "$45 a month — that\'s $540 a year for groceries, on top of the $2,600 you\'re saving on your medications." Norman heard "almost triple" on the OTC card. The correct statement is "your OTC card is going from $50 to $130 a month — that\'s $960 more per year." Vance heard "$20.60 goes to zero." The correct statement is "$247 a year you were paying that you should never have been paying."',
     rule: null,
-    callRef: 'The Sevier County consumer opened the call by asking about the Part B giveback by name. The MBI ask came 73 seconds later. She never heard a dollar amount. When the ask came, she had no stake in the outcome.',
-    moveLabel: 'Consumer asks about Part B giveback — state the number first.',
-    move: '"The Part B giveback is real — plans in Sevier County return up to $174 a month directly to your Social Security check. That\'s over $2,000 a year. Let me grab two quick compliance pieces and then we\'ll see exactly what you qualify for."',
+    callRef: 'Bobby Hopkins (April 15): $45/month OTC never stated as $540/year. Norman Weaver (April 16): $80/month OTC increase never stated as $960/year. Vance Adams (April 16): $20.60/month premium savings never stated as $247/year.',
+    moveLabel: 'After every monthly figure — annualize it:',
+    move: '"That\'s $45 a month for groceries — which is $540 a year, on top of the $2,600 you\'re saving on your medications. All in, this puts over $3,000 back in your hands this year. Bobby, you told me your fridge was empty. That stops now."',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '62 / 100', active: true },
+  { title: 'Weekly Brief — April 13–17, 2026', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '66 / 100', active: true },
+  { title: 'Weekly Brief — April 14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '62 / 100', active: false },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -86,46 +102,77 @@ export default function SteeveExalantPage() {
           </div>
           <h1 className={styles.agentName}>Steeve Exalant</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 3 calls reviewed (Tue)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 8 calls reviewed</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(62) }}>62</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(66) }}>66</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue · 3 calls</span>
+            <span className={styles.scoreRange}>Apr 14–16 · 8 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>3</span>
+            <span className={styles.scoreValue}>8</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14, 2026</span>
+            <span className={styles.scoreRange}>Apr 14–16, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
-            <span className={styles.scoreLabel}>Correct No-Sales</span>
-            <span className={styles.scoreRange}>Highest avg on team this week</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>3</span>
+            <span className={styles.scoreLabel}>Enrolled</span>
+            <span className={styles.scoreRange}>2 Missed · 2 Correct No-Sale</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC1</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC1</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Strategy described — ask not made</span>
+            <span className={styles.scoreRange}>Third party blind spot</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>19</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>13.19% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 8 (9.09%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$108</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ improved from $134
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>144</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>104 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 88 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are the calls we pulled this week where the conversation was fully alive — including one that went 45 minutes and required real clinical judgment. What we&apos;re working through is the distance between describing the right move and making the ask that converts it into an enrollment.</p>
-            <p><strong>What&apos;s working:</strong> the Timothy Hemingway call is the one to study. At 8:28 — eight minutes in, with a real commission on the table — you told him clearly that you wouldn&apos;t recommend enrolling him unless he was willing to switch doctors, and you already knew he wasn&apos;t going to do that. You then spent the next 37 minutes checking every doctor he named across multiple networks to confirm your recommendation was right. That is clinical judgment exercised in real time. Most agents push past that moment. You didn&apos;t. That call scored 72 despite no enrollment because everything was right.</p>
-            <p><strong>What&apos;s costing you:</strong> on both the Hemingway call and the Sevier County call, you found the right move and stopped one step short of making it. On Hemingway, the month-to-month strategy was sound, the urgency was real, and the ask never came. On the Sevier County call, the consumer was still open when the call ended — you had one reframe left and didn&apos;t use it. The move you know is the move you need to complete.</p>
+            <p>Eight calls this week — three enrolled, two missed opportunities, two correct no-sales. The week split cleanly in two: Tuesday was judgment calls and correct no-sales; Wednesday through Thursday included the Bobby Hopkins enrollment and two more on Thursday. The pattern that runs through all of it is the same one from last week — you find the right move and sometimes don&apos;t complete it.</p>
+            <p><strong>What&apos;s working:</strong> the Bobby Hopkins call on Wednesday is the week&apos;s best work. Bobby called for a food card, disclosed COPD within 90 seconds, and you caught it immediately and pivoted the entire call to a C-SNP plan. The medication math — $4,300 to $1,700 a year, $2,600 in annual savings — was presented clearly and connected to a concrete dollar win. Full compliance execution, voice signature clean. On Vance Adams you diagnosed the LIS issue before Vance even explained it, walked him through exactly why he was paying $20 when he should have been paying $0, and enrolled him on the same plan with the correct premium. Both of those calls reflect the instincts that make you effective.</p>
+            <p><strong>What&apos;s costing you:</strong> the Andre Young call. You spent 32 minutes building an excellent case — correct plan, correct star rating upgrade, annualized math — and at 32:18 his wife ended it in two minutes because you hadn&apos;t asked whether she was in the room. One question at the top of the call protects everything that follows. And on Mary Merritt, the consumer said &ldquo;I&apos;ll just stick with what I got&rdquo; at 23:29 — you accepted it with &ldquo;Even though it&apos;s less?&rdquo; and let her go. That wasn&apos;t a hard no. That was one reframe away from a different outcome.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>You explain strategies with real precision &mdash; the plan, the benefit, the timeline &mdash; and that builds genuine trust. The move that turns those explanations into enrollments is a direct ask at the end of every one: &ldquo;Do you want me to get that done right now?&rdquo; Every strategy you describe, every benefit you name, every plan you lay out is the setup &mdash; that one sentence is the close. Assume they&apos;re saying yes. That&apos;s where the enrollment lives.</p>
+          <p className={styles.oneThingText}>You proved this week you can run a full C-SNP enrollment from a food card call &mdash; chronic condition pivot, medication math, clean compliance, voice signature. The one thing that protects all of that work is asking at the start of every call: &ldquo;Do you typically make decisions like this on your own, or is there someone else you like to loop in?&rdquo; One question. Before you build the case. That&apos;s what keeps the Andre Young call from happening again.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -164,8 +211,8 @@ export default function SteeveExalantPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>62 / 100</strong></span>
-            <span>Correct No-Sales: <strong>2 of 3</strong></span>
+            <span>Week Average: <strong>66 / 100</strong></span>
+            <span>Enrolled: <strong>3 of 8</strong></span>
           </div>
         </motion.div>
 
@@ -173,8 +220,8 @@ export default function SteeveExalantPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p>The Timothy Hemingway call is the highest-integrity call in this week&apos;s batch. You identified that his cerebral palsy specialist was the only thing keeping his pain managed, understood immediately what that meant for every MA plan you could offer, and told him clearly at 8:28 that you wouldn&apos;t recommend enrolling him without a doctor switch you knew he wasn&apos;t going to make. Then you spent 37 more minutes checking every doctor he named to confirm your recommendation was right. At 16:15, when you found that WellPoint showed one of his doctors as in-network on paper but confirmed the practice refuses MA patients, you disclosed that discrepancy instead of using it to push an enrollment. That is due diligence that protects a real person&apos;s healthcare — and it is a skill that many agents on this team do not have.</p>
-            <p>Your scam concern handling on the Georgia call was also textbook. When the consumer asked "this ain&apos;t no scam, anything?" at 1:36, you responded with calm authority, referenced the recorded line as proof of legitimacy, and her tone softened immediately. No defensiveness, no over-explanation. And when both her MBI and SSN were declined, you released cleanly without pressure — "not a problem, when you change your mind, you can always give us a call back." Knowing when to stop is a real skill. You had it on that call.</p>
+            <p><strong>Bobby Hopkins — the C-SNP pivot was the move of the week.</strong> Bobby called about a food card and disclosed COPD at 2:57. Within 10 seconds you identified it as a C-SNP qualifying condition and restructured the entire call around the chronic plan. You ran the medication math — $4,300 down to $1,700, $2,600 in annual savings — and presented it clearly. You also ran the full post-enrollment health assessment to document his food insecurity and utility burden, which maximizes his benefit tier. That advanced move is something many agents skip. Score: 82.</p>
+            <p><strong>Vance Adams — you diagnosed the LIS issue before he finished explaining it.</strong> Vance called skeptical about TV ad claims. You confirmed his Extra Help was Level 1, explained exactly why he was paying $20 when he should have been at $0, and walked him through the fix without making him feel like something went wrong. &ldquo;It doesn&apos;t automatically change the price because you&apos;d have to call Aetna and let them know, or call me as a Medicare specialist&rdquo; — honest, accurate, and framed as the reason he called the right person. Clean enrollment on the same plan, correct premium, voice signature obtained. Score: 82.</p>
           </div>
         </motion.div>
 
@@ -210,22 +257,22 @@ export default function SteeveExalantPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>Recognize the month-to-month close — make the ask</p>
-                <p className={styles.workOnDetail}>When you introduce a specific plan with a named benefit and a timeline, the next sentence is always the direct ask. &ldquo;I can enroll you in WellPoint today — that&apos;s $175 on a prepaid card loaded within a week. If the situation changes before your appointment, you call me and we revisit. Do you want me to get that done right now?&rdquo; Describing the move and asking for the move are two different things.</p>
+                <p className={styles.workOnTitle}>Ask about the decision-maker at the top of every call</p>
+                <p className={styles.workOnDetail}>Before you build the case: &ldquo;Do you typically make healthcare decisions like this on your own, or is there a spouse or family member you like to loop in?&rdquo; If there&apos;s a spouse, bring them in early — &ldquo;Can we get her on the line?&rdquo; A third party who enters the call on your terms is an ally. A third party who enters at 32:18 is a veto.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>Build the MBI reframe — deploy it every time</p>
-                <p className={styles.workOnDetail}>The response to "I was told not to give that out over the phone" is always: explain that the Medicare ID is not connected to financial accounts, state the specific dollar benefit they can get, and ask softly if the card is somewhere they can grab it. One prepared sentence for each piece. Practice it until it&apos;s automatic. The consumer on the Sevier County call was ready to stay on the line.</p>
+                <p className={styles.workOnTitle}>When they say &ldquo;I&apos;ll stick with what I got&rdquo; — one reframe before you let go</p>
+                <p className={styles.workOnDetail}>Mary Merritt said &ldquo;I don&apos;t want it, I&apos;ll just stick with what I got&rdquo; at 23:29. That&apos;s not a hard no — it&apos;s comfort with the familiar. The reframe is: &ldquo;I hear you. Before I let you go — staying on this plan costs you $X more per year than the one I found you. If that number doesn&apos;t matter, no problem. But I want to make sure you heard it.&rdquo; One sentence. Then let her decide.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>State the dollar amount before you ask for anything</p>
-                <p className={styles.workOnDetail}>When a consumer calls in about a specific benefit, the number comes before the ask. &ldquo;Plans in Sevier County return up to $174 a month directly to your Social Security — that&apos;s over $2,000 a year. Let me grab two quick compliance pieces and then we&apos;ll check what you qualify for.&rdquo; Value first. Ask second. The consumer should have a stake in the outcome before you ask for anything.</p>
+                <p className={styles.workOnTitle}>Cut the anti-shopping language at close — use your number instead</p>
+                <p className={styles.workOnDetail}>Telling Norman Weaver &ldquo;anytime somebody calls you and they try to tell you there&apos;s more, just know they&apos;re lying&rdquo; is a CMS-flagged statement. The correct version: &ldquo;If anyone calls you about your Medicare, just tell them you already updated your plan and call me with any questions.&rdquo; Same protection. Zero compliance exposure.</p>
               </div>
             </div>
           </div>
@@ -253,7 +300,7 @@ export default function SteeveExalantPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Steeve Exalant · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · Month-to-Month · MBI Reframe · Part B Giveback · Timothy Hemingway: Correct No-Sale</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC3 · RC4 · C-SNP · Third Party · LIS Update · Annualization · Bobby Hopkins: C-SNP Enrolled</p>
         </div>
 
       </div>

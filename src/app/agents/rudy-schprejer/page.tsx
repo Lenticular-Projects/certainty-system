@@ -28,9 +28,25 @@ const callsByDate = [
       { consumer: 'Eric Warringer', duration: '22:04', score: 46, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/rudy-schprejer/calls/eric-warringer' },
     ],
   },
+  {
+    date: 'Thursday, April 17',
+    calls: [
+      { consumer: 'Faye Bailey', duration: '19:57', score: 42, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'INT SEP live — directed to AEP instead of enrolling', type: 'Dual-Eligible / Resistant Switcher', href: '/agents/rudy-schprejer/calls/faye-bailey' },
+    ],
+  },
 ]
 
 const patterns = [
+  {
+    title: 'When the system flags INT SEP — that is the window right now, not October',
+    rc: 'RC6',
+    urgency: 'critical' as const,
+    body: 'On the Faye Bailey call, the system flagged at 6:27 that she was eligible for a D-SNP through an INT Special Enrollment Period — confirmed Medicaid, verified dual eligibility. Your response was to tell her to call back between October and December. That is a direct surrender of a live enrollment window. The INT SEP is open any month for consumers with both Medicare and Medicaid. When you see that flag, the script is: "Mrs. Bailey, because you have both Medicare and Medicaid, you have a special enrollment period that is available to you right now — today. You do not have to wait for open enrollment. Let me start the application." That sentence is the difference between an enrollment and a lead release.',
+    rule: 'INT SEP = open any month for dual-eligible consumers. When the system flags it, invoke it immediately — never defer to AEP.',
+    callRef: 'Faye Bailey at 6:27 — system flags INT SEP eligibility. Agent responds at 7:03: "Between October and December, you always want to call us back." Consumer was enrollable at that moment.',
+    moveLabel: 'System flags INT SEP — invoke it immediately:',
+    move: '"Mrs. Bailey, what I\'m seeing here is that because you have both Medicare and Medicaid, you qualify for a Special Enrollment Period that\'s open right now — today. You don\'t have to wait until October. This is your window. Let me start the application and get your new benefits started May 1st."',
+  },
   {
     title: 'Comfort from the consumer is not the end — it is the cue to loop back',
     rc: 'RC1',
@@ -64,7 +80,8 @@ const patterns = [
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 14–15', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '44 / 100', active: true },
+  { title: 'Weekly Brief — April 14–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '44 / 100', active: true },
+  { title: 'Weekly Brief — April 14–15', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '44 / 100', active: false },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -97,7 +114,7 @@ export default function RudySchprejerPage() {
           </div>
           <h1 className={styles.agentName}>Rudy Schprejer</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 9 calls reviewed (Tue–Wed)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 10 calls reviewed (Tue–Thu)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
@@ -105,17 +122,17 @@ export default function RudySchprejerPage() {
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: scoreColor(44) }}>44</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue–Wed · 9 calls</span>
+            <span className={styles.scoreRange}>Tue–Thu · 10 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>9</span>
+            <span className={styles.scoreValue}>10</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14–15, 2026</span>
+            <span className={styles.scoreRange}>Apr 14–17, 2026</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
             <span className={styles.scoreLabel}>Correct No-Sales</span>
-            <span className={styles.scoreRange}>2 Missed · 5 Incomplete</span>
+            <span className={styles.scoreRange}>3 Missed · 5 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC1</span>
@@ -124,19 +141,50 @@ export default function RudySchprejerPage() {
           </div>
         </motion.div>
 
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>8</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>7.48% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 5 (7.04%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$183</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ from $185
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>107</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>78 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 71 calls
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are the calls we pulled this week where the conversation was fully alive — engaged consumers who stayed on the line long enough for real discovery work. What we&apos;re working through is what happened at the moments where the close was right there and where it went a different direction.</p>
-            <p><strong>What&apos;s working:</strong> your instincts for finding the right product are genuine. On the Eric Warringer call you heard "I just moved" in passing, stopped immediately, confirmed the county change, and correctly identified the MOV enrollment window — two minutes into a call where the consumer had already said he didn&apos;t want to change anything. On the Bernard Brady call you caught a cardiologist mention mid-discovery and asked "why didn&apos;t they put you on a chronic plan?" — a question most agents never think to ask. Those are real skills and they showed up consistently across the week.</p>
-            <p><strong>What&apos;s costing you:</strong> you found the right plan on both the Bernard Brady and Eric Warringer calls, built a complete case, and then exited the moment the consumer showed comfort. Neither "I\'m pretty well situated" nor "let me think about it" is a no. Both of those calls were one reframe away from yes — and you already had the language. The instinct to find the money is there. The final turn — asking for the enrollment — is what&apos;s missing.</p>
+            <p>Ten calls this week — Tuesday through Thursday. The range shows where the product knowledge is working and where the close is breaking down at the last step.</p>
+            <p><strong>What&apos;s working:</strong> your instincts for finding the right product are genuine. On Eric Warringer you heard &ldquo;I just moved&rdquo; in passing, stopped, confirmed the county change, and correctly identified the MOV enrollment window. On Bernard Brady you caught a cardiologist mention mid-discovery and asked &ldquo;why didn&apos;t they put you on a chronic plan?&rdquo; — a question most agents never think to ask. On Faye Bailey you built a thorough plan comparison, correctly addressed the U-Card objection with the SSOA giveback explanation, and the car lease analogy you used at 14:14 was a genuinely effective reframe for a resistant consumer. These are real skills.</p>
+            <p><strong>What&apos;s costing you:</strong> on the Faye Bailey call, the system flagged a live INT SEP at the 6-minute mark — dual-eligible, verified Medicaid, open any month. You told her to call back in October. That was a surrendered enrollment window. On Bernard Brady and Eric Warringer, you found the right plan, built the complete case, and exited when the consumer said &ldquo;I&apos;m comfortable.&rdquo; Neither of those is a no. The pattern across all three calls is the same: you build the case fully and then stop one step short of asking for the enrollment.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a consumer sounds comfortable or hesitant, the move is to anchor them back to the reason they picked up the phone. Take them back to their original reason &mdash; &ldquo;You called me today about extra money. I found $5,880 a year. Let&apos;s finish this&rdquo; &mdash; and keep the close alive. Comfort isn&apos;t a no; it&apos;s a consumer who hasn&apos;t felt the number yet. Bring them back to why they called, assume they&apos;re saying yes, and finish it.</p>
+          <p className={styles.oneThingText}>Two things to lock in going forward: first, when the system flags INT SEP on a dual-eligible consumer, that is a live enrollment window &mdash; invoke it immediately, never defer to AEP. Second, when you have built the full case and a consumer says they are comfortable or want to think about it, the response is to anchor back to why they called &mdash; &ldquo;You called me today about extra money. I found it. Let&apos;s lock this in right now.&rdquo; Build the case. State the close. Do not wait for the consumer to volunteer an enrollment request.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -176,7 +224,7 @@ export default function RudySchprejerPage() {
           ))}
           <div className={styles.callTableFooter}>
             <span>Week Average: <strong>44 / 100</strong></span>
-            <span>Correct No-Sales: <strong>2 of 9</strong></span>
+            <span>Correct No-Sales: <strong>2 of 10</strong></span>
           </div>
         </motion.div>
 
@@ -184,8 +232,9 @@ export default function RudySchprejerPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p>The strongest individual moment of the week came on the Jimmy Presnel call at 2:38. Jimmy hesitated on giving his Medicare number — "I don&apos;t know about giving this out over somebody I don&apos;t know" — and you handled it without flinching. You gave him context, tied it to the CMS enrollment center framework, explained clearly that you cannot change anything without his consent, and converted the hesitation without pressure. He provided his MBI immediately. That is a textbook trust recovery and most agents fumble it. Study that moment.</p>
-            <p>Your MOV SEP detection on Eric Warringer and your cardiologist pivot on Bernard Brady both showed genuine product knowledge working in real time. On Lily Wray, you recognized a brand-loyal UHC consumer early, ran the math correctly, and called the correct no-sale when she gave you a definitive no. On Brenda, a misdial caller with no intent, you released cleanly without manipulation. Knowing when to stop is a real skill — you had it on both calls. The work is applying that same judgment to the close: recognizing when a consumer is ready and finishing it.</p>
+            <p>The strongest individual moment of the week came on the Jimmy Presnel call at 2:38. Jimmy hesitated on giving his Medicare number — &ldquo;I don&apos;t know about giving this out over somebody I don&apos;t know&rdquo; — and you handled it without flinching. You gave him context, tied it to the CMS enrollment center framework, explained clearly that you cannot change anything without his consent, and converted the hesitation without pressure. He provided his MBI immediately. That is a textbook trust recovery and most agents fumble it.</p>
+            <p>On the Faye Bailey call, the car lease analogy you used at 14:14 was a genuinely effective reframe: &ldquo;You lease the same car for three years — if you lease new you get more miles, more options, better gas mileage.&rdquo; That is the kind of concrete, accessible frame that gets through to a resistant consumer. You also correctly addressed the U-Card objection — explaining that $263 added to Social Security is more flexible than a restricted-use card was exactly the right answer. The product knowledge and analogy work on that call were real. The SEP and close execution are what cost it.</p>
+            <p>Your MOV SEP detection on Eric Warringer and your cardiologist pivot on Bernard Brady both showed genuine instincts working in real time. On Lily Wray and Brenda, you recognized the correct exits and made them cleanly. Knowing when to stop is a real skill. The work is applying that same judgment at the close: recognizing when a consumer is ready and finishing it.</p>
           </div>
         </motion.div>
 
@@ -237,6 +286,13 @@ export default function RudySchprejerPage() {
               <div>
                 <p className={styles.workOnTitle}>When rapport is established, redirect to business</p>
                 <p className={styles.workOnDetail}>After Eric said he wanted the 5-star plan at 9:21, the call needed to stay in business mode. The redirect with warmth: &ldquo;I love that — now let&apos;s get you taken care of.&rdquo; Rapport is the setup. The enrollment is the point. When a medication lookup runs past two minutes, deploy the bypass: &ldquo;I&apos;m going to flag this for our pharmacist team — what&apos;s your next medication?&rdquo;</p>
+              </div>
+            </div>
+            <div className={styles.workOnCard}>
+              <span className={styles.workOnNum}>04</span>
+              <div>
+                <p className={styles.workOnTitle}>Know your SEP codes — INT is open any month for dual-eligible consumers</p>
+                <p className={styles.workOnDetail}>When the system flags INT SEP eligibility on a dual-eligible consumer, that window is open right now — not in October. The script: &ldquo;Because you have both Medicare and Medicaid, you have a Special Enrollment Period that&apos;s available to you any month of the year. You don&apos;t have to wait for open enrollment. Let me start the application.&rdquo; Faye Bailey had a live enrollment window. Telling her to call back in October surrendered it completely.</p>
               </div>
             </div>
           </div>

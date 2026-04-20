@@ -20,6 +20,20 @@ const callsByDate = [
       { consumer: 'Barbara (callback)', duration: '2:10', score: 22, outcome: 'INCOMPLETE', outcomeNote: 'Consumer disconnected', type: 'Callback — Consumer Asleep', href: '/agents/marcus-hughes/calls/barbara-unknown' },
     ],
   },
+  {
+    date: 'Thursday, April 16',
+    calls: [
+      { consumer: 'Christy Tuttle', duration: '34:29', score: 83, outcome: 'ENROLLED', outcomeNote: null, type: 'DSNP Upgrade — Move SEP, $104K Risk Anchor', href: '/agents/marcus-hughes/calls/christy-tuttle' },
+      { consumer: 'Joseph Young', duration: '21:22', score: 75, outcome: 'ENROLLED', outcomeNote: null, type: 'Money Caller — MOV SEP, Vision Pivot', href: '/agents/marcus-hughes/calls/joseph-young' },
+      { consumer: 'Michael Griffith', duration: '16:49', score: 38, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Soft Exit Accepted — No Reframe', href: '/agents/marcus-hughes/calls/michael-griffith' },
+    ],
+  },
+  {
+    date: 'Friday, April 17',
+    calls: [
+      { consumer: 'William Saunders', duration: '6:19', score: 51, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Uncloseable — Coverage Already Optimal', href: '/agents/marcus-hughes/calls/william-saunders' },
+    ],
+  },
 ]
 
 const patterns = [
@@ -60,8 +74,8 @@ const pastReports = [
     active: true,
     type: 'Weekly Brief',
     title: 'Weekly Brief — April 13–17, 2026',
-    score: '35 / 100',
-    date: 'Apr 16, 2026',
+    score: '46 / 100',
+    date: 'Apr 20, 2026',
   },
   {
     active: false,
@@ -102,46 +116,77 @@ export default function MarcusHughesPage() {
           </div>
           <h1 className={styles.agentName}>Marcus Hughes</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 6 calls reviewed (Wed)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 10 calls reviewed</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(35) }}>35</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(46) }}>46</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Wed · 6 calls</span>
+            <span className={styles.scoreRange}>Apr 15–17 · 10 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>6</span>
+            <span className={styles.scoreValue}>10</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 15, 2026</span>
+            <span className={styles.scoreRange}>Apr 15–17, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
             <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>4 Missed · 1 No-Sale · 1 Incomplete</span>
+            <span className={styles.scoreRange}>5 Missed · 2 No-Sale · 1 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC2</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Client Gold ignored</span>
+            <span className={styles.scoreRange}>Client Gold found, not deployed</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>10</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>6.37% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↓ from 21 (10.82%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>$226</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↑ from $120
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>157</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>102 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 194 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are six calls from Wednesday — four missed opportunities, one correct no-sale, and one incomplete. Every one of the missed calls had a moment where the consumer gave you what you needed to close. What we&apos;re working through is what happened in those moments.</p>
-            <p><strong>What&apos;s working:</strong> your diagnostic reads are sharp. You identified the C-SNP pathway on Barbara Breach within 20 seconds of hearing &ldquo;pacemaker&rdquo; — no hesitation, no prompting. You found the right Aetna plan for Myra Robinson and confirmed her doctor in-network. And on Martha Hall, you read a genuinely uncloseable consumer correctly and got out clean without spinning your wheels. That judgment is real and it matters.</p>
-            <p><strong>What&apos;s costing you:</strong> every call had a Client Gold moment — dialysis coming in two months, $600 a month in medications, called specifically for the food card. You heard all of them. None became the close. The gap isn&apos;t in finding the plan. It&apos;s in stopping when the consumer gives you the reason to act, saying it back, and pivoting to enrollment. That move is what converts the work you&apos;re already doing.</p>
+            <p>Ten calls this week — two enrolled, five missed opportunities, two correct no-sales, one incomplete. Thursday gave you two clean enrollments, and the Christy Tuttle call in particular is the best DSNP work we&apos;ve seen from you. Wednesday was the rougher day, and the patterns from those calls are still the ones to work through.</p>
+            <p><strong>What&apos;s working:</strong> the Christy Tuttle call is the one to study. You ran the doctor network check before presenting a single plan feature, deployed the $104,000 risk anchor twice, identified the rosuvastatin chronic OTC bump from the medication list in real time, and closed a 34-minute DSNP upgrade without a moment of real resistance. On Joseph Young you caught the MOV SEP from a routine address update — that&apos;s the move that separates agents who build pipelines from agents who work lists. Both enrollments used correct SEP documentation and clean compliance execution.</p>
+            <p><strong>What&apos;s costing you:</strong> the Wednesday calls had Client Gold on every one — dialysis coming in two months, $600 a month in medications, called specifically for the food card, just out of the hospital. You heard all of it. None of it became the close. The gap isn&apos;t in finding the plan — you&apos;re finding the right plan on nearly every call. The gap is in stopping when the consumer gives you the reason to act, saying it back out loud, and pivoting to enrollment in that moment. That&apos;s the one skill that converts the work you&apos;re already doing.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Your diagnostic reads are sharp &mdash; you find the right plan, you spot the C-SNP match, you confirm the doctor. The move that converts more of that work is a specific script when a third party gets invoked: &ldquo;Absolutely &mdash; and let&apos;s get this started while I have you, so she has something concrete to look at.&rdquo; Keep the call moving forward, submit the application, give the cancellation window. Assume they&apos;re saying yes. That&apos;s the job.</p>
+          <p className={styles.oneThingText}>You proved this week that you can run an elite DSNP enrollment &mdash; the $104,000 risk anchor, the chronic OTC bump from the medication list, the MOV SEP catch on Joseph Young. The move that converts more of the missed calls is deploying Client Gold the moment it lands: when Myra said dialysis was coming in two months, the next sentence is &ldquo;Myra, that&apos;s exactly why we&apos;re switching today &mdash; let&apos;s get your coverage set before that appointment.&rdquo; Stop, say it back, pivot to enrollment. Every time. That&apos;s the job.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -180,8 +225,8 @@ export default function MarcusHughesPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>35 / 100</strong></span>
-            <span>Enrolled: <strong>0 of 6</strong></span>
+            <span>Week Average: <strong>46 / 100</strong></span>
+            <span>Enrolled: <strong>2 of 10</strong></span>
           </div>
         </motion.div>
 
@@ -189,8 +234,8 @@ export default function MarcusHughesPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>Martha Hall — you read the room and got out clean.</strong> Martha had VA coverage for everything, was already receiving $300–400/month in benefits, and had called six times before with the same result. You recognized a genuinely uncloseable consumer and ended the call professionally without wasting her time or yours. That is a skill. Most agents spin their wheels for 10 minutes on a call like that.</p>
-            <p><strong>Barbara Breach — C-SNP identification was sharp.</strong> You heard &ldquo;pacemaker&rdquo; and immediately connected it to the chronic special needs plan pathway. Within 20 seconds. No hesitation, no prompting. That clinical read is real — it&apos;s the highest-value diagnostic move on that call type and you executed it without being told to. You also found the right plan for Myra Robinson and confirmed her doctor in-network. Finding the plan is half the job. You&apos;re consistently doing the half that most agents skip.</p>
+            <p><strong>Christy Tuttle — this is what elite DSNP work looks like.</strong> At 8:00 you ran the doctor network check before presenting a single plan feature and discovered Dr. Victor Karane wasn&apos;t in network on UHC — then you used that as the primary reason for the switch, not the OTC card. At 14:33 you caught rosuvastatin as a chronic condition qualifier and applied the $410/month bump in real time. At 15:33 you deployed the $104,000 annual out-of-pocket anchor, and when she asked &ldquo;so why did I come off UnitedHealthcare?&rdquo; at 21:17 you redeployed it as the answer. That sequencing — problem established before the solution is presented, risk anchor used twice, clean compliance read, post-close lock with name and direct number — is a full execution. Score: 83.</p>
+            <p><strong>Joseph Young — you turned a routine address update into an enrollment.</strong> When Joseph mentioned a different address at 3:40, you identified the Lincoln-to-Thompson move, recognized a new service area, and correctly applied the MOV SEP for a May 1st effective date. Most agents update the address and move on. You used it to unlock mid-year eligibility. When he said &ldquo;glasses would be good,&rdquo; you pivoted the entire plan presentation to vision before he finished the sentence. And on the grocery card: honest, direct, confident. &ldquo;At this exact moment I don&apos;t see any groceries available, but here&apos;s what I can get you&rdquo; — no hedging, and he never pushed back.</p>
           </div>
         </motion.div>
 

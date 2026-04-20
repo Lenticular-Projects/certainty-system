@@ -12,16 +12,29 @@ const callsByDate = [
   {
     date: 'Monday, April 13',
     calls: [
-      { consumer: 'TJ', duration: '2:22', score: 29, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/robert-pegler/calls/tj' },
-      { consumer: 'Unknown Consumer', duration: '5:31', score: 42, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'The Money Caller', href: '/agents/robert-pegler/calls/unknown-consumer-5m31s' },
+      { consumer: 'Unknown TJ', duration: '2:22', score: 29, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller — Surrendered First Objection', href: '/agents/robert-pegler/calls/unknown-tj' },
+      { consumer: 'Unknown Consumer (5m31s)', duration: '5:31', score: 42, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'The Money Caller — INT SEP Unused', href: '/agents/robert-pegler/calls/unknown-consumer-5m31s' },
       { consumer: 'Dwight Chattahill', duration: '18:47', score: 56, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Complex — Network Conflict', href: '/agents/robert-pegler/calls/dwight-chattahill' },
     ],
   },
   {
     date: 'Tuesday, April 14',
     calls: [
-      { consumer: 'Anetta Clary', duration: '21:53', score: 45, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller — MOV SEP', href: '/agents/robert-pegler/calls/anetta-clary' },
-      { consumer: 'Thomas Scott', duration: '37:36', score: 51, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Detail Staller', href: '/agents/robert-pegler/calls/thomas-scott' },
+      { consumer: 'Anetta Clary', duration: '21:53', score: 65, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'MOV SEP — Plan Not Available', href: '/agents/robert-pegler/calls/anetta-clary' },
+      { consumer: 'Thomas Scott', duration: '37:36', score: 51, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Detail Staller — Surrendered at Close', href: '/agents/robert-pegler/calls/thomas-scott' },
+    ],
+  },
+  {
+    date: 'Wednesday, April 15',
+    calls: [
+      { consumer: 'Sharon Pipps', duration: '1:06:01', score: 88, outcome: 'ENROLLED', outcomeNote: 'IEP enrollment — D-SNP effective June 1', type: 'Complex Dual-Eligible — Homeless + High Med Complexity', href: '/agents/robert-pegler/calls/sharon-pipps' },
+    ],
+  },
+  {
+    date: 'Thursday, April 17',
+    calls: [
+      { consumer: 'Unknown Consumer (15m42s)', duration: '15:42', score: 34, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Fraud-Fearful — Trust Objection Unaddressed', href: '/agents/robert-pegler/calls/unknown-consumer-15m42s' },
+      { consumer: 'Unknown Consumer (7m50s)', duration: '7:50', score: 29, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Benefit Shopper — Callback Accepted Without Close', href: '/agents/robert-pegler/calls/unknown-consumer-7m50s' },
     ],
   },
 ]
@@ -57,10 +70,20 @@ const patterns = [
     moveLabel: 'Consumer discloses Medicaid — this is the enrollment window.',
     move: '"That actually opens up something called a Dual Special Needs Plan — it\'s designed for exactly your situation and you can switch into it any month of the year. Let me check what\'s available in your area right now."',
   },
+  {
+    title: 'Fraud fear disclosed — never addressed, never differentiated',
+    rc: 'RC2',
+    urgency: 'high' as const,
+    body: 'On Thursday\'s Oklahoma call, the consumer disclosed active, repeated debit card fraud — her card had been cancelled three times in 15 months. She said she was "wary" twice before that disclosure. This was not background context. This was the reason she would not move forward. When someone has been victimized by financial fraud, the correct response names the fear and then differentiates you from the source of it: you are licensed, regulated, and verifiable. That is the structural opposite of a scammer. Make it explicit.',
+    rule: 'Fraud fear disclosed = give them a verification tool. License number. State insurance department website. CMS.gov. Make it checkable.',
+    callRef: 'The consumer said "I wanna make sure this is legitimate" at 5:24 and disclosed three debit card fraud incidents at 10:02. Both times: "Right, of course" and pivot to discovery questions. The fear was never addressed.',
+    moveLabel: 'Consumer discloses fraud history — differentiate immediately.',
+    move: '"Mrs. [Name], three times in 15 months — that makes you right to be careful. Here\'s how you verify me: my name is Robert Pegler, I\'m licensed in Oklahoma, and you can look up my license on the Oklahoma Insurance Department website right now. I\'m not asking you to trust me — I\'m asking you to verify me. Would you like my license number?"',
+  },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13–14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '44.6 / 100', active: true },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '49 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -93,46 +116,77 @@ export default function RobertPeglerPage() {
           </div>
           <h1 className={styles.agentName}>Robert Pegler</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 5 calls reviewed (Mon–Tue)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 8 calls reviewed (Mon–Thu)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(45) }}>45</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(49) }}>49</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Mon–Tue · 5 calls</span>
+            <span className={styles.scoreRange}>Mon–Thu · 8 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>5</span>
+            <span className={styles.scoreValue}>8</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 13–14, 2026</span>
+            <span className={styles.scoreRange}>Apr 13–17, 2026</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>1</span>
-            <span className={styles.scoreLabel}>Correct No-Sale</span>
-            <span className={styles.scoreRange}>3 Missed · 1 Incomplete</span>
+            <span className={styles.scoreLabel}>Enrolled</span>
+            <span className={styles.scoreRange}>2 Correct No-Sale · 4 Missed</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC1</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Surrenders before the fight is over</span>
+            <span className={styles.scoreRange}>Surrenders without one reframe</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>5</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>3.68% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 2 (1.63%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$322</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ from $641
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>136</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>86 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 123 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are the calls we pulled this week where the conversation was fully alive — consumers engaged, on the line, and open enough to stay there. What we&apos;re working through is what happened at the moments when pushback came and where it could have gone differently.</p>
-            <p><strong>What&apos;s working:</strong> your product knowledge is real and it showed up when it counted. On the Thomas Scott call, you corrected a critical piece of SSA misinformation — the 12-month trial period rule — with calm authority and specific detail. Thomas heard it. On the Anetta Clary call, you caught a subtle address discrepancy and recognized it as a MOV enrollment window. On the Dwight Chattahill call, you worked through four SEP pathways, ruled each one out accurately, and called a correct no-sale with 18 minutes invested. That is professional integrity and it is yours.</p>
-            <p><strong>What&apos;s costing you:</strong> the same pattern showed up on three separate calls in three different forms — a transfer offered before any reframe, a permission slip to hang up at minute 21, a statement that callbacks are "usually a waste of everyone&apos;s time." Different calls, same thing underneath: when the consumer pushed back, you gave ground instead of holding it. You have the knowledge to hold it. The correction is using what you know before you decide the call is over.</p>
+            <p>Eight calls across four days — one enrollment, two correct no-sales, and five missed opportunities. The Sharon Pipps call on Wednesday is the standard for everything else this week to be measured against.</p>
+            <p><strong>What&apos;s working:</strong> the Sharon Pipps enrollment on Wednesday was the best call of the week and one of the most technically demanding enrollments in this batch. Sharon is 45, on disability, homeless, has two mechanical heart valves, a coronary stent, epilepsy, and eight medications. You correctly identified the IEP window, verified D-SNP eligibility, ran a full medication review, compared two plans with real numbers, assigned a PCP for a consumer with no established primary care, and completed a health risk assessment. Sixty-six minutes. One enrolled consumer. That call required every tool you have, and you used them all. The product knowledge that helped on Pipps also showed on Thomas Scott — you corrected SSA misinformation about the 12-month trial period rule with calm authority. That correction required you to push back on what a federal agency told a consumer and you did it cleanly.</p>
+            <p><strong>What&apos;s costing you:</strong> four missed opportunities across Monday and Thursday share the same root — when a consumer pushed back or asked to defer, you accepted it without one reframe. TJ confirmed her Humana plan had no food card and the response was &ldquo;No, okay. No problem.&rdquo; The Oklahoma consumer disclosed she had been victimized by financial fraud three times and you said &ldquo;Right, of course&rdquo; and moved on. The Baton Rouge consumer identified a specific plan with $266/month and said &ldquo;let me call you back&rdquo; and you immediately texted her your number and hung up. All four of those calls had one more move available. None of them got it.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>You have the product knowledge to find the gap and make the case &mdash; that&apos;s the hard part, and you do it well. The move that keeps more calls alive is holding your ground once when the call gets uncomfortable: name exactly what the consumer called for and put the number in front of them before you give them the exit. When you feel resistance, one reframe &mdash; &ldquo;Here&apos;s what I found for you&rdquo; &mdash; is all it takes to stay in the conversation. You&apos;ve already done the work. Use it.</p>
+          <p className={styles.oneThingText}>When a consumer says &ldquo;let me call you back,&rdquo; your response is not to text them your number. It is: &ldquo;Before you go &mdash; I&apos;m looking at a plan with $266 a month available in your area right now. Can I take 90 seconds to confirm you qualify? All I need is your Medicare card number.&rdquo; That one question, asked with confidence, keeps the enrollment alive. You already did the work to find the plan. See it through.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -171,8 +225,8 @@ export default function RobertPeglerPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>44.6 / 100</strong></span>
-            <span>Correct No-Sales: <strong>1 of 5</strong></span>
+            <span>Week Average: <strong>49 / 100</strong></span>
+            <span>Enrolled: <strong>1 of 8</strong></span>
           </div>
         </motion.div>
 
@@ -180,8 +234,8 @@ export default function RobertPeglerPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p>The best moment of your week came at 17:09 on the Thomas Scott call. Thomas had been told by the Social Security Office that he could never return to Original Medicare after switching to Advantage — a misconception that ends more enrollments than any real objection in this business. You didn&apos;t back away. You corrected it clearly: the 12-month trial period rule, explained with calm authority. Thomas heard it. That correction required you to push back on what a federal agency told a consumer, and you did it cleanly. That is the kind of product knowledge that is a genuine competitive advantage — and you used it at the right moment.</p>
-            <p>Your SEP detection work was a consistent strength across the week. You caught the MOV window on Anetta Clary at 5:05 — a subtle address mismatch that most agents walk right past. You caught the same signal on Thomas Scott at 11:07. And on Dwight Chattahill, you worked methodically through four distinct SEP pathways, ruled each one out accurately, and called the correct no-sale when the network incompatibility was confirmed. That&apos;s integrity on a call where the commission was real. The next step is deploying those SEPs as the enrollment reason at the moment you find them — not just noting them in discovery.</p>
+            <p><strong>The Sharon Pipps enrollment was the best call of the week.</strong> Sharon is 45, on disability, homeless, with two mechanical heart valves, a coronary stent, epilepsy, and eight medications. You correctly identified her IEP window, verified D-SNP eligibility, ran a full medication review, compared two plans transparently with real OTC and dental numbers, assigned a PCP two miles from her brother&apos;s residence, and completed a health risk assessment. You had her enrolled in the Aetna Medicare Dual Care HMO D-SNP effective June 1. That is a complex, high-stakes enrollment done correctly.</p>
+            <p><strong>The Thomas Scott SSA correction at 17:09 was elite product knowledge deployed at the right moment.</strong> Thomas had been told by the Social Security Office that he could never return to Original Medicare after switching to Advantage — a misconception that ends more enrollments than any real objection in this business. You corrected it cleanly: the 12-month trial period rule, calm authority, specific detail. That correction required you to push back on what a federal agency told a consumer. You did it without hesitation. And on Dwight Chattahill, you worked through four SEP pathways, ruled each out accurately, and called the correct no-sale. That is professional integrity on a call where the commission was real.</p>
           </div>
         </motion.div>
 
@@ -235,6 +289,20 @@ export default function RobertPeglerPage() {
                 <p className={styles.workOnDetail}>When a call isn&apos;t going to close, the correct exit is a value statement and a professional close — not a permission slip to hang up. &ldquo;If you&apos;re not interested, no problem&rdquo; releases the lead. &ldquo;Based on what you told me, the Aetna plan saves you $40 every time you see your specialist — call me when you&apos;re ready to get that started&rdquo; preserves it. Every consumer who doesn&apos;t enroll today is a potential AEP lead in October.</p>
               </div>
             </div>
+            <div className={styles.workOnCard}>
+              <span className={styles.workOnNum}>04</span>
+              <div>
+                <p className={styles.workOnTitle}>When a consumer discloses fraud history — name it and differentiate yourself</p>
+                <p className={styles.workOnDetail}>The Oklahoma consumer told you her debit card was cancelled three times in 15 months. That was the entire reason she would not commit. The correct response: &ldquo;That makes you right to be careful. Here&apos;s how you verify me: my name is Robert Pegler, I&apos;m licensed in Oklahoma, and you can check my license on the Oklahoma Insurance Department website. I&apos;m not asking you to trust me — I&apos;m asking you to verify me. Would you like my license number?&rdquo; Give her a tool. That&apos;s the move that changes the call.</p>
+              </div>
+            </div>
+            <div className={styles.workOnCard}>
+              <span className={styles.workOnNum}>05</span>
+              <div>
+                <p className={styles.workOnTitle}>When a consumer names a MOV — it is urgency, not background</p>
+                <p className={styles.workOnDetail}>The Oklahoma consumer told you she was planning to move. That is a MOV SEP — and it means she is going to have to review her Medicare coverage regardless of what she decides today. &ldquo;When you move to a new area, your current plan may not cover you there — you are going to need to choose a new plan anyway. That gives you a special enrollment window. Your grandson should know about this now, not after you&apos;ve moved.&rdquo; That is the line that brings a deferring consumer back to the present.</p>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -260,7 +328,7 @@ export default function RobertPeglerPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Robert Pegler · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC6 · MOV SEP · Brand-Loyalty Reframe · Close Authority</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC6 · Sharon Pipps: IEP D-SNP Enrolled · MOV SEP · Fraud-Fear Reframe · Close Authority</p>
         </div>
 
       </div>

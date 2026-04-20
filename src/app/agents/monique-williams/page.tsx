@@ -13,16 +13,16 @@ const callsByDate = [
     date: 'Monday, April 13',
     calls: [
       { consumer: 'Archie Daphne', duration: '4:02', score: 42, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — no presentation', type: 'The Money Caller', href: '/agents/monique-williams/calls/archie-daphne' },
-      { consumer: 'Unknown Consumer', duration: '4:17', score: 42, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/monique-williams/calls/unknown-consumer-4m17s' },
-      { consumer: 'Unknown Consumer', duration: '3:39', score: 42, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/monique-williams/calls/unknown-consumer-3m39s' },
       { consumer: 'Unknown Consumer', duration: '3:17', score: 32, outcome: 'INCOMPLETE', outcomeNote: 'Consumer disconnected', type: 'The Money Caller', href: '/agents/monique-williams/calls/unknown-consumer-3m17s' },
+      { consumer: 'Unknown Consumer', duration: '3:39', score: 42, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/monique-williams/calls/unknown-consumer-3m39s' },
+      { consumer: 'Unknown Consumer', duration: '4:17', score: 42, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/monique-williams/calls/unknown-consumer-4m17s' },
     ],
   },
   {
     date: 'Tuesday, April 14',
     calls: [
       { consumer: 'Eva Mitchell', duration: '8:27', score: 57, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Brand Loyal — Correct No-Sale', href: '/agents/monique-williams/calls/eva-mitchell' },
-      { consumer: 'Margaret Atwell', duration: '47:36', score: 22, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: '47-Minute Call — Close Never Attempted', href: '/agents/monique-williams/calls/margaret-atwell' },
+      { consumer: 'Margaret Atwell', duration: '47:36', score: 22, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: '47-Minute Call — Consumer Walked Off', href: '/agents/monique-williams/calls/margaret-atwell' },
       { consumer: 'Unknown Consumer', duration: '6:12', score: 28, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Food Card — No Dollar Amount Stated', href: '/agents/monique-williams/calls/unknown-consumer-6m12s' },
       { consumer: 'Warren Shelton', duration: '51:54', score: 38, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Compliance Concern — Correct No-Sale', href: '/agents/monique-williams/calls/warren-shelton' },
     ],
@@ -31,39 +31,30 @@ const callsByDate = [
 
 const patterns = [
   {
-    title: 'The food card acknowledged — never deployed as the close',
+    title: 'The food card is the close — not the opening topic you move past',
     rc: 'RC2',
     urgency: 'critical' as const,
-    body: 'Every call this week came in through the same door: someone saw a grocery card ad and called. On every call, the food card was acknowledged early and then the conversation moved on to other topics. That card is not a topic to acknowledge and move past — it\'s the reason for the call, the value anchor, and the enrollment engine. Every question you ask should be in service of delivering it.',
-    rule: 'Name the food card benefit in the first two minutes. State the dollar amount as soon as you have their ZIP. Build everything else around it.',
-    callRef: 'Across all eight calls, the food card was confirmed as the reason for calling. On each call, the dollar amount was either stated late, stated without anchoring to the close, or never stated at all.',
-    moveLabel: 'When the food card is the reason they called:',
-    move: '"The food card benefit is available in your area — give me your zip code and I\'ll pull up exactly what you qualify for right now." Then every question runs in service of delivering it.',
+    summary: 'Every call this week came in through the same door: someone saw a grocery card ad and called. The food card was acknowledged and dropped on every call. That card is not a topic to confirm and move past — it\'s the reason they called and the enrollment engine. Every question you ask should run in service of delivering it.',
+    fix: 'Instead: "The food card benefit is available in your area — give me your zip code and I\'ll pull up exactly what you qualify for right now." Then every question runs in service of delivering it. The dollar amount comes as soon as you have their zip. Never drop the card.',
   },
   {
-    title: 'Product list before value anchor — caller said "too complicated"',
+    title: 'When pacing kills a warm lead — say the benefit, then close',
     rc: 'RC1',
+    urgency: 'critical' as const,
+    summary: 'Margaret Atwell called in warm — no Advantage plan, no dental, lost Extra Help, chronic fibromyalgia. Six system delays and five unanswered frustration signals later, she said "40 freaking minutes — I\'m done" and walked off. The call had every ingredient for enrollment. It was lost to pacing, not to resistance. When a consumer says the call is taking too long, that is the close signal — they\'re asking to be done.',
+    fix: 'Instead: When you hear "it\'s taking too long" — pivot immediately: "You\'re right. Here\'s the bottom line: zero premium, $45 a month OTC, dental covered, your doctor\'s in network. I just need 60 seconds for your voice authorization and you\'re covered." That\'s a close, not a defense.',
+  },
+  {
+    title: 'Framing an enrollment as an address update is a compliance violation',
+    rc: 'RC4',
     urgency: 'high' as const,
-    body: 'When a consumer calls about one specific benefit and the first response is a list of all the product types you offer, you\'ve created a complexity problem before the value is established. The consumer doesn\'t know what they\'re choosing from. They don\'t know what the food card has to do with MAPD, PDP, Medigap, or stand-alone dental. The menu is confusing before they know what they\'re ordering.',
-    rule: null,
-    callRef: 'On the Monday call with an Unknown Consumer, all product types were listed before the food card value was anchored. The consumer said "it\'s getting too complicated" and the call effectively ended.',
-    moveLabel: 'Value first — product menu never:',
-    move: '"Tell me your zip code and I\'ll show you exactly what\'s available in your area. The benefit we\'re looking at is your grocery card — let\'s start there and see what you qualify for."',
-  },
-  {
-    title: 'Dead air during research — consumer doesn\'t know what\'s happening',
-    rc: 'RC1',
-    urgency: 'medium' as const,
-    body: 'When you go quiet during a system lookup, the consumer has no signal that anything is happening. They don\'t know if you\'re still on the line, if something went wrong, or if the call dropped. Two minutes of silence reads as abandonment. One line every 30 seconds costs you nothing and keeps the consumer anchored to the call.',
-    rule: null,
-    callRef: 'On a Monday call, silent periods ran from 1:27 through approximately 4:02 without a check-in. The consumer did not know what was happening.',
-    moveLabel: 'Every 30 seconds during any lookup:',
-    move: '"Still pulling this up for you, hang tight — just a moment." One line. Every time. Without exception.',
+    summary: 'On the Warren Shelton call, after the consumer said "I\'m not changing my plan" four times, the enrollment was described as "updating your address in the Medicare system." That framing is misleading under CMS Rule 422.2268 — a plan enrollment must be disclosed as a plan enrollment, with explicit consent. Warren was ultimately a correct no-sale. The compliance risk was in how the conversation got there.',
+    fix: 'Instead: "Mr. Shelton, what I\'m doing is enrolling you in a new plan. This replaces your current plan. Your doctor is in-network and the benefits are better. Do you understand this is a plan change and do you consent?" Consent must be informed. No exceptions.',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '38 / 100', active: true },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '38 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -96,7 +87,7 @@ export default function MoniqueWilliamsPage() {
           </div>
           <h1 className={styles.agentName}>Monique Williams</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 8 calls reviewed (Mon–Tue)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 8 calls reviewed (Mon–Tue)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
@@ -114,28 +105,59 @@ export default function MoniqueWilliamsPage() {
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
             <span className={styles.scoreLabel}>Correct No-Sales</span>
-            <span className={styles.scoreRange}>4 Missed · 2 Incomplete</span>
+            <span className={styles.scoreRange}>4 Missed · 2 Incomplete · 0 Enrolled</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC2</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC2</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Food card never deployed</span>
+            <span className={styles.scoreRange}>Food card acknowledged — never closed</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>1</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>1.64% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 0 (0.00%) — first sale
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--ink-60)' }}>$859</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--ink-60)' }}>
+                First sale: $859
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>61</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>51 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 74 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are eight calls from Monday and Tuesday — four missed opportunities, two correct no-sales, and two incompletes. Every call came in through the same door: the food card. What we&apos;re working through is why that card was acknowledged on every call and deployed as the close on none of them.</p>
-            <p><strong>What&apos;s working:</strong> your correct no-sales were both called correctly. Eva Mitchell was brand-loyal with no real reason to switch, and Warren Shelton presented a compliance concern that made the right call a no-sale. You read both situations accurately and didn&apos;t push. That judgment matters. You also showed real self-awareness after one of the calls — you debriefed yourself accurately and knew exactly what went wrong. That analytical clarity is real. The gap isn&apos;t awareness. It&apos;s running that same analysis in real time while the consumer is still on the line.</p>
-            <p><strong>What&apos;s costing you:</strong> the food card was acknowledged and dropped on every money caller this week. That card is the reason they called and the reason they&apos;ll enroll — but only if you connect it to a dollar amount and keep it at the center of every question you ask. The complexity objection on one call ("it&apos;s getting too complicated") came directly from leading with the product menu before the value was established. Anchor the food card first. Everything else follows.</p>
+            <p>Eight calls across Monday and Tuesday — four missed opportunities, two correct no-sales, two incompletes. Every call came in through the same door: the food card. What we&apos;re working through is why that card was acknowledged on every call and never deployed as the close on any of them.</p>
+            <p><strong>What&apos;s working:</strong> your correct no-sales were both called right. Eva Mitchell was brand-loyal with no compelling reason to switch, and Warren Shelton&apos;s repeated refusals — combined with the compliance risk in how he was engaged — made the no-sale the correct outcome. You read both situations without pushing past a clear signal. That judgment matters and it&apos;s not something every agent gets right. Your compliance openings are consistent and clean across all eight calls.</p>
+            <p><strong>What&apos;s costing you:</strong> two calls this week show the full picture. The Margaret Atwell call had every ingredient for an enrollment — warm inbound, no Advantage plan, lost Extra Help, chronic pain, motivated consumer — and it collapsed entirely to process pacing. Six system delays, five unanswered frustration signals, and the consumer walked off at 47 minutes. The Warren Shelton call ran 52 minutes against a consumer who said no four times, and included compliance-risky framing of the enrollment as an &ldquo;address update.&rdquo; Both calls needed a decision point much earlier: either pivot to a fast close or make a clean exit. The food card was the reason for every call this week — use it as the close, not just the opener.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>The consumer called you &mdash; they already said yes when they picked up the phone. The move that keeps more of them enrolled is walking through the call like you&apos;re delivering something they came for, not asking permission at every step: &ldquo;Let me pull up what&apos;s available in your area&rdquo; instead of &ldquo;Is it okay if I check?&rdquo; Lead with certainty, state the dollar amount early, and push for the enrollment. That&apos;s the job.</p>
+          <p className={styles.oneThingText}>When a consumer signals frustration or fatigue, that is not a complaint &mdash; it is a close signal. They are asking to be done. The move is: &ldquo;You&apos;re right. Here&apos;s the bottom line: zero premium, $45 a month toward your groceries, dental covered, doctor in network. I just need 60 seconds. Let&apos;s get this done for you now.&rdquo; Lead with certainty, state the dollar amount, push for the enrollment.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -183,8 +205,8 @@ export default function MoniqueWilliamsPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>Both correct no-sales were called accurately.</strong> Eva Mitchell was brand-loyal with no compelling reason to switch, and Warren Shelton presented a compliance concern that made the no-sale the right outcome. You read both situations without pushing. Knowing when not to close is a real skill — it protects your relationship and your compliance record, and it&apos;s not something every agent gets right.</p>
-            <p><strong>Your post-call awareness is sharp.</strong> After one of the calls this week, you debriefed yourself accurately — you knew what happened and what the right move would have been. That analytical clarity is real and it matters. The next step is running that same read in real time, while the consumer is still on the line. You already know what you need to do. The work is applying it in the moment.</p>
+            <p><strong>Both correct no-sales were called right.</strong> Eva Mitchell was brand-loyal — she had a plan she trusted and no compelling reason to switch. Warren Shelton refused four times and the compliance picture complicated the path further. You read both situations and stopped pushing. That judgment is real and it protects you. Knowing when to let a call end cleanly is a skill not every agent has.</p>
+            <p><strong>Your compliance openings are consistent.</strong> Recorded line, TPMO disclaimer, callback confirmation, decision-maker check — all eight calls opened correctly. That foundation matters. The work this week is what comes after it: the pivot from discovery to close, the food card as the engine of every answer, and the decision to push for enrollment when the consumer is ready instead of waiting for them to lead.</p>
           </div>
         </motion.div>
 
@@ -201,12 +223,10 @@ export default function MoniqueWilliamsPage() {
                   <span className={styles.rcCode}>{p.rc}</span>
                 </div>
                 <p className={styles.priorityTitle}>{p.title}</p>
-                <p className={styles.priorityDetail}>{p.body}</p>
-                {p.rule && <p className={styles.priorityRule}>{p.rule}</p>}
-                <p className={styles.priorityCallRef}>{p.callRef}</p>
+                <p className={styles.priorityDetail}>{p.summary}</p>
                 <div className={styles.priorityMove}>
-                  <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
-                  <p className={styles.priorityMoveText}>{p.move}</p>
+                  <span className={styles.priorityMoveLabel}>Instead:</span>
+                  <p className={styles.priorityMoveText}>{p.fix}</p>
                 </div>
               </div>
             ))}
@@ -220,22 +240,22 @@ export default function MoniqueWilliamsPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>The food card is the close — not just the opening</p>
-                <p className={styles.workOnDetail}>When a consumer says they&apos;re calling about the grocery card: &ldquo;That benefit is available in your area — give me your zip code and I&apos;ll show you exactly what you qualify for.&rdquo; Then every question runs in service of unlocking that card. Don&apos;t acknowledge it and move on. Build the whole call around it.</p>
+                <p className={styles.workOnTitle}>Anchor the food card in the first two minutes — and keep it there</p>
+                <p className={styles.workOnDetail}>When a consumer says they&apos;re calling about the grocery card: &ldquo;That benefit is available in your area — give me your zip code and I&apos;ll show you exactly what you qualify for right now.&rdquo; State the dollar amount as soon as you have their zip. Then every question runs in service of unlocking that card. Don&apos;t acknowledge it and move on. Build the whole call around it.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>One reframe before every release</p>
-                <p className={styles.workOnDetail}>Before you offer any callback or let a consumer go, say one thing that gives them a reason to stay. &ldquo;You don&apos;t need the card — I can look you up with just your date of birth and zip code. What&apos;s your birthday?&rdquo; One sentence keeps the call alive. A callback offer without a reframe first is a lead you chose to release.</p>
+                <p className={styles.workOnTitle}>When the consumer says the call is going long — pivot to a close, not a defense</p>
+                <p className={styles.workOnDetail}>Margaret Atwell warned you five times. The right response to &ldquo;this is taking too long&rdquo; is: &ldquo;You&apos;re right. Here&apos;s where we are: zero premium, $45 a month OTC, dental covered, pain doctor in network. I need 60 seconds. Can we get this done for you?&rdquo; Defending the process is not a close. Every frustration signal is a close signal.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>When the call goes quiet, name it</p>
-                <p className={styles.workOnDetail}>During any system lookup: &ldquo;Still pulling this up for you, hang tight.&rdquo; Every 30 seconds. Your Monday call showed multiple minutes of silence — that silence is what disconnects consumers before you can get back to them.</p>
+                <p className={styles.workOnTitle}>After three refusals — make one tight pitch, then exit cleanly</p>
+                <p className={styles.workOnDetail}>Warren Shelton said no four times across 52 minutes. After the third no, the move is one focused question: &ldquo;Mr. Shelton, what&apos;s your current plan&apos;s monthly grocery benefit? If it matches what I&apos;m showing you, we stop here.&rdquo; If he still says no — &ldquo;I respect that completely. Here&apos;s the benefit amount for your reference if you ever want to compare.&rdquo; Then end the call. Never describe enrollment as an address update.</p>
               </div>
             </div>
           </div>
@@ -263,7 +283,7 @@ export default function MoniqueWilliamsPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Monique Williams · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · The Money Caller · Value Anchor Before Qualification</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC4 · The Money Caller · Pacing · Compliance Framing</p>
         </div>
 
       </div>

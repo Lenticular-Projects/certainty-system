@@ -13,8 +13,15 @@ const callsByDate = [
     date: 'Tuesday, April 14',
     calls: [
       { consumer: 'Nancy Hazelrig', duration: '6:03', score: 51, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'The Grocery Card Caller', href: '/agents/trestan-daniel/calls/nancy-hazelrig' },
-      { consumer: 'Susan White', duration: '12:24', score: 47, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'The Food Card Caller', href: '/agents/trestan-daniel/calls/susan-white' },
-      { consumer: 'Unknown Consumer', duration: '15:22', score: 35, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/trestan-daniel/calls/unknown-consumer-15m22s' },
+      { consumer: 'Susan White', duration: '12:24', score: 47, outcome: 'INCOMPLETE', outcomeNote: 'Consumer ready — handoff killed the enrollment', type: 'The Food Card Caller — Handoff at Close', href: '/agents/trestan-daniel/calls/susan-white' },
+      { consumer: 'Unknown Consumer (15m22s)', duration: '15:22', score: 35, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller — INT SEP Unused', href: '/agents/trestan-daniel/calls/unknown-consumer-15m22s' },
+    ],
+  },
+  {
+    date: 'Wednesday, April 15',
+    calls: [
+      { consumer: 'Annie Sellers', duration: '3:00', score: 62, outcome: 'CORRECT NO-SALE', outcomeNote: 'Consumer refused verification — uncloseable', type: 'Hostile SSN Refusal — Correct Exit', href: '/agents/trestan-daniel/calls/annie-sellers' },
+      { consumer: 'Georgia Whitehead', duration: '3:00', score: 60, outcome: 'CORRECT NO-SALE', outcomeNote: 'Consumer declined ID method — uncloseable', type: 'Polite SSN Refusal — Professional Close', href: '/agents/trestan-daniel/calls/georgia-whitehead' },
     ],
   },
 ]
@@ -53,7 +60,7 @@ const patterns = [
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '44 / 100', active: true },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '51 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -85,25 +92,25 @@ export default function TrestanDanielPage() {
             <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
           <h1 className={styles.agentName}>Trestan Daniel</h1>
-          <p className={styles.period}>Week of April 14–18, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 3 calls reviewed (Tue)</p>
+          <p className={styles.period}>Week of April 13–17, 2026</p>
+          <p className={styles.updatedAt}>Updated April 20 · 5 calls reviewed (Tue–Wed)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(44) }}>44</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(51) }}>51</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue · 3 calls</span>
+            <span className={styles.scoreRange}>Tue–Wed · 5 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>3</span>
+            <span className={styles.scoreValue}>5</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14, 2026</span>
+            <span className={styles.scoreRange}>Apr 14–15, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>1</span>
-            <span className={styles.scoreLabel}>Correct No-Sale</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>3</span>
+            <span className={styles.scoreLabel}>Correct No-Sales</span>
             <span className={styles.scoreRange}>1 Missed · 1 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
@@ -113,12 +120,43 @@ export default function TrestanDanielPage() {
           </div>
         </motion.div>
 
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>8</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>10.96% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↓ from 11 (8.73%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$124</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ from $139
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>73</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>57 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 126 calls
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are the calls we pulled this week where the conversation was fully alive — consumers who gave you real information, stayed engaged through discovery, and in one case told you directly they were ready to proceed. What we&apos;re working through is what happened at the moment of commitment and where it went a different direction.</p>
-            <p><strong>What&apos;s working:</strong> your account-reading on the Susan White call was the best discovery work in this week&apos;s batch. You spotted her C-SNP history at 4:08, asked about it proactively, uncovered the story of why she kept getting switched off the right plan, and built a clear comparison — $55/month versus $50/quarter — that she understood immediately. That sequence is above average work and it earned Susan&apos;s trust completely. She said "Yes, I&apos;m ready" at 9:03. And on the Nancy Hazelrig call, you made the right read — SSN barrier, narrow agenda, correct no-sale — and preserved the relationship professionally.</p>
-            <p><strong>What&apos;s costing you:</strong> on two of your three calls this week, the close was right there and something intervened. On Susan White, a ready consumer went on hold and never enrolled. On the Warsaw call, a one-sentence correction about dual-eligible enrollment rights would have removed the only barrier between you and the close — and it never came. Both consumers were closeable. The same instincts that built Susan&apos;s trust just need to stay in the seat through the finish.</p>
+            <p>Five calls across two days — three correct no-sales on calls that were genuinely unwinnable, one missed opportunity, and one incomplete where the consumer said she was ready. What we&apos;re working through is the pattern that runs through the two closeable calls: the instincts that built the trust needed to follow through at the finish.</p>
+            <p><strong>What&apos;s working:</strong> your account-reading on the Susan White call was the best discovery work in this week&apos;s batch. You spotted her C-SNP history at 4:08, asked about it proactively, uncovered the story of why she kept getting switched off the right plan, and built a clear comparison — $55/month versus $50/quarter — that she understood immediately. That earned Susan&apos;s trust completely. She said &ldquo;Yes, I&apos;m ready&rdquo; at 9:03. On Wednesday, your call-reading on Annie Sellers was clean — correct pivot to SSN when the card wasn&apos;t available, and a correct exit when she refused. You did not burn the relationship. And Georgia Whitehead got a professional close: no pressure, clean goodbye, door left open.</p>
+            <p><strong>What&apos;s costing you:</strong> on the two closeable calls, the close was right there and something intervened each time. On Susan White, a ready consumer went on hold and never enrolled — the handoff killed what you built. On the Warsaw call, a one-sentence correction about dual-eligible enrollment rights would have removed the only barrier between you and the close. Both consumers were closeable. The discovery work is there. The finish needs to match it.</p>
           </div>
         </motion.div>
 
@@ -164,8 +202,8 @@ export default function TrestanDanielPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>44 / 100</strong></span>
-            <span>Correct No-Sales: <strong>1 of 3</strong></span>
+            <span>Week Average: <strong>51 / 100</strong></span>
+            <span>Correct No-Sales: <strong>3 of 5</strong></span>
           </div>
         </motion.div>
 
@@ -173,8 +211,8 @@ export default function TrestanDanielPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p>The best moment of your week came at 4:08 on the Susan White call. You pulled up her account, noticed she had been on a C-SNP and then switched back to a regular AARP MAPD, and you asked about it — proactively, without being prompted. You didn&apos;t just confirm the current plan and move on. You read the history and followed up. That led directly to uncovering the real story: Susan had been on the right plan, kept getting switched off it without her permission, and had never been able to let the benefit go active. The benefit comparison you built from that discovery — $55/month versus $50/quarter, stated plainly — landed immediately. Susan said "Yes, I&apos;m ready" at 9:03. That discovery sequence is the work.</p>
-            <p>On the Warsaw, Ohio call, your read at 11:47 — &ldquo;It&apos;s not about you getting anything — you&apos;re already approved for the $267. I&apos;m seeing if your doctors are in network so you don&apos;t have to change anything&rdquo; — was the strongest individual reframe of the week. You re-engaged a consumer who was walking toward the exit. And your close-awareness at 14:03, catching "Thanks, have a good day" and immediately asking "Oh, you don&apos;t want me to start getting you the food card?" — that kind of instinct is a real skill. Both of those moments show you have the read. The work is completing the enrollment once you have it.</p>
+            <p><strong>The best moment of your week came at 4:08 on the Susan White call.</strong> You pulled up her account, noticed she had been on a C-SNP and then switched back to a regular AARP MAPD, and you asked about it — proactively, without being prompted. You read the history and followed up. That led directly to the real story: Susan had been on the right plan, kept getting switched off it without her permission, and had never been able to let the benefit go active. The benefit comparison you built — $55/month versus $50/quarter, stated plainly — landed immediately. Susan said &ldquo;Yes, I&apos;m ready&rdquo; at 9:03. That discovery sequence is the standard.</p>
+            <p><strong>On Wednesday, you handled two hostile or resistant calls correctly.</strong> Annie Sellers refused her Social Security number with hostility — you attempted the pivot properly and exited cleanly. Georgia Whitehead declined to provide identification and you respected that without pressure. Both of those are correct no-sales and both ends were professional. On the Warsaw, Ohio call, your reframe at 11:47 — &ldquo;It&apos;s not about you getting anything — you&apos;re already approved for the $267&rdquo; — re-engaged a consumer walking toward the exit. That kind of instinct is a real skill.</p>
           </div>
         </motion.div>
 
@@ -252,7 +290,7 @@ export default function TrestanDanielPage() {
 
         {/* ── Footer ── */}
         <div className={styles.footer}>
-          <p>The Certainty System · Trestan Daniel · Week of April 14–18, 2026</p>
+          <p>The Certainty System · Trestan Daniel · Week of April 13–17, 2026</p>
           <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC6 · Close Authority · INT SEP · Math Breakdown · Susan White: Discovery</p>
         </div>
 

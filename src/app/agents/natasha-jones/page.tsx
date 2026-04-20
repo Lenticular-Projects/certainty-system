@@ -10,57 +10,82 @@ import styles from './page.module.css'
 
 const callsByDate = [
   {
+    date: 'Monday, April 13',
+    calls: [
+      { consumer: 'Anthony Johnson', duration: '58:59', score: 61, outcome: 'ENROLLED', outcomeNote: 'UHC C-SNP — May 1', type: 'Food Card Caller — Veteran / DST Compliance Flag', href: '/agents/natasha-jones/calls/anthony-johnson' },
+      { consumer: 'Bernard Cobol', duration: '44:54', score: 68, outcome: 'INCOMPLETE', outcomeNote: 'Enrollment completed but scored Incomplete in system', type: 'New Medicare Beneficiary — ICEP — Veteran', href: '/agents/natasha-jones/calls/bernard-cobol' },
+    ],
+  },
+  {
     date: 'Tuesday, April 14',
     calls: [
+      { consumer: 'Bonnie Jackson', duration: '8:13', score: 42, outcome: 'INCOMPLETE', outcomeNote: null, type: 'Discovery Stalled — Close Not Attempted', href: '/agents/natasha-jones/calls/bonnie-jackson' },
       { consumer: 'Donna Hicks', duration: '5:25', score: 38, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'SSN Asked Too Early — Consumer Spooked', href: '/agents/natasha-jones/calls/donna-hicks' },
+      { consumer: 'Unknown Consumer', duration: '3:33', score: 62, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Privacy Objector — Correct No-Sale', href: '/agents/natasha-jones/calls/unknown-consumer-3m33s' },
     ],
   },
   {
     date: 'Wednesday, April 15',
     calls: [
-      { consumer: 'Sandra Frakes', duration: '4:05', score: 30, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'HOT Lead — Lost at SSN Friction', href: '/agents/natasha-jones/calls/sandra-frakes' },
-      { consumer: 'Rita Weiburg', duration: '3:40', score: 50, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'No Medicare Card — Daughter Has It', href: '/agents/natasha-jones/calls/rita-weiburg' },
       { consumer: 'Joyce Alexander', duration: '20:20', score: 50, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'Had All Info to Enroll Ralph — Handed Off Instead', href: '/agents/natasha-jones/calls/joyce-alexander' },
+      { consumer: 'Rita Weiburg', duration: '3:40', score: 50, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'No Medicare Card — Daughter Has It', href: '/agents/natasha-jones/calls/rita-weiburg' },
+      { consumer: 'Sandra Frakes', duration: '4:05', score: 30, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'HOT Lead — Lost at SSN Friction', href: '/agents/natasha-jones/calls/sandra-frakes' },
+    ],
+  },
+  {
+    date: 'Friday, April 17',
+    calls: [
+      { consumer: 'Margaret Mackey', duration: '5:54', score: 33, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'Uncloseable — Principled No', href: '/agents/natasha-jones/calls/margaret-mackey' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'You find the path and then hand it off instead of walking it',
+    title: 'You have everything to close — and you hand it off instead',
     rc: 'RC1',
     urgency: 'critical' as const,
-    body: 'When you have everything needed to complete an enrollment — the Medicare ID, the diagnosis, the benefit interest, the proxy authorization — the next move is to use it. Handing off to a specialist at that moment doesn\'t protect the enrollment. It ends it. Consumers who say they don\'t answer unknown numbers will not answer a callback. The enrollment window closes when the call does.',
-    rule: 'When you have the information and the authorization, you have the enrollment. Do not hand off what you can close.',
+    body: 'When you have the Medicare ID, the diagnosis, the benefit interest, and the proxy authorization, you have the enrollment. Handing off at that moment doesn\'t protect the call — it ends it. Consumers who say they don\'t answer unknown numbers will not answer a callback. The window closes when the call does.',
+    rule: 'When you have the information and the authorization, do not hand off what you can close.',
     callRef: 'On the Joyce Alexander call at 15:47, you had Ralph\'s Medicare ID, DOB, Parkinson\'s diagnosis, and spousal proxy authorization. Joyce told you she doesn\'t pick up unknown numbers. You handed off to a specialist named Rosie.',
     moveLabel: 'When you have everything needed:',
-    move: '"Joyce, you just told me you don\'t pick up unknown numbers — so let\'s handle Ralph right now. I have everything I need. It takes five minutes and his coverage starts May 1st. Should I go ahead?"',
+    move: '"Joyce, you just told me you don\'t pick up unknown numbers — so let\'s handle Ralph right now. I have everything I need. It takes five minutes and his coverage starts May 1st. I\'m going to get him enrolled right now."',
   },
   {
     title: 'SSN before trust ends the call before it starts',
     rc: 'RC1',
     urgency: 'critical' as const,
-    body: 'HOT inbound callers are pre-qualified and ready to engage — the conversation is already warm when they dial in. Asking for a Social Security number before a single benefit has been named or a plan has been shown converts a warm call to a suspicious one. The SSN itself isn\'t the problem. The timing is. Medicare card first — it feels official, not invasive. SSN is the backup when the card isn\'t available.',
+    body: 'HOT inbound callers are pre-qualified and ready to engage. Asking for a Social Security number before a single benefit has been shown converts a warm call to a suspicious one. The timing is the problem — not the SSN itself. Medicare card first. SSN is the backup.',
     rule: 'Lead with Medicare card every time. SSN is the fallback. Never reverse the order.',
     callRef: 'Donna Hicks was asked for her full SSN at 3:37, before any plan or benefit had been shown. Sandra Frakes hit the same ask at 3:34. Both were HOT inbound callers. Both ended the call at the SSN request.',
     moveLabel: 'Flip the order starting today:',
     move: '"I can look you up two ways — your Medicare card, or your Social Security number. Which one do you have handy?" If they hesitate on SSN: "No problem — your Medicare card works even better. Do you have that nearby?"',
   },
   {
-    title: 'Parkinson\'s was a CSN SEP that was never named',
+    title: 'DST must never be agent-initiated — compliance risk on the Anthony Johnson call',
+    rc: 'RC4',
+    urgency: 'critical' as const,
+    body: 'The Anthony Johnson enrollment is at audit risk. At 15:10, you raised the CMS winter storm declaration yourself — named the emergency, explained the enrollment window, and invited Johnson to confirm impact. DST is a consumer-initiated SEP. You cannot raise it. If an auditor reviews this call, the enrollment could be voided. Pull it from your process entirely unless the consumer mentions the disaster first.',
+    rule: 'NEVER mention a disaster declaration or CMS emergency window. If the consumer brings it up, you may follow through. You may not initiate it.',
+    callRef: 'At 15:10: "I\'m showing in your county of Ohio, as you probably know, there was a winter storm that recently impacted your area, and because of the declaration, CMS has opened a special enrollment period." That sentence cannot be agent-initiated.',
+    moveLabel: 'If the consumer doesn\'t bring it up — don\'t bring it up:',
+    move: 'Use the IEP, ICEP, or any other valid SEP that doesn\'t require consumer-initiated disclosure. If a consumer mentions the storm themselves, ask: "How did that affect you?" Then you may document it. Never lead with the SEP name.',
+  },
+  {
+    title: 'Parkinson\'s was a C-SNP SEP that was never named',
     rc: 'RC6',
     urgency: 'high' as const,
-    body: 'When a consumer mentions a qualifying chronic condition, that mention is a year-round enrollment trigger. Parkinson\'s disease qualifies for C-SNP plans, which carry a Special Enrollment Period available any month of the year. When the objection is "we\'ll see our agent in October," the only thing that collapses that wall is naming the SEP. Without naming it, October sounds like a real and fixed deadline.',
+    body: 'When a consumer mentions a qualifying chronic condition, that mention is a year-round enrollment trigger. Parkinson\'s disease qualifies for C-SNP plans with an SEP available any month of the year. When the objection is "we\'ll see our agent in October," the only thing that collapses that wall is naming the SEP. Without naming it, October sounds real and fixed.',
     rule: null,
-    callRef: 'Joyce Alexander mentioned Ralph\'s Parkinson\'s at 10:17. The CSN SEP was not named. When Joyce said "we\'ll see our agent in October," there was no response that addressed why October wasn\'t necessary.',
+    callRef: 'Joyce Alexander mentioned Ralph\'s Parkinson\'s at 10:17. The C-SNP SEP was not named. When Joyce said "we\'ll see our agent in October," there was no response addressing why October wasn\'t necessary.',
     moveLabel: 'When a chronic condition opens a SEP:',
-    move: '"Ralph actually doesn\'t have to wait until October. His Parkinson\'s means he can switch to a better plan any month of the year — that\'s a Special Enrollment Period. We can get him started today."',
+    move: '"Ralph actually doesn\'t have to wait until October. His Parkinson\'s means he can switch to a better plan any month of the year — that\'s a Special Enrollment Period. We can get him started today. I\'m going to take care of that right now."',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '42 / 100', active: true },
-  { title: 'Weekly Brief — April 14 (partial)', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '47 / 100', active: false },
+  { title: 'Weekly Brief — April 14 (partial)', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '42 / 100', active: false },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '48 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -93,46 +118,77 @@ export default function NatashaJonesPage() {
           </div>
           <h1 className={styles.agentName}>Natasha Jones</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 4 calls reviewed (Tue–Wed)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 9 calls reviewed (Mon–Fri)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(42) }}>42</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(48) }}>48</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue–Wed · 4 calls</span>
+            <span className={styles.scoreRange}>Mon–Fri · 9 calls</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>4</span>
+            <span className={styles.scoreValue}>9</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14–15, 2026</span>
+            <span className={styles.scoreRange}>Apr 13–17, 2026</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>1</span>
             <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>1 Correct No-Sale · 3 Missed</span>
+            <span className={styles.scoreRange}>3 Correct No-Sale · 3 Missed · 1 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC1</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC4</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>SSN friction + handing off instead of closing</span>
+            <span className={styles.scoreRange}>DST compliance violation — Anthony Johnson call</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>9</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>6.43% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 4 (conv% 12.90%→6.43%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>$239</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
+                ↑ from $106
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>140</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>107 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 31 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>These are four calls from Tuesday and Wednesday — three missed opportunities and one correct no-sale. Two of the missed calls ended at the SSN request before a single benefit had been shown. The third had everything needed to complete an enrollment and was handed off instead. What we&apos;re working through is why the close didn&apos;t happen in the moments where it was right there.</p>
-            <p><strong>What&apos;s working:</strong> your discovery work on the Joyce Alexander call was excellent. You caught Joyce&apos;s dental misconception at 7:25, pulled up the actual plan, and told her the cleaning was zero copay — she had been avoiding the dentist for a year over a billing error, and you fixed it in real time. You also executed a clean spousal pivot when Joyce&apos;s upgrade was ruled out, following her lead to Ralph without missing a beat and collecting his full information efficiently. And Rita Weiburg&apos;s SSN handling was exactly right — framed as her choice, no pressure, warm exit. She ended the call with &ldquo;And you too. Thank you.&rdquo;</p>
-            <p><strong>What&apos;s costing you:</strong> two patterns. First, the SSN order — Donna and Sandra both ended the call the moment you asked for it, before any benefit had been named. Lead with Medicare card. SSN is the backup. Second: on Joyce Alexander, you had Ralph&apos;s Medicare ID, his Parkinson&apos;s diagnosis, and Joyce&apos;s proxy authorization — and you handed off to a specialist instead of closing. Joyce told you she doesn&apos;t pick up unknown numbers. That callback never happened.</p>
+            <p>Nine calls across five days — one enrollment, one compliance flag that needs immediate attention, and a week-over-week pattern that shows your discovery is strong and your closes are not happening when they should. The Anthony Johnson enrollment on Monday is real, but it carries a DST compliance issue that could void it in audit. That&apos;s the priority this week.</p>
+            <p><strong>What&apos;s working:</strong> your patience on the Anthony Johnson call kept a 59-minute, low-bandwidth consumer on the line and you got him enrolled. The Bernard Cobol call showed clean new-beneficiary handling — ICEP correctly applied, VA coverage considered, full benefit presentation executed. And your Rita Weiburg handling was exactly right: when she couldn&apos;t produce the Medicare card, you framed it as her choice, kept zero pressure, and left the relationship warm. She said &ldquo;And you too. Thank you.&rdquo; That&apos;s a contact you can call back. Your discovery work on Joyce Alexander was also excellent — you caught her dental misconception at 7:25 and corrected it in real time.</p>
+            <p><strong>What&apos;s costing you:</strong> three things. First, the DST violation on Anthony Johnson — you raised the winter storm SEP yourself at 15:10. That is prohibited by CMS and puts the enrollment at audit risk. Fix this immediately. Second, the SSN order — Donna Hicks and Sandra Frakes both hung up the moment you asked for it, before any benefit had been shown. Lead with the Medicare card. Third: on Joyce Alexander you had Ralph&apos;s Medicare ID, Parkinson&apos;s diagnosis, and spousal authorization — and you handed off to a specialist. Joyce told you she doesn&apos;t pick up unknown numbers. That callback didn&apos;t happen.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Your discovery work is strong &mdash; you catch the things most agents miss and you build real trust fast. The move that keeps more calls alive is leading with the Medicare card instead of the SSN: &ldquo;I can look you up with your Medicare card &mdash; it&apos;s the red, white, and blue card. Do you have that nearby?&rdquo; Build the value first, then ask for what you need to deliver it. Assume they&apos;re saying yes and push for the enrollment. That&apos;s the job.</p>
+          <p className={styles.oneThingText}>Your discovery is genuinely strong &mdash; you find the things most agents miss. The move that converts more of that discovery into enrollments is closing from what you already have. When you have the Medicare ID, the diagnosis, and the authorization, stop explaining and close: &ldquo;I have everything I need right here &mdash; I&apos;m going to get this done for you right now.&rdquo; You don&apos;t need more information. You need to use what you already collected.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -171,8 +227,8 @@ export default function NatashaJonesPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>42 / 100</strong></span>
-            <span>Correct No-Sales: <strong>1 of 4</strong></span>
+            <span>Week Average: <strong>48 / 100</strong></span>
+            <span>Enrolled: <strong>1 of 9</strong> · Correct No-Sales: <strong>3</strong></span>
           </div>
         </motion.div>
 
@@ -180,8 +236,8 @@ export default function NatashaJonesPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>Joyce Alexander — your discovery was the best work of the week.</strong> You caught Joyce&apos;s dental misconception at 7:25, looked up the actual plan in real time, and told her the cleaning was $0 copay. She had been avoiding the dentist for a year over a billing misunderstanding that you corrected in under two minutes. That&apos;s the kind of value that makes people stay loyal to an agent. You also executed a clean spousal pivot when Joyce&apos;s upgrade didn&apos;t work — you followed her lead to Ralph without losing momentum, collected his Medicare ID and DOB efficiently, and built a complete picture for enrollment.</p>
-            <p><strong>Rita Weiburg — exactly the right exit.</strong> When Rita said her daughter had the Medicare card, you framed it as her choice, kept no pressure on, and left the relationship warm. She ended the call with &ldquo;And you too. Thank you.&rdquo; That SSN handling was the correct approach — patient, low-pressure, professional. That&apos;s a contact you can call back.</p>
+            <p><strong>The Anthony Johnson enrollment — your patience kept a hard call alive.</strong> Johnson was a low-bandwidth consumer who struggled with medications and had extended technical difficulties across a nearly 59-minute call. Your warmth never broke — &ldquo;Take your time, I want to help you and make sure you get that food card every month&rdquo; — and you kept him on the line through every delay. You also correctly identified that his Medicare Advantage plan had lapsed and connected it to his Social Security reduction, surfacing a fact he wasn&apos;t aware of. That system literacy saved him money he didn&apos;t know he was losing.</p>
+            <p><strong>Joyce Alexander — your discovery was genuinely strong.</strong> You caught Joyce&apos;s dental misconception at 7:25 and corrected it in real time — she had been avoiding the dentist for a year over a billing error you fixed in under two minutes. You also executed a clean spousal pivot when her upgrade didn&apos;t work: you followed her lead to Ralph, collected his Medicare ID and DOB efficiently, and built a complete picture for enrollment. That&apos;s expert call navigation. Rita Weiburg was also handled correctly — patient, low-pressure, warm exit. She said &ldquo;And you too. Thank you.&rdquo; That&apos;s a contact you can call back.</p>
           </div>
         </motion.div>
 
@@ -217,22 +273,22 @@ export default function NatashaJonesPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>Lead with Medicare card — SSN is the backup</p>
-                <p className={styles.workOnDetail}>Starting today, flip the order. Ask for the Medicare card first. If they don&apos;t have it: &ldquo;No problem — I can also look you up with your Social Security number.&rdquo; SSN as the primary ask is what ended Donna and Sandra&apos;s calls. The card feels official. Use it first, every time.</p>
+                <p className={styles.workOnTitle}>Remove DST from your process — it cannot be agent-initiated</p>
+                <p className={styles.workOnDetail}>The Anthony Johnson enrollment is at audit risk. You raised the CMS winter storm declaration at 15:10. Agents cannot do this. If a consumer mentions a disaster, you may follow through. If they don&apos;t mention it, it doesn&apos;t exist for you. Pull it from your process entirely. For inbound callers with a lapsed plan or IEP eligibility, those are your SEPs — use them.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>When the math lands — stop explaining and close</p>
-                <p className={styles.workOnDetail}>Joyce said &ldquo;makes sense&rdquo; at 18:34. That is your close window. The script is: &ldquo;Good — let&apos;s get Ralph enrolled right now while I have you. It takes five minutes and his coverage starts May 1st. Should I go ahead?&rdquo; Practice saying that out loud before your first call tomorrow.</p>
+                <p className={styles.workOnTitle}>Lead with Medicare card — SSN is the backup</p>
+                <p className={styles.workOnDetail}>Starting today, flip the order. Ask for the Medicare card first. If they don&apos;t have it: &ldquo;No problem — I can also look you up with your Social Security number.&rdquo; SSN as the primary ask ended Donna and Sandra&apos;s calls before a single benefit was shown. The card feels official. Use it first, every time.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>When a consumer names a chronic condition — name the SEP</p>
-                <p className={styles.workOnDetail}>Parkinson&apos;s, diabetes, heart failure, COPD — any of these opens a C-SNP Special Enrollment Period. The moment you hear it: &ldquo;That actually matters a lot here. Because of that condition, Ralph can switch to a better plan right now — we don&apos;t have to wait until October.&rdquo; That one sentence kills the fall objection before it becomes real.</p>
+                <p className={styles.workOnTitle}>When you have everything to close — close, don&apos;t hand off</p>
+                <p className={styles.workOnDetail}>On the Joyce Alexander call you had Ralph&apos;s Medicare ID, DOB, Parkinson&apos;s diagnosis, and Joyce&apos;s proxy authorization. Joyce told you she doesn&apos;t answer unknown numbers. That was your signal to close in place: &ldquo;Good — I have everything I need. Let me get Ralph enrolled right now while I have you. It takes five minutes and his coverage starts May 1st. I&apos;m going to take care of this for you.&rdquo; Practice that sentence.</p>
               </div>
             </div>
           </div>
@@ -260,7 +316,7 @@ export default function NatashaJonesPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Natasha Jones · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC6 · SSN Friction · CSN SEP · Spousal Pivot · Close Cue</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC4 · RC1 · RC6 · DST Compliance · SSN Friction · Close-in-Place · Spousal Pivot · Anthony Johnson · Joyce Alexander</p>
         </div>
 
       </div>

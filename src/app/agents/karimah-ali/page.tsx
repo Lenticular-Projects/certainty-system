@@ -16,18 +16,24 @@ const callsByDate = [
       { consumer: 'Powanna Jones', duration: '3:48', score: 42, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'Verification Dropout — No Recovery', href: '/agents/karimah-ali/calls/powanna-jones' },
     ],
   },
+  {
+    date: 'Wednesday, April 15',
+    calls: [
+      { consumer: 'Paul Lee', duration: '65:00', score: 84, outcome: 'ENROLLED', outcomeNote: null, type: 'Complex D-SNP — Dual Eligible with Cancer', href: '/agents/karimah-ali/calls/paul-lee' },
+    ],
+  },
 ]
 
 const patterns = [
   {
-    title: 'A serious disclosure lands — the call moves on without acknowledging it',
+    title: 'Serious disclosure lands — call keeps moving on autopilot',
     rc: 'RC2',
     urgency: 'critical' as const,
-    body: 'When a consumer reveals something heavy — a terminal diagnosis, managing alone, a financial crisis — that information changes the call. It\'s not a checkpoint to pass before the next compliance step. It\'s the most important thing they said. A consumer fighting stage 4 cancer doesn\'t need a plan review. They need to know someone is paying attention. Two sentences of acknowledgment converts a compliance interaction into a trusted conversation. Without it, you\'re just running procedure on someone who needs a person.',
-    rule: 'Before advancing to the next script step, ask: did this person just tell me something important? If yes, say something real first.',
+    body: 'On the John Easterday call, a consumer with stage 4 prostate cancer told you he manages his healthcare alone. Both pieces of information arrived in under 90 seconds, and both passed. On the Paul Lee call — 84 points, your best call of the week — you executed a pharmacy verification call and navigated a complex dual-eligible enrollment with multiple conditions. The same pattern appeared: the emotional weight of Paul\'s new cancer diagnosis was present throughout and never explicitly anchored to what the coverage meant for him. Two sentences of acknowledgment converts a compliance interaction into a trusted conversation.',
+    rule: 'Before advancing to the next script step, ask: did this person just tell me something important? If yes, respond to the person before you respond to the script.',
     callRef: 'John said "I have stage four prostate cancer" at 1:47 and "I do it all alone" at 2:05. The response to both was "Okay" — then the nursing home check.',
     moveLabel: 'Pause. Acknowledge. Then continue.',
-    move: '"John, I appreciate you sharing that with me. Stage 4 prostate cancer — you\'ve got a serious fight on your hands, and you\'re managing all of this by yourself. I want to make sure that when your Medicare comes online in August, you have a plan that has your back — the right doctors in-network, your medications covered, and the extra benefits that take some pressure off. That\'s exactly what we\'re putting together in May. You won\'t have to figure this out alone."',
+    move: '"John, I appreciate you sharing that with me. Stage 4 prostate cancer — that\'s a serious fight, and you\'re managing all of this by yourself. I want to make sure that when your Medicare comes online in August, you have a plan that has your back — your doctors in-network, your medications covered, and the extra benefits that take some pressure off. That\'s exactly what we\'re putting together."',
   },
   {
     title: 'SSN asked before the Medicare card was offered',
@@ -40,19 +46,20 @@ const patterns = [
     move: '"No problem at all — if you have a few minutes to grab that red, white, and blue Medicare card, that\'s actually the easiest path. Want to take a second to look for it? I\'ll be right here."',
   },
   {
-    title: 'Callback commitment not anchored to a reason',
+    title: 'Callback commitment not anchored to a specific reason',
     rc: 'RC2',
     urgency: 'medium' as const,
-    body: 'Setting a callback date and time is the minimum. What makes a consumer answer the phone on that date is knowing exactly what the call will accomplish for them specifically. John Easterday agreed to May 1 at 2:00 PM — a man managing stage 4 cancer alone, who will have much more pressing things on his mind by then. Before ending any callback-dependent call, anchor the follow-up with the consumer\'s specific motivation. Name the benefit. Reference their situation. Give them a reason to answer.',
+    body: 'John Easterday agreed to a May 1 callback at 2:00 PM — a man with stage 4 cancer managing everything alone, who will have far more pressing things competing for his attention by then. Setting a date and time is the minimum. What makes a consumer answer the phone is knowing exactly what the call will accomplish for them specifically. Name the benefit. Reference their situation. Give them a reason to answer.',
     rule: null,
-    callRef: 'The May 1st callback for John was set at 11:25. His response was "That\'ll work." That is the minimum possible buy-in from someone fighting a terminal diagnosis.',
+    callRef: 'The May 1st callback was set at 11:25. John\'s response was "That\'ll work." That is the minimum possible buy-in from someone fighting a terminal diagnosis.',
     moveLabel: 'Make them want to answer the phone.',
     move: '"John — on May 1st I\'m going to call you with the specific plan that has your oncology team covered and your medications at the right tier. You tell me what\'s most important to keep, and I\'ll make sure it\'s all there. That call takes about 15 minutes and we\'ll have your August coverage locked in before we hang up."',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 14', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '51 / 100', active: true },
+  { title: 'Weekly Brief — April 14 (partial)', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '51 / 100', active: false },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '62 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -85,46 +92,77 @@ export default function KarimahAliPage() {
           </div>
           <h1 className={styles.agentName}>Karimah Ali</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 2 calls reviewed (Tue)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 3 calls reviewed</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(51) }}>51</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(62) }}>62</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Tue · 2 calls</span>
+            <span className={styles.scoreRange}>3 calls · Tue–Wed</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>2</span>
+            <span className={styles.scoreValue}>3</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 14, 2026</span>
+            <span className={styles.scoreRange}>Apr 14–15, 2026</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>1</span>
-            <span className={styles.scoreLabel}>Correct No-Sale</span>
-            <span className={styles.scoreRange}>1 Incomplete</span>
+            <span className={styles.scoreLabel}>Enrolled</span>
+            <span className={styles.scoreRange}>1 Correct No-Sale · 1 Incomplete</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC2</span>
-            <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Disclosure heard — not responded to</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>84</span>
+            <span className={styles.scoreLabel}>Top Call</span>
+            <span className={styles.scoreRange}>Paul Lee — Complex D-SNP</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>14</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>14.89% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↑ from 11 (10.68%)
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>$84</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--sage-dark)' }}>
+                ↓ improved from $108
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>94</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>61 billable</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 103 calls
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>Two calls this week — both of them with consumers who had real situations and needed a real person on the other end. What we&apos;re working through is what happens when a consumer gives you something meaningful and the call keeps moving forward on autopilot.</p>
-            <p><strong>What&apos;s working:</strong> the John Easterday call is where your strengths showed up clearly. At 4:07 you confirmed his Part A and B start date from the system, correctly identified he cannot enroll until August 2026, and did not manufacture eligibility. You explained the IEP window accurately, identified May as when enrollment can begin, and set a specific callback with a time — not a vague follow-up. That&apos;s working knowledge and professional discipline in the same call. Your compliance execution was clean across both calls, and your habit of confirming callback numbers early is a real strength that keeps leads alive when calls drop.</p>
-            <p><strong>What&apos;s costing you:</strong> on both calls, a consumer gave you something real and the call kept moving to the next step as if it hadn&apos;t happened. John told you he had stage 4 prostate cancer at 1:47 and that he manages everything alone at 2:05. Both landed and both passed. Powanna&apos;s SSN hesitation was emotional — she felt presumed upon — and what she got was a procedure explanation. The single adjustment that changes your numbers: before you advance, ask yourself whether this person just told you something important. If yes, respond to the person before you respond to the script.</p>
+            <p>Three calls this week — one high-complexity enrollment, one correct no-sale, one incomplete. The Paul Lee call at 84 points is the benchmark: it was a difficult call on a consumer with multiple chronic conditions and a new cancer diagnosis, and you closed it. That call tells you what you&apos;re capable of.</p>
+            <p><strong>What&apos;s working:</strong> the Paul Lee enrollment was expertly navigated — you correctly identified D-SNP eligibility, executed a 3-way pharmacy verification call, surfaced an insulin formulary exception need, and closed a consumer who was initially just calling about a food card. Your compliance execution was clean across all three calls, and your habit of confirming callback numbers early is a real professional instinct that keeps leads alive. The John Easterday correct no-sale was done right — Part A and B start dates confirmed from the system, IEP window explained accurately, May 1 callback with a specific time. That&apos;s how a no-sale stays a warm lead.</p>
+            <p><strong>What&apos;s costing you:</strong> on both the Easterday and Jones calls, a consumer gave you something real and the call kept moving. John told you he had stage 4 prostate cancer at 1:47 and manages everything alone at 2:05. Both landed and both passed. Powanna&apos;s SSN hesitation was emotional — she felt presumed upon — and what she got was a procedure explanation. The single adjustment that changes your numbers: before you advance, ask whether this person just told you something important. If yes, respond to the person before you respond to the script.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a consumer shares something real &mdash; a diagnosis, managing alone, a financial fight &mdash; two sentences of acknowledgment turns a script into a conversation they want to finish. Pause, name what they just told you, let them know you heard it, then move forward and push for the enrollment. That&apos;s what makes someone say yes &mdash; and it&apos;s the only conversation that closes.</p>
+          <p className={styles.oneThingText}>You enrolled Paul Lee &mdash; a high-complexity dual-eligible with multiple conditions and a new cancer diagnosis &mdash; with a pharmacy verification call and a formulary exception flag. That is advanced-level execution. The move that makes every other call close at that same rate: when someone tells you something real, stop and say something real back. Two sentences. Then push for the enrollment. That&apos;s the conversation that closes.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -163,8 +201,8 @@ export default function KarimahAliPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>51 / 100</strong></span>
-            <span>Correct No-Sales: <strong>1 of 2</strong></span>
+            <span>Week Average: <strong>62 / 100</strong></span>
+            <span>Enrolled: <strong>1 of 3</strong></span>
           </div>
         </motion.div>
 
@@ -172,8 +210,8 @@ export default function KarimahAliPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>The John Easterday correct no-sale was done the right way.</strong> You confirmed Part A and B start dates from the system at 4:07, correctly identified the IEP enrollment window, and explained exactly when he could begin the process for an August 1 effective date. You tied his stated motivation — the food card — to the plan type and the eligibility barrier, clearly and without confusion. Then you set a specific callback: May 1, 2:00 PM. Not a vague &ldquo;we&apos;ll follow up.&rdquo; A date and a time. That&apos;s how a no-sale stays a warm lead.</p>
-            <p><strong>Your habit of confirming callback numbers early is a real professional instinct.</strong> You confirmed on the Easterday call at 1:28 and on the Jones call at 1:28 — before anything else had a chance to go sideways. That detail keeps leads alive when calls drop. It also signals to the consumer that you&apos;re organized and accountable. Keep doing it on every call, regardless of how the conversation is going.</p>
+            <p><strong>The Paul Lee enrollment was your best call of the week — and one of the harder enrollments in this batch.</strong> Paul is a Tampa consumer on disability with a new cancer diagnosis, multiple chronic conditions, and significant medication cost concerns. You identified D-SNP eligibility, executed a 3-way pharmacy call to verify his medications live, surfaced a formulary exception need for Humulin insulin, confirmed all doctors in-network, and enrolled him on the Humana Gold Plus D-SNP with $250/month OTC. That is a high-complexity close that required working knowledge and real-time problem-solving. The pharmacy verification call alone keeps most agents from even attempting this — you ran it and used it.</p>
+            <p><strong>The John Easterday correct no-sale was handled exactly right.</strong> You confirmed Part A and B start dates from the system at 4:07, correctly identified that he cannot enroll until August 2026, explained the IEP window accurately, and set a specific callback: May 1, 2:00 PM. Not a vague &ldquo;we&apos;ll follow up.&rdquo; A date and a time. Your habit of confirming callback numbers early — on the Easterday call at 1:28 and the Jones call at 1:28 — is a real professional instinct that keeps leads alive when calls drop.</p>
           </div>
         </motion.div>
 
@@ -223,8 +261,8 @@ export default function KarimahAliPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>Anchor every callback commitment to a specific reason</p>
-                <p className={styles.workOnDetail}>Before ending any callback-dependent call, anchor the follow-up with the consumer&apos;s specific motivation. Name the benefit they called about. Reference their situation. Tell them what the call will accomplish. John Easterday managing stage 4 cancer alone will have a lot of things competing for his attention by May 1. Give him a reason to answer. Make it personal, make it specific, make it about him.</p>
+                <p className={styles.workOnTitle}>Anchor every callback to a specific reason</p>
+                <p className={styles.workOnDetail}>Before ending any callback-dependent call, anchor the follow-up with the consumer&apos;s specific motivation. Name the benefit they called about. Reference their situation. Tell them what the call will accomplish. John Easterday is managing stage 4 cancer alone — he will have many things competing for his attention by May 1. Give him a reason to answer. Make it personal, make it specific, make it about him.</p>
               </div>
             </div>
           </div>
@@ -252,7 +290,7 @@ export default function KarimahAliPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · Karimah Ali · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · Client Gold · SSN Handling · Callback Anchoring · Correct No-Sale</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · D-SNP · Pharmacy Verification · SSN Handling · Callback Anchoring · Correct No-Sale</p>
         </div>
 
       </div>

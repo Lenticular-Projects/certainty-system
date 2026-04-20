@@ -10,48 +10,62 @@ import styles from './page.module.css'
 
 const callsByDate = [
   {
+    date: 'Monday, April 13',
+    calls: [
+      { consumer: 'Jennifer Russell', duration: '3:25', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'Medicare card refusal — no pre-frame', type: 'Food Card Caller — Card Refusal', href: '/agents/german-vivas/calls/jennifer-russell' },
+      { consumer: 'Lois Overton', duration: '55:00', score: 67, outcome: 'INCOMPLETE', outcomeNote: 'Enrollment assumed — no confirmation code', type: 'Within-Carrier Upgrade — Rapport Drift', href: '/agents/german-vivas/calls/lois-overton' },
+    ],
+  },
+  {
     date: 'Wednesday, April 15',
     calls: [
-      { consumer: 'David Jeffrey Smith', duration: '4:32', score: 42, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'SSN Refused — No Recovery Pivot', href: '/agents/german-vivas/calls/david-jeffrey-smith' },
+      { consumer: 'David Jeffrey Smith', duration: '4:32', score: 42, outcome: 'INCOMPLETE', outcomeNote: 'SSN refused — no recovery pivot', type: 'SSN Refused — No Recovery Pivot', href: '/agents/german-vivas/calls/david-jeffrey-smith' },
+    ],
+  },
+  {
+    date: 'Thursday, April 16',
+    calls: [
+      { consumer: 'Frank Del', duration: '8:08', score: 28, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Benefit Shopper — SSN Surrender', href: '/agents/german-vivas/calls/frank-del' },
     ],
   },
 ]
 
 const patterns = [
   {
-    title: 'SSN refusal is a trust objection — you treated it as a final answer',
+    title: 'SSN refusal treated as a final answer — three times this week',
     rc: 'RC1',
     urgency: 'critical' as const,
-    body: 'When a consumer refuses the SSN, they\'re not ending the call — they\'re drawing a line at one specific thing. David gave you his full name, middle name, date of birth, ZIP, and callback number without hesitation. He stayed cooperative through the entire opening. The trust break was at SSN and nowhere else. You had already told him earlier there was another way. That pivot needed to be executed, not acknowledged and abandoned.',
-    rule: 'The call is not over until the consumer hangs up. "Bye" is never the correct response to an objection.',
-    callRef: 'David said "I don\'t trust you" at 4:01. You said "I get it. Bye." at 4:03. You had his name, DOB, and ZIP — you could have tried a name/DOB lookup right then.',
-    moveLabel: 'Validate the fear. Offer the alternative. Anchor the benefit.',
-    move: '"Mr. Smith, I completely understand — I wouldn\'t give my social to someone I just met either. Here\'s the thing: I can actually pull you up with your Medicare card number instead. Do you have that red, white, and blue card anywhere nearby? And based on your Medicaid status, I think there\'s a plan here that gets you exactly what you\'re looking for."',
+    body: 'On three separate calls this week — Jennifer Russell, David Jeffrey Smith, and Frank Del — the call ended when a consumer refused the SSN or Medicare card. On all three, the Medicare card MBI pivot was available and never used. On David Smith, you had his name, DOB, and ZIP already — you could have tried a lookup right there. On Frank Del, you said "Okay, thank you" and accepted the call ending. On Jennifer Russell, you started to offer an alternative and she had already disconnected. The pre-frame is what prevents the refusal from happening in the first place.',
+    rule: 'The call is not over until the consumer hangs up. A refusal to one verification method is not a refusal to enroll.',
+    callRef: 'Frank Del said "I\'m not getting my social on the phone" at 6:56. German said "Okay, thank you." Frank was a willing switcher who said at 1:28 he would move to "anybody more" — and the call ended on a recoverable objection.',
+    moveLabel: 'Validate the fear. Offer the alternative. Keep the call alive.',
+    move: '"Frank, you don\'t need to give me your Social at all — and I should have been clearer about this earlier. Your Medicare card number is the official route. It\'s just letters and numbers, has nothing to do with your Social Security, and it\'s what Medicare itself uses. Is that red, white, and blue card somewhere you can grab? And while you look — I\'m already seeing plans in your zip with cards up to $380 a month."',
   },
   {
-    title: 'David said Medicaid — that opens a year-round enrollment window',
+    title: 'Value must be shown before data is asked for',
+    rc: 'RC3',
+    urgency: 'high' as const,
+    body: 'Frank Del told you at 0:46 he gets all his medications from the VA — which simplifies the entire pitch to one variable: who pays the most on the flex card. At 1:28 he said he would switch to "anybody more." At 1:33 he said he knew plans that go up to $438/month. You had his benchmark, his buying intent, and a simplified pitch — and you asked for data without showing him a single number first. When a consumer tells you their price point, show them a better number before you ask for anything.',
+    rule: null,
+    callRef: 'Frank said "anybody more" at 1:28. The response was "it just really varies on what\'s in your area." A specific number — "I\'m seeing plans up to $380 in your zip right now" — keeps him on the phone through verification.',
+    moveLabel: 'Show value first. Then ask for data.',
+    move: '"Frank, this is actually simple since your VA handles your meds. I just need to find the plan with the highest flex card in your zip. I\'m already seeing plans up to $380 a month versus your current $300 — that\'s $80 more every month, almost $1,000 a year. To lock in the exact number, I need about 30 seconds of info from you."',
+  },
+  {
+    title: 'Dual-eligible disclosure not converted to INT SEP and D-SNP conversation',
     rc: 'RC6',
     urgency: 'high' as const,
-    body: 'At 1:21, David confirmed Medicare and Medicaid. That\'s an INT SEP — he can switch plans any month of the year. He told you he was looking for extra benefits. He confirmed exactly the profile that a D-SNP is built for. Before the SSN question ever came up, you had a stronger enrollment angle sitting right there. Most agents pass this signal with a generic OTC mention. That\'s what happened here.',
+    body: 'David Jeffrey Smith confirmed at 1:21 that he has both Medicare and Medicaid. He said he was looking for extra benefits. That is a dual-eligible consumer with a year-round enrollment window — he can switch plans any month. Before the SSN question ever became the issue, you had the strongest enrollment angle on the call sitting right there. Instead, it was acknowledged with a generic OTC mention and the call moved to verification.',
     rule: null,
-    callRef: 'David said at 1:21: "I\'m 64 years old, I have Medicaid and Medicare. I\'m trying to see how I can get extra funding." You responded with a generic OTC card mention and moved on.',
+    callRef: 'David said "I\'m 64 years old, I have Medicaid and Medicare. I\'m trying to see how I can get extra funding." The response was a generic OTC card mention. The INT SEP and D-SNP conversation were never started.',
     moveLabel: 'Stop at the dual-eligibility disclosure. Ask the one question.',
-    move: '"Since you\'re on both Medicare and Medicaid, you may qualify for a special plan that covers more and costs you nothing — and I can enroll you any time of year, not just in October. Is the state paying your Part B premium for you?"',
-  },
-  {
-    title: 'Anchor the value before asking for the SSN',
-    rc: 'RC1',
-    urgency: 'medium' as const,
-    body: 'David didn\'t know what the SSN was going to get him. He knew it was a risk — and he had no reason established for why the risk was worth it. When you\'re moving toward verification on a dual-eligible consumer, give the consumer a reason to stay before you ask for the sensitive information. Without it, the SSN request is just a hurdle with nothing on the other side.',
-    rule: null,
-    callRef: 'The SSN request came before any benefit was named for David specifically. He had no picture of what he was being verified to receive.',
-    moveLabel: 'Give them a reason to hand it over.',
-    move: '"Mr. Smith, based on your Medicaid status, there may be a plan that covers your extra benefits at zero cost — but I need to confirm your identity to pull that up for you. Can I get your Medicare card number, or if you don\'t have that, your Social Security number works too."',
+    move: '"Since you have both Medicare and Medicaid, you may qualify for a special plan that covers more and costs you nothing — and I can enroll you any time of year, not just in October. Is the state paying your Part B premium for you?"',
   },
 ]
 
 const pastReports = [
-  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '42 / 100', active: true },
+  { title: 'Weekly Brief — April 15 (partial)', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '42 / 100', active: false },
+  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '47 / 100', active: true },
 ]
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -84,46 +98,77 @@ export default function GermanVivasPage() {
           </div>
           <h1 className={styles.agentName}>German Vivas</h1>
           <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 16 · 1 call reviewed (Wed)</p>
+          <p className={styles.updatedAt}>Updated April 20 · 4 calls reviewed</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(42) }}>42</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(47) }}>47</span>
             <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Wed · 1 call</span>
+            <span className={styles.scoreRange}>4 calls · Mon, Wed, Thu</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>1</span>
+            <span className={styles.scoreValue}>4</span>
             <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 15, 2026</span>
+            <span className={styles.scoreRange}>Apr 13–16, 2026</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0</span>
             <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>0 of 1 · 1 Incomplete</span>
+            <span className={styles.scoreRange}>3 Incomplete · 1 Missed</span>
           </div>
           <div className={styles.scoreCard}>
             <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC1</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>SSN surrender</span>
+            <span className={styles.scoreRange}>SSN refusal — no Medicare card pivot</span>
+          </div>
+        </motion.div>
+
+        {/* ── Platform Numbers ── */}
+        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
+          <div className={styles.scorecardRow}>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>0</span>
+              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
+              <span className={styles.scoreRange}>—% conversion</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--ink-60)' }}>
+                Not reported Apr 13–17
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue} style={{ color: 'var(--ink-60)' }}>N/A</span>
+              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
+              <span className={styles.scoreRange}>Cost per sale</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--ink-60)' }}>
+                Prior week: $709
+              </span>
+            </div>
+            <div className={styles.scoreCard}>
+              <span className={styles.scoreValue}>—</span>
+              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
+              <span className={styles.scoreRange}>Not in platform report</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
+                Prior week: 126 calls (104 billable)
+              </span>
+            </div>
           </div>
         </motion.div>
 
         {/* ── Executive Summary ── */}
         <motion.div className={styles.execSummary} {...SPRING}>
           <div className={styles.execSummaryInner}>
-            <p>One call is enough to see what you&apos;re working with — and this call shows real foundation. We&apos;re working through the one moment that ended it and two skills to build on top of what you already have.</p>
-            <p><strong>What&apos;s working:</strong> David stayed cooperative through name, middle name, and date of birth collection — he volunteered his middle name without being asked. That kind of trust in the opening doesn&apos;t happen by accident. You confirmed the callback number at 1:41 before verification even started — a move that matters more on short calls than long ones, because when a call ends fast, that number is your only path back. The trust broke at SSN and nowhere earlier. Your opening manner was working.</p>
-            <p><strong>What&apos;s costing you:</strong> the call came apart in a single moment at 4:01, and it didn&apos;t have to. When David refused the SSN, you had one pivot available — the Medicare card — and you had already set it up verbally when you told him there was another way. But when the moment arrived, you said &ldquo;I get it. Bye.&rdquo; The correction is one sentence. And the second thing this call reveals: David told you at 1:21 he has both Medicare and Medicaid and wants extra benefits — you had a year-round enrollment window sitting right there and moved past it.</p>
+            <p>Four calls this week — no confirmed enrollments, three incompletes, one missed opportunity. The same pattern ended three of the four calls: the consumer refused to give verification information and the call stopped. The pivot is available on every one of these calls. It just needs to be executed.</p>
+            <p><strong>What&apos;s working:</strong> the Lois Overton call shows what you can do when verification clears. You pulled her existing Devoted plan records from the system instead of collecting medications from scratch — that&apos;s efficient and professional. The drug cost moment landed right: &ldquo;$72 down to zero for all nine of your medications&rdquo; got an &ldquo;Oh, wow, you&apos;re awesome.&rdquo; That&apos;s the close signal and you had it. Your compliance execution through the opening is clean on all four calls — TPMO delivered, qualifying questions asked, callback numbers confirmed. That foundation is solid.</p>
+            <p><strong>What&apos;s costing you:</strong> three calls ended when a consumer declined the SSN or Medicare card, and on all three the Medicare card pivot was either unused or came too late. Frank Del said he would switch to &ldquo;anybody more&rdquo; and hung up when you accepted the SSN refusal without pivoting. David Smith said &ldquo;I don&apos;t trust you&rdquo; and the response was &ldquo;I get it. Bye.&rdquo; These are not lost leads — they are recoverable objections that ended because the pivot reflex isn&apos;t there yet. The entire correction is one sentence: &ldquo;You don&apos;t need to give me your Social — your Medicare card number is actually the safer route.&rdquo;</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a trust objection comes up, you have one bridge that keeps the call alive: &ldquo;I completely understand &mdash; I can pull you up with your Medicare card number instead. Do you have that nearby?&rdquo; That pivot gives the consumer a path forward without the friction. The call isn&apos;t over until you&apos;ve offered the alternative &mdash; assume they&apos;re enrolling.</p>
+          <p className={styles.oneThingText}>Every time a consumer hesitates on the SSN, your next sentence is automatic: &ldquo;You don&apos;t need to give me your Social at all &mdash; your Medicare card number is actually the safer route. It&apos;s just letters and numbers, has nothing to do with your Social Security. Is that red, white, and blue card nearby?&rdquo; Practice that sentence before your next shift. The call doesn&apos;t end until you&apos;ve offered the alternative &mdash; and then pushed for the enrollment.</p>
         </motion.div>
 
         {/* ── This Week's Calls ── */}
@@ -162,8 +207,8 @@ export default function GermanVivasPage() {
             </div>
           ))}
           <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>42 / 100</strong></span>
-            <span>Enrolled: <strong>0 of 1</strong></span>
+            <span>Week Average: <strong>47 / 100</strong></span>
+            <span>Enrolled: <strong>0 of 4</strong></span>
           </div>
         </motion.div>
 
@@ -171,8 +216,8 @@ export default function GermanVivasPage() {
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p><strong>The callback number confirmation at 1:41 was the right call — and it showed.</strong> You locked in David&apos;s number before verification even started. On a 4-minute call where the consumer hangs up, that number is everything. The instinct to secure it early is real, and on a longer call it becomes the difference between a dead lead and a booked appointment.</p>
-            <p><strong>You kept David engaged through the full opening phase.</strong> He stayed cooperative, answered every question, and volunteered his middle name at 3:05 to make sure you had the right person. The trust break happened at SSN — not before. Your opening manner was working. The pivot skillset we&apos;re building now is what turns 4-minute calls into 20-minute enrollments.</p>
+            <p><strong>The drug cost moment on the Lois Overton call landed exactly right.</strong> &ldquo;$72 down to zero for all nine of your medications&rdquo; — Lois said &ldquo;Oh, wow, you&apos;re awesome.&rdquo; That is the close signal. The way you delivered it — pulling directly from her existing Devoted account rather than collecting a medication list from scratch — was efficient and showed you know your tools. Reading from the system saves time and builds authority at the same moment.</p>
+            <p><strong>Your compliance execution through the opening is clean on every call.</strong> TPMO delivered, both qualifying questions asked, callback numbers confirmed — all before any data collection. That sequence is correct and consistent. The foundation is there. The skill we&apos;re adding on top of it now is the SSN recovery pivot, so the work you do in the first 90 seconds doesn&apos;t get thrown away at verification.</p>
           </div>
         </motion.div>
 
@@ -209,21 +254,21 @@ export default function GermanVivasPage() {
               <span className={styles.workOnNum}>01</span>
               <div>
                 <p className={styles.workOnTitle}>Have the SSN recovery script ready before every call</p>
-                <p className={styles.workOnDetail}>SSN refusals happen on nearly every call type. You need one sentence ready before you pick up the phone: &ldquo;No problem — I can try looking you up with your Medicare card number, or just your name and date of birth. I already have both. Let me see what comes up.&rdquo; You had David&apos;s name, DOB, and ZIP. You could have tried the lookup right then. Practice that sentence out loud before your next shift.</p>
+                <p className={styles.workOnDetail}>SSN refusals happen on multiple calls every week. You need one sentence ready before you pick up the phone: &ldquo;You don&apos;t need to give me your Social at all — your Medicare card number is the safer route. It&apos;s just letters and numbers, has nothing to do with your Social Security. Is that red, white, and blue card nearby?&rdquo; Practice it out loud before your next shift. When it becomes a reflex, you stop losing calls at verification.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>When they say Medicaid and Medicare — ask one question before moving on</p>
-                <p className={styles.workOnDetail}>At 1:21, David told you he had both. That is an INT SEP — he can enroll any month. The question you needed was: &ldquo;Is the state paying your Part B premium for you?&rdquo; If yes, you have a D-SNP conversation and a zero-premium plan that delivers exactly what he called in asking for. Every dual-eligible disclosure gets that question from now on.</p>
+                <p className={styles.workOnTitle}>Show a number before you ask for data</p>
+                <p className={styles.workOnDetail}>When a consumer tells you their buying intent — &ldquo;anybody more,&rdquo; &ldquo;I want extra benefits,&rdquo; &ldquo;I get $300 right now&rdquo; — deploy a partial comparison before you ask for verification: &ldquo;I&apos;m already seeing plans in your zip with cards up to $380 a month. To lock in the exact number for you, I need about 30 seconds.&rdquo; The value exchange has to happen before the data ask. Without it, verification feels like a wall instead of a step.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>Never say &ldquo;Bye&rdquo; in response to an objection</p>
-                <p className={styles.workOnDetail}>David said &ldquo;I don&apos;t trust you&rdquo; — and you said &ldquo;I get it. Bye.&rdquo; That tells the consumer they were right to hang up. The trust objection is one of the most common and most winnable objections on a Medicare call. Validate the fear first: &ldquo;I completely understand — I wouldn&apos;t give my social to a stranger either.&rdquo; Then offer the alternative. Never concede before you pivot.</p>
+                <p className={styles.workOnTitle}>When they say Medicaid and Medicare — ask one question before moving on</p>
+                <p className={styles.workOnDetail}>At 1:21, David told you he had both. That is an INT SEP — he can enroll any month. The question you need: &ldquo;Is the state paying your Part B premium for you?&rdquo; If yes, you have a D-SNP conversation and a zero-premium plan that delivers exactly what he called about. Every dual-eligible disclosure gets that question from now on — before you move to verification.</p>
               </div>
             </div>
           </div>
@@ -251,7 +296,7 @@ export default function GermanVivasPage() {
         {/* ── Footer ── */}
         <div className={styles.footer}>
           <p>The Certainty System · German Vivas · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC6 · SSN Recovery · INT SEP · D-SNP · Trust Objection</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC6 · SSN Recovery · INT SEP · D-SNP · Trust Objection · Value-Before-Data</p>
         </div>
 
       </div>
