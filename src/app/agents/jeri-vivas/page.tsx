@@ -130,34 +130,31 @@ export default function JeriVivasPage() {
           </div>
         </motion.div>
 
-        {/* ── Platform Numbers ── */}
-        <motion.div style={{ marginBottom: '48px' }} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Platform Numbers</h2>
-          <div className={styles.scorecardRow}>
-            <div className={styles.scoreCard}>
-              <span className={styles.scoreValue}>4</span>
-              <span className={styles.scoreLabel}>Sales — Apr 13–17</span>
-              <span className={styles.scoreRange}>4.65% conversion</span>
-              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
-                ↓ from 9 (7.76%)
-              </span>
+        {/* ── Performance Digest ── */}
+        <motion.div className={styles.section} {...SPRING}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '20px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Performance Digest</h2>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Weekly</span>
+          </div>
+          <div style={{ background: 'rgba(251,248,243,0.82)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.5)', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 20px', background: 'rgba(19,17,16,0.04)', borderBottom: '1px solid rgba(19,17,16,0.08)', gap: '12px' }}>
+              {(['Metric', 'Apr 6–10', 'Apr 13–17', 'Change'] as string[]).map(h => (
+                <span key={h} style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)' }}>{h}</span>
+              ))}
             </div>
-            <div className={styles.scoreCard}>
-              <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>$322</span>
-              <span className={styles.scoreLabel}>CPA — Apr 13–17</span>
-              <span className={styles.scoreRange}>Cost per sale</span>
-              <span style={{ fontSize: '0.75rem', fontWeight: 600, marginTop: 4, color: 'var(--terracotta)' }}>
-                ↑ from $193
-              </span>
-            </div>
-            <div className={styles.scoreCard}>
-              <span className={styles.scoreValue}>86</span>
-              <span className={styles.scoreLabel}>Total Calls — Apr 13–17</span>
-              <span className={styles.scoreRange}>67 billable</span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: 4 }}>
-                Prior week: 116 calls
-              </span>
-            </div>
+            {([
+              { metric: 'Sales',       prior: '9',     current: '4',      delta: '−5',        dir: 'down' },
+              { metric: 'Conversion',  prior: '7.76%', current: '4.65%',  delta: '−3.11pp',   dir: 'down' },
+              { metric: 'CPA',         prior: '$193',  current: '$322',   delta: '+$129',      dir: 'down' },
+              { metric: 'Total Calls', prior: '116',   current: '86',     delta: '−30',        dir: 'neutral' },
+            ] as Array<{ metric: string; prior: string; current: string; delta: string; dir: 'up' | 'down' | 'neutral' }>).map((row, i, arr) => (
+              <div key={row.metric} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '14px 20px', gap: '12px', alignItems: 'center', borderBottom: i < arr.length - 1 ? '1px solid rgba(19,17,16,0.08)' : 'none' }}>
+                <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
+                <span style={{ fontSize: '0.9375rem', fontVariantNumeric: 'tabular-nums', color: 'var(--ink-60)' }}>{row.prior}</span>
+                <span style={{ fontSize: '0.9375rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--ink)' }}>{row.current}</span>
+                <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: row.dir === 'up' ? 'var(--sage-dark)' : row.dir === 'down' ? 'var(--terracotta)' : 'var(--ink-60)' }}>{row.delta}</span>
+              </div>
+            ))}
           </div>
         </motion.div>
 
