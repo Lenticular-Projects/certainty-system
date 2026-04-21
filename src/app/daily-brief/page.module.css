@@ -1,0 +1,294 @@
+/* ============================================================
+   Daily Brief — Team Morning View
+   ============================================================ */
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header ── */
+.header { margin-bottom: 40px; }
+
+.headerMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.systemLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.dot { color: var(--ink-20); font-size: 0.75rem; }
+
+.pageTitle {
+  font-family: var(--font-playfair, Georgia, serif);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.period {
+  font-size: 1rem;
+  color: var(--ink-60);
+  margin-bottom: 4px;
+}
+
+.updatedAt {
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+  opacity: 0.7;
+}
+
+/* ── Score Strip ── */
+.scorecardRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 640px) {
+  .scorecardRow { grid-template-columns: repeat(2, 1fr); }
+}
+
+.scoreCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.scoreValue {
+  font-family: var(--font-playfair, Georgia, serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.scoreLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-top: 6px;
+}
+
+.scoreRange {
+  font-size: 0.75rem;
+  color: var(--ink-60);
+  opacity: 0.7;
+}
+
+/* ── Sections ── */
+.section { margin-bottom: 48px; }
+
+.sectionTitle {
+  font-family: var(--font-playfair, Georgia, serif);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: var(--rule-lt);
+}
+
+/* ── The One Thing ── */
+.oneThing {
+  background: var(--ink);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 48px;
+  box-shadow: var(--shadow-md);
+}
+
+.oneThingLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 10px;
+}
+
+.oneThingText {
+  font-family: var(--font-playfair, Georgia, serif);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: #FAF5EC;
+  font-style: italic;
+}
+
+/* ── What Worked Cards ── */
+.workedList { display: flex; flex-direction: column; gap: 12px; }
+
+.workedCard {
+  background: rgba(232, 245, 234, 0.75);
+  border: 1px solid rgba(102, 160, 110, 0.22);
+  border-left: 4px solid var(--sage);
+  border-radius: 12px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workedHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.workedBadge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--sage-tint);
+  color: var(--sage-dark);
+}
+
+.workedTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.workedDetail {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+}
+
+.workedExample {
+  background: rgba(255,255,255,0.55);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.workedExampleLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: 6px;
+}
+
+.workedExampleText {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink);
+  font-style: italic;
+}
+
+/* ── Pattern Cards (What Didn't Work) ── */
+.patternList { display: flex; flex-direction: column; gap: 12px; }
+
+.patternCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 12px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pattern_critical {
+  border: 1px solid rgba(224, 92, 52, 0.2);
+  border-left: 4px solid var(--terracotta);
+  background: rgba(252, 238, 233, 0.75);
+}
+
+.pattern_high {
+  border: 1px solid rgba(233, 184, 64, 0.18);
+  border-left: 4px solid var(--mustard);
+}
+
+.patternHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.urgencyBadge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.badge_critical { background: var(--tc-tint); color: var(--terracotta); }
+.badge_high { background: var(--mustard-tint); color: var(--mustard-dark); }
+
+.freqBadge {
+  font-size: 0.75rem;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
+.patternTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.patternDetail {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+}
+
+.patternMove {
+  background: rgba(255,255,255,0.55);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 4px;
+}
+
+.patternMoveLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: 6px;
+}
+
+.patternMoveText {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink);
+  font-style: italic;
+}
