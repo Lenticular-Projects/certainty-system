@@ -83,6 +83,22 @@ export const objections: Objection[] = [
         label: 'Maximize your benefits',
         text: '"That makes perfect sense, and I wouldn\'t want you to change anything — but there are gaps in your current policy. Keep in mind, my job is to maximize your benefits. Did I not help you find a plan that has stronger benefits than your current plan?"',
       },
+      {
+        label: 'I completely understand — not here to push',
+        text: '"I completely understand — and I\'m not here to push you into anything. I just want to make sure what you have right now is still the best option available to you. Let me show you the comparison and you can decide."',
+      },
+      {
+        label: 'That makes total sense — full picture',
+        text: '"That makes total sense. Change is hard, especially when it comes to your healthcare. Let me walk you through exactly what\'s different and what stays the same — so you have the full picture before you decide anything."',
+      },
+      {
+        label: 'My only goal',
+        text: '"I hear you. My only goal is to make sure you\'re getting everything you\'re entitled to. If what you have is already the best, I\'ll tell you that. But I want to make sure you know the number."',
+      },
+      {
+        label: 'Side by side — your call',
+        text: '"I completely understand. You\'ve had something that worked for you and you don\'t want to risk losing it — I respect that. Let me just show you the side-by-side. If it doesn\'t make sense for you, we close the call and you stay right where you are."',
+      },
     ],
     pillar: 'Reframing — early: adding not replacing; late: inaction now has a specific cost',
   },
@@ -675,6 +691,22 @@ export const objections: Objection[] = [
         label: 'Licensed agent, maximize frame',
         text: '"I completely understand why you\'d be careful — and that\'s a great question. I\'m a licensed, independent agent and I follow all Medicare rules. I can give you my State License Number so you can verify it. I\'m only here to confirm if you qualify for benefits you saw advertised, like the Part B Giveback. My focus is always helping you maximize your benefits safely and accurately."',
       },
+      {
+        label: 'I completely understand — I\'d be careful too',
+        text: '"I completely understand — and I\'d be careful too. I\'m a licensed Medicare insurance agent. Before you give me a single thing, let me show you what I already have pulled up for your area. If what I\'m seeing is real, you\'ll know I\'m in the right system."',
+      },
+      {
+        label: 'That\'s fair — verify me',
+        text: '"That\'s fair. I\'m not going to ask you to take my word for it. I\'m a licensed agent — I\'ll tell you exactly who I am and how you can verify it. If anything doesn\'t line up, you have every right to end the call."',
+      },
+      {
+        label: 'Right to be careful — only here to help',
+        text: '"I completely understand your concern. There are a lot of calls out there that aren\'t legitimate, and you\'re right to be careful. I\'m a licensed independent agent — and the only reason I\'m calling is to make sure you\'re getting every benefit you\'re entitled to."',
+      },
+      {
+        label: 'Not going to pressure you',
+        text: '"I hear you — and being cautious is the right instinct. I\'m not going to pressure you to do anything. Let me just share what I see available in your area and you can decide from there."',
+      },
     ],
     pillar: 'Persuasion — early: demonstrate before asking; late: point to what\'s already been verified on this call',
   },
@@ -1129,6 +1161,40 @@ export const objections: Objection[] = [
   },
 
   {
+    id: 'wont-give-medicare-number',
+    section: 'Trust & Credibility',
+    clientPhrase: '"I was told I shouldn\'t give out that number." / "I\'m not comfortable giving out my Medicare number." / "Why do you need that?"',
+    signal: 'red',
+    underneath: 'This is the first PII ask — the agent has requested the Medicare card number and the consumer is pushing back. This is a fear signal, not a refusal. The consumer was warned by someone they trust that Medicare numbers are sensitive. They are not saying no to the call — they are asking for a reason to trust you with something specific. The agent who responds with logic, an ultimatum, or over-validation loses the call at the most recoverable moment. Lead with empathy. State one reason. End on their benefit. Do not stack justifications.',
+    tags: ['Medicare number', 'Medicare card', 'red white blue card', 'shouldn\'t give out', 'not comfortable', 'why do you need', 'that number', 'don\'t want to give', 'told not to', 'protect my number', 'Medicare ID'],
+    doNotSay: [
+      '"Then I can\'t help you." — ultimatum; call ends immediately',
+      '"That\'s actually a smart instinct." — over-validation that sounds scripted; just say "You\'re right to be cautious" and move on',
+      'Stacking multiple justifications — one reason is enough; more sounds defensive',
+      'Explaining before acknowledging the emotion first',
+    ],
+    responses: [
+      {
+        label: 'Empathy first — benefit anchor',
+        text: '"You\'re right to be cautious. The only reason I ask is to confirm which plans in your area include that benefit you called in for — I just want to make sure we can get you the help you need."',
+      },
+      {
+        label: 'I completely understand',
+        text: '"I completely understand. The only reason I need that number is so the system can pull up exactly what you\'re eligible for in your zip code — so I can help you maximize your benefits. That\'s all this is."',
+      },
+      {
+        label: 'That makes total sense',
+        text: '"That makes total sense. All I\'m doing is using that number to look up your plan options — I\'m not storing it, sharing it, or using it for anything else. I just want to make sure you\'re able to find the plans so you can maximize your benefits."',
+      },
+      {
+        label: 'I completely understand your concern',
+        text: '"I completely understand your concern. The only reason I need it is to look inside the system and confirm what you qualify for — so we can make sure you\'re getting everything you\'re entitled to."',
+      },
+    ],
+    pillar: 'Reframing — empathy first, one reason, benefit anchor; the sequence is always: acknowledge the caution, state the purpose, end on what it does for them',
+  },
+
+  {
     id: 'wont-give-ssn',
     section: 'Trust & Credibility',
     clientPhrase: '"I don\'t want to give my social." / "I don\'t give out that kind of information." / "I\'ve been scammed before." / "My doctor / lawyer / son told me not to give out my social."',
@@ -1143,6 +1209,18 @@ export const objections: Objection[] = [
       'Asking for it a second time without repositioning the ask — now you are the person they were afraid of',
     ],
     responses: [
+      {
+        label: 'Empathy first — just another way',
+        text: '"You\'re right to be cautious. This is just another way I can pull you up — the only reason I need it is to verify your information so I can look up exactly what\'s available to you and make sure you\'re maximizing your benefits."',
+      },
+      {
+        label: 'I completely understand — help you the best way',
+        text: '"I completely understand. This is just another way I can get you pulled up in the system so we can see exactly what you qualify for. I want to make sure I can help you the best way possible."',
+      },
+      {
+        label: 'That\'s fair — get you the help you need',
+        text: '"That\'s fair. All I\'m going to do is use that to look up your information in the system — that\'s it. I just want to make sure we can get you the help you need and make sure you\'re not leaving anything on the table."',
+      },
       {
         label: '"I wouldn\'t ask if I didn\'t have to" — the core move',
         text: '"Honestly, if I didn\'t need it to help you, I wouldn\'t ask. The only reason I\'m asking is so I can verify your Medicare and see which benefits you actually qualify for — that\'s the whole reason you called in. My job is to make sure you\'re not leaving anything on the table."',
