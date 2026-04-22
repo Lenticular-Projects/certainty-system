@@ -567,3 +567,210 @@
   color: var(--ink-60);
   opacity: 0.6;
 }
+
+/* ══════════════════════════════════════════════════
+   v3 Architecture — New Sections
+   ══════════════════════════════════════════════════ */
+
+/* ── Trend Snapshot ── */
+.trendSnapshot {
+  margin-bottom: 48px;
+}
+
+.trendTable {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.trendHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 12px 20px;
+  background: rgba(19, 17, 16, 0.04);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+  gap: 12px;
+}
+
+.trendHeader span {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.trendRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 14px 20px;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.06);
+}
+
+.trendRow:last-of-type {
+  border-bottom: none;
+}
+
+.trendUp {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--sage-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.trendDown {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--terracotta);
+  font-variant-numeric: tabular-nums;
+}
+
+.trendNeutral {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-60);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Your Tells ── */
+.yourTells {
+  margin-bottom: 48px;
+}
+
+.tellsBlock {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tellsList {
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: var(--ink);
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+/* ── Patterns Grid ── */
+.patternsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .patternsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.patternColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.patternColumnHeader {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 0;
+  margin: 0 0 2px;
+}
+
+.patternColumnChronic {
+  color: var(--terracotta);
+}
+
+.patternColumnEmerging {
+  color: var(--mustard-dark);
+}
+
+.patternColumnResolved {
+  color: var(--sage-dark);
+}
+
+.patternCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 10px;
+  padding: 16px 18px;
+  border-left: 4px solid transparent;
+  box-shadow: var(--shadow-sm);
+  flex: 1;
+}
+
+.patternCardChronic {
+  border-left-color: var(--terracotta);
+  border: 1px solid rgba(224, 92, 52, 0.15);
+  border-left: 4px solid var(--terracotta);
+  background: rgba(252, 238, 233, 0.6);
+}
+
+.patternCardEmerging {
+  border-left-color: var(--mustard);
+  border: 1px solid rgba(233, 184, 64, 0.15);
+  border-left: 4px solid var(--mustard);
+}
+
+.patternCardResolved {
+  border-left-color: var(--sage);
+  border: 1px solid rgba(143, 175, 148, 0.2);
+  border-left: 4px solid var(--sage);
+  opacity: 0.75;
+}
+
+/* ── Collapsible Calls Toggle ── */
+.collapsibleCallsToggle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  background: rgba(19, 17, 16, 0.05);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.collapsibleCallsToggle:hover {
+  background: rgba(19, 17, 16, 0.09);
+  color: var(--ink);
+}
+
+/* ── Report History ── */
+.reportHistory {
+  margin-bottom: 48px;
+}
+
+.reportHistoryEntry {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.6;
+  cursor: default;
+  margin-bottom: 8px;
+}

@@ -580,3 +580,221 @@
   color: var(--ink-60);
 }
 
+/* ══════════════════════════════════════════════════════════════
+   v3 Architecture — Trend Snapshot
+   ══════════════════════════════════════════════════════════════ */
+
+.trendSnapshot {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 48px;
+  box-shadow: var(--shadow-sm);
+}
+
+.trendSnapshotHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.trendTable {
+  display: grid;
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(19, 17, 16, 0.08);
+}
+
+.trendHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 10px 16px;
+  background: rgba(19, 17, 16, 0.04);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+  gap: 12px;
+}
+
+.trendHeader span {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.trendRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 12px 16px;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.06);
+}
+
+.trendRow:last-child { border-bottom: none; }
+
+.trendUp {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--sage-dark);
+}
+
+.trendDown {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--terracotta);
+}
+
+.trendNeutral {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-60);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   v3 Architecture — Your Tells
+   ══════════════════════════════════════════════════════════════ */
+
+.yourTells {
+  margin-bottom: 48px;
+}
+
+.tellsBlock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 640px) {
+  .tellsBlock { grid-template-columns: 1fr; }
+}
+
+.tellsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tellsList li {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink);
+  padding-left: 14px;
+  position: relative;
+}
+
+.tellsList li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--ink-60);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   v3 Architecture — Patterns 3-column grid
+   ══════════════════════════════════════════════════════════════ */
+
+.patternsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .patternsGrid { grid-template-columns: 1fr; }
+}
+
+.patternColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.patternColumnHeader {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  border-bottom: 2px solid;
+  margin-bottom: 4px;
+}
+
+.patternCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 10px;
+  padding: 16px 18px;
+  border-left: 4px solid transparent;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   v3 Architecture — Collapsible Calls Toggle
+   ══════════════════════════════════════════════════════════════ */
+
+.collapsibleCallsToggle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  background: rgba(19, 17, 16, 0.05);
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.collapsibleCallsToggle:hover {
+  background: rgba(19, 17, 16, 0.09);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   v3 Architecture — Report History
+   ══════════════════════════════════════════════════════════════ */
+
+.reportHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reportHistoryEntry {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.6;
+  cursor: default;
+}
+

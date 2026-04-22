@@ -505,3 +505,200 @@
   color: var(--ink-60);
   opacity: 0.6;
 }
+
+/* ============================================================
+   v3 — CRM Trend Snapshot
+   ============================================================ */
+
+.trendSnapshot {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 48px;
+}
+
+.trendHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+}
+
+.trendTable {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(19, 17, 16, 0.08);
+}
+
+.trendRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 12px 16px;
+  gap: 12px;
+  align-items: center;
+}
+
+.trendUp {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--sage-dark);
+}
+
+.trendDown {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--terracotta);
+}
+
+.trendNeutral {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-60);
+}
+
+/* ============================================================
+   v3 — Your Tells
+   ============================================================ */
+
+.yourTells {
+  margin-bottom: 48px;
+}
+
+.tellsBlock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .tellsBlock { grid-template-columns: 1fr; }
+}
+
+.tellsBlock > div {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================================
+   v3 — Patterns Grid (3-column: Chronic / Emerging / Resolved)
+   ============================================================ */
+
+.patternsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .patternsGrid { grid-template-columns: 1fr; }
+}
+
+.patternColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.patternColumnHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-top: 3px solid transparent;
+  background: rgba(251, 248, 243, 0.82);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-top-width: 3px;
+  box-shadow: var(--shadow-sm);
+}
+
+.patternCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 10px;
+  padding: 16px 18px;
+  border-left: 4px solid transparent;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+
+/* ============================================================
+   v3 — Collapsible Calls Toggle
+   ============================================================ */
+
+.collapsibleCallsToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-60);
+  padding: 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.collapsibleCallsToggle:hover { color: var(--ink); }
+
+/* ============================================================
+   v3 — Empty Calls State
+   ============================================================ */
+
+.emptyCallsState {
+  background: rgba(251, 248, 243, 0.6);
+  border: 1px dashed rgba(19, 17, 16, 0.15);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+}
+
+/* ============================================================
+   v3 — Report History
+   ============================================================ */
+
+.reportHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reportHistoryEntry {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.6;
+  cursor: default;
+}
+
+.reportHistoryEntry.reportActive {
+  opacity: 1;
+  border-color: rgba(143, 175, 148, 0.4);
+  background: rgba(238, 243, 239, 0.85);
+}

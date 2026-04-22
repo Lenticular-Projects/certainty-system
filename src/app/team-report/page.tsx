@@ -1,108 +1,188 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
 import styles from './page.module.css'
 
-// ── Week-Over-Week Data ──────────────────────────────────────────────────────
+// ── Team Trend Snapshot ──────────────────────────────────────────────────────
 
-const wowMetrics = [
-  { metric: 'Team Average Score', prior: '56.6 / 100', current: '43 / 100', delta: '−13.6', dir: 'down' as const },
-  { metric: 'Calls Reviewed', prior: '128', current: '52', delta: '−76', dir: 'down' as const },
-  { metric: 'Enrollment Rate', prior: '32.8%', current: '0%', delta: '−32.8pp', dir: 'down' as const },
-  { metric: 'Missed Opportunities', prior: '34 / 128', current: '18 / 52', delta: '34.6%', dir: 'down' as const },
+const trendRows = [
+  {
+    metric: 'Sales',
+    lastWeek: '175',
+    thisPeriod: '93',
+    movement: '2-day vs. 5-day — pace is strong',
+    dir: 'neutral' as const,
+  },
+  {
+    metric: 'Conversion Rate',
+    lastWeek: '7.60%',
+    thisPeriod: '10.16%',
+    movement: '+2.56 pp',
+    dir: 'up' as const,
+  },
+  {
+    metric: 'Avg CPA',
+    lastWeek: '$171',
+    thisPeriod: '$108',
+    movement: '−$63',
+    dir: 'up' as const,
+  },
 ]
 
-// ── Agent Leaderboard — Week of April 13–15 ─────────────────────────────────
+// ── Agent Leaderboard — Apr 20–21 ────────────────────────────────────────────
 
-const agents = [
-  { name: 'Michelle Marrero', slug: 'michelle-marrero', score: 50, calls: 5, enrolled: 0, topFailure: 'Math surrender on close' },
-  { name: 'Trestan Daniel', slug: null, score: 44, calls: 3, enrolled: 0, topFailure: 'Handoff at close' },
-  { name: 'Tavares Smith', slug: 'tavares-smith', score: 47, calls: 6, enrolled: 0, topFailure: 'Emotional reframe missing' },
-  { name: 'German Vivas', slug: 'german-vivas', score: 42, calls: 1, enrolled: 0, topFailure: 'SSN surrender' },
-  { name: 'Josner Saintil', slug: 'josner-saintil', score: 40, calls: 2, enrolled: 0, topFailure: 'Medicaid SEP missed' },
-  { name: 'Ashley Whitehurst', slug: 'ashley-whitehurst', score: 44, calls: 6, enrolled: 0, topFailure: 'Passive exit accepted' },
-  { name: 'Rudy Schprejer', slug: 'rudy-schprejer', score: 44, calls: 9, enrolled: 0, topFailure: 'Callback surrender' },
-  { name: 'Alicia Moore Williams', slug: 'alicia-moore-williams', score: 44, calls: 7, enrolled: 0, topFailure: 'First objection surrender' },
-  { name: 'Natasha Jones', slug: 'natasha-jones', score: 42, calls: 4, enrolled: 0, topFailure: 'Close never attempted' },
-  { name: 'Ratika Kamboj', slug: 'ratika-kamboj', score: 36, calls: 3, enrolled: 0, topFailure: 'Lead qualification failure' },
-  { name: 'Marcus Hughes', slug: 'marcus-hughes', score: 35, calls: 6, enrolled: 0, topFailure: 'Client Gold never used' },
+type MovementDir = 'up' | 'down' | 'neutral' | 'new'
+
+interface Agent {
+  name: string
+  slug: string
+  calls: number
+  sales: number
+  conv: number | null   // null = no data
+  cpa: number | null
+  convLastWeek: number | null
+}
+
+const agentData: Agent[] = [
+  { name: 'Steeve Exalant',       slug: 'steeve-exalant',       calls: 45, sales: 11, conv: 24.44, cpa: 53,  convLastWeek: 13.19 },
+  { name: 'Marcus Hughes',        slug: 'marcus-hughes',        calls: 67, sales: 11, conv: 16.42, cpa: 69,  convLastWeek: 6.37 },
+  { name: 'Rudy Schprejer',       slug: 'rudy-schprejer',       calls: 31, sales: 6,  conv: 19.35, cpa: 58,  convLastWeek: 7.48 },
+  { name: 'Karimah Ali',          slug: 'karimah-ali',          calls: 39, sales: 6,  conv: 15.38, cpa: 50,  convLastWeek: 14.89 },
+  { name: 'Natasha Jones',        slug: 'natasha-jones',        calls: 42, sales: 6,  conv: 14.29, cpa: 88,  convLastWeek: 6.43 },
+  { name: 'Ashley Whitehurst',    slug: 'ashley-whitehurst',    calls: 58, sales: 7,  conv: 12.07, cpa: 94,  convLastWeek: 5.83 },
+  { name: 'Kazimierz Exio',       slug: 'kazimierz-exio',       calls: 16, sales: 2,  conv: 12.50, cpa: 73,  convLastWeek: null },
+  { name: 'Jean Pierre Riviere',  slug: 'jean-pierre-riviere',  calls: 46, sales: 5,  conv: 10.87, cpa: 71,  convLastWeek: 7.34 },
+  { name: 'Lawrence Morris',      slug: 'lawrence-morris',      calls: 59, sales: 6,  conv: 10.17, cpa: 110, convLastWeek: 10.83 },
+  { name: 'Michelle Marrero',     slug: 'michelle-marrero',     calls: 50, sales: 5,  conv: 10.00, cpa: 120, convLastWeek: 5.65 },
+  { name: 'Alicia Moore Williams',slug: 'alicia-moore-williams', calls: 29, sales: 3, conv: 10.34, cpa: 118, convLastWeek: 6.67 },
+  { name: 'Andres Duran',         slug: 'andres-duran',         calls: 56, sales: 5,  conv: 8.93,  cpa: 141, convLastWeek: 10.64 },
+  { name: 'Michael Fernandez',    slug: 'michael-fernandez',    calls: 48, sales: 4,  conv: 8.33,  cpa: 113, convLastWeek: null },
+  { name: 'German Vivas',         slug: 'german-vivas',         calls: 51, sales: 4,  conv: 7.84,  cpa: 126, convLastWeek: null },
+  { name: 'Tavares Smith',        slug: 'tavares-smith',        calls: 40, sales: 3,  conv: 7.50,  cpa: 154, convLastWeek: 5.43 },
+  { name: 'Guillermo Cruz',       slug: 'guillermo-cruz',       calls: 41, sales: 3,  conv: 7.32,  cpa: 155, convLastWeek: 4.76 },
+  { name: 'Josner Saintil',       slug: 'josner-saintil',       calls: 29, sales: 2,  conv: 6.90,  cpa: 134, convLastWeek: 4.90 },
+  { name: 'Manuel Medrano',       slug: 'manuel-medrano',       calls: 37, sales: 2,  conv: 5.41,  cpa: 231, convLastWeek: 12.96 },
+  { name: 'Rosina Klimoski',      slug: 'rosina-klimoski',      calls: 35, sales: 1,  conv: 2.86,  cpa: 430, convLastWeek: 6.09 },
+  { name: 'Ratika Kamboj',        slug: 'ratika-kamboj',        calls: 50, sales: 1,  conv: 2.00,  cpa: 547, convLastWeek: 5.17 },
+  { name: 'Robert Pegler',        slug: 'robert-pegler',        calls: 46, sales: 0,  conv: 0.00,  cpa: null, convLastWeek: 3.68 },
+  { name: 'Jeri Vivas',           slug: 'jeri-vivas',           calls: 0,  sales: 0,  conv: null,  cpa: null, convLastWeek: 4.65 },
+  { name: 'Trestan Daniel',       slug: 'trestan-daniel',       calls: 0,  sales: 0,  conv: null,  cpa: null, convLastWeek: 10.96 },
 ]
+
+type SortKey = 'sales' | 'conv'
+
+function getMovementDir(agent: Agent): MovementDir {
+  if (agent.conv === null) return 'neutral'
+  if (agent.convLastWeek === null) return 'new'
+  const diff = agent.conv - agent.convLastWeek
+  if (diff > 0.5) return 'up'
+  if (diff < -0.5) return 'down'
+  return 'neutral'
+}
+
+function MovementBadge({ agent }: { agent: Agent }) {
+  const dir = getMovementDir(agent)
+  if (dir === 'new') return <span className={styles.movNew}>NEW</span>
+  if (dir === 'up') {
+    const diff = (agent.conv! - agent.convLastWeek!).toFixed(1)
+    return <span className={styles.movUp}>↑ {diff}pp</span>
+  }
+  if (dir === 'down') {
+    const diff = Math.abs(agent.conv! - agent.convLastWeek!).toFixed(1)
+    return <span className={styles.movDown}>↓ {diff}pp</span>
+  }
+  return <span className={styles.movNeutral}>—</span>
+}
+
+function ConvCell({ agent }: { agent: Agent }) {
+  const dir = getMovementDir(agent)
+  if (agent.conv === null) return <span className={styles.cellMuted}>—</span>
+  const cls = dir === 'up' ? styles.convUp : dir === 'down' ? styles.convDown : ''
+  return <span className={cls}>{agent.conv.toFixed(2)}%</span>
+}
 
 // ── Patterns ─────────────────────────────────────────────────────────────────
 
 const patterns = [
   {
-    title: 'Accepting the first soft exit as a final answer',
+    title: 'DST compliance violations',
     urgency: 'critical' as const,
-    freq: '12 of 52 calls',
-    summary: '"That\'s okay, thank you." is not a no. A hard no is "I\'m not interested, please don\'t call me again." Everything else is a hesitation — and hesitations have a response. The team is treating soft exits as closed doors when they\'re open windows.',
-    move: '"Before you go — you mentioned [the specific thing they wanted]. Give me 60 more seconds and I\'ll show you exactly what it looks like. If it doesn\'t feel right, we hang up friends."',
-    moveLabel: 'When the soft exit comes:',
+    status: 'emerging' as const,
+    agents: 'Robert Pegler, Josner Saintil, Kazimierz Exio',
+    summary: 'Three agents proactively raised DST or cited it as a wrong SEP window this period. DST is not a qualifying event. Agents citing it to consumers creates audit exposure and erodes consumer trust when they ask questions the agent cannot answer.',
+    fix: 'When a consumer asks about plan timing, confirm their actual qualifying event (Medicaid status, recent move, loss of other coverage). Never volunteer DST as a reason to enroll.',
   },
   {
-    title: 'Consumer names the close — agent files it and moves on',
-    urgency: 'critical' as const,
-    freq: '8 of 52 calls',
-    summary: 'The consumer tells the agent the exact reason they called — a specific fear, a dollar figure, a benefit they want — and the agent acknowledges it and keeps presenting. The consumer\'s own words are the close. The agent\'s job is to say them back louder.',
-    move: '"[Name], you said [their exact words]. That\'s exactly why I want to get you set up today. [Plan name] is built for exactly that situation. Let me confirm your address so we can lock this in."',
-    moveLabel: 'When the consumer names the reason:',
-  },
-  {
-    title: 'Math that stops before it humanizes',
+    title: 'Math stops at the monthly figure',
     urgency: 'high' as const,
-    freq: '10 of 52 calls',
-    summary: '"$263 a month" does not hit the same way as "$3,156 a year — that\'s 25% of your monthly income back in your pocket." Agents are presenting numbers and stopping. The humanization step — connecting the dollar figure to the consumer\'s actual life — is what turns a presentation into a close.',
-    move: 'State the number → Annualize it → Connect it to something the consumer said → Ask: "Is there any reason we shouldn\'t lock that in today?"',
-    moveLabel: 'Three extra sentences:',
+    status: 'chronic' as const,
+    agents: 'Team-wide (second consecutive week)',
+    summary: 'Agents present "$X per month" and stop. The annualized number — "$X × 12 = $Y per year" — is the one that makes the consumer feel the impact. The third sentence, connecting that number to something the consumer said, is the one that closes.',
+    fix: 'State the monthly number → annualize it → connect it to what they told you. "That\'s $Y a year — and you said your medications run $Z, that\'s real money back in your pocket."',
   },
   {
-    title: 'SEP windows found but not used as urgency',
+    title: 'TPMO script errors',
     urgency: 'high' as const,
-    freq: '5 of 52 calls',
-    summary: 'SEPs create time-limited enrollment windows. When an agent identifies a SEP and names the window, every call has a reason to act today. When agents miss SEPs or find them and don\'t use them, there\'s no urgency — every call sounds like a plan the consumer can look at in October.',
-    move: '"Because you [moved / have Medicaid / qualify for this plan], you have a special enrollment window open right now. That window is time-limited. Your card is right there. Let\'s take care of this now."',
-    moveLabel: 'The SEP urgency frame:',
+    status: 'emerging' as const,
+    agents: 'Michelle Marrero ("I\'m Medicare") + others',
+    summary: 'TPMO compliance language requires agents to identify the organization they\'re calling from, not misrepresent affiliation with Medicare itself. "I\'m Medicare" is a script error that creates audit risk and can void an enrollment.',
+    fix: 'Always open with the TPMO-compliant identification: "This is [Name] with MegaCare Insurance, a licensed insurance agency." Never say "I\'m Medicare" or imply government affiliation.',
   },
 ]
 
-// ── Work On ──────────────────────────────────────────────────────────────────
+// ── Top Performers ────────────────────────────────────────────────────────────
 
-const workOn = [
+const topPerformers = [
+  { name: 'Steeve Exalant', slug: 'steeve-exalant', conv: '24.44%', sales: 11, cpa: '$53', note: '11 sales in 45 calls. Highest conversion rate on the team.' },
+  { name: 'Marcus Hughes',  slug: 'marcus-hughes',  conv: '16.42%', sales: 11, cpa: '$69', note: '11 sales in 67 calls. Biggest absolute sales volume, up from 6.37% last week.' },
+  { name: 'Karimah Ali',    slug: 'karimah-ali',    conv: '15.38%', sales: 6,  cpa: '$50', note: 'Lowest CPA on the team at $50. Consistent output, 2-week hold.' },
+]
+
+// ── Turnaround Focus ─────────────────────────────────────────────────────────
+
+const turnaround = [
   {
-    title: 'Before you let anyone go — ask one question',
-    detail: 'When a consumer gives you a soft exit, don\'t agree and don\'t argue. Ask: "Before you go — give me 60 seconds." That one question keeps the call alive. Nothing else required. Three of Marcus Hughes\'s April 15 calls ended on soft exits that were never challenged. None of those consumers hung up. None of them said no clearly.',
+    name: 'Robert Pegler',
+    slug: 'robert-pegler',
+    flag: '0 sales · 46 calls',
+    detail: '0.00% conversion across 46 calls this period. Call reviews flagged DST compliance issues. Needs immediate coaching on qualifying event identification and close structure.',
   },
   {
-    title: 'When they name a number — stop and write it down',
-    detail: 'Barbara Breach said $600/month in medications at 4:11. The call ran 30 more minutes and that number was never totaled into the comparison. Eric Warringer said "I\'d like a 5-star plan" at 9:21. That line was never referenced again. The consumer\'s words are the close. File them, use them.',
+    name: 'Ratika Kamboj',
+    slug: 'ratika-kamboj',
+    flag: '2.00% conversion',
+    detail: '1 sale from 50 calls. Down from 5.17% last week. Volume is there — the close is not landing. Review the last 5 calls for close timing and objection response.',
   },
   {
-    title: 'Three sentences finish the math: number → annualized → their life',
-    detail: 'Every agent on this team is getting to the math. No agent on this team is finishing it. "$263 a month" becomes a close when it becomes "$3,156 a year — and Eric, you\'re on $1,017/month SSDI, that\'s a 26% raise." The third sentence is the one that closes.',
-  },
-  {
-    title: 'Medicaid = ask two questions immediately',
-    detail: '"Is the state paying your Part B premium?" and "How long have you had Medicaid?" Those two questions open the D-SNP path, confirm INT SEP (open year-round), and create urgency where a normal call has none. German Vivas missed this on April 15. Josner Saintil missed it on the same day.',
+    name: 'Rosina Klimoski',
+    slug: 'rosina-klimoski',
+    flag: '2.86% conversion',
+    detail: '1 sale from 35 calls. Down from 6.09% last week. Two consecutive weeks of decline warrant a one-on-one session before the week closes.',
   },
 ]
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function ScoreColor({ score }: { score: number }) {
-  if (score >= 75) return <span style={{ color: 'var(--sage-dark)', fontWeight: 700 }}>{score}</span>
-  if (score >= 55) return <span style={{ color: 'var(--mustard-dark)', fontWeight: 700 }}>{score}</span>
-  return <span style={{ color: 'var(--terracotta)', fontWeight: 700 }}>{score}</span>
-}
-
 const fadeUp = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0 } }
 
+// ── Page ─────────────────────────────────────────────────────────────────────
+
 export default function TeamReportPage() {
-  const sortedAgents = [...agents].sort((a, b) => b.score - a.score)
+  const [sortBy, setSortBy] = useState<SortKey>('sales')
+
+  const sortedAgents = [...agentData].sort((a, b) => {
+    if (sortBy === 'sales') return b.sales - a.sales
+    const ac = a.conv ?? -1
+    const bc = b.conv ?? -1
+    return bc - ac
+  })
 
   return (
     <main className={styles.page}>
+
       {/* ── Header ── */}
       <motion.div
         className={styles.header}
@@ -117,8 +197,8 @@ export default function TeamReportPage() {
           <span className={styles.systemLabel}>Team Report</span>
         </div>
         <h1 className={styles.teamName}>MegaCare Team</h1>
-        <p className={styles.period}>Week of April 13–15, 2026</p>
-        <p className={styles.updatedAt}>Updated April 16, 2026</p>
+        <p className={styles.period}>Week of April 20–22, 2026</p>
+        <p className={styles.updatedAt}>Updated April 22, 2026</p>
       </motion.div>
 
       {/* ── Score Strip ── */}
@@ -130,28 +210,28 @@ export default function TeamReportPage() {
         transition={{ ...SPRING, delay: 0.05 }}
       >
         <div className={styles.scoreCard}>
-          <div className={`${styles.scoreValue} ${styles.scoreValueDown}`}>43</div>
-          <div className={styles.scoreLabel}>Week Average</div>
-          <div className={styles.scoreRange}>/ 100</div>
-          <span className={`${styles.scoreDelta} ${styles.deltaDown}`}>↓ 13.6 from last week</span>
+          <div className={`${styles.scoreValue} ${styles.scoreValueUp}`}>10.16%</div>
+          <div className={styles.scoreLabel}>Conversion Rate</div>
+          <div className={styles.scoreRange}>This Period (2 days)</div>
+          <span className={`${styles.scoreDelta} ${styles.deltaUp}`}>↑ 2.56pp from last week</span>
         </div>
         <div className={styles.scoreCard}>
-          <div className={styles.scoreValue}>52</div>
-          <div className={styles.scoreLabel}>Calls Reviewed</div>
-          <div className={styles.scoreRange}>3 days · 11 agents</div>
-          <span className={`${styles.scoreDelta} ${styles.deltaNeutral}`}>↓ from 128</span>
+          <div className={styles.scoreValue}>93</div>
+          <div className={styles.scoreLabel}>Sales</div>
+          <div className={styles.scoreRange}>2 days · 21 agents</div>
+          <span className={`${styles.scoreDelta} ${styles.deltaNeutral}`}>175 last week (5 days)</span>
         </div>
         <div className={styles.scoreCard}>
-          <div className={`${styles.scoreValue} ${styles.scoreValueDown}`}>0%</div>
-          <div className={styles.scoreLabel}>Enrollment Rate</div>
-          <div className={styles.scoreRange}>0 of 52 reviewed</div>
-          <span className={`${styles.scoreDelta} ${styles.deltaDown}`}>↓ from 32.8%</span>
+          <div className={`${styles.scoreValue} ${styles.scoreValueUp}`}>$108</div>
+          <div className={styles.scoreLabel}>Avg CPA</div>
+          <div className={styles.scoreRange}>This Period</div>
+          <span className={`${styles.scoreDelta} ${styles.deltaUp}`}>↓ $63 from $171 last week</span>
         </div>
         <div className={styles.scoreCard}>
-          <div className={styles.scoreValue}>50</div>
-          <div className={styles.scoreLabel}>Top Score</div>
-          <div className={styles.scoreRange}>Michelle Marrero</div>
-          <span className={`${styles.scoreDelta} ${styles.deltaNeutral}`}>↓ from 71.0 (Karimah Ali)</span>
+          <div className={`${styles.scoreValue} ${styles.scoreValueUp}`}>24.44%</div>
+          <div className={styles.scoreLabel}>Top Conversion</div>
+          <div className={styles.scoreRange}>Steeve Exalant</div>
+          <span className={`${styles.scoreDelta} ${styles.deltaUp}`}>↑ from 13.19% last week</span>
         </div>
       </motion.div>
 
@@ -165,35 +245,44 @@ export default function TeamReportPage() {
       >
         <span className={styles.oneThingLabel}>The One Thing</span>
         <p className={styles.oneThingText}>
-          The team found the close 18 times this week and took it zero times — not because the
-          plan was wrong or the consumer wasn't qualified, but because the moment arrived and no
-          one pushed through it. Every enrollment this week was lost in the last 90 seconds of a call.
+          Conversion up 2.56 points, CPA down $63 — the coaching is working.
+          The gap between the top three agents (15–24% conversion) and the bottom three (0–3%)
+          is now the story: this team has a ceiling problem, not a floor problem.
         </p>
       </motion.div>
 
-      {/* ── Week-Over-Week ── */}
+      {/* ── Team Trend Snapshot ── */}
       <motion.div
         className={styles.section}
         initial="hidden"
         animate="show"
         variants={fadeUp}
-        transition={{ ...SPRING, delay: 0.1 }}
+        transition={{ ...SPRING, delay: 0.10 }}
       >
-        <h2 className={styles.sectionTitle}>Week-Over-Week</h2>
-        <div className={styles.wowTable}>
-          <div className={styles.wowHeader}>
+        <h2 className={styles.sectionTitle}>Team Trend Snapshot</h2>
+        <p className={styles.sectionNote}>
+          Conversion and CPA compare directly. Sales counts reflect a 2-day vs. 5-day difference.
+        </p>
+        <div className={styles.trendTable}>
+          <div className={styles.trendHeader}>
             <span>Metric</span>
-            <span>Mar 30 – Apr 3</span>
-            <span>Apr 13–15</span>
-            <span>Change</span>
+            <span>Last Week (5 days)</span>
+            <span>This Period (2 days)</span>
+            <span>Movement</span>
           </div>
-          {wowMetrics.map((row) => (
-            <div key={row.metric} className={styles.wowRow}>
-              <span className={styles.wowMetric}>{row.metric}</span>
-              <span className={styles.wowValue}>{row.prior}</span>
-              <span className={styles.wowValueCurrent}>{row.current}</span>
-              <span className={`${styles.wowDelta} ${row.dir === 'down' ? styles.wowDown : styles.wowUp}`}>
-                {row.delta}
+          {trendRows.map((row) => (
+            <div key={row.metric} className={styles.trendRow}>
+              <span className={styles.trendMetric}>{row.metric}</span>
+              <span className={styles.trendPrior}>{row.lastWeek}</span>
+              <span className={styles.trendCurrent}>{row.thisPeriod}</span>
+              <span className={
+                (row.dir as string) === 'up'
+                  ? styles.trendUp
+                  : (row.dir as string) === 'down'
+                  ? styles.trendDown
+                  : styles.trendNeutral
+              }>
+                {row.movement}
               </span>
             </div>
           ))}
@@ -208,42 +297,64 @@ export default function TeamReportPage() {
         variants={fadeUp}
         transition={{ ...SPRING, delay: 0.12 }}
       >
-        <h2 className={styles.sectionTitle}>Agent Scores — April 13–15</h2>
+        <div className={styles.sectionTitleRow}>
+          <h2 className={styles.sectionTitle}>Agent Leaderboard — Apr 20–21</h2>
+          <div className={styles.sortToggle}>
+            <span className={styles.sortLabel}>Sort by</span>
+            <button
+              className={`${styles.sortBtn} ${sortBy === 'sales' ? styles.sortBtnActive : ''}`}
+              onClick={() => setSortBy('sales')}
+            >
+              Sales
+            </button>
+            <button
+              className={`${styles.sortBtn} ${sortBy === 'conv' ? styles.sortBtnActive : ''}`}
+              onClick={() => setSortBy('conv')}
+            >
+              Conv %
+            </button>
+          </div>
+        </div>
+
         <div className={styles.leaderTable}>
           <div className={styles.leaderHeader}>
             <span>Agent</span>
-            <span>Score</span>
             <span>Calls</span>
-            <span>Enrolled</span>
-            <span>Top Failure</span>
+            <span>Sales</span>
+            <span>Conv %</span>
+            <span>CPA</span>
+            <span>vs Last Week</span>
           </div>
           {sortedAgents.map((agent) => (
             <div key={agent.name} className={styles.leaderRow}>
               <span className={styles.agentName}>
-                {agent.slug ? (
-                  <Link href={`/agents/${agent.slug}`} className={styles.agentLink}>
-                    {agent.name}
-                  </Link>
-                ) : (
-                  agent.name
-                )}
+                <Link href={`/agents/${agent.slug}`} className={styles.agentLink}>
+                  {agent.name}
+                </Link>
               </span>
-              <span className={styles.leaderScore}>
-                <ScoreColor score={agent.score} />
+              <span className={styles.leaderCalls}>
+                {agent.calls > 0 ? agent.calls : <span className={styles.cellMuted}>—</span>}
               </span>
-              <span className={styles.leaderCalls}>{agent.calls}</span>
+              <span className={styles.leaderSales}>
+                {agent.sales > 0
+                  ? <strong>{agent.sales}</strong>
+                  : <span className={styles.cellMuted}>0</span>}
+              </span>
+              <span className={styles.leaderConv}>
+                <ConvCell agent={agent} />
+              </span>
+              <span className={styles.leaderCpa}>
+                {agent.cpa !== null ? `$${agent.cpa}` : <span className={styles.cellMuted}>—</span>}
+              </span>
               <span>
-                <span className={`${styles.pill} ${agent.enrolled > 0 ? styles.pillEnrolled : styles.pillZero}`}>
-                  {agent.enrolled > 0 ? agent.enrolled : '—'}
-                </span>
+                <MovementBadge agent={agent} />
               </span>
-              <span className={styles.leaderTopFailure}>{agent.topFailure}</span>
             </div>
           ))}
         </div>
       </motion.div>
 
-      {/* ── Patterns ── */}
+      {/* ── Top Performers ── */}
       <motion.div
         className={styles.section}
         initial="hidden"
@@ -251,7 +362,35 @@ export default function TeamReportPage() {
         variants={fadeUp}
         transition={{ ...SPRING, delay: 0.14 }}
       >
-        <h2 className={styles.sectionTitle}>Patterns This Week</h2>
+        <h2 className={styles.sectionTitle}>Top Performers — This Period</h2>
+        <div className={styles.topPerformers}>
+          {topPerformers.map((p, i) => (
+            <div key={p.slug} className={styles.topCard}>
+              <div className={styles.topRank}>{i + 1}</div>
+              <div className={styles.topBody}>
+                <div className={styles.topName}>
+                  <Link href={`/agents/${p.slug}`} className={styles.agentLink}>{p.name}</Link>
+                </div>
+                <div className={styles.topMetrics}>
+                  <span className={styles.topConv}>{p.conv}</span>
+                  <span className={styles.topMeta}>{p.sales} sales · {p.cpa} CPA</span>
+                </div>
+                <div className={styles.topNote}>{p.note}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ── Team Patterns ── */}
+      <motion.div
+        className={styles.section}
+        initial="hidden"
+        animate="show"
+        variants={fadeUp}
+        transition={{ ...SPRING, delay: 0.16 }}
+      >
+        <h2 className={styles.sectionTitle}>Team Patterns — This Period</h2>
         <div className={styles.priorityList}>
           {patterns.map((p) => (
             <div
@@ -262,45 +401,23 @@ export default function TeamReportPage() {
                 <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>
                   {p.urgency}
                 </span>
-                <span className={styles.freqBadge}>{p.freq}</span>
+                <span className={`${styles.statusBadge} ${styles[`status_${p.status}`]}`}>
+                  {p.status}
+                </span>
                 <span className={styles.priorityTitle}>{p.title}</span>
               </div>
+              <p className={styles.freqLine}>{p.agents}</p>
               <p className={styles.priorityDetail}>{p.summary}</p>
               <div className={styles.priorityMove}>
-                <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
-                <span className={styles.priorityMoveText}>{p.move}</span>
+                <span className={styles.priorityMoveLabel}>Correct move</span>
+                <span className={styles.priorityMoveText}>{p.fix}</span>
               </div>
             </div>
           ))}
         </div>
       </motion.div>
 
-      {/* ── Highest Leverage ── */}
-      <motion.div
-        className={styles.section}
-        initial="hidden"
-        animate="show"
-        variants={fadeUp}
-        transition={{ ...SPRING, delay: 0.16 }}
-      >
-        <h2 className={styles.sectionTitle}>Highest Leverage Call This Week</h2>
-        <div className={styles.highlightCard}>
-          <span className={styles.highlightLabel}>★ Call of the Week</span>
-          <span className={styles.highlightTitle}>
-            Michelle Marrero vs. John Pettipas — April 15, 2026 — Score: 68 / 100
-          </span>
-          <p className={styles.highlightDetail}>
-            The consumer agreed to enroll. 47 minutes of clean execution — full discovery,
-            doctor verification pivot, loyalty anchor to People's Health. The case was built
-            correctly and it worked. The close was lost to a single solvable math problem:
-            a giveback gap that created friction at the wrong moment. Every agent on this team
-            has the tools Michelle used on this call. The question is using them at the last 90
-            seconds — when it counts.
-          </p>
-        </div>
-      </motion.div>
-
-      {/* ── What to Work On ── */}
+      {/* ── Turnaround Focus ── */}
       <motion.div
         className={styles.section}
         initial="hidden"
@@ -308,15 +425,17 @@ export default function TeamReportPage() {
         variants={fadeUp}
         transition={{ ...SPRING, delay: 0.18 }}
       >
-        <h2 className={styles.sectionTitle}>What to Work On</h2>
-        <div className={styles.workOnList}>
-          {workOn.map((item, i) => (
-            <div key={item.title} className={styles.workOnCard}>
-              <span className={styles.workOnNum}>{i + 1}</span>
-              <div>
-                <div className={styles.workOnTitle}>{item.title}</div>
-                <div className={styles.workOnDetail}>{item.detail}</div>
+        <h2 className={styles.sectionTitle}>Turnaround Focus</h2>
+        <div className={styles.turnaroundList}>
+          {turnaround.map((t) => (
+            <div key={t.slug} className={styles.turnaroundCard}>
+              <div className={styles.turnaroundTop}>
+                <Link href={`/agents/${t.slug}`} className={`${styles.agentLink} ${styles.turnaroundName}`}>
+                  {t.name}
+                </Link>
+                <span className={styles.turnaroundFlag}>{t.flag}</span>
               </div>
+              <p className={styles.turnaroundDetail}>{t.detail}</p>
             </div>
           ))}
         </div>
@@ -326,7 +445,7 @@ export default function TeamReportPage() {
       <div className={styles.footer}>
         <span className={styles.footerLeft}>The Certainty System · MegaCare Insurance</span>
         <span className={styles.footerRight}>
-          Week of April 13–15, 2026 · Generated April 16, 2026
+          Week of April 20–22, 2026 · Updated April 22, 2026
         </span>
       </div>
     </main>

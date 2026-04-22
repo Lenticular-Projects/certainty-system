@@ -7,99 +7,140 @@ import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
 import styles from './page.module.css'
 
-// ── Weekly Brief: April 13–17, 2026 ─────────────────────────────────────────
-// Scores: Dennis Carroll 54, Francis Wardlaw 72, Lamar Bull 68,
-//         Unknown 5m25s 32, Unknown 6m47s 26,
-//         Annie Bellamy 52, Carol Kissinger 52, Lenny Thompson 64,
-//         Unknown 6m11s 28, Katherine Curtis 38, Joseph Rinaldi 36
-// Avg of 11 scored calls: (54+72+68+32+26+52+52+64+28+38+36) / 11 = 522/11 ≈ 48
+// ── Mid-Week Report: April 22, 2026 ──────────────────────────────────────────
+// CRM: Apr 13–17 → 6 sales · 6.67% conv · $206.50 CPA (90 calls / 68 billable)
+//       Apr 20–21 → 3 sales · 10.34% conv · $118.00 CPA (29 calls / 26 billable)
+// Reviewed: 2 calls (Apr 20) — Julie Shelton (CORRECT NO-SALE) + Paulette Daly (ENROLLED, 78)
 
+// ── Trend Snapshot data ───────────────────────────────────────────────────────
+const trendRows = [
+  {
+    metric: 'Sales',
+    lastWeek: '6',
+    thisPeriod: '3',
+    movement: '→ On pace',
+    dir: 'neutral' as const,
+    note: '3 in 2 days — on pace to match or beat last week',
+  },
+  {
+    metric: 'Conversion',
+    lastWeek: '6.67%',
+    thisPeriod: '10.34%',
+    movement: '↑ +3.67pp',
+    dir: 'up' as const,
+    note: 'Conversion up over 50%',
+  },
+  {
+    metric: 'CPA',
+    lastWeek: '$206.50',
+    thisPeriod: '$118.00',
+    movement: '↓ −$88.50',
+    dir: 'up' as const,
+    note: 'CPA dropping fast — better quality in fewer calls',
+  },
+]
+
+// ── Apr 20 reviewed calls ────────────────────────────────────────────────────
 const callsByDate = [
   {
-    date: 'Monday, April 13',
+    date: 'Monday, April 20',
     calls: [
-      { consumer: 'Unknown Consumer', duration: '5:25', score: 32, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-5m25s' },
-      { consumer: 'Unknown Consumer', duration: '6:47', score: 26, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m47s' },
-      { consumer: 'Dennis Carroll', duration: '7:49', score: 54, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — SEP missed, no presentation', type: 'The OTC Card Caller', href: '/agents/alicia-moore-williams/calls/dennis-carroll' },
-      { consumer: 'Francis Wardlaw', duration: '60:00', score: 72, outcome: 'INCOMPLETE', outcomeNote: 'D-SNP correction enrolled — call ran 60 min, no math assembled', type: 'D-SNP Correction', href: '/agents/alicia-moore-williams/calls/francis-wardlaw' },
-      { consumer: 'Lamar Bull', duration: '66:00', score: 68, outcome: 'INCOMPLETE', outcomeNote: 'D-SNP correction enrolled — call ran 66 min, Schedule II coverage unresolved', type: 'D-SNP Correction', href: '/agents/alicia-moore-williams/calls/lamar-bull' },
-    ],
-  },
-  {
-    date: 'Tuesday, April 14',
-    calls: [
-      { consumer: 'Annie L. Bellamy', duration: '13:04', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'SEP missed — never transitioned to presentation', type: 'The OTC Card Caller', href: '/agents/alicia-moore-williams/calls/annie-l-bellamy' },
-      { consumer: 'Carol Lynn Kissinger', duration: '16:59', score: 52, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/carol-lynn-kissinger' },
-      { consumer: 'Lenny A. Thompson', duration: '28:31', score: 64, outcome: 'CORRECT NO-SALE', outcomeNote: null, type: 'The Brand Loyalist', href: '/agents/alicia-moore-williams/calls/lenny-a-thompson' },
-      { consumer: 'Unknown Consumer', duration: '6:11', score: 28, outcome: 'MISSED OPPORTUNITY', outcomeNote: null, type: 'The Money Caller', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m11s' },
-    ],
-  },
-  {
-    date: 'Wednesday, April 15',
-    calls: [
-      { consumer: 'Katherine Curtis', duration: '60:00', score: 38, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Aetna objection surrendered — 60 min with no enrollment', type: 'The Chronic Caller', href: '/agents/alicia-moore-williams/calls/katherine-curtis' },
-    ],
-  },
-  {
-    date: 'Thursday, April 17',
-    calls: [
-      { consumer: 'Joseph Rinaldi', duration: '40:15', score: 36, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Consumer said yes at 14:39 — close attempted 20 min too late', type: 'Dual-Eligible Plan Upgrade', href: '/agents/alicia-moore-williams/calls/joseph-rinaldi' },
+      {
+        consumer: 'Julie Shelton',
+        duration: '64:32',
+        score: 0,
+        outcome: 'CORRECT NO-SALE',
+        outcomeNote: 'Network mismatch — all specialists out-of-network with only viable plan',
+        type: 'The Money Caller · Uncloseable',
+        href: '/agents/alicia-moore-williams/calls/julie-shelton',
+      },
+      {
+        consumer: 'Paulette Daly',
+        duration: '01:29:49',
+        score: 78,
+        outcome: 'ENROLLED',
+        outcomeNote: 'C-SNP via asthma · Devoted Health · May 1 effective · confirmation 07R9CW-NGH5',
+        type: 'The Food Card Caller · C-SNP Qualifier',
+        href: '/agents/alicia-moore-williams/calls/paulette-daly',
+      },
     ],
   },
 ]
 
-const patterns = [
+// ── Apr 13–17 archive calls (report history context) ─────────────────────────
+const archiveCalls = [
+  { consumer: 'Unknown Consumer (5:25)', score: 32, outcome: 'MISSED OPPORTUNITY', href: '/agents/alicia-moore-williams/calls/unknown-consumer-5m25s' },
+  { consumer: 'Unknown Consumer (6:47)', score: 26, outcome: 'MISSED OPPORTUNITY', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m47s' },
+  { consumer: 'Dennis Carroll', score: 54, outcome: 'INCOMPLETE', href: '/agents/alicia-moore-williams/calls/dennis-carroll' },
+  { consumer: 'Francis Wardlaw', score: 72, outcome: 'INCOMPLETE', href: '/agents/alicia-moore-williams/calls/francis-wardlaw' },
+  { consumer: 'Lamar Bull', score: 68, outcome: 'INCOMPLETE', href: '/agents/alicia-moore-williams/calls/lamar-bull' },
+  { consumer: 'Annie L. Bellamy', score: 52, outcome: 'INCOMPLETE', href: '/agents/alicia-moore-williams/calls/annie-l-bellamy' },
+  { consumer: 'Carol Lynn Kissinger', score: 52, outcome: 'INCOMPLETE', href: '/agents/alicia-moore-williams/calls/carol-lynn-kissinger' },
+  { consumer: 'Lenny A. Thompson', score: 64, outcome: 'CORRECT NO-SALE', href: '/agents/alicia-moore-williams/calls/lenny-a-thompson' },
+  { consumer: 'Unknown Consumer (6:11)', score: 28, outcome: 'MISSED OPPORTUNITY', href: '/agents/alicia-moore-williams/calls/unknown-consumer-6m11s' },
+  { consumer: 'Katherine Curtis', score: 38, outcome: 'MISSED OPPORTUNITY', href: '/agents/alicia-moore-williams/calls/katherine-curtis' },
+  { consumer: 'Joseph Rinaldi', score: 36, outcome: 'MISSED OPPORTUNITY', href: '/agents/alicia-moore-williams/calls/joseph-rinaldi' },
+]
+
+// ── v3 Patterns ───────────────────────────────────────────────────────────────
+const chronicPatterns = [
   {
-    title: 'When a consumer says yes at minute 14, close at minute 14 — not minute 34',
-    rc: 'RC1',
-    urgency: 'critical' as const,
-    body: 'Joseph Rinaldi said "Yes, it sounds interesting" at 14:39. That was the close signal. The response is: "Great — let me get you enrolled right now, it takes about five minutes and your new benefits start May 1st." Instead, Delisha spent 20 more minutes on verification. By the time she asked for the enrollment at 34:19, Joseph was exhausted and said no. The close window is not at the end of the call — it is the moment the consumer says yes. Everything after that either confirms the enrollment or bleeds the energy out of it.',
-    rule: 'When a consumer confirms interest, pivot to enrollment immediately. Every minute after the "yes" is a minute you can lose.',
-    callRef: 'Joseph Rinaldi at 14:39: "Yes, it does" (does it sound interesting to you?). Twenty minutes of continued verification followed. He declined at 34:19.',
-    moveLabel: 'Consumer confirms interest — close immediately:',
-    move: '"I\'m glad it sounds good — let me get you started right now. It takes about five minutes and your new benefits start May 1st. I just need to verify your doctor is in network and confirm your medications. Ready?"',
-  },
-  {
-    title: 'Emotional objections — find out what went wrong, don\'t add more math',
     rc: 'RC2',
-    urgency: 'high' as const,
-    body: 'The Katherine Curtis call ran a full hour. She had Medicaid, COPD, insulin-dependent diabetes, and was paying out of pocket for insulin on $500 a month — the highest-urgency lead in the system. The Aetna objection came up repeatedly and was answered with data each time. Data does not reach an emotional objection. When someone tells you they had a bad experience, the move is one specific question: "What went wrong?" Find out the exact complaint. Then either show it is fixed, or find a different plan.',
-    rule: null,
-    callRef: 'Katherine said she had Aetna before and it was terrible — multiple times. She never heard: "What went wrong with Aetna specifically? Because if it was a specific plan issue, this 2026 D-SNP is a different product. Tell me what happened."',
-    moveLabel: 'When the objection is a bad past experience with the same carrier:',
-    move: '"What went wrong with them? I want to know exactly what happened — because if it was something in the plan design, this 2026 D-SNP is structured differently. And if the same problem exists, I\'ll find you a different carrier. But I can\'t fix it until I know what it was."',
+    summary: 'Client Gold heard, math never delivered. Consumer names their deepest financial fear — you acknowledge the feeling, then move on without connecting the plan\'s dollar value to that specific fear.',
+    fix: 'Stop at the gold. Say it back with the number. "Ms. Daly, you said your mortgage takes your whole Social Security check. This card gives you $200 a month — that\'s $2,400 a year you can put toward utilities and rent. For $27.70 a month. That\'s the trade."',
   },
   {
-    title: 'D-SNP corrections are enrolled — but the math was never assembled',
-    rc: 'RC3',
-    urgency: 'medium' as const,
-    body: 'Francis Wardlaw and Lamar Bull were both corrected from C-SNP to D-SNP — real wins. But on neither call was the benefit difference assembled into a single number. Francis heard individual improvements named: $283 OTC, $4,000 dental, $0 ambulance. She never heard: "$283 a month is $3,396 a year. Plus $4,000 dental. You are getting thousands of dollars more in benefits, still on UnitedHealthcare." The enrollment happened — but the consumer left without understanding the full scope of what changed for her. That one sentence is the difference between a consumer who stays enrolled and one who gets talked out of it by a family member next week.',
-    rule: null,
-    callRef: 'Francis Wardlaw at 15:19 — OTC, dental, and ambulance savings named separately. Never assembled. "$7,000+ in annual improvements, still on UHC" was never said.',
-    moveLabel: 'After naming benefits individually — assemble them into a total:',
-    move: '"Between $283 a month in OTC — that\'s $3,396 a year — plus the $4,000 dental and zero ambulance instead of $275, we\'re talking over $7,000 in annual improvements. All still with the same UnitedHealthcare card you already have."',
+    rc: 'RC1',
+    summary: 'Call duration running 2–3x target. Both reviewed calls ran long due to extended holds, copay-by-copay benefit recitation, and post-enrollment HRA on live calls.',
+    fix: 'For motivated, low-complexity inbound callers: hit the 4 headlines in 3 sentences — food card amount, vision allowance, doctor in-network, monthly cost. Reserve the full benefit read for consumers who ask. Paulette\'s call was 90 min; same outcome was achievable in 35.',
   },
 ]
 
-const pastReports = [
+const emergingPatterns = [
+  {
+    rc: 'RC3',
+    summary: 'On the Paulette Daly call, the $200/month food card was the anchor — but no one annualized it. "$200 a month" sits smaller in the mind than "$2,400 a year." Step 2 was skipped on every comparison.',
+    fix: 'After stating the monthly benefit, close the math loop: "That\'s $2,400 a year." Three extra words. Do it every time, on every call, even when you think the consumer already gets it.',
+  },
+]
+
+const resolvedPatterns = [
+  {
+    rc: 'RC1',
+    summary: 'Close window missed on live yes (Apr 13–17 — Joseph Rinaldi said yes at 14:39, close came at 34:19). Not present in Apr 20 reviewed calls.',
+    fix: 'Resolved for now. The Paulette Daly close at 42:41 — "Dr. Julie was in-network, let\'s go ahead and get you enrolled" — was clean and correctly timed. Keep this.',
+  },
+]
+
+// ── Report History ────────────────────────────────────────────────────────────
+const reportHistory = [
   {
     active: true,
-    type: 'Weekly Brief',
-    title: 'Weekly Brief — April 13–17, 2026',
-    score: '48 / 100',
-    date: 'Apr 20, 2026',
+    date: 'Apr 22',
+    type: 'Mid-Week Report',
+    detail: 'Sales: 3 ↑ · CPA: $118 ↓',
+    score: '78 (Paulette Daly)',
+    period: 'April 20–22, 2026',
   },
   {
     active: false,
+    date: 'Apr 20',
     type: 'Weekly Brief',
-    title: 'Weekly Brief — April 13–14, 2026',
-    score: '56 / 100',
-    date: 'Apr 16, 2026',
+    detail: 'Sales: 6 · CPA: $207',
+    score: '48 avg',
+    period: 'April 13–17, 2026',
+  },
+  {
+    active: false,
+    date: 'Apr 16',
+    type: 'Weekly Brief',
+    detail: 'Sales: — · Mid-week',
+    score: '56 avg',
+    period: 'April 13–14, 2026',
   },
 ]
 
-// ── Helpers ─────────────────────────────────────────────────────────────────
-
+// ── Helpers ───────────────────────────────────────────────────────────────────
 function outcomeClass(outcome: string) {
   if (outcome === 'ENROLLED') return styles.pillEnrolled
   if (outcome === 'MISSED OPPORTUNITY') return styles.pillMissed
@@ -114,12 +155,12 @@ function scoreColor(score: number) {
   return 'var(--terracotta)'
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function AliciaMooreWilliamsPage() {
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(
-    Object.fromEntries(callsByDate.map((g, i) => [g.date, i === 0]))
-  )
-  const toggleGroup = (date: string) =>
-    setOpenGroups(p => ({ ...p, [date]: !p[date] }))
+  const [showAll, setShowAll] = useState(true) // only 2 calls — show all by default
+
+  const totalCalls = callsByDate.reduce((sum, g) => sum + g.calls.length, 0)
 
   return (
     <PageShell signal="green">
@@ -130,212 +171,260 @@ export default function AliciaMooreWilliamsPage() {
           <div className={styles.headerMeta}>
             <span className={styles.systemLabel}>The Certainty System</span>
             <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>Weekly Brief</span>
+            <span className={styles.systemLabel}>Mid-Week Report</span>
           </div>
           <h1 className={styles.agentName}>Alicia Moore Williams</h1>
-          <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 20 · 11 calls reviewed</p>
+          <p className={styles.period}>Week of April 20–22, 2026</p>
+          <p className={styles.updatedAt}>Updated April 22 · 2 calls reviewed (Apr 20)</p>
         </motion.div>
 
         {/* ── Score Strip ── */}
         <motion.div className={styles.scorecardRow} {...SPRING}>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(48) }}>48</span>
-            <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Apr 13–17 · 11 scored calls</span>
+            <span className={styles.scoreValue} style={{ color: scoreColor(78) }}>78</span>
+            <span className={styles.scoreLabel}>Certainty Score</span>
+            <span className={styles.scoreRange}>Paulette Daly · Apr 20</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>11</span>
-            <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 13–17, 2026</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>1 / 2</span>
+            <span className={styles.scoreLabel}>Enrolled</span>
+            <span className={styles.scoreRange}>1 correct no-sale</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>4</span>
-            <span className={styles.scoreLabel}>Missed Opportunity</span>
-            <span className={styles.scoreRange}>1 No-Sale · 4 Incomplete · 2 D-SNP</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>3</span>
+            <span className={styles.scoreLabel}>Sales This Period</span>
+            <span className={styles.scoreRange}>10.34% conv · $118 CPA</span>
           </div>
           <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC1</span>
+            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC2</span>
             <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Close window missed on live yes</span>
+            <span className={styles.scoreRange}>Client Gold heard, math skipped</span>
           </div>
         </motion.div>
 
-        {/* ── Performance Digest ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '20px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
-            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Performance Digest</h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Weekly</span>
+        {/* ── Trend Snapshot ── */}
+        <motion.div className={styles.trendSnapshot} {...SPRING}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>CRM Trend Snapshot</h2>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–21</span>
           </div>
-          <div style={{ background: 'rgba(251,248,243,0.82)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.5)', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 20px', background: 'rgba(19,17,16,0.04)', borderBottom: '1px solid rgba(19,17,16,0.08)', gap: '12px' }}>
-              {(['Metric', 'Apr 6–10', 'Apr 13–17', 'Change'] as string[]).map(h => (
-                <span key={h} style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)' }}>{h}</span>
-              ))}
+          <div className={styles.trendTable}>
+            <div className={styles.trendHeader}>
+              <span>Metric</span>
+              <span>Last Week</span>
+              <span>This Period</span>
+              <span>Movement</span>
             </div>
-            {([
-              { metric: 'Sales',       prior: '3',     current: '6',     delta: '+3',      dir: 'up' },
-              { metric: 'Conversion',  prior: '3.70%', current: '6.67%', delta: '+2.97pp', dir: 'up' },
-              { metric: 'CPA',         prior: '$342',  current: '$207',  delta: '−$135',   dir: 'up' },
-              { metric: 'Total Calls', prior: '81',    current: '90',    delta: '+9',      dir: 'neutral' },
-            ] as Array<{ metric: string; prior: string; current: string; delta: string; dir: 'up' | 'down' | 'neutral' }>).map((row, i, arr) => (
-              <div key={row.metric} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '14px 20px', gap: '12px', alignItems: 'center', borderBottom: i < arr.length - 1 ? '1px solid rgba(19,17,16,0.08)' : 'none' }}>
+            {trendRows.map((row) => (
+              <div key={row.metric} className={styles.trendRow}>
                 <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
-                <span style={{ fontSize: '0.9375rem', fontVariantNumeric: 'tabular-nums', color: 'var(--ink-60)' }}>{row.prior}</span>
-                <span style={{ fontSize: '0.9375rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--ink)' }}>{row.current}</span>
-                <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: row.dir === 'up' ? 'var(--sage-dark)' : row.dir === 'down' ? 'var(--terracotta)' : 'var(--ink-60)' }}>{row.delta}</span>
+                <span style={{ fontSize: '0.9375rem', color: 'var(--ink-60)', fontVariantNumeric: 'tabular-nums' }}>{row.lastWeek}</span>
+                <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--ink)', fontVariantNumeric: 'tabular-nums' }}>{row.thisPeriod}</span>
+                <span className={(row.dir as string) === 'up' ? styles.trendUp : (row.dir as string) === 'down' ? styles.trendDown : styles.trendNeutral}>
+                  {row.movement}
+                </span>
               </div>
             ))}
           </div>
-        </motion.div>
-
-        {/* ── Executive Summary ── */}
-        <motion.div className={styles.execSummary} {...SPRING}>
-          <div className={styles.execSummaryInner}>
-            <p>These are the calls we pulled this week where the conversation was alive — consumers who engaged, stayed on the line, and gave you real information to work with. What we are working through is what happened in the moments where the call could have moved forward and did not.</p>
-            <p><strong>What&apos;s working:</strong> you caught two D-SNP corrections this week — Francis Wardlaw and Lamar Bull were both on C-SNP plans when they qualified for D-SNPs, and you identified it, explained why it mattered, and moved them within the same carrier. That is a specific skill most agents never develop. The Lenny Thompson call was also read correctly: a QMB+ dual member who was already on the right plan, and you made the right exit without pushing. He complimented you by name.</p>
-            <p><strong>What&apos;s costing you:</strong> Joseph Rinaldi said &ldquo;yes, it sounds interesting&rdquo; at 14:39. Delisha spent 20 more minutes on verification. By the time she asked for the enrollment at 34:19, he was exhausted and said no. That call had an enrollment in it. The Katherine Curtis call ran 60 minutes against the highest-urgency lead profile in the system — insulin-dependent diabetic on $500 a month — and ended with no enrollment because the Aetna objection was answered with data instead of a question. The pattern this week is not knowledge. It is timing and emotional response at the close.</p>
-          </div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '12px', lineHeight: 1.6 }}>
+            3 sales in 2 days — on pace to match last week&apos;s 6. Conversion jumped from 6.67% to 10.34%. CPA cut from $206 to $118. <strong style={{ color: 'var(--sage-dark)' }}>BIG IMPROVER trajectory.</strong>
+          </p>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>You are finding the right plan on call after call &mdash; the D-SNP corrections prove it. The move that converts more is this: when a consumer says yes, close immediately. &ldquo;Great &mdash; I&apos;m going to get you set up right now. It takes five minutes and your benefits start May 1st.&rdquo; Do not keep building the case after you already have the yes. Assume they are saying yes, lock it in, and move.</p>
+          <p className={styles.oneThingText}>You are identifying the right plan and the right pathway — the C-SNP catch on Paulette Daly proves it. The move that converts more this week: when a consumer names their financial fear, stop and anchor the plan&apos;s dollar value to that exact fear before you move on. Paulette said her mortgage swallows her Social Security check. The plan puts $2,400 a year back in her pocket. That sentence was never said. Say it. &ldquo;You told me your mortgage takes everything &mdash; this card puts $2,400 a year back. That&rsquo;s the trade.&rdquo;</p>
         </motion.div>
 
-        {/* ── This Week&apos;s Calls ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>This Week&apos;s Calls</h2>
-          {callsByDate.map((group) => (
-            <div key={group.date} style={{ marginBottom: '1.5rem' }}>
-              <button onClick={() => toggleGroup(group.date)} className={styles.dateGroupToggle}>
-                <span>{group.date}</span>
-                <span className={styles.dateGroupMeta}>{group.calls.length} call{group.calls.length !== 1 ? 's' : ''}</span>
-                <span className={styles.dateGroupArrow}>{openGroups[group.date] ? '▲' : '▼'}</span>
-              </button>
-              {openGroups[group.date] && (
-                <div className={styles.callTable}>
-                  <div className={styles.callTableHeader}>
-                    <span>Consumer</span>
-                    <span>Duration</span>
-                    <span>Score</span>
-                    <span>Outcome</span>
-                    <span>Call Type</span>
-                  </div>
-                  {group.calls.map((call, i) => (
-                    <div key={i} className={styles.callRow}>
-                      <span className={styles.consumerName}>
-                        <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
-                          {call.consumer}
-                        </Link>
-                      </span>
-                      <span className={styles.callMeta}>{call.duration}</span>
-                      <span className={styles.callScore} style={{ color: call.score > 0 ? scoreColor(call.score) : 'var(--ink-60)' }}>
-                        {call.score > 0 ? call.score : '—'}
-                      </span>
-                      <span className={styles.outcomeCell}>
-                        <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
-                        {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
-                      </span>
-                      <span className={styles.callType}>{call.type}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-          <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>48 / 100</strong></span>
-            <span>Missed Opportunity: <strong>4 of 11</strong></span>
+        {/* ── Executive Summary ── */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <div className={styles.execSummaryInner}>
+            <p><strong>What&apos;s working:</strong> The CRM numbers are moving in the right direction — 10.34% conversion and $118 CPA in two days is real improvement over last week. On the Paulette Daly call, you caught the asthma C-SNP pathway at 10:34 — one of the more specific clinical identifications in this work — and built the entire presentation around the $200/month food card she called in for. You held the compliance line twice in the first 45 seconds when Paulette tried to skip the disclaimers. You confirmed the doctor in-network before committing to enrollment. The close at 42:41 was assumptive, clean, and correctly timed. On Julie Shelton, you correctly identified an unresolvable network barrier and didn&apos;t push past it — that&apos;s a correct no-sale, handled professionally.</p>
+            <p><strong>What&apos;s costing you:</strong> Paulette told you at 14:01 that her mortgage takes her whole Social Security check. That was the emotional close — it was sitting right there. You heard it, moved into plan research, and never came back to deploy the specific math against that specific fear. The food card was presented as a feature (&ldquo;$200 a month&rdquo;) instead of as a solution to the stated problem (&ldquo;$2,400 a year toward your rent and utilities — that&apos;s real money back on a fixed income&rdquo;). The enrollment happened because Paulette was motivated. The emotional lock that keeps a consumer enrolled and referring didn&apos;t happen. The second drag is call length — 90 minutes for a cooperative, one-doctor, C-SNP inbound lead is three times the target. The same outcome was achievable in 35 minutes. Every extra minute on that call was a minute you weren&apos;t available for the next one.</p>
           </div>
         </motion.div>
 
-        {/* ── What You Did Well ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>What You Did Well</h2>
-          <div className={styles.summaryCard}>
-            <p><strong>The D-SNP corrections on Monday were the strongest moves of the week.</strong> Francis Wardlaw and Lamar Bull were both sitting on C-SNP plans when they qualified for D-SNPs, and you caught it, explained the difference in plain language, and moved them to the right plan within UnitedHealthcare — the carrier they already trusted. On the Wardlaw call you correctly identified the unauthorized switch that had put her on the wrong plan and told her how to protect herself going forward. That is the kind of specific, protective expertise that builds long-term consumer loyalty.</p>
-            <p><strong>You read the Lenny Thompson call correctly.</strong> Twenty-eight minutes in, a QMB+ dual-eligible who had already moved to Humana voluntarily and was satisfied — you identified the wall, confirmed he was already on the right plan, and made the right exit without pushing. He complimented you by name. Correct no-sales are as important as enrollments when the situation calls for one. Knowing when to stop is a real skill.</p>
+        {/* ── Your Tells ── */}
+        <motion.div className={styles.yourTells} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Your Tells</h2>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            Needs more reviewed calls to surface the enrolled vs. missed behavioral delta — coming in the next full brief. Based on 2 reviewed calls this period (1 enrolled, 1 correct no-sale).
+          </p>
+          <div className={styles.tellsBlock}>
+            <p style={{ fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--sage-dark)', marginBottom: '10px' }}>On the call you closed (Paulette Daly)</p>
+            <ul style={{ fontSize: '0.875rem', lineHeight: 1.75, color: 'var(--ink)', paddingLeft: '1.25rem', margin: 0 }}>
+              <li>C-SNP pathway identified from chronic condition disclosure — asthma flagged correctly at 10:34</li>
+              <li>Compliance held under pressure — redirected two skip attempts in the first 45 seconds without apology</li>
+              <li>Doctor confirmation before close — network verified, address matched, then moved to enrollment</li>
+              <li>Signal-to-benefit bridge deployed — vision need at 30:15 returned to at 40:37 with $300 glasses benefit</li>
+              <li>Post-enrollment personal accountability anchor — texted license number and contact info</li>
+            </ul>
+          </div>
+          <div className={styles.tellsBlock} style={{ marginTop: '12px' }}>
+            <p style={{ fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--terracotta)', marginBottom: '10px' }}>Consistent gaps (both calls)</p>
+            <ul style={{ fontSize: '0.875rem', lineHeight: 1.75, color: 'var(--ink)', paddingLeft: '1.25rem', margin: 0 }}>
+              <li>Client Gold named, math not deployed — consumer reveals financial fear, you move on without connecting the dollar value to that fear</li>
+              <li>Annualization skipped — monthly number stated, annual figure never said</li>
+              <li>Call duration 2–3x target — rapport without an off-switch extends calls past the point of value</li>
+            </ul>
           </div>
         </motion.div>
 
-        {/* ── Patterns ── */}
+        {/* ── Patterns: Chronic / Emerging / Resolved ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Patterns This Week</h2>
-          <div className={styles.priorityList}>
-            {patterns.map((p, i) => (
-              <div key={i} className={`${styles.priorityCard} ${styles[`priority_${p.urgency}`]}`}>
-                <div className={styles.priorityHeader}>
-                  <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>
-                    {p.urgency === 'critical' ? 'CRITICAL' : p.urgency === 'high' ? 'HIGH PRIORITY' : 'OPPORTUNITY'}
-                  </span>
+          <h2 className={styles.sectionTitle}>Patterns</h2>
+          <div className={styles.patternsGrid}>
+
+            {/* Chronic */}
+            <div className={styles.patternColumn}>
+              <p className={`${styles.patternColumnHeader} ${styles.patternColumnChronic}`}>Chronic</p>
+              {chronicPatterns.map((p, i) => (
+                <div key={i} className={`${styles.patternCard} ${styles.patternCardChronic}`}>
                   <span className={styles.rcCode}>{p.rc}</span>
+                  <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'var(--ink)', margin: '6px 0' }}>{p.summary}</p>
+                  <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', fontStyle: 'italic', lineHeight: 1.6, borderTop: '1px solid rgba(19,17,16,0.08)', paddingTop: '8px', margin: 0 }}>
+                    <strong>Instead:</strong> {p.fix}
+                  </p>
                 </div>
-                <p className={styles.priorityTitle}>{p.title}</p>
-                <p className={styles.priorityDetail}>{p.body}</p>
-                {p.rule && <p className={styles.priorityRule}>{p.rule}</p>}
-                <p className={styles.priorityCallRef}>{p.callRef}</p>
-                <div className={styles.priorityMove}>
-                  <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
-                  <p className={styles.priorityMoveText}>{p.move}</p>
+              ))}
+            </div>
+
+            {/* Emerging */}
+            <div className={styles.patternColumn}>
+              <p className={`${styles.patternColumnHeader} ${styles.patternColumnEmerging}`}>Emerging</p>
+              {emergingPatterns.map((p, i) => (
+                <div key={i} className={`${styles.patternCard} ${styles.patternCardEmerging}`}>
+                  <span className={styles.rcCode}>{p.rc}</span>
+                  <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'var(--ink)', margin: '6px 0' }}>{p.summary}</p>
+                  <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', fontStyle: 'italic', lineHeight: 1.6, borderTop: '1px solid rgba(19,17,16,0.08)', paddingTop: '8px', margin: 0 }}>
+                    <strong>Instead:</strong> {p.fix}
+                  </p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Resolved */}
+            <div className={styles.patternColumn}>
+              <p className={`${styles.patternColumnHeader} ${styles.patternColumnResolved}`}>Resolved</p>
+              {resolvedPatterns.map((p, i) => (
+                <div key={i} className={`${styles.patternCard} ${styles.patternCardResolved}`}>
+                  <span className={styles.rcCode}>{p.rc}</span>
+                  <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'var(--ink)', margin: '6px 0' }}>{p.summary}</p>
+                  <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', fontStyle: 'italic', lineHeight: 1.6, borderTop: '1px solid rgba(19,17,16,0.08)', paddingTop: '8px', margin: 0 }}>
+                    {p.fix}
+                  </p>
+                </div>
+              ))}
+            </div>
+
           </div>
         </motion.div>
 
-        {/* ── What to Work On ── */}
+        {/* ── Calls (Collapsible) ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>What to Work On</h2>
-          <div className={styles.workOnList}>
-            <div className={styles.workOnCard}>
-              <span className={styles.workOnNum}>01</span>
-              <div>
-                <p className={styles.workOnTitle}>Close when the consumer says yes — not twenty minutes later</p>
-                <p className={styles.workOnDetail}>When a consumer confirms interest, the response is immediate: &ldquo;I&apos;m going to get you set up right now — it takes about five minutes and your benefits start May 1st.&rdquo; Do not continue building the case after you already have the yes. Continued verification after interest is confirmed bleeds the energy and gives the consumer time to change their mind. Joseph Rinaldi said yes at 14:39. The close came at 34:19. That is 20 minutes too late.</p>
-              </div>
-            </div>
-            <div className={styles.workOnCard}>
-              <span className={styles.workOnNum}>02</span>
-              <div>
-                <p className={styles.workOnTitle}>Emotional objections — ask what went wrong, do not add more math</p>
-                <p className={styles.workOnDetail}>The Katherine Curtis call ran 60 minutes against the highest-urgency lead in the system and ended with no enrollment. She raised the Aetna objection repeatedly. The response each time was data. Data does not reach a past bad experience. The one move that could have converted that call: &ldquo;What went wrong with Aetna? Tell me exactly what happened — because if it was a plan design issue, this 2026 D-SNP is structured differently. And if the same problem exists, I will find you a different carrier.&rdquo;</p>
-              </div>
-            </div>
-            <div className={styles.workOnCard}>
-              <span className={styles.workOnNum}>03</span>
-              <div>
-                <p className={styles.workOnTitle}>Assemble the math into one total before the close</p>
-                <p className={styles.workOnDetail}>On both D-SNP corrections this week, individual benefits were named but never assembled into a single number. A consumer who hears &ldquo;$283 OTC, $4,000 dental, zero ambulance&rdquo; cannot easily repeat that to a family member. A consumer who hears &ldquo;over $7,000 more in annual benefits, still on your same UnitedHealthcare card&rdquo; can. Assemble the total before you close — it is the sentence that protects the enrollment after you hang up.</p>
-              </div>
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Calls — April 20</h2>
+            <button
+              className={styles.collapsibleCallsToggle}
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll ? 'Show fewer ▴' : `Show all ${totalCalls} calls ▾`}
+            </button>
           </div>
+
+          {showAll && (
+            <>
+              {callsByDate.map((group) => (
+                <div key={group.date} style={{ marginBottom: '1.5rem' }}>
+                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
+                    {group.date}
+                  </p>
+                  <div className={styles.callTable}>
+                    <div className={styles.callTableHeader}>
+                      <span>Consumer</span>
+                      <span>Duration</span>
+                      <span>Score</span>
+                      <span>Outcome</span>
+                      <span>Call Type</span>
+                    </div>
+                    {group.calls.map((call, i) => (
+                      <div key={i} className={styles.callRow}>
+                        <span className={styles.consumerName}>
+                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
+                            {call.consumer}
+                          </Link>
+                        </span>
+                        <span className={styles.callMeta}>{call.duration}</span>
+                        <span className={styles.callScore} style={{ color: call.score > 0 ? scoreColor(call.score) : 'var(--ink-60)' }}>
+                          {call.score > 0 ? call.score : '—'}
+                        </span>
+                        <span className={styles.outcomeCell}>
+                          <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                          {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
+                        </span>
+                        <span className={styles.callType}>{call.type}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <div className={styles.callTableFooter}>
+                <span>Period Average: <strong>78 / 100</strong></span>
+                <span>Enrolled: <strong>1 of 2</strong></span>
+              </div>
+            </>
+          )}
         </motion.div>
 
-        {/* ── Reports ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Reports</h2>
+        {/* ── Report History ── */}
+        <motion.div className={styles.reportHistory} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Report History</h2>
           <div className={styles.reportList}>
-            {pastReports.map((r, i) => (
-              <div key={i} className={`${styles.reportCard} ${r.active ? styles.reportActive : ''}`}>
+            {reportHistory.map((r, i) => (
+              <div key={i} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
                 <div className={styles.reportLeft}>
-                  <span className={styles.reportType}>{r.type}</span>
-                  <span className={styles.reportTitle}>{r.title}</span>
+                  <span className={styles.reportType}>{r.date} · {r.type}</span>
+                  <span className={styles.reportTitle}>{r.period}</span>
                 </div>
                 <div className={styles.reportRight}>
-                  <span className={styles.reportScore}>{r.score}</span>
-                  <span className={styles.reportDate}>{r.date}</span>
+                  <span className={styles.reportScore}>{r.detail}</span>
+                  <span className={styles.reportDate}>{r.score}</span>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Archive calls reference — Apr 13–17 */}
+          <div style={{ marginTop: '24px', padding: '16px 20px', background: 'rgba(19,17,16,0.03)', borderRadius: '10px', border: '1px solid rgba(19,17,16,0.06)' }}>
+            <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '12px' }}>
+              Apr 13–17 Call Archive
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              {archiveCalls.map((c, i) => (
+                <Link
+                  key={i}
+                  href={c.href}
+                  style={{
+                    fontSize: '0.8125rem',
+                    color: c.outcome === 'ENROLLED' ? 'var(--sage-dark)' : c.outcome === 'CORRECT NO-SALE' ? 'var(--ink-60)' : 'var(--terracotta)',
+                    textDecoration: 'underline',
+                    textDecorationColor: 'rgba(19,17,16,0.2)',
+                    textUnderlineOffset: '3px',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {c.consumer} ({c.score})
+                </Link>
+              ))}
+            </div>
           </div>
         </motion.div>
 
         {/* ── Footer ── */}
         <div className={styles.footer}>
-          <p>The Certainty System · Alicia Moore Williams · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC3 · RC6 · D-SNP Correction · First Objection Reframe · Discovery-to-Present Gap</p>
+          <p>The Certainty System · Alicia Moore Williams · Week of April 20–22, 2026</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC2 · RC1 · RC3 · C-SNP Pathway · Client Gold · Math Annualization · Call Efficiency</p>
         </div>
 
       </div>

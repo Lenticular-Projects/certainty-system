@@ -4,109 +4,15 @@ import PageShell from '@/components/layout/PageShell'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
+import { useState } from 'react'
 import styles from './page.module.css'
 
-// ── Weekly Brief: April 13–17, 2026 + Coaching Session April 15 ─────────────
-// Scores: Glinda 53, Not Stated 4m14s 35, Not stated 6m26s 32, James Salvatore 78,
-//         Cynthia Nelson 62, Unknown 11m40s 57, Unknown 5m38s 42,
-//         Anthony Collins Sr 81, Elizabeth Ritchie 45, Unknown 17m22s 44
-// Avg: (53+35+32+78+62+57+42+81+45+44) / 10 = 529/10 = 53
+// ── Mid-Week Report: April 20–21, 2026 ────────────────────────────────────────
+// Scores: Dewey Baker 27 (MISSED OPP), Harold Metz 73 (ENROLLED), Freddie Taylor Jr. 76 (ENROLLED)
+// Period avg: (27+73+76)/3 = 58.7
+// CRM Apr 20–21: 40 calls · 34 billable · 3 sales · 7.50% · $154 CPA
 
-const callsByDate = [
-  {
-    date: 'Monday, April 13',
-    calls: [
-      { consumer: 'Glinda Robinson', duration: '53:44', score: 53, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Math humanization missing — insurance lady objection not reframed', type: 'Detail Staller / Scared Switcher', href: '/agents/tavares-smith/calls/glinda-robinson' },
-      { consumer: 'Not Stated', duration: '4:14', score: 35, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Passive exit — no callback booked', type: 'Commercial Myth Caller', href: '/agents/tavares-smith/calls/not-stated-4m14s' },
-      { consumer: 'Not Stated', duration: '6:26', score: 32, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Scam fear — logic reframe failed', type: 'Scared Switcher (New Enrollee)', href: '/agents/tavares-smith/calls/not-stated-6m26s' },
-      { consumer: 'James Salvatore', duration: '52:19', score: 78, outcome: 'ENROLLED', outcomeNote: 'D-SNP correction — UHC Dual Complete $256/mo OTC', type: 'Inbound OTC Seeker / Dual Eligible', href: '/agents/tavares-smith/calls/james-salvatore' },
-    ],
-  },
-  {
-    date: 'Tuesday, April 14',
-    calls: [
-      { consumer: 'Cynthia Nelson', duration: '18:23', score: 62, outcome: 'INCOMPLETE', outcomeNote: 'C-SNP path started — transcript ends before Phase VI', type: 'Benefit Seeker / C-SNP Candidate', href: '/agents/tavares-smith/calls/cynthia-nelson' },
-      { consumer: 'Unknown Consumer', duration: '11:40', score: 57, outcome: 'CORRECT NO-SALE', outcomeNote: 'POA required — daughter not available, correct exit', type: 'Gatekeeper Block', href: '/agents/tavares-smith/calls/unknown-consumer-11m40s' },
-      { consumer: 'Unknown Consumer', duration: '5:38', score: 42, outcome: 'MISSED OPPORTUNITY', outcomeNote: 'Scam resistance — "Trust me" reframe accelerated exit', type: 'Scam-Resistant Caller', href: '/agents/tavares-smith/calls/unknown-consumer-5m38s' },
-    ],
-  },
-  {
-    date: 'Wednesday, April 16',
-    calls: [
-      { consumer: 'Anthony Collins Sr.', duration: '42:01', score: 81, outcome: 'ENROLLED', outcomeNote: 'MCD SEP identified — Aetna PPO D-SNP, $210/mo OTC', type: 'OTC Card Seeker / Dual Eligible', href: '/agents/tavares-smith/calls/anthony-collins-sr' },
-    ],
-  },
-  {
-    date: 'Thursday, April 17',
-    calls: [
-      { consumer: 'Elizabeth Ritchie', duration: '9:12', score: 45, outcome: 'CORRECT NO-SALE', outcomeNote: 'UHC coverage concern at her doctor — correct exit', type: 'Brand Loyalist / Informed Decliner', href: '/agents/tavares-smith/calls/elizabeth-ritchie' },
-      { consumer: 'Unknown Consumer', duration: '17:22', score: 44, outcome: 'CORRECT NO-SALE', outcomeNote: 'Consumer pain episode — medical interruption, not agent failure', type: 'Warm Transfer / Dual Eligible', href: '/agents/tavares-smith/calls/unknown-consumer-17m22s' },
-    ],
-  },
-]
-
-const patterns = [
-  {
-    title: 'Loyalty and trust objections — find the question, don\'t replace the person',
-    rc: 'RC2',
-    urgency: 'critical' as const,
-    body: 'On the Glinda Robinson call, when she mentioned her insurance lady at 49:29, you offered to replace her. That is a logic move against a trust objection. She was not asking you to be her new agent. She was afraid of making the wrong decision. The move is one question: "What specific question were you hoping she could answer? I have the full plan details right here — let\'s see if I can answer it right now." If she can\'t name a question, the insurance lady objection dissolves. If she names one, you answer it. Either way, the call stays alive.',
-    rule: 'When you hear a trust or loyalty objection, find the question behind it. Never compete with the other person.',
-    callRef: 'Glinda Robinson at 49:29: "I\'m keeping my insurance until I talk to my insurance lady." Agent response: offered to be her dedicated agent. She exited. The right move: "What\'s the one question you\'d want to ask her? I can probably answer it right now."',
-    moveLabel: 'Consumer raises loyalty objection — find the question:',
-    move: '"That makes complete sense — it\'s smart to have someone you trust. What\'s the specific question you\'d want to ask her? I have the full plan details right here, and I can likely answer it right now so you have what you need."',
-  },
-  {
-    title: 'The math has three steps — you are stopping at two on every call',
-    rc: 'RC3',
-    urgency: 'high' as const,
-    body: 'You ran steps one and two correctly on the Glinda Robinson and Anthony Collins calls — comparison and annualization. Step three is where the close lives. On Glinda: "$2,880 more a year" was stated and then you moved on. The question that closes it: "You told me you live on a low income — what would an extra $240 a month for groceries and utilities mean for your budget?" That question is the difference between a number on a page and a decision a person makes. On James Salvatore, the $2,512 annual difference between his old plan and new was never stated. He was already enrolled before you gave him that number. Every dual-eligible call this week had a humanization missing.',
-    rule: null,
-    callRef: 'Glinda Robinson at 47:35 — annualized $2,880, moved on. Glinda\'s Client Gold at 2:23: "I live in a low income." Never connected. James Salvatore: $140 quarterly vs. $256 monthly = $2,512/year. Never stated.',
-    moveLabel: 'Annual figure stated — humanize immediately:',
-    move: '"Glinda, that\'s nearly $3,000 more in your pocket next year. You told me you\'re on a low income — what would an extra $240 a month for groceries and utilities do for your budget each month?"',
-  },
-  {
-    title: 'SEP identification is your strongest skill — invoke it, don\'t just note it',
-    rc: 'RC6',
-    urgency: 'medium' as const,
-    body: 'On the Anthony Collins Sr. call you correctly identified a Medicaid reinstatement (MCD SEP) at the 6-minute mark and used it to complete the enrollment. That is the system working exactly as designed. On the Unknown Consumer (11:40) call, he disclosed Medicaid at 2:46 — an INT SEP that is open any month for dual-eligible consumers — and you never acknowledged it, even as a callback anchor. The SEP identification skill is there. Invoking it explicitly, for the consumer\'s benefit, is the next level.',
-    rule: null,
-    callRef: 'Unknown Consumer (Waycross, 11:40) at 2:46: confirmed Medicaid. INT SEP window open. Was never named. Callback set without mentioning the enrollment authority available.',
-    moveLabel: 'Dual-eligible confirmed — name the SEP window:',
-    move: '"Because you have both Medicare and Medicaid, you have a Special Enrollment Period that\'s available to you any month of the year. You don\'t have to wait for open enrollment. This is a window that\'s open right now — let\'s make sure your daughter knows that when you talk to her tomorrow."',
-  },
-]
-
-const coachingSession = [
-  {
-    num: '01',
-    title: 'When the consumer mentions their agent: "What question would you want to ask her?"',
-    detail: '"That makes sense. What\'s the one question you\'d want to ask her? I have the full plan details right here — I can likely answer it right now." This shifts the dynamic: instead of you defending yourself, the consumer has to think. If they can\'t come up with a question, you\'ve made the case. Don\'t compete with the other agent — help the consumer feel like the question is already answered.',
-  },
-  {
-    num: '02',
-    title: 'Cut all permission-seeking language',
-    detail: 'No "if you want," no "regrettably," no "if you\'re interested." You\'re a licensed professional. Direct: "I need your full name, date of birth, and social." You corrected this mid-day Monday and people started giving the info up — keep going.',
-  },
-  {
-    num: '03',
-    title: 'Give context before asking for personal information',
-    detail: 'Educate on Medicare Advantage first: "With just Part A and Part B, you won\'t get any food card, OTC benefit, dental, or Part B give-back. Once I look up your account, I\'ll give you your Medicare number right now so you have it before your card arrives." Now the info request serves them, not just you.',
-  },
-  {
-    num: '04',
-    title: 'Frame what they\'re losing — loss aversion is twice as powerful as gain',
-    detail: '"You\'ve already been on the phone four minutes. If we take care of this now, you don\'t have to call back, navigate hold times, start from scratch. You can walk away with the benefit locked in." Frame the cost of inaction, not just the benefit of acting.',
-  },
-]
-
-const pastReports = [
-  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '53 / 100', active: true },
-  { title: 'Weekly Brief — April 13–15', type: 'Weekly Brief', date: 'Apr 16, 2026', score: '47 / 100', active: false },
-]
-
-// ── Helpers ─────────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────────────
 
 function outcomeClass(outcome: string) {
   if (outcome === 'ENROLLED') return styles.pillEnrolled
@@ -122,7 +28,152 @@ function scoreColor(score: number) {
   return 'var(--terracotta)'
 }
 
+// ── CRM Trend Data ────────────────────────────────────────────────────────────
+
+const trendRows = [
+  { metric: 'Sales',       prior: '5',      current: '3',       delta: '+3 (pace)',  dir: 'up'     as const },
+  { metric: 'Conversion',  prior: '5.43%',  current: '7.50%',   delta: '+2.07pp',    dir: 'up'     as const },
+  { metric: 'CPA',         prior: '$212',   current: '$154',     delta: '−$58',       dir: 'up'     as const },
+  { metric: 'Total Calls', prior: '92',     current: '40',       delta: '2 days',     dir: 'neutral' as const },
+]
+
+// ── Current Period Calls ──────────────────────────────────────────────────────
+
+const callsByDate = [
+  {
+    date: 'Monday, April 20',
+    calls: [
+      {
+        consumer: 'Dewey Baker',
+        duration: '8:00',
+        score: 27,
+        outcome: 'MISSED OPPORTUNITY',
+        outcomeNote: 'Loyal stayer — loyalty frame broken at 7:07, consumer hung up',
+        type: 'The Resistant Loyalist',
+        href: '/agents/tavares-smith/calls/dewey-baker',
+      },
+      {
+        consumer: 'Harold Metz',
+        duration: '41:25',
+        score: 73,
+        outcome: 'ENROLLED',
+        outcomeNote: 'OEPN — Devoted Choice Give Back 006 PPO, May 1 effective',
+        type: 'New-to-Medicare Mover',
+        href: '/agents/tavares-smith/calls/harold-metz',
+      },
+    ],
+  },
+  {
+    date: 'Tuesday, April 21',
+    calls: [
+      {
+        consumer: 'Freddie Taylor Jr.',
+        duration: '49:24',
+        score: 76,
+        outcome: 'ENROLLED',
+        outcomeNote: 'CSN — UHC Complete Care TX3P C-SNP, May 1 effective, 11/11 meds covered',
+        type: 'The Chronic Condition Pivot',
+        href: '/agents/tavares-smith/calls/freddie-taylor',
+      },
+    ],
+  },
+]
+
+// ── YOUR TELLS — enrolled vs. missed delta ────────────────────────────────────
+
+const enrolledTells = [
+  'C-SNP pivot executed in under 3 minutes (Freddie Taylor — 9:13)',
+  'Plan pivot handled without hesitation when lead plan fell through (Harold Metz — 11:49)',
+  'Medicaid/give-back nuance explained correctly — prevented two compliance errors',
+  '11/11 medications confirmed on Freddie\'s call — formulary thoroughness that keeps enrollments from reversing',
+  'Post-enrollment loyalty anchor delivered on both enrolled calls — competitor proofing',
+]
+
+const missedTells = [
+  'Loyalty frame established at 1:37 — then broken by the agent at 7:07 (Dewey Baker)',
+  'C-SNP signal missed at 6:17: diabetes + hypertension disclosed, never connected to enrollment pathway',
+  'Math abandoned after Social Security pivot on Harold — no replacement numbers built',
+  'Client Gold not deployed on either enrolled call: Harold\'s stability moment (9:51), Freddie\'s pain (32:11), table full of medicines (17:30)',
+  'Excessive hold time on both enrolled calls: ~15 min dead air on Freddie, ~4 min on Harold',
+]
+
+// ── Patterns — Chronic · Emerging · Resolved ─────────────────────────────────
+
+const chronicPatterns = [
+  {
+    title: 'Client Gold heard — not deployed',
+    rc: 'RC2',
+    urgency: 'critical' as const,
+    summary: 'All three calls this period had clear emotional anchors that went unused. Dewey\'s conditions at 6:17, Harold\'s stability moment at 9:51, Freddie\'s pain at 32:11.',
+    fix: 'When a consumer gives you their real situation — pain, instability, a table full of drugs — pause and reflect it back before moving on.',
+  },
+  {
+    title: 'Math stops at step two every time',
+    rc: 'RC3',
+    urgency: 'high' as const,
+    summary: 'The annualization happens but the humanization doesn\'t. Harold: $1,920/year stated, then abandoned. Freddie: $360/year specialist savings never said out loud.',
+    fix: 'After every annual figure, ask the one question that makes it real: "What does that mean for your budget?" or "What would $360 back in your pocket do for you?"',
+  },
+]
+
+const emergingPatterns = [
+  {
+    title: 'C-SNP identification is getting sharper',
+    rc: 'RC6',
+    urgency: 'medium' as const,
+    summary: 'Freddie\'s C-SNP pivot at 9:13 was fast and correct. Dewey\'s CSN miss (6:17) shows it\'s not automatic yet — but the skill is developing.',
+    fix: 'Treat every chronic condition disclosure as an immediate CSN SEP check. Diabetes alone opens the window year-round.',
+  },
+  {
+    title: 'Call length creeping on enrolled calls',
+    rc: 'RC1',
+    urgency: 'high' as const,
+    summary: 'Harold: 41 min. Freddie: 49 min against a 30-min target. Both should have enrolled in 30. Hold time is the primary driver — not the consumer.',
+    fix: 'Pre-load Medicare lookup, doctor network, and formulary tools before you dial. Every hold over 60 seconds needs a verbal bridge.',
+  },
+]
+
+const resolvedPatterns = [
+  {
+    title: 'Compliance culture — framing boilerplate as burden',
+    rc: 'RC4',
+    urgency: 'medium' as const,
+    summary: 'Harold Metz call had "I don\'t know why the government makes us do it" at 31:28. No recurrence on Freddie\'s call.',
+    fix: 'Resolved this period. Continue framing disclosures as consumer protection.',
+  },
+]
+
+// ── Past Reports ──────────────────────────────────────────────────────────────
+
+const pastReports = [
+  {
+    title: 'Mid-Week Report — April 22, 2026',
+    type: 'Mid-Week',
+    date: 'Apr 22, 2026',
+    meta: 'Sales: 3 ↑ · CPA: $154 ↓',
+    active: true,
+  },
+  {
+    title: 'Weekly Brief — April 13–17',
+    type: 'Weekly Brief',
+    date: 'Apr 20, 2026',
+    meta: 'Avg: 53 / 100 · 10 calls',
+    active: false,
+  },
+  {
+    title: 'Weekly Brief — April 13–15',
+    type: 'Weekly Brief',
+    date: 'Apr 16, 2026',
+    meta: 'Avg: 47 / 100',
+    active: false,
+  },
+]
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function TavaresSmithPage() {
+  const [callsExpanded, setCallsExpanded] = useState(true)
+
   return (
     <PageShell signal="green">
       <div className={styles.page}>
@@ -132,152 +183,249 @@ export default function TavaresSmithPage() {
           <div className={styles.headerMeta}>
             <span className={styles.systemLabel}>The Certainty System</span>
             <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>Weekly Brief</span>
+            <span className={styles.systemLabel}>Mid-Week Report</span>
           </div>
           <h1 className={styles.agentName}>Tavares Smith</h1>
-          <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 20 · 10 calls reviewed + coaching session Apr 15</p>
+          <p className={styles.period}>Week of April 20–22, 2026</p>
+          <p className={styles.updatedAt}>Updated April 22 · 3 calls reviewed</p>
         </motion.div>
 
-        {/* ── Score Strip ── */}
-        <motion.div className={styles.scorecardRow} {...SPRING}>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(53) }}>53</span>
-            <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Apr 13–17 · 10 calls</span>
+        {/* ── Trend Snapshot ── */}
+        <motion.div className={styles.trendSnapshot} {...SPRING}>
+          <div className={styles.trendSnapshotHeader}>
+            <span className={styles.systemLabel}>CRM Trend Snapshot</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 500 }}>vs. Last Week (Apr 13–17)</span>
           </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>10</span>
-            <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 13–17, 2026</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
-            <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>4 Missed · 1 Incomplete · 3 No-Sale</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC2</span>
-            <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Logic vs. emotion — 3 calls</span>
-          </div>
-        </motion.div>
-
-        {/* ── Performance Digest ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '20px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
-            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Performance Digest</h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Weekly</span>
-          </div>
-          <div style={{ background: 'rgba(251,248,243,0.82)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.5)', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 20px', background: 'rgba(19,17,16,0.04)', borderBottom: '1px solid rgba(19,17,16,0.08)', gap: '12px' }}>
-              {(['Metric', 'Apr 6–10', 'Apr 13–17', 'Change'] as string[]).map(h => (
-                <span key={h} style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)' }}>{h}</span>
-              ))}
+          <div className={styles.trendTable}>
+            <div className={styles.trendHeader}>
+              <span>Metric</span>
+              <span>Apr 13–17</span>
+              <span>Apr 20–21</span>
+              <span>Change</span>
             </div>
-            {([
-              { metric: 'Sales',       prior: '2',     current: '5',      delta: '+3',       dir: 'up' },
-              { metric: 'Conversion',  prior: '1.94%', current: '5.43%',  delta: '+3.49pp',  dir: 'up' },
-              { metric: 'CPA',         prior: '$550',  current: '$212',   delta: '−$338',    dir: 'up' },
-              { metric: 'Total Calls', prior: '103',   current: '92',     delta: '−11',      dir: 'neutral' },
-            ] as Array<{ metric: string; prior: string; current: string; delta: string; dir: 'up' | 'down' | 'neutral' }>).map((row, i, arr) => (
-              <div key={row.metric} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '14px 20px', gap: '12px', alignItems: 'center', borderBottom: i < arr.length - 1 ? '1px solid rgba(19,17,16,0.08)' : 'none' }}>
-                <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
-                <span style={{ fontSize: '0.9375rem', fontVariantNumeric: 'tabular-nums', color: 'var(--ink-60)' }}>{row.prior}</span>
-                <span style={{ fontSize: '0.9375rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--ink)' }}>{row.current}</span>
-                <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: row.dir === 'up' ? 'var(--sage-dark)' : row.dir === 'down' ? 'var(--terracotta)' : 'var(--ink-60)' }}>{row.delta}</span>
-              </div>
-            ))}
+            {trendRows.map((row) => {
+              const deltaClass = (row.dir as string) === 'up' ? styles.trendUp : row.dir === 'neutral' ? styles.trendNeutral : styles.trendDown
+              return (
+                <div key={row.metric} className={styles.trendRow}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
+                  <span style={{ fontSize: '0.9375rem', fontVariantNumeric: 'tabular-nums', color: 'var(--ink-60)' }}>{row.prior}</span>
+                  <span style={{ fontSize: '0.9375rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--ink)' }}>{row.current}</span>
+                  <span className={deltaClass}>{row.delta}</span>
+                </div>
+              )
+            })}
           </div>
-        </motion.div>
-
-        {/* ── Executive Summary ── */}
-        <motion.div className={styles.execSummary} {...SPRING}>
-          <div className={styles.execSummaryInner}>
-            <p>This is the full week&apos;s picture — ten calls, two enrollments, three correct no-sales, and a coaching session. The range this week shows exactly where the system is working and where it is breaking down.</p>
-            <p><strong>What&apos;s working:</strong> two clean enrollments at the top of the range. James Salvatore at 78 — you correctly identified he was on the wrong plan from day one, found the right D-SNP, and used that framing (&ldquo;you should have been on this from the beginning&rdquo;) to close him. Anthony Collins Sr. at 81 — you caught the MCD SEP at the 6-minute mark from a casual mention of a hospitalization, and used it to enroll him on a plan that tripled his OTC benefit. Two SEP identifications in one week. That is exactly the skill this system is built on.</p>
-            <p><strong>What&apos;s costing you:</strong> on three calls this week a consumer pushed back emotionally and you responded with logic. Glinda Robinson&apos;s insurance lady objection got a replacement offer instead of a question. The two scam-resistant callers got reassurances instead of validation. None of those responses addressed what the consumer was feeling. Additionally, the math breakdown was completed through step two on the high-scoring calls but never to step three — the humanization that makes the number mean something. Those two patterns, applied consistently across the week, are the gap between 53 and 65.</p>
-          </div>
+          <p style={{ fontSize: '0.75rem', color: 'var(--sage-dark)', fontWeight: 600, marginTop: '12px' }}>
+            3 sales in 2 days — on pace to beat last week&apos;s 5. Conversion up 2.07pp. CPA down $58. The adjustment is working.
+          </p>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>The SEP identification skill is real &mdash; you caught the MCD on Anthony Collins at 6 minutes and closed him at 81. The move that takes James Salvatore from 78 to 85 and closes Glinda Robinson is step three of the math: after you state the annual number, ask one humanizing question. &ldquo;You told me you&apos;re on a low income &mdash; what would an extra $240 a month for groceries mean for your budget?&rdquo; That question turns a number into a decision. Every enrolled call this week was one humanizing question short of a masterpiece.</p>
+          <p className={styles.oneThingText}>
+            The C-SNP pivot on Freddie Taylor was the move of the week &mdash; heard the conditions at 5:54, identified the pathway, enrolled in 3 minutes. That same instinct was available on Dewey Baker at 6:17 and you walked past it. The pattern that unlocks the next level: every chronic condition disclosure is a CSN SEP check. Diabetes alone opens the window year-round. You don&apos;t have to switch them &mdash; you have to tell them what their conditions qualify them for.
+          </p>
         </motion.div>
 
-        {/* ── This Week's Calls ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>This Week&apos;s Calls</h2>
-          {callsByDate.map((group) => (
-            <div key={group.date} style={{ marginBottom: '1.5rem' }}>
-              <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
-                {group.date}
-              </p>
-              <div className={styles.callTable}>
-                <div className={styles.callTableHeader}>
-                  <span>Consumer</span>
-                  <span>Duration</span>
-                  <span>Score</span>
-                  <span>Outcome</span>
-                  <span>Call Type</span>
-                </div>
-                {group.calls.map((call, i) => (
-                  <div key={i} className={styles.callRow}>
-                    <span className={styles.consumerName}>
-                      <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
-                        {call.consumer}
-                      </Link>
-                    </span>
-                    <span className={styles.callMeta}>{call.duration}</span>
-                    <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
-                    <span className={styles.outcomeCell}>
-                      <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
-                      {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
-                    </span>
-                    <span className={styles.callType}>{call.type}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-          <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>53 / 100</strong></span>
-            <span>Enrolled: <strong>2 of 10</strong></span>
+        {/* ── Executive Summary ── */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <div className={styles.execSummaryInner}>
+            <p>
+              <strong>What&apos;s working:</strong> Two clean enrollments on back-to-back days. Harold Metz enrolled on OEPN under a move SEP — you handled the Social Security pivot cleanly when the lead plan fell through and kept him on track. Freddie Taylor enrolled on CSN — you spotted the C-SNP door inside three minutes of the chronic conditions disclosure and closed it before he had a chance to second-guess. The Medicaid/give-back nuance was handled correctly on both calls. Formulary thoroughness on Freddie (11/11 covered) was the kind of work that protects an enrollment from reversing after the fact.
+            </p>
+            <p>
+              <strong>What&apos;s costing you:</strong> Dewey Baker was closeable. Diabetes plus hypertension at 6:17 was a CSN SEP sitting in plain view — the same eligibility pathway you used to close Freddie Taylor the next day. You walked past it, then broke your own loyalty frame at 7:07 by inviting comparison shopping he&apos;d already refused. The call didn&apos;t die because Dewey was uncloseable. It died because the frame broke. On both enrolled calls, you heard the Client Gold and didn&apos;t deploy it. Harold told you he was finally in a stable home after an apartment flood. Freddie told you he was hurting. These aren&apos;t just context details — they&apos;re the close. The math is also stopping at step two on every call. The annual number gets stated and then you move on. The humanizing question is missing every time.
+            </p>
           </div>
+        </motion.div>
+
+        {/* ── Score Strip ── */}
+        <motion.div className={styles.scorecardRow} {...SPRING}>
+          <div className={styles.scoreCard}>
+            <span className={styles.scoreValue} style={{ color: scoreColor(59) }}>59</span>
+            <span className={styles.scoreLabel}>Period Average</span>
+            <span className={styles.scoreRange}>Apr 20–21 · 3 calls</span>
+          </div>
+          <div className={styles.scoreCard}>
+            <span className={styles.scoreValue}>3</span>
+            <span className={styles.scoreLabel}>Calls Reviewed</span>
+            <span className={styles.scoreRange}>Apr 20–21, 2026</span>
+          </div>
+          <div className={styles.scoreCard}>
+            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
+            <span className={styles.scoreLabel}>Enrolled</span>
+            <span className={styles.scoreRange}>1 Missed Opportunity</span>
+          </div>
+          <div className={styles.scoreCard}>
+            <span className={styles.scoreValue} style={{ color: 'var(--mustard-dark)' }}>RC2</span>
+            <span className={styles.scoreLabel}>Top Pattern</span>
+            <span className={styles.scoreRange}>Client Gold not deployed · 3 calls</span>
+          </div>
+        </motion.div>
+
+        {/* ── Your Tells ── */}
+        <motion.div className={styles.yourTells} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Your Tells</h2>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '20px' }}>
+            What you did on enrolled calls vs. missed calls this period. The delta is where the coaching lives.
+          </p>
+          <div className={styles.tellsBlock}>
+            <div>
+              <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--sage-dark)', marginBottom: '10px' }}>On Enrolled Calls</p>
+              <ul className={styles.tellsList}>
+                {enrolledTells.map((t, i) => (
+                  <li key={i}>{t}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--terracotta)', marginBottom: '10px' }}>On Missed Calls</p>
+              <ul className={styles.tellsList}>
+                {missedTells.map((t, i) => (
+                  <li key={i}>{t}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Patterns ── */}
+        <motion.div className={styles.section} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Patterns</h2>
+          <div className={styles.patternsGrid}>
+
+            {/* Chronic */}
+            <div className={styles.patternColumn}>
+              <div className={styles.patternColumnHeader} style={{ borderColor: 'var(--terracotta)', color: 'var(--terracotta)' }}>
+                Chronic
+              </div>
+              {chronicPatterns.map((p, i) => (
+                <div key={i} className={`${styles.patternCard} ${styles[`priority_${p.urgency}`]}`}>
+                  <div className={styles.priorityHeader}>
+                    <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>
+                      {p.urgency === 'critical' ? 'CRITICAL' : 'HIGH PRIORITY'}
+                    </span>
+                    <span className={styles.rcCode}>{p.rc}</span>
+                  </div>
+                  <p className={styles.priorityTitle}>{p.title}</p>
+                  <p className={styles.priorityDetail}>{p.summary}</p>
+                  <div className={styles.priorityMove}>
+                    <span className={styles.priorityMoveLabel}>Instead:</span>
+                    <p className={styles.priorityMoveText}>{p.fix}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Emerging */}
+            <div className={styles.patternColumn}>
+              <div className={styles.patternColumnHeader} style={{ borderColor: 'var(--mustard)', color: 'var(--mustard-dark)' }}>
+                Emerging
+              </div>
+              {emergingPatterns.map((p, i) => (
+                <div key={i} className={`${styles.patternCard} ${styles[`priority_${p.urgency}`]}`}>
+                  <div className={styles.priorityHeader}>
+                    <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>
+                      {p.urgency === 'high' ? 'HIGH PRIORITY' : 'OPPORTUNITY'}
+                    </span>
+                    <span className={styles.rcCode}>{p.rc}</span>
+                  </div>
+                  <p className={styles.priorityTitle}>{p.title}</p>
+                  <p className={styles.priorityDetail}>{p.summary}</p>
+                  <div className={styles.priorityMove}>
+                    <span className={styles.priorityMoveLabel}>Instead:</span>
+                    <p className={styles.priorityMoveText}>{p.fix}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Resolved */}
+            <div className={styles.patternColumn}>
+              <div className={styles.patternColumnHeader} style={{ borderColor: 'var(--sage)', color: 'var(--sage-dark)' }}>
+                Resolved
+              </div>
+              {resolvedPatterns.map((p, i) => (
+                <div key={i} className={styles.patternCard} style={{ opacity: 0.7, border: '1px solid rgba(143,175,148,0.2)', borderLeft: '4px solid var(--sage)' }}>
+                  <div className={styles.priorityHeader}>
+                    <span className={`${styles.urgencyBadge} ${styles.badge_medium}`}>RESOLVED</span>
+                    <span className={styles.rcCode}>{p.rc}</span>
+                  </div>
+                  <p className={styles.priorityTitle}>{p.title}</p>
+                  <p className={styles.priorityDetail}>{p.summary}</p>
+                  <div className={styles.priorityMove}>
+                    <span className={styles.priorityMoveLabel}>Status:</span>
+                    <p className={styles.priorityMoveText}>{p.fix}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </motion.div>
+
+        {/* ── Calls (collapsible) ── */}
+        <motion.div className={styles.section} {...SPRING}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', paddingBottom: '12px', borderBottom: 'var(--rule-lt)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>This Period&apos;s Calls</h2>
+            <button
+              className={styles.collapsibleCallsToggle}
+              onClick={() => setCallsExpanded(!callsExpanded)}
+            >
+              {callsExpanded ? 'Collapse' : 'Expand'}
+            </button>
+          </div>
+
+          {callsExpanded && (
+            <>
+              {callsByDate.map((group) => (
+                <div key={group.date} style={{ marginBottom: '1.5rem' }}>
+                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
+                    {group.date}
+                  </p>
+                  <div className={styles.callTable}>
+                    <div className={styles.callTableHeader}>
+                      <span>Consumer</span>
+                      <span>Duration</span>
+                      <span>Score</span>
+                      <span>Outcome</span>
+                      <span>Call Type</span>
+                    </div>
+                    {group.calls.map((call, i) => (
+                      <div key={i} className={styles.callRow}>
+                        <span className={styles.consumerName}>
+                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
+                            {call.consumer}
+                          </Link>
+                        </span>
+                        <span className={styles.callMeta}>{call.duration}</span>
+                        <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
+                        <span className={styles.outcomeCell}>
+                          <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                          {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
+                        </span>
+                        <span className={styles.callType}>{call.type}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <div className={styles.callTableFooter}>
+                <span>Period Average: <strong>59 / 100</strong></span>
+                <span>Enrolled: <strong>2 of 3</strong></span>
+                <span>Period: <strong>Apr 20–21</strong></span>
+              </div>
+            </>
+          )}
         </motion.div>
 
         {/* ── What You Did Well ── */}
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>What You Did Well</h2>
           <div className={styles.summaryCard}>
-            <p>The Anthony Collins Sr. call at 81 was the strongest work of the week. Anthony mentioned at 5:47 that his Medicaid had been canceled and reinstated two weeks earlier after a hospitalization. You heard it, recognized it as a qualifying Medicaid change event, and used it to open a mid-year enrollment window. The three-category benefit comparison — OTC, dental, and vision — was clean and thorough. The Aetna prior experience objection was acknowledged and reframed without pressure. Full Phase VI execution. Voice signature collected. That is the system working from top to bottom.</p>
-            <p>James Salvatore at 78 was also strong. You correctly identified he was on the wrong plan — Humana with $140 quarterly instead of a proper D-SNP — and used &ldquo;you should have been on this from the beginning&rdquo; as the close. That line is truth-based persuasion at its best. Post-enrollment loyalty anchoring (&ldquo;if anyone else calls you about your coverage, disconnect the line&rdquo;) was excellent. Both of these calls demonstrate the plan identification and SEP recognition skills that are your highest-leverage assets.</p>
-          </div>
-        </motion.div>
-
-        {/* ── Patterns ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Patterns This Week</h2>
-          <div className={styles.priorityList}>
-            {patterns.map((p, i) => (
-              <div key={i} className={`${styles.priorityCard} ${styles[`priority_${p.urgency}`]}`}>
-                <div className={styles.priorityHeader}>
-                  <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>
-                    {p.urgency === 'critical' ? 'CRITICAL' : p.urgency === 'high' ? 'HIGH PRIORITY' : 'OPPORTUNITY'}
-                  </span>
-                  <span className={styles.rcCode}>{p.rc}</span>
-                </div>
-                <p className={styles.priorityTitle}>{p.title}</p>
-                <p className={styles.priorityDetail}>{p.body}</p>
-                {p.rule && <p className={styles.priorityRule}>{p.rule}</p>}
-                <p className={styles.priorityCallRef}>{p.callRef}</p>
-                <div className={styles.priorityMove}>
-                  <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
-                  <p className={styles.priorityMoveText}>{p.move}</p>
-                </div>
-              </div>
-            ))}
+            <p>The Freddie Taylor call was your best technical execution of the period. You heard the chronic condition disclosure at 5:54 and had the C-SNP pivot complete before 10 minutes elapsed — that&apos;s exactly how that door is supposed to open. You also caught yourself before using a DST reference at 5:28 and stopped. That&apos;s a compliance awareness moment that most agents miss. When Freddie flagged the missing medication at 22:53, you asked for it without being defensive and confirmed 11/11 covered. That thoroughness matters — it&apos;s what keeps enrollments from reversing on a formulary complaint.</p>
+            <p>On Harold Metz, the Social Security pivot at 11:49 was clean. A lot of agents fumble when the lead plan falls through. You went back to research, made a decision, and brought Harold along without making him feel like a problem. Your post-enrollment loyalty anchor on both calls — &ldquo;if another agent calls you, hang up&rdquo; — is advanced behavior that directly reduces churn risk. That&apos;s something most agents skip entirely.</p>
           </div>
         </motion.div>
 
@@ -288,33 +436,54 @@ export default function TavaresSmithPage() {
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>01</span>
               <div>
-                <p className={styles.workOnTitle}>Trust objections — find the question behind them</p>
-                <p className={styles.workOnDetail}>When Glinda mentioned her insurance lady, the correct response was one question: &ldquo;What&apos;s the specific thing you&apos;d want to ask her? I have all the plan details right here and I can probably answer it right now.&rdquo; That question either dissolves the objection or gives you the exact concern to address. Offering to replace the agent was a logic move against a trust signal. Logic does not reach trust.</p>
+                <p className={styles.workOnTitle}>When they give you their real situation — stop and use it</p>
+                <p className={styles.workOnDetail}>Harold told you at 9:51 that Medicare and a stable address represent a fresh start after his apartment was flooded and he&apos;d been in transit for months. Freddie told you at 32:11 that he was hurting. These moments are your close — not background information to file away. When Harold says that, the right move is: &ldquo;Harold, here&apos;s what I want you to know. This plan starts May 1st. Your doctor is covered, your premium is zero, and you have coverage for whatever comes up. That&apos;s one less thing on your plate as you get settled.&rdquo; When Freddie says he&apos;s hurting: &ldquo;Freddie, that&apos;s exactly why we&apos;re doing this right now. This plan is built for people managing what you&apos;re managing. Five more minutes and it&apos;s locked in — you can put the phone down and rest.&rdquo;</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>02</span>
               <div>
-                <p className={styles.workOnTitle}>Step three of the math breakdown — every time, on every call</p>
-                <p className={styles.workOnDetail}>After every annualization, ask one humanizing question that connects the number to what the consumer told you about their life. On Glinda: &ldquo;You told me you live on a low income — what would an extra $240 a month for groceries and utilities do for your budget?&rdquo; On James: &ldquo;You came in burned about a false promise. Let me show you what the real number is: $2,512 more per year. How does that compare to what you were told?&rdquo; Step three is the only step the consumer actually feels.</p>
+                <p className={styles.workOnTitle}>Step three of the math — every call, every number</p>
+                <p className={styles.workOnDetail}>Harold&apos;s call: $1,920/year give-back annualized — then abandoned when it became irrelevant. No replacement math built. Freddie&apos;s call: $35 vs. $65 specialist stated — never converted to $360/year, never connected to his Walgreens visits. The math breakdown has three steps. You are consistently stopping at step two. After every annual figure, one humanizing question closes the gap: &ldquo;Freddie, you told me you see specialists every month — that&apos;s $30 a month staying in your pocket, $360 a year. And the OTC card covers groceries at the Walgreens where you already pick up your prescriptions. That&apos;s the food card you called about.&rdquo; Three steps in 30 seconds.</p>
               </div>
             </div>
             <div className={styles.workOnCard}>
               <span className={styles.workOnNum}>03</span>
               <div>
-                <p className={styles.workOnTitle}>Before any exit, state the total package value</p>
-                <p className={styles.workOnDetail}>On the Anthony Collins call you ran three separate benefit comparisons — OTC, dental, vision — but never added them up. The total across all three was approximately $3,700 more per year. That number, said once out loud, is more convincing than three separate figures. State the total: &ldquo;Across the OTC, the dental, and the vision — you are looking at almost $3,700 more in benefits every year on this plan.&rdquo; Consumers remember totals. They forget line items.</p>
+                <p className={styles.workOnTitle}>CSN SEP check on every chronic condition disclosure</p>
+                <p className={styles.workOnDetail}>Dewey Baker disclosed diabetes and hypertension at 6:17. The CSN SEP opens the enrollment window year-round for qualifying chronic conditions. Diabetes alone qualifies. You had the C-SNP pivot available — the exact same pivot you used on Freddie Taylor the next day — and you walked past it, then broke your own loyalty frame by inviting comparison shopping. The Dewey Baker call wasn&apos;t lost because he was uncloseable. It was lost because the chronic condition-to-plan connection was never made. Treat every chronic condition disclosure as an immediate CSN SEP check. &ldquo;Dewey, those two conditions actually qualify you for a specialized plan built specifically for people managing what you&apos;re managing. That&apos;s not a switch — that&apos;s upgrading to a plan designed for your situation.&rdquo;</p>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* ── Coaching Session ── */}
+        {/* ── Coaching Session — Apr 15 ── */}
         <motion.div className={styles.section} {...SPRING}>
           <h2 className={styles.sectionTitle}>Coaching Session — April 15, 2026</h2>
           <p style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginBottom: '1rem' }}>Session with Jon Hall · Calls reviewed: Glinda Robinson, Not Stated (4:14), Not Stated (6:26)</p>
           <div className={styles.workOnList}>
-            {coachingSession.map((n) => (
+            {[
+              {
+                num: '01',
+                title: 'When the consumer mentions their agent: "What question would you want to ask her?"',
+                detail: '"That makes sense. What\'s the one question you\'d want to ask her? I have the full plan details right here — I can likely answer it right now." This shifts the dynamic: instead of you defending yourself, the consumer has to think. If they can\'t come up with a question, you\'ve made the case. Don\'t compete with the other agent — help the consumer feel like the question is already answered.',
+              },
+              {
+                num: '02',
+                title: 'Cut all permission-seeking language',
+                detail: 'No "if you want," no "regrettably," no "if you\'re interested." You\'re a licensed professional. Direct: "I need your full name, date of birth, and social." You corrected this mid-day Monday and people started giving the info up — keep going.',
+              },
+              {
+                num: '03',
+                title: 'Give context before asking for personal information',
+                detail: 'Educate on Medicare Advantage first: "With just Part A and Part B, you won\'t get any food card, OTC benefit, dental, or Part B give-back. Once I look up your account, I\'ll give you your Medicare number right now so you have it before your card arrives." Now the info request serves them, not just you.',
+              },
+              {
+                num: '04',
+                title: 'Frame what they\'re losing — loss aversion is twice as powerful as gain',
+                detail: '"You\'ve already been on the phone four minutes. If we take care of this now, you don\'t have to call back, navigate hold times, start from scratch. You can walk away with the benefit locked in." Frame the cost of inaction, not just the benefit of acting.',
+              },
+            ].map((n) => (
               <div key={n.num} className={styles.workOnCard}>
                 <span className={styles.workOnNum}>{n.num}</span>
                 <div>
@@ -326,18 +495,18 @@ export default function TavaresSmithPage() {
           </div>
         </motion.div>
 
-        {/* ── Reports ── */}
+        {/* ── Report History ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Reports</h2>
-          <div className={styles.reportList}>
+          <h2 className={styles.sectionTitle}>Report History</h2>
+          <div className={styles.reportHistory}>
             {pastReports.map((r, i) => (
-              <div key={i} className={`${styles.reportCard} ${r.active ? styles.reportActive : ''}`}>
+              <div key={i} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
                 <div className={styles.reportLeft}>
                   <span className={styles.reportType}>{r.type}</span>
                   <span className={styles.reportTitle}>{r.title}</span>
                 </div>
                 <div className={styles.reportRight}>
-                  <span className={styles.reportScore}>{r.score}</span>
+                  <span className={styles.reportScore}>{r.meta}</span>
                   <span className={styles.reportDate}>{r.date}</span>
                 </div>
               </div>
@@ -347,8 +516,8 @@ export default function TavaresSmithPage() {
 
         {/* ── Footer ── */}
         <div className={styles.footer}>
-          <p>The Certainty System · Tavares Smith · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC3 · Emotional Reframe · Math Step 3 · Callback Ownership</p>
+          <p>The Certainty System · Tavares Smith · Week of April 20–22, 2026</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC2 · RC3 · RC6 · Client Gold Deployment · Math Step 3 · CSN SEP · Call Efficiency</p>
         </div>
 
       </div>

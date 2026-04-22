@@ -4,75 +4,122 @@ import PageShell from '@/components/layout/PageShell'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
+import { useState } from 'react'
 import styles from './page.module.css'
 
-// ── Weekly Brief: April 13–17, 2026 ──────────────────────────────────────────
+// ── Mid-Week Report: April 22, 2026 (covers Apr 20–21) ──────────────────────
+
+// ── CRM Trend Data ───────────────────────────────────────────────────────────
+
+const trendRows = [
+  {
+    metric: 'Sales',
+    prior: '5',
+    current: '2',
+    delta: '+2 (on pace)',
+    dir: 'up' as const,
+    note: '2 days vs 5-day week',
+  },
+  {
+    metric: 'Conversion',
+    prior: '4.90%',
+    current: '6.90%',
+    delta: '+2.00pp',
+    dir: 'up' as const,
+    note: null,
+  },
+  {
+    metric: 'CPA',
+    prior: '$274',
+    current: '$134',
+    delta: '−$140',
+    dir: 'up' as const,
+    note: null,
+  },
+  {
+    metric: 'Billable Calls',
+    prior: '69',
+    current: '15',
+    delta: '−',
+    dir: 'neutral' as const,
+    note: '2 days only',
+  },
+]
+
+// ── Calls ─────────────────────────────────────────────────────────────────────
 
 const callsByDate = [
   {
-    date: 'Wednesday, April 15',
+    date: 'Tuesday, April 21',
     calls: [
-      { consumer: 'John Higgins', duration: '14:31', score: 48, outcome: 'INCOMPLETE', outcomeNote: 'Discovery done — close not attempted', type: 'Pre-Qualified Lead — Phone Drop Before Close', href: '/agents/josner-saintil/calls/john-higgins' },
-      { consumer: 'Unknown Consumer (9186366371)', duration: '3:15', score: 31, outcome: 'INCOMPLETE', outcomeNote: 'Stuck in research — never transitioned', type: 'Medicaid SEPs Ignored — MCD Window Open Until June', href: '/agents/josner-saintil/calls/unknown-9186366371' },
-    ],
-  },
-  {
-    date: 'Thursday, April 17',
-    calls: [
-      { consumer: 'Unknown Consumer (4m41s)', duration: '4:41', score: 32, outcome: 'CORRECT NO-SALE', outcomeNote: 'Hostile transfer — consumer unworkable', type: 'Hostile Transfer — Prior Agent Grievance', href: '/agents/josner-saintil/calls/unknown-consumer-4m41s' },
-      { consumer: 'Unknown Consumer (8m09s)', duration: '8:09', score: 38, outcome: 'CORRECT NO-SALE', outcomeNote: 'Trust barrier — no ID available', type: 'Trust-Barrier Lead — Scam-Fearful Consumer', href: '/agents/josner-saintil/calls/unknown-consumer-8m09s' },
+      {
+        consumer: 'Roy Bumgarner',
+        duration: '57:46',
+        score: 75,
+        outcome: 'ENROLLED',
+        outcomeNote: 'UHC D-SNP · effective May 1',
+        type: 'The Money Caller — Returning Consumer',
+        href: '/agents/josner-saintil/calls/roy-bumgarner',
+      },
     ],
   },
 ]
 
-const patterns = [
+// ── Patterns ─────────────────────────────────────────────────────────────────
+
+const chronicPatterns = [
   {
-    title: 'Medicaid disclosed — treated as background, not as an enrollment trigger',
-    rc: 'RC6',
-    urgency: 'critical' as const,
-    body: 'Every time a consumer confirms active Medicaid, that is an INT SEP — a year-round enrollment window that never closes. On both calls this week, Medicaid was disclosed and acknowledged, then the standard flow continued as if nothing had changed. The correct move is to stop at the disclosure and ask the verification question. Medicaid confirmation is not a checkbox — it is the enrollment pathway.',
-    rule: 'Every Medicaid disclosure gets one question before you move on: "Is your Medicaid active and confirmed right now?"',
-    callRef: 'The Oklahoma consumer confirmed Medicaid at 0:49. John Higgins confirmed Medicaid and Medicare at 7:37. Both were D-SNP eligible. Neither disclosure was treated as an enrollment trigger.',
-    moveLabel: 'Stop at the disclosure. Ask the question.',
-    move: '"Are you still on Medicaid right now? Great — because that qualifies you for a special plan type built for people in your exact situation. Let me check what\'s available in your county."',
-  },
-  {
-    title: 'MCD SEP has a 3-month clock — the window closes June 1',
+    title: 'SEP signals missed — RC6 is the week-over-week constant',
     rc: 'RC6',
     urgency: 'high' as const,
-    body: 'When a consumer\'s Medicaid status changed — dropped then reinstated — that is an MCD SEP. The 3-month window runs from the date of the change. The Oklahoma consumer said her Medicaid was reinstated March 1, which means her window closes around June 1, 2026. She had approximately six weeks left. That is urgency. You heard the story and treated it as background. It was a live enrollment trigger with a deadline.',
-    rule: null,
-    callRef: 'The Oklahoma consumer said at 1:45: "Medicaid was dropped and it shouldn\'t have been and that took me until March the 1st to get it reinstated." The date was the signal. The window closes June 1.',
-    moveLabel: 'Name the deadline. Make it real.',
-    move: '"Wait — when exactly was it reinstated? March 1st? That actually opens a special enrollment window. The good news is you have about six weeks to use it. If we find you a better plan today, we can get you switched before it closes. What\'s your zip code?"',
-  },
-  {
-    title: 'Prostate cancer opens a year-round enrollment period',
-    rc: 'RC6',
-    urgency: 'medium' as const,
-    body: 'When a consumer discloses an active cancer diagnosis, that is a C-SNP qualifier — they can switch plans any month of the year. John Higgins disclosed prostate cancer with monthly IV infusions at 9:03. You acknowledged the diagnosis and moved on. On the callback, this is your legal pathway to enroll him outside of open enrollment — and it is the most important thing he told you on the call.',
-    rule: null,
-    callRef: 'John said "Yeah, I\'ve got prostate cancer" at 9:03. You said "And they\'re keeping you under control?" and moved on to standard discovery. The CSN SEP and the cancer as Client Gold were both passed.',
-    moveLabel: 'Name what the diagnosis means for his enrollment options.',
-    move: '"John, because you have an active cancer diagnosis, you actually qualify to change your plan any time during the year — that\'s a special rule for people with chronic conditions. So we\'re not waiting for open enrollment here. Let me show you what\'s available in your county right now."',
-  },
-  {
-    title: 'When a consumer names their financial victimization — deploy it',
-    rc: 'RC2',
-    urgency: 'medium' as const,
-    body: 'On the Thursday trust-barrier call, the consumer told you at 6:47 that a woman had stolen $180 from him. He disclosed his PTSD classification at 2:32. Both of those were the emotional center of his resistance — not general skepticism, but specific past injury. When someone has been ripped off, the fastest path to their trust is naming it directly and then differentiating yourself from the person who did it. A federally licensed agent on a recorded line is the structural opposite of a scammer. Make that explicit.',
-    rule: null,
-    callRef: '"One lady just ripped me off for $180." — said at 6:47. Agent responded "yeah" and continued to the SSN ask. The emotional bridge was never built.',
-    moveLabel: 'Consumer names a prior rip-off — use it.',
-    move: '"That $180 — that\'s exactly why you want to be on a recorded, regulated line with a licensed agent. I have everything to lose if I do anything wrong. CMS can pull my license. I\'m not asking you to trust me — I\'m trying to access money that\'s already in the system under your name. Give me 30 seconds."',
+    summary: 'Last week: four live SEP signals (MOV, CSN, INT, MCD) — none converted. This week: correct SEP existed (INT), wrong one cited. The failure is shifting from passive miss to active error.',
+    fix: 'Before citing any SEP: name the triggering event, match it to the code. For Medicaid → D-SNP, the code is always INT.',
   },
 ]
 
-const pastReports = [
-  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '37 / 100', active: true },
+const emergingPatterns = [
+  {
+    title: 'DST cited as standalone SEP — enrollment audit risk',
+    rc: 'RC4',
+    urgency: 'critical' as const,
+    summary: 'Roy Bumgarner call (Apr 21): Josner stated "we\'ll use the recent winter storm" as the SEP basis at 15:53. DST is prohibited as a standalone code. The correct SEP is INT (Medicaid beneficiary enrolling into D-SNP), open any month, no event required.',
+    fix: '"Since you have Medicaid, you qualify to switch any time of year — we don\'t need any other reason." INT. Always.',
+  },
+  {
+    title: 'SSN collected before eligibility permission',
+    rc: 'RC4',
+    urgency: 'high' as const,
+    summary: 'Roy provided SSN at 3:38. Eligibility permission was requested at 3:58 — 20 seconds after collection. Consent must precede collection on a recorded line.',
+    fix: '"Before I look anything up, do I have your permission to pull your eligibility?" Then ask for the number.',
+  },
 ]
 
-// ── Helpers ─────────────────────────────────────────────────────────────────
+const resolvedPatterns = [
+  {
+    title: 'Doctor network skipped — resolved',
+    rc: 'RC1',
+    urgency: 'medium' as const,
+    summary: 'Prior months: enrollment initiated without confirming primary doctor coverage. Roy Bumgarner call: Josner confirmed Dr. Salmon in-network at 11:30 before proceeding. Correct sequence executed.',
+    fix: 'Keep doing this. Doctor first, application second.',
+  },
+]
+
+// ── Report History ─────────────────────────────────────────────────────────
+
+const reportHistory = [
+  {
+    label: 'Apr 22 · Mid-Week',
+    meta: 'Sales: 2 ↑ · CPA: $134 ↓',
+    active: true,
+  },
+  {
+    label: 'Apr 13–17 · Weekly Brief',
+    meta: 'Avg: 37/100 · 4 calls · RC6 x2',
+    active: false,
+  },
+]
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
 
 function outcomeClass(outcome: string) {
   if (outcome === 'ENROLLED') return styles.pillEnrolled
@@ -88,7 +135,15 @@ function scoreColor(score: number) {
   return 'var(--terracotta)'
 }
 
+function urgencyLabel(u: string) {
+  if (u === 'critical') return 'CRITICAL'
+  if (u === 'high') return 'HIGH'
+  return 'RESOLVED'
+}
+
 export default function JosnerSaintilPage() {
+  const [callsOpen, setCallsOpen] = useState(true)
+
   return (
     <PageShell signal="green">
       <div className={styles.page}>
@@ -98,212 +153,203 @@ export default function JosnerSaintilPage() {
           <div className={styles.headerMeta}>
             <span className={styles.systemLabel}>The Certainty System</span>
             <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>Weekly Brief</span>
+            <span className={styles.systemLabel}>Mid-Week Report</span>
+            <span className={styles.dot}>·</span>
+            <span className={styles.systemLabel}>April 22, 2026</span>
           </div>
           <h1 className={styles.agentName}>Josner Saintil</h1>
-          <p className={styles.period}>Week of April 13–17, 2026</p>
-          <p className={styles.updatedAt}>Updated April 20 · 4 calls reviewed (Wed–Thu)</p>
+          <p className={styles.period}>Week of April 20–22</p>
+          <p className={styles.updatedAt}>Updated April 22 · 1 call reviewed</p>
         </motion.div>
 
-        {/* ── Score Strip ── */}
-        <motion.div className={styles.scorecardRow} {...SPRING}>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(37) }}>37</span>
-            <span className={styles.scoreLabel}>Week Average</span>
-            <span className={styles.scoreRange}>Wed–Thu · 4 calls</span>
+        {/* ── Trend Snapshot ── */}
+        <motion.div className={styles.trendSnapshot} {...SPRING}>
+          <div className={styles.sectionTitleRow}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>CRM Trend Snapshot</h2>
+            <span className={styles.sectionBadge}>Apr 20–21 vs Apr 13–17</span>
           </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>4</span>
-            <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Apr 15 &amp; 17, 2026</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>2</span>
-            <span className={styles.scoreLabel}>Correct No-Sales</span>
-            <span className={styles.scoreRange}>2 Incomplete · 0 Enrolled</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC6</span>
-            <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>SEP signals missed — back-to-back</span>
-          </div>
-        </motion.div>
-
-        {/* ── Performance Digest ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '20px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
-            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Performance Digest</h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Weekly</span>
-          </div>
-          <div style={{ background: 'rgba(251,248,243,0.82)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.5)', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '12px 20px', background: 'rgba(19,17,16,0.04)', borderBottom: '1px solid rgba(19,17,16,0.08)', gap: '12px' }}>
-              {(['Metric', 'Apr 6–10', 'Apr 13–17', 'Change'] as string[]).map(h => (
-                <span key={h} style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)' }}>{h}</span>
-              ))}
+          <div className={styles.trendTable}>
+            <div className={styles.trendHeader}>
+              <span>Metric</span>
+              <span>Last Week</span>
+              <span>This Period</span>
+              <span>Change</span>
             </div>
-            {([
-              { metric: 'Sales',       prior: '3',     current: '5',     delta: '+2',       dir: 'up' },
-              { metric: 'Conversion',  prior: '6.82%', current: '4.90%', delta: '−1.92pp',  dir: 'down' },
-              { metric: 'CPA',         prior: '$194',  current: '$275',  delta: '+$81',     dir: 'down' },
-              { metric: 'Total Calls', prior: '44',    current: '102',   delta: '+58',      dir: 'neutral' },
-            ] as Array<{ metric: string; prior: string; current: string; delta: string; dir: 'up' | 'down' | 'neutral' }>).map((row, i, arr) => (
-              <div key={row.metric} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', padding: '14px 20px', gap: '12px', alignItems: 'center', borderBottom: i < arr.length - 1 ? '1px solid rgba(19,17,16,0.08)' : 'none' }}>
-                <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
-                <span style={{ fontSize: '0.9375rem', fontVariantNumeric: 'tabular-nums', color: 'var(--ink-60)' }}>{row.prior}</span>
-                <span style={{ fontSize: '0.9375rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--ink)' }}>{row.current}</span>
-                <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: row.dir === 'up' ? 'var(--sage-dark)' : row.dir === 'down' ? 'var(--terracotta)' : 'var(--ink-60)' }}>{row.delta}</span>
+            {trendRows.map((row) => (
+              <div key={row.metric} className={styles.trendRow}>
+                <span className={styles.trendMetric}>
+                  {row.metric}
+                  {row.note && <span className={styles.trendNote}> ({row.note})</span>}
+                </span>
+                <span className={styles.trendPrior}>{row.prior}</span>
+                <span className={styles.trendCurrent}>{row.current}</span>
+                <span className={
+                  (row.dir as string) === 'up' ? styles.trendUp :
+                  (row.dir as string) === 'down' ? styles.trendDown :
+                  styles.trendNeutral
+                }>{row.delta}</span>
               </div>
             ))}
-          </div>
-        </motion.div>
-
-        {/* ── Executive Summary ── */}
-        <motion.div className={styles.execSummary} {...SPRING}>
-          <div className={styles.execSummaryInner}>
-            <p>Four calls this week across two days — two incomplete, two correct no-sales on calls that were genuinely unworkable. What we&apos;re working through is the pattern that ran through the closeable calls and what to bring into the John Higgins callback.</p>
-            <p><strong>What&apos;s working:</strong> the best decision you made this week came at 2:07 on the John Higgins call — you confirmed the callback number before the connection started degrading. When the call fell apart at 13:35, that number was already in hand. You made the right read: propose the callback, don&apos;t grind through a bad connection. John agreed immediately. That lead is still alive. On Thursday&apos;s trust-barrier call, your SSN framing at 7:14 — &ldquo;I&apos;m not asking for money or bank accounts, I&apos;m just looking at Medicare benefits that exist in your name&rdquo; — is exactly the right language for a scam-fearful consumer. You held composure through an extended religious monologue and kept steering toward verification. And on the hostile-transfer call, you maintained professionalism through real verbal aggression and correctly set a boundary at 1:32: &ldquo;Sir, I can only help you if we do this properly.&rdquo;</p>
-            <p><strong>What&apos;s costing you:</strong> four live SEP signals surfaced across the closeable calls — MOV, CSN, INT, and MCD — and none were converted into an enrollment pathway. The pattern is consistent: a consumer reveals a qualifying event, you acknowledge it, and the standard flow continues. Those disclosures are not background information. They are enrollment triggers. Also: on Thursday&apos;s trust-barrier call, the consumer told you at 6:47 that someone had stolen $180 from him. That was your close. &ldquo;That&apos;s exactly why you want to be dealing with a federally licensed agent on a recorded line&rdquo; is the line that unlocks his SSN. You passed it.</p>
           </div>
         </motion.div>
 
         {/* ── The One Thing ── */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>When a consumer tells you someone ripped them off, that story is your key. &ldquo;That&apos;s exactly why you want to be on a recorded, federally regulated line with a licensed agent &mdash; I have everything to lose if I do anything wrong. What I&apos;m doing is getting you money that&apos;s already in the system under your name.&rdquo; Deploy that. The SSN follows.</p>
+          <p className={styles.oneThingText}>Before you cite any SEP on a recorded line, name the triggering event and match it to the code. For Medicaid into D-SNP, that code is INT — no storm required, no AEP window required, no external event at all. &ldquo;Since you have Medicaid, you qualify to switch any time of year.&rdquo; That line is audit-proof. The storm line is not.</p>
         </motion.div>
 
-        {/* ── This Week's Calls ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>This Week&apos;s Calls</h2>
-          {callsByDate.map((group) => (
-            <div key={group.date} style={{ marginBottom: '1.5rem' }}>
-              <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
-                {group.date}
-              </p>
-              <div className={styles.callTable}>
-                <div className={styles.callTableHeader}>
-                  <span>Consumer</span>
-                  <span>Duration</span>
-                  <span>Score</span>
-                  <span>Outcome</span>
-                  <span>Call Type</span>
-                </div>
-                {group.calls.map((call, i) => (
-                  <div key={i} className={styles.callRow}>
-                    <span className={styles.consumerName}>
-                      <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
-                        {call.consumer}
-                      </Link>
-                    </span>
-                    <span className={styles.callMeta}>{call.duration}</span>
-                    <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
-                    <span className={styles.outcomeCell}>
-                      <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
-                      {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
-                    </span>
-                    <span className={styles.callType}>{call.type}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-          <div className={styles.callTableFooter}>
-            <span>Week Average: <strong>37 / 100</strong></span>
-            <span>Correct No-Sales: <strong>2 of 4</strong></span>
+        {/* ── Executive Summary ── */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Executive Summary</h2>
+          <div className={styles.execSummaryInner}>
+            <p><strong>What&rsquo;s working:</strong> Two days in, two sales — you&rsquo;re on pace to beat last week&rsquo;s five. Conversion is up from 4.90% to 6.90%. CPA cut in half from $274 to $134. The Roy Bumgarner call shows you executing the doctor-first framework correctly — you confirmed Dr. Salmon in-network at 11:30 before moving to application, you framed the switch as restoring what Roy already knew worked, and you enrolled cleanly with voice signature at 48:50. The line at 10:50 — &ldquo;if it can&rsquo;t cover Mr. Patrick, then we can&rsquo;t use it&rdquo; — is the reason that call enrolled. That framing builds a level of trust that removes objections before they surface.</p>
+            <p><strong>What&rsquo;s costing you:</strong> At 15:53 on the Roy call, you said &ldquo;we&rsquo;ll use the recent winter storm that had happened in North Carolina&rdquo; as the SEP basis — on a recorded line. DST is not a standalone SEP. Roy has partial Medicaid and was enrolling into a D-SNP, which qualifies under INT any month of the year. You had a clean, audit-proof pathway and walked past it to use one that creates review exposure. This needs to come out of your process entirely. Also: Roy&rsquo;s SSN was collected at 3:38, twenty seconds before you asked for eligibility permission at 3:58. The question is right — the sequence is backward. Permission first, then number.</p>
           </div>
         </motion.div>
 
-        {/* ── What You Did Well ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>What You Did Well</h2>
-          <div className={styles.summaryCard}>
-            <p><strong>The best moment of your week came at 2:07 on the John Higgins call.</strong> You confirmed the callback number before anything else. When the connection deteriorated beyond salvage at 13:35, you made the right call: propose the callback, don&apos;t grind through a bad connection. John agreed immediately. That lead is still alive because of one sentence you said eleven minutes earlier. That is call intelligence.</p>
-            <p><strong>Your SSN framing on Thursday&apos;s trust-barrier call was exactly right.</strong> At 7:14 you said &ldquo;I&apos;m not asking for money or bank accounts — I&apos;m just looking at Medicare benefits that exist in your name.&rdquo; For a consumer who had been victimized by a financial scam and was deeply skeptical of strangers, that is the precise language that separates a licensed agent from every scammer he&apos;s encountered. You earned his warmth — he said he liked your humility. That kind of trust is built, and you built it.</p>
-            <p><strong>On the hostile-transfer call, you set the right boundary at 1:32</strong> — &ldquo;Sir, I can only help you if we do this properly here, so please don&apos;t cut me off&rdquo; — without matching the consumer&apos;s aggression. That is professional composure under real pressure and it is worth noting.</p>
+        {/* ── YOUR TELLS ── */}
+        <motion.div className={styles.yourTells} {...SPRING}>
+          <div className={styles.sectionTitleRow}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Your Tells</h2>
+            <span className={styles.sectionBadge}>Enrolled vs Missed</span>
+          </div>
+          <div className={styles.tellsBlock}>
+            <p>Needs more data — coming in the next report. Only 1 reviewed call this period. Check back after Thursday&rsquo;s batch.</p>
           </div>
         </motion.div>
 
         {/* ── Patterns ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Patterns This Week</h2>
-          <div className={styles.priorityList}>
-            {patterns.map((p, i) => (
-              <div key={i} className={`${styles.priorityCard} ${styles[`priority_${p.urgency}`]}`}>
-                <div className={styles.priorityHeader}>
-                  <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>
-                    {p.urgency === 'critical' ? 'CRITICAL' : p.urgency === 'high' ? 'HIGH PRIORITY' : 'OPPORTUNITY'}
-                  </span>
-                  <span className={styles.rcCode}>{p.rc}</span>
+          <h2 className={styles.sectionTitle}>Patterns</h2>
+          <div className={styles.patternsGrid}>
+
+            {/* Chronic */}
+            <div className={styles.patternColumn}>
+              <div className={`${styles.patternColumnHeader} ${styles.patternColumnChronic}`}>Chronic</div>
+              {chronicPatterns.map((p, i) => (
+                <div key={i} className={`${styles.patternCard} ${styles[`priority_${p.urgency}`]}`}>
+                  <div className={styles.priorityHeader}>
+                    <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>{urgencyLabel(p.urgency)}</span>
+                    <span className={styles.rcCode}>{p.rc}</span>
+                  </div>
+                  <p className={styles.priorityTitle}>{p.title}</p>
+                  <p className={styles.priorityDetail}>{p.summary}</p>
+                  <div className={styles.priorityMove}>
+                    <span className={styles.priorityMoveLabel}>Instead</span>
+                    <p className={styles.priorityMoveText}>{p.fix}</p>
+                  </div>
                 </div>
-                <p className={styles.priorityTitle}>{p.title}</p>
-                <p className={styles.priorityDetail}>{p.body}</p>
-                {p.rule && <p className={styles.priorityRule}>{p.rule}</p>}
-                <p className={styles.priorityCallRef}>{p.callRef}</p>
-                <div className={styles.priorityMove}>
-                  <span className={styles.priorityMoveLabel}>{p.moveLabel}</span>
-                  <p className={styles.priorityMoveText}>{p.move}</p>
+              ))}
+            </div>
+
+            {/* Emerging */}
+            <div className={styles.patternColumn}>
+              <div className={`${styles.patternColumnHeader} ${styles.patternColumnEmerging}`}>Emerging</div>
+              {emergingPatterns.map((p, i) => (
+                <div key={i} className={`${styles.patternCard} ${styles[`priority_${p.urgency}`]}`}>
+                  <div className={styles.priorityHeader}>
+                    <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>{urgencyLabel(p.urgency)}</span>
+                    <span className={styles.rcCode}>{p.rc}</span>
+                  </div>
+                  <p className={styles.priorityTitle}>{p.title}</p>
+                  <p className={styles.priorityDetail}>{p.summary}</p>
+                  <div className={styles.priorityMove}>
+                    <span className={styles.priorityMoveLabel}>Instead</span>
+                    <p className={styles.priorityMoveText}>{p.fix}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Resolved */}
+            <div className={styles.patternColumn}>
+              <div className={`${styles.patternColumnHeader} ${styles.patternColumnResolved}`}>Resolved</div>
+              {resolvedPatterns.map((p, i) => (
+                <div key={i} className={`${styles.patternCard} ${styles.patternCardResolved}`}>
+                  <div className={styles.priorityHeader}>
+                    <span className={`${styles.urgencyBadge} ${styles.badgeResolved}`}>{urgencyLabel('resolved')}</span>
+                    <span className={styles.rcCode}>{p.rc}</span>
+                  </div>
+                  <p className={styles.priorityTitle}>{p.title}</p>
+                  <p className={styles.priorityDetail}>{p.summary}</p>
+                  <div className={styles.priorityMove}>
+                    <span className={styles.priorityMoveLabel}>Keep</span>
+                    <p className={styles.priorityMoveText}>{p.fix}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
           </div>
         </motion.div>
 
-        {/* ── What to Work On ── */}
+        {/* ── Calls ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>What to Work On</h2>
-          <div className={styles.workOnList}>
-            <div className={styles.workOnCard}>
-              <span className={styles.workOnNum}>01</span>
-              <div>
-                <p className={styles.workOnTitle}>Treat &ldquo;I have Medicaid&rdquo; as an enrollment trigger — not background noise</p>
-                <p className={styles.workOnDetail}>Both calls had a consumer with Medicaid. Both times you heard it and kept moving. The correct move: stop and verify. &ldquo;Is your Medicaid active and confirmed right now? Great — because that qualifies you for a special plan type built for people in your exact situation. Let me check what&apos;s available in your county.&rdquo; Medicaid = D-SNP eligible = year-round window. Every time. No exceptions.</p>
+          <button
+            className={styles.collapsibleCallsToggle}
+            onClick={() => setCallsOpen((v) => !v)}
+            aria-expanded={callsOpen}
+          >
+            <span>This Period&rsquo;s Calls</span>
+            <span className={styles.toggleChevron}>{callsOpen ? '▲' : '▼'}</span>
+          </button>
+
+          {callsOpen && (
+            <div style={{ marginTop: '16px' }}>
+              {callsByDate.map((group) => (
+                <div key={group.date} style={{ marginBottom: '1.5rem' }}>
+                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
+                    {group.date}
+                  </p>
+                  <div className={styles.callTable}>
+                    <div className={styles.callTableHeader}>
+                      <span>Consumer</span>
+                      <span>Duration</span>
+                      <span>Score</span>
+                      <span>Outcome</span>
+                      <span>Call Type</span>
+                    </div>
+                    {group.calls.map((call, i) => (
+                      <div key={i} className={styles.callRow}>
+                        <span className={styles.consumerName}>
+                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
+                            {call.consumer}
+                          </Link>
+                        </span>
+                        <span className={styles.callMeta}>{call.duration}</span>
+                        <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
+                        <span className={styles.outcomeCell}>
+                          <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                          {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
+                        </span>
+                        <span className={styles.callType}>{call.type}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <div className={styles.callTableFooter}>
+                <span>Period Average: <strong>75 / 100</strong></span>
+                <span>Enrolled: <strong>1 of 1</strong></span>
               </div>
             </div>
-            <div className={styles.workOnCard}>
-              <span className={styles.workOnNum}>02</span>
-              <div>
-                <p className={styles.workOnTitle}>When Medicaid status has changed, name the window and the deadline</p>
-                <p className={styles.workOnDetail}>The Oklahoma consumer told you her Medicaid was reinstated March 1. That is a live MCD SEP closing around June 1, 2026 — approximately six weeks from this call. That is urgency. The line: &ldquo;The good news is you have about six weeks to use this window. If we find you a better plan today, we can get you switched before it closes.&rdquo; Make the deadline real. That turns a skeptical consumer into someone who listens.</p>
-              </div>
-            </div>
-            <div className={styles.workOnCard}>
-              <span className={styles.workOnNum}>03</span>
-              <div>
-                <p className={styles.workOnTitle}>On the John Higgins callback — walk in prepared, not starting from zero</p>
-                <p className={styles.workOnDetail}>You have everything you need: give-back interest, prostate cancer diagnosis, five specialists, monthly IV infusions, dual eligibility, and a CSN SEP open year-round. Do not open the callback like a new call. Open with: &ldquo;Mr. Higgins, it&apos;s Josner — I pulled up your options while we were disconnected and I want to show you the give-back number.&rdquo; Give the number first. Then: &ldquo;Before we lock anything in, I need to make sure your oncology team is covered on this plan.&rdquo; That builds more trust than anything else on this callback.</p>
-              </div>
-            </div>
-            <div className={styles.workOnCard}>
-              <span className={styles.workOnNum}>04</span>
-              <div>
-                <p className={styles.workOnTitle}>Always close with a booked callback — warm leads go cold without a time</p>
-                <p className={styles.workOnDetail}>On Thursday&apos;s trust-barrier call, the consumer showed real warmth and was beginning to give his SSN when the call ended. No specific callback time was established. When a consumer says &ldquo;give me your number and I&apos;ll call you back,&rdquo; the response is: &ldquo;I&apos;ll give you my number right now — and I&apos;m going to put a flag in your account so your file is ready when you call. Can you do tomorrow at 2?&rdquo; A warm callback with a booked time is worth ten cold ones.</p>
-              </div>
-            </div>
-            <div className={styles.workOnCard}>
-              <span className={styles.workOnNum}>05</span>
-              <div>
-                <p className={styles.workOnTitle}>The recording does not end until the system confirms it has ended</p>
-                <p className={styles.workOnDetail}>On the hostile-transfer call, post-call comments were captured on the recording. Anything said about a consumer while the call may still be live creates compliance and reputational risk regardless of circumstances. The rule is simple: never say anything you would not say if the consumer were still listening. Step away from the recording environment before debriefing.</p>
-              </div>
-            </div>
-          </div>
+          )}
         </motion.div>
 
-        {/* ── Reports ── */}
+        {/* ── Report History ── */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Reports</h2>
-          <div className={styles.reportList}>
-            {pastReports.map((r, i) => (
-              <div key={i} className={`${styles.reportCard} ${r.active ? styles.reportActive : ''}`}>
+          <h2 className={styles.sectionTitle}>Report History</h2>
+          <div className={styles.reportHistory}>
+            {reportHistory.map((r, i) => (
+              <div key={i} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportHistoryActive : ''}`}>
                 <div className={styles.reportLeft}>
-                  <span className={styles.reportType}>{r.type}</span>
-                  <span className={styles.reportTitle}>{r.title}</span>
+                  <span className={styles.reportTitle}>{r.label}</span>
+                  <span className={styles.reportDate}>{r.meta}</span>
                 </div>
-                <div className={styles.reportRight}>
-                  <span className={styles.reportScore}>{r.score}</span>
-                  <span className={styles.reportDate}>{r.date}</span>
-                </div>
+                {r.active && (
+                  <span className={styles.reportType}>Current</span>
+                )}
               </div>
             ))}
           </div>
@@ -311,8 +357,8 @@ export default function JosnerSaintilPage() {
 
         {/* ── Footer ── */}
         <div className={styles.footer}>
-          <p>The Certainty System · Josner Saintil · Week of April 13–17, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC2 · RC6 · SEP Recognition · MCD · CSN · INT · D-SNP · Trust-Barrier · Callback Preparation</p>
+          <p>The Certainty System · Josner Saintil · Mid-Week Report — April 22, 2026</p>
+          <p style={{ marginTop: 4, opacity: 0.5 }}>RC4 · RC6 · SEP · INT · DST · Compliance Sequencing · D-SNP · Math Breakdown</p>
         </div>
 
       </div>

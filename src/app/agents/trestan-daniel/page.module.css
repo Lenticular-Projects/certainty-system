@@ -580,3 +580,378 @@
   color: var(--ink-60);
 }
 
+/* ============================================================
+   v3 Architecture — Trend Snapshot, Your Tells, Patterns Grid,
+   Empty Calls State, Report History
+   ============================================================ */
+
+/* ── Trend Snapshot ── */
+.trendSnapshot {
+  margin-bottom: 48px;
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.trendSnapshotHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+  background: rgba(19, 17, 16, 0.03);
+}
+
+.trendSnapshotLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.trendSnapshotNote {
+  font-size: 0.75rem;
+  color: var(--ink-60);
+  opacity: 0.7;
+}
+
+.trendTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.trendHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 10px 20px;
+  gap: 12px;
+  background: rgba(19, 17, 16, 0.04);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+}
+
+.trendHeader span {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.trendRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 12px 20px;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.06);
+}
+
+.trendRow:last-child {
+  border-bottom: none;
+}
+
+.trendMetric {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.trendVal {
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.trendUp {
+  color: var(--sage-dark);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.trendDown {
+  color: var(--terracotta);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.trendNeutral {
+  color: var(--ink-60);
+  font-variant-numeric: tabular-nums;
+}
+
+.trendFootnote {
+  padding: 12px 20px 14px;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+  border-top: 1px solid rgba(19, 17, 16, 0.06);
+  background: rgba(19, 17, 16, 0.02);
+  font-style: italic;
+}
+
+/* ── Your Tells ── */
+.yourTells {
+  margin-bottom: 48px;
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.yourTellsHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+  background: rgba(19, 17, 16, 0.03);
+}
+
+.yourTellsLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.yourTellsNote {
+  font-size: 0.75rem;
+  color: var(--ink-60);
+  opacity: 0.7;
+}
+
+.tellsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+@media (max-width: 640px) {
+  .tellsGrid { grid-template-columns: 1fr; }
+}
+
+.tellsBlock {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: 1px solid rgba(19, 17, 16, 0.07);
+}
+
+.tellsBlock:last-child {
+  border-right: none;
+}
+
+.tellsBlockLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.tellsItem {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink);
+  padding-left: 10px;
+  border-left: 2px solid rgba(19, 17, 16, 0.12);
+}
+
+.tellsEmpty {
+  font-size: 0.875rem;
+  color: var(--ink-60);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* ── Patterns Grid (3-column v3) ── */
+.patternsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .patternsGrid { grid-template-columns: 1fr; }
+}
+
+.patternColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.patternColumnHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(19, 17, 16, 0.04);
+  border-radius: 8px;
+  border: 1px solid rgba(19, 17, 16, 0.07);
+}
+
+.patternColumnLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.patternColumnCount {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-60);
+  background: rgba(19, 17, 16, 0.07);
+  border-radius: 10px;
+  padding: 1px 7px;
+}
+
+.patternColumnCards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.patternColumnEmpty {
+  padding: 16px 14px;
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+  opacity: 0.6;
+  font-style: italic;
+  background: rgba(251, 248, 243, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.patternCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 10px;
+  padding: 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.patternCard_critical {
+  border-left: 3px solid var(--terracotta);
+  background: rgba(252, 238, 233, 0.75);
+  border: 1px solid rgba(224, 92, 52, 0.18);
+  border-left: 3px solid var(--terracotta);
+}
+
+.patternCard_high {
+  border-left: 3px solid var(--mustard);
+  border: 1px solid rgba(233, 184, 64, 0.18);
+  border-left: 3px solid var(--mustard);
+}
+
+.patternCard_medium {
+  border-left: 3px solid var(--sage);
+  border: 1px solid rgba(143, 175, 148, 0.18);
+  border-left: 3px solid var(--sage);
+}
+
+.patternCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.patternCardTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.patternCardSummary {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+}
+
+.patternCardFix {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink);
+  font-style: italic;
+  background: rgba(19, 17, 16, 0.04);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+/* ── Empty Calls State ── */
+.emptyCallsState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 24px;
+  background: rgba(251, 248, 243, 0.6);
+  border: 1px dashed rgba(19, 17, 16, 0.15);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.emptyCallsIcon {
+  font-size: 1.5rem;
+  color: var(--ink-20);
+  line-height: 1;
+  font-family: var(--font-playfair, Georgia, serif);
+}
+
+.emptyCallsHeading {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.emptyCallsNote {
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+  max-width: 400px;
+}
+
+/* ── Report History (v3) ── */
+.reportHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reportHistoryEntry {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.6;
+  cursor: default;
+}
+

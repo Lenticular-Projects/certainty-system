@@ -505,3 +505,193 @@
   color: var(--ink-60);
   opacity: 0.6;
 }
+
+/* ============================================================
+   v3 Architecture — New Classes
+   ============================================================ */
+
+/* ── Trend Snapshot ── */
+.trendSnapshot {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  padding: 0 0 16px;
+}
+
+.trendTable {
+  display: grid;
+  width: 100%;
+}
+
+.trendRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 13px 20px;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.07);
+}
+
+.trendRow:last-of-type {
+  border-bottom: none;
+}
+
+.trendHeader {
+  background: rgba(19, 17, 16, 0.04);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08) !important;
+}
+
+.trendHeader span {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.trendTable > .trendRow + .trendRow { border-top: none; }
+
+.trendSnapshot > p {
+  padding: 0 20px;
+}
+
+.trendUp {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--sage-dark);
+}
+
+.trendDown {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--terracotta);
+}
+
+.trendNeutral {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-60);
+}
+
+@media (max-width: 640px) {
+  .trendRow {
+    grid-template-columns: 1.2fr 1fr 1fr;
+  }
+  .trendRow > span:nth-child(2) {
+    display: none;
+  }
+  .trendHeader > span:nth-child(2) {
+    display: none;
+  }
+}
+
+/* ── Your Tells ── */
+.yourTells {
+  margin-bottom: 0;
+}
+
+.tellsBlock {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid rgba(19, 17, 16, 0.12);
+}
+
+/* ── Patterns Grid ── */
+.patternsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .patternsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.patternColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.patternColumnHeader {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid currentColor;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.patternCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 16px 16px 16px 14px;
+  border-left: 4px solid transparent;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Collapsible Calls Toggle ── */
+.collapsibleCallsToggle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  background: rgba(19, 17, 16, 0.05);
+  border: 1px solid rgba(19, 17, 16, 0.1);
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.collapsibleCallsToggle:hover {
+  background: rgba(19, 17, 16, 0.1);
+  color: var(--ink);
+}
+
+/* ── Report History ── */
+.reportHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reportHistoryEntry {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.6;
+}

@@ -505,3 +505,391 @@
   color: var(--ink-60);
   opacity: 0.6;
 }
+
+/* ============================================================
+   v3 Architecture — Trend Snapshot
+   ============================================================ */
+
+.trendSnapshot {
+  margin-bottom: 48px;
+}
+
+.trendTable {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.trendHeader {
+  display: contents;
+}
+
+.trendHeader span {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  padding: 12px 20px;
+  background: rgba(19, 17, 16, 0.04);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+}
+
+.trendRow {
+  display: contents;
+}
+
+.trendRow > span {
+  padding: 14px 20px;
+  font-size: 0.9375rem;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.06);
+  display: flex;
+  align-items: center;
+}
+
+.trendRow:last-child > span {
+  border-bottom: none;
+}
+
+.trendMetricLabel {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.trendUp {
+  color: var(--sage-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.trendDown {
+  color: var(--terracotta);
+  font-variant-numeric: tabular-nums;
+}
+
+.trendNeutral {
+  color: var(--ink-60);
+  font-variant-numeric: tabular-nums;
+}
+
+.trendCaption {
+  font-size: 0.875rem;
+  color: var(--ink-60);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .trendTable {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .trendHeader {
+    display: none;
+  }
+
+  .trendRow {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+    gap: 4px;
+  }
+
+  .trendRow > span {
+    padding: 0;
+    border-bottom: none;
+    font-size: 0.875rem;
+  }
+}
+
+/* ============================================================
+   v3 Architecture — YOUR TELLS
+   ============================================================ */
+
+.yourTells {
+  margin-bottom: 48px;
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tellsHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tellsLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.tellsBadge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(19, 17, 16, 0.06);
+  color: var(--ink-60);
+}
+
+.tellsBlock {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+}
+
+/* ============================================================
+   v3 Architecture — Patterns Grid (Chronic/Emerging/Resolved)
+   ============================================================ */
+
+.patternsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .patternsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.patternColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.patternColumnHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.patternColumnHeader span:first-child {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.patternColSubtext {
+  font-size: 0.6875rem;
+  opacity: 0.7;
+}
+
+.patternColChronic {
+  background: rgba(224, 92, 52, 0.08);
+  color: var(--terracotta);
+}
+
+.patternColEmerging {
+  background: rgba(233, 184, 64, 0.12);
+  color: var(--mustard-dark);
+}
+
+.patternColResolved {
+  background: rgba(143, 175, 148, 0.15);
+  color: var(--sage-dark);
+}
+
+.patternCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.patternCardChronic {
+  border: 1px solid rgba(224, 92, 52, 0.18);
+  border-left: 3px solid var(--terracotta);
+}
+
+.patternCardEmerging {
+  border: 1px solid rgba(233, 184, 64, 0.18);
+  border-left: 3px solid var(--mustard);
+}
+
+.patternCardResolved {
+  border: 1px solid rgba(143, 175, 148, 0.2);
+  border-left: 3px solid var(--sage);
+  opacity: 0.75;
+}
+
+.patternCardTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.patternUrgencyBadge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.patternUrgencyHigh {
+  background: var(--tc-tint);
+  color: var(--terracotta);
+}
+
+.patternUrgencyMedium {
+  background: var(--mustard-tint);
+  color: var(--mustard-dark);
+}
+
+.patternUrgencyResolved {
+  background: var(--sage-tint);
+  color: var(--sage-dark);
+}
+
+.patternRc {
+  font-size: 0.6875rem;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
+.patternTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.patternSummary {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+.patternFix {
+  background: rgba(19, 17, 16, 0.04);
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.patternFixLabel {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.patternFixText {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink);
+  font-style: italic;
+}
+
+/* ============================================================
+   v3 Architecture — Collapsible Calls
+   ============================================================ */
+
+.collapsibleCallsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+  padding-bottom: 12px;
+  border-bottom: var(--rule-lt);
+  gap: 12px;
+}
+
+.collapsibleCallsToggle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-60);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.collapsibleCallsToggle:hover {
+  background: rgba(19, 17, 16, 0.05);
+  color: var(--ink);
+}
+
+/* ============================================================
+   v3 Architecture — Report History
+   ============================================================ */
+
+.reportHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reportHistoryEntry {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.6;
+  cursor: default;
+}
+
+.reportHistoryEntryActive {
+  opacity: 1;
+  border-color: rgba(143, 175, 148, 0.4);
+  background: rgba(238, 243, 239, 0.85);
+}
+
+.reportTag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--sage-dark);
+  margin-top: 4px;
+  display: block;
+}

@@ -567,3 +567,222 @@
   color: var(--ink-60);
   opacity: 0.6;
 }
+
+/* ── CRM Trend Snapshot ── */
+.trendSnapshot {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.trendHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 12px 20px;
+  background: rgba(19, 17, 16, 0.04);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+  gap: 12px;
+}
+
+.trendHeader span {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.trendRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 13px 20px;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid rgba(19, 17, 16, 0.06);
+}
+
+.trendRow:last-child { border-bottom: none; }
+
+.trendMetric {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.trendPrior {
+  font-size: 0.875rem;
+  color: var(--ink-60);
+  font-variant-numeric: tabular-nums;
+}
+
+.trendCurrent {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.trendDelta {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.trendUp   { color: var(--sage-dark); }
+.trendDown { color: var(--terracotta); }
+.trendNeutral { color: var(--ink-60); }
+
+/* ── Your Tells ── */
+.yourTells {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .yourTells { grid-template-columns: 1fr; }
+}
+
+.tellsBlock {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 20px 20px 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tellsHeader {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.tellsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tellsList li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tellCall {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.tellQuote {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink);
+  font-style: italic;
+}
+
+/* ── Patterns Grid (Chronic / Emerging / Resolved) ── */
+.patternsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .patternsGrid { grid-template-columns: 1fr; }
+}
+
+.patternColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.patternColumnHeader {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.patternColChronic  { color: var(--terracotta); }
+.patternColEmerging { color: var(--mustard-dark); }
+.patternColResolved { color: var(--sage-dark); }
+
+.patternCard {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 12px;
+  padding: 18px 18px 16px;
+  border-left: 4px solid transparent;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+/* ── Collapsible Calls Toggle ── */
+.collapsibleCallsToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: var(--rule-lt);
+  padding: 0 0 12px;
+  cursor: pointer;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.collapsibleCallsToggle:hover .sectionTitle {
+  color: var(--sage-dark);
+}
+
+.toggleChevron {
+  font-size: 0.75rem;
+  color: var(--ink-60);
+  flex-shrink: 0;
+}
+
+/* ── Report History ── */
+.reportHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reportHistoryEntry {
+  background: rgba(251, 248, 243, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.6;
+  cursor: default;
+}
