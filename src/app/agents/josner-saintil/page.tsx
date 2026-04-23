@@ -1,131 +1,87 @@
 'use client'
 
+import { useState } from 'react'
 import PageShell from '@/components/layout/PageShell'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
-import { useState } from 'react'
 import styles from './page.module.css'
 
-// ── Mid-Week Report: April 22, 2026 (covers Apr 20–21) ──────────────────────
-
-// ── CRM Trend Data ───────────────────────────────────────────────────────────
+// ── Weekly Brief — April 22, 2026 ──────────────────────────────────────────
+// CRM (source of truth):
+//   Apr 13–17 (5 days): 102 all_calls · 69 billable · 5 sales · 4.90% conv · $274.80 CPA
+//   Apr 20–22 (3 days):  51 all_calls · 33 billable · 4 sales · 7.84% conv · $142.50 CPA
+// Coaching sample: 1 reviewed call (Roy Bumgarner, Apr 21)
+// Compliance flag: DST invoked as standalone SEP — correct pathway was INT
 
 const trendRows = [
-  {
-    metric: 'Sales',
-    prior: '5',
-    current: '2',
-    delta: '+2 (on pace)',
-    dir: 'up' as const,
-    note: '2 days vs 5-day week',
-  },
-  {
-    metric: 'Conversion',
-    prior: '4.90%',
-    current: '6.90%',
-    delta: '+2.00pp',
-    dir: 'up' as const,
-    note: null,
-  },
-  {
-    metric: 'CPA',
-    prior: '$274',
-    current: '$134',
-    delta: '−$140',
-    dir: 'up' as const,
-    note: null,
-  },
-  {
-    metric: 'Billable Calls',
-    prior: '69',
-    current: '15',
-    delta: '−',
-    dir: 'neutral' as const,
-    note: '2 days only',
-  },
+  { metric: 'Sales',      lastWeek: '5',        thisPeriod: '4',       movement: '↑ Pace up (1.33/day vs 1.0)',  dir: 'up' },
+  { metric: 'Conversion', lastWeek: '4.90%',    thisPeriod: '7.84%',   movement: '↑ +2.94pp',                    dir: 'up' },
+  { metric: 'CPA',        lastWeek: '$274.80',  thisPeriod: '$142.50', movement: '↓ −$132.30',                   dir: 'up' },
 ]
 
-// ── Calls ─────────────────────────────────────────────────────────────────────
-
-const callsByDate = [
+const reviewedCalls = [
   {
     date: 'Tuesday, April 21',
     calls: [
-      {
-        consumer: 'Roy Bumgarner',
-        duration: '57:46',
-        score: 75,
-        outcome: 'ENROLLED',
-        outcomeNote: 'UHC D-SNP · effective May 1',
-        type: 'The Money Caller — Returning Consumer',
-        href: '/agents/josner-saintil/calls/roy-bumgarner',
-      },
+      { consumer: 'Roy Bumgarner', duration: '57:46', score: 75, outcome: 'ENROLLED', type: 'The Money Caller · Rutherford County, NC', href: '/agents/josner-saintil/calls/roy-bumgarner' },
     ],
   },
 ]
 
-// ── Patterns ─────────────────────────────────────────────────────────────────
-
-const chronicPatterns = [
+const whatYouDidWell = [
   {
-    title: 'SEP signals missed — RC6 is the week-over-week constant',
-    rc: 'RC6',
-    urgency: 'high' as const,
-    summary: 'Last week: four live SEP signals (MOV, CSN, INT, MCD) — none converted. This week: correct SEP existed (INT), wrong one cited. The failure is shifting from passive miss to active error.',
-    fix: 'Before citing any SEP: name the triggering event, match it to the code. For Medicaid → D-SNP, the code is always INT.',
+    title: 'Doctor-first enrollment framework — you made the doctor the deciding factor',
+    body: "At 10:50 you told Roy you would not move forward with UHC if Dr. Patrick Salmon wasn't in-network. That line — 'if it can't cover Mr. Patrick, then we can't use it' — is the reason Roy signed without hesitation. You weren't pitching a plan; you were solving his exact problem. When you confirmed Salmon in-network at 11:30 and said 'thank God, we actually have some good news,' you eliminated the only real objection before Roy could raise it. That's textbook case-building.",
+  },
+  {
+    title: 'You read the food card loss signal and built the whole case around restoring what Roy lost',
+    body: "Roy told you at 8:06: 'They gave me $300 to get groceries with. And it worked. Now I ain't getting nothing.' That's loss aversion in plain English — he's not looking for something new, he's trying to get back what was taken. You picked it up and immediately made the switch about recovery. At 12:25 you framed WellCare's $94/month against UHC's ~$300 and made the case around usability. The consumer who can already picture his grocery card working again doesn't need much else to sign.",
+  },
+  {
+    title: 'Assumptive close after doctor confirmation — no permission-asking, just forward motion',
+    body: "At 13:29, the second you confirmed Salmon was in-network, you moved to application without asking permission to proceed: 'What we can do is make sure that we can do the application for you here, okay?' That trailing 'okay?' invited a nod, not a decision. On a consumer who just heard their doctor was covered, that's the moment to move — and you did. Assumptive close after the winning signal is the single highest-leverage close move, and you executed it cleanly.",
   },
 ]
 
-const emergingPatterns = [
+const whatToWorkOn = [
   {
-    title: 'DST cited as standalone SEP — enrollment audit risk',
-    rc: 'RC4',
-    urgency: 'critical' as const,
-    summary: 'Roy Bumgarner call (Apr 21): Josner stated "we\'ll use the recent winter storm" as the SEP basis at 15:53. DST is prohibited as a standalone code. The correct SEP is INT (Medicaid beneficiary enrolling into D-SNP), open any month, no event required.',
-    fix: '"Since you have Medicaid, you qualify to switch any time of year — we don\'t need any other reason." INT. Always.',
+    num: 1,
+    title: "Remove DST from your playbook permanently — Roy's SEP was INT, available any month",
+    body: "At 15:53 you said on a recorded line: 'We'll use the recent winter storm that had happened in North Carolina.' DST is not a standalone SEP — it only extends a pre-existing window the beneficiary already missed because of the disaster. Roy has partial Medicaid and is enrolling into a D-SNP. That's INT. INT is available any month, requires no external event, and is fully audit-proof. You don't need a weather event to justify this enrollment. The winter storm language on a recorded line is an audit red flag that can trigger disenrollment review — and it can cost Roy his coverage.",
+    script: '"Roy, since you have Medicaid, you actually qualify to switch into this plan any time of year. That\'s a special qualification for people in your situation — we don\'t need any other reason. Let me get you set up today."',
   },
   {
-    title: 'SSN collected before eligibility permission',
-    rc: 'RC4',
-    urgency: 'high' as const,
-    summary: 'Roy provided SSN at 3:38. Eligibility permission was requested at 3:58 — 20 seconds after collection. Consent must precede collection on a recorded line.',
-    fix: '"Before I look anything up, do I have your permission to pull your eligibility?" Then ask for the number.',
+    num: 2,
+    title: 'Finish the math — say the annual number and connect it to what the consumer told you',
+    body: "At 12:25 you told Roy WellCare was giving him $94 a month and UHC was giving him almost $300. That's Step 1 — the comparison. You stopped there. Step 2 is the annual number: '$206 more per month is $2,472 more per year just in grocery money.' Step 3 is connecting it to Roy's life — at 52:50 he told you utilities are tight. That's your humanization moment: 'When this card covers your groceries, that money stays for utilities instead.' On Roy it didn't matter — he was already sold. On your next skeptic, it will be the line that closes it.",
+    script: '"Roy, that\'s $206 more per month — $2,472 more per year just in grocery money. You mentioned utilities are tight. When this card covers your groceries, that money stays in your pocket for utilities instead. That\'s real relief, starting May 1st."',
   },
-]
-
-const resolvedPatterns = [
   {
-    title: 'Doctor network skipped — resolved',
-    rc: 'RC1',
-    urgency: 'medium' as const,
-    summary: 'Prior months: enrollment initiated without confirming primary doctor coverage. Roy Bumgarner call: Josner confirmed Dr. Salmon in-network at 11:30 before proceeding. Correct sequence executed.',
-    fix: 'Keep doing this. Doctor first, application second.',
+    num: 3,
+    title: "Deploy late-call Client Gold — income stress at 52:50 was a close reinforcement you left on the table",
+    body: "At 52:50 Roy told you 'I paid my utilities okay. Social work hard but I pay them.' You had already enrolled him — but that line is a post-close loyalty anchor. When a consumer reveals financial fragility after the signature, you tie the benefit back to it: 'That $300 card is going to make those utilities easier — that's real money back in your pocket every month.' This is the move that prevents next-day buyer's remorse calls. Every piece of Client Gold is either leveraged in the case or deployed as loyalty reinforcement — never collected and dropped.",
+    script: '"Roy, you just told me utilities are tight. Here\'s what this plan does — $300 a month on the card means you\'re not choosing between groceries and utilities anymore. That money stays in your pocket. That\'s the whole point of what we just did."',
   },
 ]
-
-// ── Report History ─────────────────────────────────────────────────────────
 
 const reportHistory = [
   {
-    label: 'Apr 22 · Mid-Week',
-    meta: 'Sales: 2 ↑ · CPA: $134 ↓',
+    id: 'apr-22',
     active: true,
-  },
-  {
-    label: 'Apr 13–17 · Weekly Brief',
-    meta: 'Avg: 37/100 · 4 calls · RC6 x2',
-    active: false,
+    date: 'Apr 22',
+    label: 'Weekly Brief',
+    period: 'April 20–22, 2026',
+    trendHeadline: 'Sales 4 · Conv 7.84% ↑ · CPA $142.50 ↓',
+    scoreNote: 'Strong improvement · DST compliance flag to close',
+    href: '/agents/josner-saintil/reports/2026-04-22',
   },
 ]
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
 
 function outcomeClass(outcome: string) {
   if (outcome === 'ENROLLED') return styles.pillEnrolled
   if (outcome === 'MISSED OPPORTUNITY') return styles.pillMissed
   if (outcome === 'INCOMPLETE') return styles.pillIncomplete
-  if (outcome === 'CORRECT NO-SALE') return styles.pillNeutral
   return styles.pillNeutral
 }
 
@@ -135,173 +91,121 @@ function scoreColor(score: number) {
   return 'var(--terracotta)'
 }
 
-function urgencyLabel(u: string) {
-  if (u === 'critical') return 'CRITICAL'
-  if (u === 'high') return 'HIGH'
-  return 'RESOLVED'
-}
-
 export default function JosnerSaintilPage() {
-  const [callsOpen, setCallsOpen] = useState(true)
+  const [showAllCalls, setShowAllCalls] = useState(true)
+
+  const totalReviewed = reviewedCalls.reduce((sum, g) => sum + g.calls.length, 0)
 
   return (
     <PageShell signal="green">
       <div className={styles.page}>
 
-        {/* ── Header ── */}
+        {/* Header */}
         <motion.div className={styles.header} {...SPRING}>
           <div className={styles.headerMeta}>
             <span className={styles.systemLabel}>The Certainty System</span>
             <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>Mid-Week Report</span>
-            <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>April 22, 2026</span>
+            <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
           <h1 className={styles.agentName}>Josner Saintil</h1>
-          <p className={styles.period}>Week of April 20–22</p>
-          <p className={styles.updatedAt}>Updated April 22 · 1 call reviewed</p>
+          <p className={styles.period}>April 22, 2026 · Covering April 20–22</p>
+          <p className={styles.updatedAt}>{totalReviewed} call reviewed this period</p>
         </motion.div>
 
-        {/* ── Trend Snapshot ── */}
+        {/* Trend Snapshot */}
         <motion.div className={styles.trendSnapshot} {...SPRING}>
-          <div className={styles.sectionTitleRow}>
-            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>CRM Trend Snapshot</h2>
-            <span className={styles.sectionBadge}>Apr 20–21 vs Apr 13–17</span>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Trend Snapshot</h2>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–22 · from CRM</span>
           </div>
           <div className={styles.trendTable}>
             <div className={styles.trendHeader}>
               <span>Metric</span>
               <span>Last Week</span>
               <span>This Period</span>
-              <span>Change</span>
+              <span>Movement</span>
             </div>
             {trendRows.map((row) => (
               <div key={row.metric} className={styles.trendRow}>
-                <span className={styles.trendMetric}>
-                  {row.metric}
-                  {row.note && <span className={styles.trendNote}> ({row.note})</span>}
-                </span>
-                <span className={styles.trendPrior}>{row.prior}</span>
-                <span className={styles.trendCurrent}>{row.current}</span>
-                <span className={
-                  (row.dir as string) === 'up' ? styles.trendUp :
-                  (row.dir as string) === 'down' ? styles.trendDown :
-                  styles.trendNeutral
-                }>{row.delta}</span>
+                <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
+                <span style={{ fontSize: '0.9375rem', color: 'var(--ink-60)', fontVariantNumeric: 'tabular-nums' }}>{row.lastWeek}</span>
+                <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--ink)', fontVariantNumeric: 'tabular-nums' }}>{row.thisPeriod}</span>
+                <span className={row.dir === 'up' ? styles.trendUp : styles.trendDown}>{row.movement}</span>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '14px', lineHeight: 1.65 }}>
+            4 sales in 3 days on 33 billable calls — <strong style={{ color: 'var(--sage-dark)' }}>pace up, conversion up nearly 3 points, CPA cut almost in half</strong>. The trajectory is real. This week is about protecting the compliance foundation underneath those numbers so none of them get reversed.
+          </p>
+        </motion.div>
+
+        {/* Executive Summary */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Executive Summary</h2>
+          <div className={styles.execSummaryInner}>
+            <p><strong>What&apos;s working:</strong> The CRM numbers are moving hard in the right direction — conversion up 2.94 points, CPA down $132, daily pace accelerating. The Roy Bumgarner call shows the sales mechanics behind the numbers. Roy called frustrated about a useless WellCare food card and a doctor who wasn&apos;t getting paid. You ran doctor verification first, confirmed Dr. Patrick Salmon in-network at 11:30, and framed the switch as restoring what Roy already knew worked. At 10:50 you told him you wouldn&apos;t proceed if Salmon wasn&apos;t covered — that line eliminated the objection before he could raise it. Then you went assumptive at 13:29 the second the doctor was confirmed, no permission-asking. That&apos;s a closer&apos;s move.</p>
+            <p><strong>What needs to change now:</strong> At 15:53 on Roy&apos;s call, you cited the winter storm as his qualifying SEP basis on a recorded line. That&apos;s DST — and DST is a prohibited standalone SEP citation. Roy doesn&apos;t need a weather event. He has partial Medicaid and he&apos;s enrolling into a D-SNP. That&apos;s INT, available any month, no disaster required, fully audit-proof. The storm language on a recorded line creates disenrollment exposure if the file gets pulled. Roy&apos;s enrollment may stand, but you cannot take that risk call after call. The compliant pathway was sitting right in front of you — use it. The other piece: when Roy revealed income stress at 52:50 — utilities are tight — you let it pass. That was a post-close loyalty anchor, the line that prevents buyer&apos;s remorse the next day. Tie every piece of Client Gold to the benefit before the call ends.</p>
+          </div>
+        </motion.div>
+
+        {/* The One Thing */}
+        <motion.div className={styles.oneThing} {...SPRING}>
+          <span className={styles.oneThingLabel}>The One Thing</span>
+          <p className={styles.oneThingText}>When a consumer has Medicaid and is enrolling into a D-SNP, the SEP is INT — available any month, no external event needed. Never cite a disaster, a storm, or a missed AEP on a recorded line. The line is: &ldquo;Since you have Medicaid, you actually qualify to switch into this plan any time of year — that&apos;s a special qualification for people in your situation, we don&apos;t need any other reason.&rdquo; That&apos;s audit-proof, it&apos;s the truth, and it keeps every enrollment defensible.</p>
+        </motion.div>
+
+        {/* What You Did Well */}
+        <motion.div className={styles.section} {...SPRING}>
+          <h2 className={styles.sectionTitle}>What You Did Well</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {whatYouDidWell.map((item, i) => (
+              <div key={i} style={{ padding: '16px 20px', background: 'rgba(125, 157, 123, 0.06)', borderRadius: '10px', borderLeft: '3px solid var(--sage-dark)' }}>
+                <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px' }}>{item.title}</p>
+                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--ink)', margin: 0 }}>{item.body}</p>
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* ── The One Thing ── */}
-        <motion.div className={styles.oneThing} {...SPRING}>
-          <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Before you cite any SEP on a recorded line, name the triggering event and match it to the code. For Medicaid into D-SNP, that code is INT — no storm required, no AEP window required, no external event at all. &ldquo;Since you have Medicaid, you qualify to switch any time of year.&rdquo; That line is audit-proof. The storm line is not.</p>
-        </motion.div>
-
-        {/* ── Executive Summary ── */}
-        <motion.div className={styles.execSummary} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Executive Summary</h2>
-          <div className={styles.execSummaryInner}>
-            <p><strong>What&rsquo;s working:</strong> Two days in, two sales — you&rsquo;re on pace to beat last week&rsquo;s five. Conversion is up from 4.90% to 6.90%. CPA cut in half from $274 to $134. The Roy Bumgarner call shows you executing the doctor-first framework correctly — you confirmed Dr. Salmon in-network at 11:30 before moving to application, you framed the switch as restoring what Roy already knew worked, and you enrolled cleanly with voice signature at 48:50. The line at 10:50 — &ldquo;if it can&rsquo;t cover Mr. Patrick, then we can&rsquo;t use it&rdquo; — is the reason that call enrolled. That framing builds a level of trust that removes objections before they surface.</p>
-            <p><strong>What&rsquo;s costing you:</strong> At 15:53 on the Roy call, you said &ldquo;we&rsquo;ll use the recent winter storm that had happened in North Carolina&rdquo; as the SEP basis — on a recorded line. DST is not a standalone SEP. Roy has partial Medicaid and was enrolling into a D-SNP, which qualifies under INT any month of the year. You had a clean, audit-proof pathway and walked past it to use one that creates review exposure. This needs to come out of your process entirely. Also: Roy&rsquo;s SSN was collected at 3:38, twenty seconds before you asked for eligibility permission at 3:58. The question is right — the sequence is backward. Permission first, then number.</p>
-          </div>
-        </motion.div>
-
-        {/* ── YOUR TELLS ── */}
-        <motion.div className={styles.yourTells} {...SPRING}>
-          <div className={styles.sectionTitleRow}>
-            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Your Tells</h2>
-            <span className={styles.sectionBadge}>Enrolled vs Missed</span>
-          </div>
-          <div className={styles.tellsBlock}>
-            <p>Needs more data — coming in the next report. Only 1 reviewed call this period. Check back after Thursday&rsquo;s batch.</p>
-          </div>
-        </motion.div>
-
-        {/* ── Patterns ── */}
+        {/* What to Work On */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Patterns</h2>
-          <div className={styles.patternsGrid}>
-
-            {/* Chronic */}
-            <div className={styles.patternColumn}>
-              <div className={`${styles.patternColumnHeader} ${styles.patternColumnChronic}`}>Chronic</div>
-              {chronicPatterns.map((p, i) => (
-                <div key={i} className={`${styles.patternCard} ${styles[`priority_${p.urgency}`]}`}>
-                  <div className={styles.priorityHeader}>
-                    <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>{urgencyLabel(p.urgency)}</span>
-                    <span className={styles.rcCode}>{p.rc}</span>
-                  </div>
-                  <p className={styles.priorityTitle}>{p.title}</p>
-                  <p className={styles.priorityDetail}>{p.summary}</p>
-                  <div className={styles.priorityMove}>
-                    <span className={styles.priorityMoveLabel}>Instead</span>
-                    <p className={styles.priorityMoveText}>{p.fix}</p>
-                  </div>
+          <h2 className={styles.sectionTitle}>What to Work On</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {whatToWorkOn.map((item) => (
+              <div key={item.num} style={{ padding: '18px 20px', background: 'rgba(251, 248, 243, 0.82)', borderRadius: '10px', border: '1px solid rgba(19,17,16,0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--terracotta)', fontVariantNumeric: 'tabular-nums', minWidth: '1.2em' }}>{item.num}.</span>
+                  <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--ink)', margin: 0 }}>{item.title}</p>
                 </div>
-              ))}
-            </div>
-
-            {/* Emerging */}
-            <div className={styles.patternColumn}>
-              <div className={`${styles.patternColumnHeader} ${styles.patternColumnEmerging}`}>Emerging</div>
-              {emergingPatterns.map((p, i) => (
-                <div key={i} className={`${styles.patternCard} ${styles[`priority_${p.urgency}`]}`}>
-                  <div className={styles.priorityHeader}>
-                    <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>{urgencyLabel(p.urgency)}</span>
-                    <span className={styles.rcCode}>{p.rc}</span>
-                  </div>
-                  <p className={styles.priorityTitle}>{p.title}</p>
-                  <p className={styles.priorityDetail}>{p.summary}</p>
-                  <div className={styles.priorityMove}>
-                    <span className={styles.priorityMoveLabel}>Instead</span>
-                    <p className={styles.priorityMoveText}>{p.fix}</p>
-                  </div>
+                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--ink)', margin: '0 0 10px 1.7em' }}>{item.body}</p>
+                <div style={{ marginLeft: '1.7em', padding: '10px 14px', background: 'rgba(19,17,16,0.04)', borderRadius: '6px', borderLeft: '2px solid var(--ink-20)' }}>
+                  <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)', margin: '0 0 4px' }}>The line</p>
+                  <p style={{ fontSize: '0.875rem', lineHeight: 1.65, fontStyle: 'italic', color: 'var(--ink)', margin: 0 }}>{item.script}</p>
                 </div>
-              ))}
-            </div>
-
-            {/* Resolved */}
-            <div className={styles.patternColumn}>
-              <div className={`${styles.patternColumnHeader} ${styles.patternColumnResolved}`}>Resolved</div>
-              {resolvedPatterns.map((p, i) => (
-                <div key={i} className={`${styles.patternCard} ${styles.patternCardResolved}`}>
-                  <div className={styles.priorityHeader}>
-                    <span className={`${styles.urgencyBadge} ${styles.badgeResolved}`}>{urgencyLabel('resolved')}</span>
-                    <span className={styles.rcCode}>{p.rc}</span>
-                  </div>
-                  <p className={styles.priorityTitle}>{p.title}</p>
-                  <p className={styles.priorityDetail}>{p.summary}</p>
-                  <div className={styles.priorityMove}>
-                    <span className={styles.priorityMoveLabel}>Keep</span>
-                    <p className={styles.priorityMoveText}>{p.fix}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        {/* ── Calls ── */}
+        {/* Calls */}
         <motion.div className={styles.section} {...SPRING}>
-          <button
-            className={styles.collapsibleCallsToggle}
-            onClick={() => setCallsOpen((v) => !v)}
-            aria-expanded={callsOpen}
-          >
-            <span>This Period&rsquo;s Calls</span>
-            <span className={styles.toggleChevron}>{callsOpen ? '▲' : '▼'}</span>
-          </button>
-
-          {callsOpen && (
-            <div style={{ marginTop: '16px' }}>
-              {callsByDate.map((group) => (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Reviewed Calls This Period</h2>
+            <button
+              onClick={() => setShowAllCalls(!showAllCalls)}
+              style={{ width: 'auto', padding: '6px 14px', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--ink-60)', background: 'transparent', border: '1px solid rgba(19,17,16,0.15)', borderRadius: '6px', cursor: 'pointer', whiteSpace: 'nowrap' }}
+            >
+              {showAllCalls ? 'Collapse ▴' : `Expand (${totalReviewed}) ▾`}
+            </button>
+          </div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            This is the call we pulled for coaching this period. Your CRM total this period is 4 sales / 51 calls — this is a coaching sample, not an audit of every call.
+          </p>
+          {showAllCalls && (
+            <>
+              {reviewedCalls.map((group) => (
                 <div key={group.date} style={{ marginBottom: '1.5rem' }}>
-                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
-                    {group.date}
-                  </p>
+                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>{group.date}</p>
                   <div className={styles.callTable}>
                     <div className={styles.callTableHeader}>
                       <span>Consumer</span>
@@ -313,15 +217,12 @@ export default function JosnerSaintilPage() {
                     {group.calls.map((call, i) => (
                       <div key={i} className={styles.callRow}>
                         <span className={styles.consumerName}>
-                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
-                            {call.consumer}
-                          </Link>
+                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>{call.consumer}</Link>
                         </span>
                         <span className={styles.callMeta}>{call.duration}</span>
                         <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
                         <span className={styles.outcomeCell}>
                           <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
-                          {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
                         </span>
                         <span className={styles.callType}>{call.type}</span>
                       </div>
@@ -330,35 +231,55 @@ export default function JosnerSaintilPage() {
                 </div>
               ))}
               <div className={styles.callTableFooter}>
-                <span>Period Average: <strong>75 / 100</strong></span>
-                <span>Enrolled: <strong>1 of 1</strong></span>
+                <span>Reviewed Avg: <strong>75 / 100</strong></span>
+                <span>Reviewed Enrolled: <strong>1 of 1</strong></span>
+                <span style={{ opacity: 0.7 }}>CRM Total: 4 sales / 51 calls</span>
               </div>
-            </div>
+            </>
           )}
         </motion.div>
 
-        {/* ── Report History ── */}
-        <motion.div className={styles.section} {...SPRING}>
+        {/* Report History */}
+        <motion.div className={styles.reportHistory} {...SPRING}>
           <h2 className={styles.sectionTitle}>Report History</h2>
-          <div className={styles.reportHistory}>
-            {reportHistory.map((r, i) => (
-              <div key={i} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportHistoryActive : ''}`}>
-                <div className={styles.reportLeft}>
-                  <span className={styles.reportTitle}>{r.label}</span>
-                  <span className={styles.reportDate}>{r.meta}</span>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            Each report has its own page. Click any entry to open the full brief exactly as it was delivered.
+          </p>
+          <div className={styles.reportList}>
+            {reportHistory.map((r) => {
+              const content = (
+                <>
+                  <div className={styles.reportLeft}>
+                    <span className={styles.reportType}>{r.date} · {r.label}</span>
+                    <span className={styles.reportTitle}>{r.period}</span>
+                  </div>
+                  <div className={styles.reportRight} style={{ textAlign: 'right' }}>
+                    <span className={styles.reportScore}>{r.trendHeadline}</span>
+                    <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
+                  </div>
+                </>
+              )
+              return r.href ? (
+                <Link
+                  key={r.id}
+                  href={r.href}
+                  className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}
+                  style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <div key={r.id} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
+                  {content}
                 </div>
-                {r.active && (
-                  <span className={styles.reportType}>Current</span>
-                )}
-              </div>
-            ))}
+              )
+            })}
           </div>
         </motion.div>
 
-        {/* ── Footer ── */}
+        {/* Footer */}
         <div className={styles.footer}>
-          <p>The Certainty System · Josner Saintil · Mid-Week Report — April 22, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC4 · RC6 · SEP · INT · DST · Compliance Sequencing · D-SNP · Math Breakdown</p>
+          <p>The Certainty System · Josner Saintil · Weekly Brief · April 22, 2026</p>
         </div>
 
       </div>

@@ -7,126 +7,88 @@ import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
 import styles from './page.module.css'
 
-// ── Mid-Week Report: April 20–21, 2026 ──────────────────────────────────────
-// CRM: Apr 13–17 → 3 sales · 4.76% conv · $224.67 CPA (63 calls / 41 billable)
-//       Apr 20–21 → 3 sales · 7.32% conv · $155 CPA (41 calls / 36 billable)
-// Reviewed: 4 calls · Avg: 30.5 · All missed opportunities
+// ── Weekly Brief — April 22, 2026 ──────────────────────────────────────────
+// CRM (source of truth — from CRM screenshot Apr 20–22):
+//   Apr 13–17 (5 days): 63 all_calls · 41 billable · 3 sales · 4.76% conv · $224.67 CPA
+//   Apr 20–22 (3 days): 51 all_calls · 41 billable · 5 sales · 9.80% conv · $107.60 CPA
+// Coaching sample: 4 reviewed calls (2 from Apr 20, 2 from Apr 21)
 
-// ── Trend Snapshot data ──────────────────────────────────────────────────────
 const trendRows = [
-  {
-    metric: 'Sales',
-    lastWeek: '3',
-    thisPeriod: '3',
-    movement: '↔ Matched',
-    dir: 'up' as const,
-    note: '3 sales in 2 days — matched all of last week',
-  },
-  {
-    metric: 'Conversion',
-    lastWeek: '4.76%',
-    thisPeriod: '7.32%',
-    movement: '↑ +2.56pp',
-    dir: 'up' as const,
-    note: 'Conversion rate up 54%',
-  },
-  {
-    metric: 'CPA',
-    lastWeek: '$224.67',
-    thisPeriod: '$155',
-    movement: '↓ −$69.67',
-    dir: 'up' as const,
-    note: 'Cost per acquisition down significantly',
-  },
+  { metric: 'Sales',      lastWeek: '3',        thisPeriod: '5',        movement: '↑ +2 (already beat last week in 3 days)', dir: 'up' },
+  { metric: 'Conversion', lastWeek: '4.76%',    thisPeriod: '9.80%',    movement: '↑ +5.04pp',                                dir: 'up' },
+  { metric: 'CPA',        lastWeek: '$224.67',  thisPeriod: '$107.60',  movement: '↓ −$117.07',                               dir: 'up' },
 ]
 
-// ── Calls grouped by date ────────────────────────────────────────────────────
-const callsByDate = [
+const reviewedCalls = [
   {
     date: 'Monday, April 20',
     calls: [
-      {
-        consumer: 'Kenneph Smalls',
-        duration: '13:27',
-        score: 38,
-        outcome: 'MISSED OPPORTUNITY',
-        outcomeNote: null,
-        type: 'Benefit Upgrade · Vulnerable Consumer · C-SNP Miss',
-        href: '/agents/guillermo-cruz/calls/kenneph-smalls',
-      },
-      {
-        consumer: 'Unknown Consumer',
-        duration: '03:52',
-        score: 18,
-        outcome: 'MISSED OPPORTUNITY',
-        outcomeNote: null,
-        type: 'Confused Responder · Permission-Seeking Opener',
-        href: '/agents/guillermo-cruz/calls/unknown-consumer',
-      },
+      { consumer: 'Kenneph Smalls',  duration: '13:27', score: 38, outcome: 'MISSED OPPORTUNITY', type: 'Surrendered at first objection · plan-change fear',         href: '/agents/guillermo-cruz/calls/kenneph-smalls'   },
+      { consumer: 'Unknown Caller',  duration: '03:52', score: 18, outcome: 'MISSED OPPORTUNITY', type: 'Permission-seeking opener · call died in Phase II',          href: '/agents/guillermo-cruz/calls/unknown-consumer'  },
     ],
   },
   {
     date: 'Tuesday, April 21',
     calls: [
-      {
-        consumer: 'Gloria',
-        duration: '12:17',
-        score: 28,
-        outcome: 'MISSED OPPORTUNITY',
-        outcomeNote: null,
-        type: 'Privacy Gatekeeper · SSN Loop · Unactivated Card Miss',
-        href: '/agents/guillermo-cruz/calls/gloria',
-      },
-      {
-        consumer: 'Michael Thompson',
-        duration: '12:29',
-        score: 38,
-        outcome: 'MISSED OPPORTUNITY',
-        outcomeNote: null,
-        type: 'Money Caller · C-SNP · Existing Agent Surrender',
-        href: '/agents/guillermo-cruz/calls/michael-thompson',
-      },
+      { consumer: 'Gloria',          duration: '12:17', score: 28, outcome: 'MISSED OPPORTUNITY', type: 'SSN loop · unactivated flex card abandoned',                 href: '/agents/guillermo-cruz/calls/gloria'            },
+      { consumer: 'Michael Thompson',duration: '12:29', score: 38, outcome: 'MISSED OPPORTUNITY', type: 'CSN SEP missed · surrendered to existing-agent objection',   href: '/agents/guillermo-cruz/calls/michael-thompson'  },
     ],
   },
 ]
 
-// ── Emerging patterns (first period — no chronic or resolved yet) ─────────────
-const emergingPatterns = [
+const whatYouDidWell = [
   {
-    rc: 'RC1',
-    summary: 'Surrender at first resistance. All 4 calls ended when the consumer pushed back once — no reframe, no second ask, no close attempt.',
-    fix: 'Build one reframe per objection into muscle memory. Every plan-change fear gets the Medicare frame. Every existing-agent deflection gets the SEP urgency frame. One sentence. Then pause.',
+    title: 'Discovery that surfaces real needs — every time',
+    body: "On Kenneph Smalls, you found the broken glasses, the dentures he wants, the $181 food card running out before month's end, and the stroke-and-heart-attack history — all in a natural conversation, not a checklist. On Michael Thompson, you correctly identified the grocery card as the entry point and matched it to a Devoted C-SNP plan tied specifically to his diabetes diagnosis at 8:35. That condition-specific benefit anchoring is exactly what top performers do. The discovery phase is genuinely strong.",
   },
   {
-    rc: 'RC2',
-    summary: 'Client Gold collected but not deployed. Kenneph\'s survival story, Gloria\'s unactivated flex card, Michael\'s grocery card ask — all heard, all abandoned.',
-    fix: 'When a consumer hands you the hook, stop and use it. "Kenneph, you told me doctors said you\'d never talk again — and you\'re on the phone with me. Let me get you the dentures you\'ve earned." That\'s the close.',
+    title: 'Patient, warm tone with difficult and fragile callers',
+    body: "Gloria spent four minutes looking for her Medicare card while you waited without pressure. Kenneph Smalls disclosed he was crawling to get food and had survived a stroke against his doctors' expectations — you responded with genuine warmth at 7:13 rather than pushing past it for the pitch. That rapport-building earns trust that agents who close more than you don't always build. It's the foundation for bigger weeks.",
   },
   {
-    rc: 'RC6',
-    summary: 'CSN SEP missed on two calls. Kenneph has diabetes, stroke, and heart attack. Michael has diabetes. Both are year-round C-SNP eligible. Neither was told.',
-    fix: 'Chronic condition confirmed → SEP named immediately. "Because of your diabetes, you have a Special Enrollment Period open right now, year-round. You don\'t have to wait for October." This is your urgency lever.',
+    title: 'Condition-specific plan matching — you read the signal and tie the product to it',
+    body: "On Michael Thompson at 8:35, you pivoted straight to a Devoted C-SNP once you caught the diabetes diagnosis — that's the product move that separates top closers from order-takers. On Kenneph Smalls, the $181 food card running out mid-month was exactly the entry point to anchor on, and you used it. Reading a real need and matching it to a specific plan — not a generic pitch — is where your closes will come from. Keep leading with that instinct.",
   },
 ]
 
-// ── Report History ────────────────────────────────────────────────────────────
+const whatToWorkOn = [
+  {
+    num: 1,
+    title: "When first resistance hits, pivot to the reframe — not a recap, not a surrender",
+    body: "All four reviewed calls ended when the consumer pushed back once and you accepted it. Kenneph said 'I don't want to change all my insurance' at 12:27 — you said 'All good. All good.' and ended the call. Michael said 'I'm not going to train from Humana' at 10:02 — you recapped benefits. Gloria refused the SSN at 6:26 — you returned to the same request four more times. The consumer's first no is a fear, not a final answer. Fear is workable. You have to try the reframe before you let go.",
+    script: "\"I hear you — and this is important: you are NOT changing your Medicare. Your Medicare card stays the same. Your doctors stay the same. The only thing that changes is the plan on top of your Medicare gives you [the one thing they said they wanted]. That's it. Can we take five more minutes so you don't miss out on that?\"",
+  },
+  {
+    num: 2,
+    title: "Name the C-SNP Special Enrollment Period the moment a chronic condition is confirmed",
+    body: "Two calls this period had open year-round enrollment windows you never mentioned. On Kenneph Smalls, he disclosed diabetes, stroke, and heart attack history at 6:41 — all CSN-qualifying — and you continued with a standard MA upgrade. On Michael Thompson, he confirmed diabetes at 6:12 and you identified the right Devoted C-SNP plan but never told him he has a year-round window to switch right now. Without that information there's no urgency — 'I'll call my agent' wins every time. The SEP is your urgency lever when someone hesitates to switch.",
+    script: "\"Michael, before you make that decision — I want to flag something. Because of your diabetes, you have a Special Enrollment Period open right now, year-round. You don't have to wait for October. That window is already open for you. This isn't about switching for a better deal — it's about using a window you already have.\"",
+  },
+  {
+    num: 3,
+    title: "Lead with value, not permission — and route around blocked data paths instead of looping",
+    body: "The Unknown Caller call died in 3:52 because you opened with 'Did you want to go over the 2026 Medicare plans?' — a question that can be answered no. At 0:38 the consumer said 'Do I have to go over it?' and you gave a bureaucratic positioning statement instead of a benefit hook. On Gloria, when the SSN hit a hard wall at 6:26, you had six minutes of call left and returned to the same blocked request four more times. When data collection is refused, route around it — you don't need the SSN to present plans. Present first, build desire, revisit verification when they want to enroll.",
+    script: "\"No problem at all — you don't have to give me anything for this part. Let me show you what's available in your area and what other members near you are getting right now. You can listen and tell me if it sounds like something worth looking into. Fair enough?\"",
+  },
+]
+
 const reportHistory = [
   {
+    id: 'apr-22',
     active: true,
     date: 'Apr 22',
-    type: 'Mid-Week Report',
-    detail: 'Sales: 3 ↑ · CPA: $155 ↓',
-    score: '30.5 avg',
-    period: 'April 20–21, 2026',
+    label: 'Weekly Brief',
+    period: 'April 20–22, 2026',
+    trendHeadline: 'Sales 5 ↑ · Conv 9.80% ↑ · CPA $107.60 ↓',
+    scoreNote: 'Already beat last week in 3 days — surrender pattern is the fix',
+    href: '/agents/guillermo-cruz/reports/2026-04-22',
   },
 ]
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
 function outcomeClass(outcome: string) {
   if (outcome === 'ENROLLED') return styles.pillEnrolled
   if (outcome === 'MISSED OPPORTUNITY') return styles.pillMissed
   if (outcome === 'INCOMPLETE') return styles.pillIncomplete
-  if (outcome === 'CORRECT NO-SALE') return styles.pillNeutral
   return styles.pillNeutral
 }
 
@@ -136,58 +98,32 @@ function scoreColor(score: number) {
   return 'var(--terracotta)'
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-
 export default function GuillermocruzPage() {
-  const [showAll, setShowAll] = useState(true)
+  const [showAllCalls, setShowAllCalls] = useState(true)
 
-  const totalCalls = callsByDate.reduce((sum, g) => sum + g.calls.length, 0)
+  const totalReviewed = reviewedCalls.reduce((sum, g) => sum + g.calls.length, 0)
 
   return (
-    <PageShell signal="yellow">
+    <PageShell signal="green">
       <div className={styles.page}>
 
-        {/* ── Header ── */}
+        {/* Header */}
         <motion.div className={styles.header} {...SPRING}>
           <div className={styles.headerMeta}>
             <span className={styles.systemLabel}>The Certainty System</span>
             <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>Mid-Week Report</span>
+            <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
           <h1 className={styles.agentName}>Guillermo Cruz</h1>
-          <p className={styles.period}>Week of April 20–22, 2026</p>
-          <p className={styles.updatedAt}>Updated April 22 · 4 calls reviewed</p>
+          <p className={styles.period}>April 22, 2026 · Covering April 20–22, 2026</p>
+          <p className={styles.updatedAt}>{totalReviewed} calls reviewed this period</p>
         </motion.div>
 
-        {/* ── Score Strip ── */}
-        <motion.div className={styles.scorecardRow} {...SPRING}>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(30) }}>30.5</span>
-            <span className={styles.scoreLabel}>Period Average</span>
-            <span className={styles.scoreRange}>Apr 20–21 · 4 calls</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>0 / 4</span>
-            <span className={styles.scoreLabel}>Enrolled</span>
-            <span className={styles.scoreRange}>All missed opportunities</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>3</span>
-            <span className={styles.scoreLabel}>Sales This Period</span>
-            <span className={styles.scoreRange}>7.32% conv · $155 CPA</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC1</span>
-            <span className={styles.scoreLabel}>Top Pattern</span>
-            <span className={styles.scoreRange}>Surrender at first resistance</span>
-          </div>
-        </motion.div>
-
-        {/* ── Trend Snapshot ── */}
+        {/* Trend Snapshot */}
         <motion.div className={styles.trendSnapshot} {...SPRING}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
-            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>CRM Trend Snapshot</h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–21</span>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Trend Snapshot</h2>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–22 · from CRM</span>
           </div>
           <div className={styles.trendTable}>
             <div className={styles.trendHeader}>
@@ -201,122 +137,82 @@ export default function GuillermocruzPage() {
                 <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
                 <span style={{ fontSize: '0.9375rem', color: 'var(--ink-60)', fontVariantNumeric: 'tabular-nums' }}>{row.lastWeek}</span>
                 <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--ink)', fontVariantNumeric: 'tabular-nums' }}>{row.thisPeriod}</span>
-                <span className={(row.dir as string) === 'up' ? styles.trendUp : (row.dir as string) === 'down' ? styles.trendDown : styles.trendNeutral}>
-                  {row.movement}
-                </span>
+                <span className={row.dir === 'up' ? styles.trendUp : styles.trendDown}>{row.movement}</span>
               </div>
             ))}
           </div>
-          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '12px', lineHeight: 1.6 }}>
-            3 sales in 2 days — already matched all of last week&apos;s total. Conversion up from 4.76% to 7.32%. CPA down from $224 to $155. <strong style={{ color: 'var(--sage-dark)' }}>BIG IMPROVER trajectory.</strong> The numbers say you&apos;re on a better run — now the calls need to catch up.
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '14px', lineHeight: 1.65 }}>
+            5 sales in 3 days — you already beat last week&apos;s 5-day total with two days left. Conversion more than doubled (4.76% → 9.80%) and CPA dropped $117. <strong style={{ color: 'var(--sage-dark)' }}>This is a real jump, not a blip.</strong> The coaching focus is on converting the calls where you did the hard work — built rapport, ran discovery, found the right plan — and surrendered before asking for the business. Tighten that seam and this pace compounds.
           </p>
         </motion.div>
 
-        {/* ── The One Thing ── */}
+        {/* Executive Summary */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Executive Summary</h2>
+          <div className={styles.execSummaryInner}>
+            <p><strong>What&apos;s working:</strong> Your discovery is genuinely strong. On Kenneph Smalls you found four separate unmet needs in a natural conversation — dentures, broken glasses, food insecurity, and a stroke history — and built real rapport with a man who had every reason to hang up on you. On Michael Thompson you correctly identified the Devoted C-SNP plan and tied the grocery card directly to his diabetes diagnosis at 8:35. That&apos;s condition-specific benefit anchoring — the move top closers make. Your compliance opening is consistent across all four calls. And the CRM numbers are moving hard: 5 sales in 3 days (already past last week&apos;s 5-day total), conversion more than doubled from 4.76% to 9.80%, CPA down $117.</p>
+            <p><strong>What&apos;s costing you:</strong> All four reviewed calls ended at the same moment — the first real objection. Kenneph said &ldquo;I don&apos;t want to change all my insurance&rdquo; and you said &ldquo;All good&rdquo; without a single reframe attempt. Michael said &ldquo;I&apos;m not going to train from Humana&rdquo; and you recapped benefits instead of naming the year-round CSN window his diabetes opens. Gloria refused the SSN and you looped back to the same request four times. The Unknown Caller asked &ldquo;do I have to go over it?&rdquo; and you gave a bureaucratic positioning statement instead of a benefit hook. On two calls there were open C-SNP enrollment windows — year-round, because of chronic conditions — that neither consumer was told about. The SEP is your urgency lever when someone hesitates to switch. Start using it.</p>
+          </div>
+        </motion.div>
+
+        {/* The One Thing */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>
-            Your compliance is clean and your discovery is finding real pain — but every call this period ended the same way: the consumer pushed back once and you said &ldquo;All good&rdquo; or &ldquo;I understand&rdquo; and let go. That&apos;s not losing to a hard no — that&apos;s losing to silence. Kenneph said &ldquo;yeah, yeah&rdquo; to his dental and vision before the fear objection came. Michael called you specifically for the grocery card. Gloria found money she&apos;d never touched. The gold was there. The close requires one more sentence. Build it: when a consumer says they don&apos;t want to change their insurance, your next sentence is the Medicare frame. Every time. Without exception.
-          </p>
+          <p className={styles.oneThingText}>When a consumer says they don&apos;t want to change their insurance — that&apos;s not a final answer. It&apos;s a fear. Your next sentence is: &ldquo;I hear you — and this is important: you are NOT changing your Medicare. Your card stays. Your doctors stay. The only thing that changes is [the benefit they said they wanted].&rdquo; One reframe. Then pause. You earned the right to ask for the business on every one of these calls. You have to take it.</p>
         </motion.div>
 
-        {/* ── Executive Summary ── */}
-        <motion.div className={styles.execSummary} {...SPRING}>
-          <div className={styles.execSummaryInner}>
-            <p><strong>What&apos;s working:</strong> Guillermo, your compliance opening is genuinely strong — recorded line, full TPMO disclaimer with specific plan counts and alternative resources, callback confirmation, decision-maker check, nursing home question. You&apos;re doing all of it correctly and within the first two minutes on every call. That&apos;s not small. It&apos;s the foundation everything else builds on. Your discovery is also real — on Kenneph Smalls you found the dentures, the broken glasses, the food card running out, the stroke and heart attack history. On Michael Thompson you identified the right C-SNP plan and tied the grocery card directly to his diabetes diagnosis. You&apos;re finding the right information. The CRM numbers back it up: 3 sales in 2 days, conversion up over 54%, CPA down $70. Something is working — the pipeline is moving.</p>
-            <p><strong>What&apos;s costing you:</strong> Every reviewed call was a missed opportunity, and they all broke in the same place: the first real objection. Kenneph said &ldquo;I don&apos;t want to change all my insurance&rdquo; and you said &ldquo;All good. All good.&rdquo; Gloria refused her SSN three times and you returned to the same request instead of routing around it. Michael said &ldquo;I&apos;m not going to train from Humana&rdquo; and you accepted it and gave your callback number. The Unknown Consumer said &ldquo;do I have to go over it with you?&rdquo; and you answered with a bureaucratic positioning statement instead of a benefit hook. You&apos;re building real calls and then stopping before the ask. On two of these calls — Kenneph and Michael — the consumer had qualifying chronic conditions that open a year-round C-SNP enrollment window. Neither was told. That SEP is your urgency lever when someone hesitates to switch. Start naming it.</p>
-          </div>
-        </motion.div>
-
-        {/* ── Your Tells ── */}
-        <motion.div className={styles.yourTells} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Your Tells</h2>
-          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
-            Behavioral delta between enrolled and missed calls. This is your first full reviewed period — baseline being established from 4 calls. All reviewed calls were missed opportunities this period.
-          </p>
-          <div className={styles.tellsBlock}>
-            <p style={{ fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--sage-dark)', marginBottom: '10px' }}>What you do on every call (consistent strengths)</p>
-            <ul className={styles.tellsList}>
-              <li>Full TPMO disclaimer delivered correctly and within 30 seconds — every call this period</li>
-              <li>Compliance sequence complete: recorded line, callback number, decision-maker, nursing home question</li>
-              <li>Discovery produces real findings — dental needs, vision gaps, health conditions, financial vulnerability</li>
-              <li>Benefit presentation specific and accurate when you get there (Kenneph&apos;s dental/vision numbers, Michael&apos;s grocery card tied to diabetes)</li>
-              <li>Gracious, professional call exits — no pressure, no frustration when consumers disengage</li>
-            </ul>
-          </div>
-          <div className={styles.tellsBlock} style={{ marginTop: '12px' }}>
-            <p style={{ fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--terracotta)', marginBottom: '10px' }}>What ends the call before the close (consistent gaps)</p>
-            <ul className={styles.tellsList}>
-              <li>One push-back accepted as a final answer — no reframe, no second attempt on any call</li>
-              <li>Client Gold collected but not deployed as an enrollment anchor</li>
-              <li>CSN SEP never named when chronic conditions are disclosed (Kenneph, Michael)</li>
-              <li>Math stops at Step 1 — numbers stated but not annualized or connected to the consumer&apos;s specific life</li>
-              <li>Permission-seeking openers on some calls hand control to the consumer before the call starts</li>
-            </ul>
-          </div>
-        </motion.div>
-
-        {/* ── Patterns: Chronic / Emerging / Resolved ── */}
+        {/* What You Did Well */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Patterns</h2>
-          <div className={styles.patternsGrid}>
-
-            {/* Chronic */}
-            <div className={styles.patternColumn}>
-              <p className={`${styles.patternColumnHeader} ${styles.patternColumnChronic}`}>Chronic</p>
-              <div className={`${styles.patternCard} ${styles.patternCardChronic}`}>
-                <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'var(--ink)', margin: '0' }}>
-                  First period — establishing baseline. Chronic patterns require 2+ weeks of data. Check back next brief.
-                </p>
+          <h2 className={styles.sectionTitle}>What You Did Well</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {whatYouDidWell.map((item, i) => (
+              <div key={i} style={{ padding: '16px 20px', background: 'rgba(125, 157, 123, 0.06)', borderRadius: '10px', borderLeft: '3px solid var(--sage-dark)' }}>
+                <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px' }}>{item.title}</p>
+                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--ink)', margin: 0 }}>{item.body}</p>
               </div>
-            </div>
-
-            {/* Emerging */}
-            <div className={styles.patternColumn}>
-              <p className={`${styles.patternColumnHeader} ${styles.patternColumnEmerging}`}>Emerging</p>
-              {emergingPatterns.map((p, i) => (
-                <div key={i} className={`${styles.patternCard} ${styles.patternCardEmerging}`}>
-                  <span className={styles.rcCode}>{p.rc}</span>
-                  <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'var(--ink)', margin: '6px 0' }}>{p.summary}</p>
-                  <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', fontStyle: 'italic', lineHeight: 1.6, borderTop: '1px solid rgba(19,17,16,0.08)', paddingTop: '8px', margin: 0 }}>
-                    <strong>Instead:</strong> {p.fix}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Resolved */}
-            <div className={styles.patternColumn}>
-              <p className={`${styles.patternColumnHeader} ${styles.patternColumnResolved}`}>Resolved</p>
-              <div className={`${styles.patternCard} ${styles.patternCardResolved}`}>
-                <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'var(--ink)', margin: '0' }}>
-                  First period — no prior patterns to resolve. Will populate as patterns are observed and corrected across future briefs.
-                </p>
-              </div>
-            </div>
-
+            ))}
           </div>
         </motion.div>
 
-        {/* ── Calls (Collapsible) ── */}
+        {/* What to Work On */}
+        <motion.div className={styles.section} {...SPRING}>
+          <h2 className={styles.sectionTitle}>What to Work On</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {whatToWorkOn.map((item) => (
+              <div key={item.num} style={{ padding: '18px 20px', background: 'rgba(251, 248, 243, 0.82)', borderRadius: '10px', border: '1px solid rgba(19,17,16,0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--terracotta)', fontVariantNumeric: 'tabular-nums', minWidth: '1.2em' }}>{item.num}.</span>
+                  <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--ink)', margin: 0 }}>{item.title}</p>
+                </div>
+                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--ink)', margin: '0 0 10px 1.7em' }}>{item.body}</p>
+                <div style={{ marginLeft: '1.7em', padding: '10px 14px', background: 'rgba(19,17,16,0.04)', borderRadius: '6px', borderLeft: '2px solid var(--ink-20)' }}>
+                  <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)', margin: '0 0 4px' }}>The line</p>
+                  <p style={{ fontSize: '0.875rem', lineHeight: 1.65, fontStyle: 'italic', color: 'var(--ink)', margin: 0 }}>{item.script}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Calls */}
         <motion.div className={styles.section} {...SPRING}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
-            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Calls — April 20–21</h2>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Reviewed Calls This Period</h2>
             <button
-              className={styles.collapsibleCallsToggle}
-              onClick={() => setShowAll(!showAll)}
+              onClick={() => setShowAllCalls(!showAllCalls)}
+              style={{ width: 'auto', padding: '6px 14px', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--ink-60)', background: 'transparent', border: '1px solid rgba(19,17,16,0.15)', borderRadius: '6px', cursor: 'pointer', whiteSpace: 'nowrap' }}
             >
-              {showAll ? 'Show fewer ▴' : `Show all ${totalCalls} calls ▾`}
+              {showAllCalls ? 'Collapse ▴' : `Expand (${totalReviewed}) ▾`}
             </button>
           </div>
-
-          {showAll && (
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            These are the calls we pulled for coaching this period. Your CRM total is 5 sales / 51 calls this period — this is a coaching sample, not an audit of every call.
+          </p>
+          {showAllCalls && (
             <>
-              {callsByDate.map((group) => (
+              {reviewedCalls.map((group) => (
                 <div key={group.date} style={{ marginBottom: '1.5rem' }}>
-                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
-                    {group.date}
-                  </p>
+                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>{group.date}</p>
                   <div className={styles.callTable}>
                     <div className={styles.callTableHeader}>
                       <span>Consumer</span>
@@ -328,15 +224,12 @@ export default function GuillermocruzPage() {
                     {group.calls.map((call, i) => (
                       <div key={i} className={styles.callRow}>
                         <span className={styles.consumerName}>
-                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
-                            {call.consumer}
-                          </Link>
+                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>{call.consumer}</Link>
                         </span>
                         <span className={styles.callMeta}>{call.duration}</span>
                         <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
                         <span className={styles.outcomeCell}>
                           <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
-                          {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
                         </span>
                         <span className={styles.callType}>{call.type}</span>
                       </div>
@@ -345,35 +238,55 @@ export default function GuillermocruzPage() {
                 </div>
               ))}
               <div className={styles.callTableFooter}>
-                <span>Period Average: <strong>30.5 / 100</strong></span>
-                <span>Enrolled: <strong>0 of 4</strong></span>
-                <span>All missed opportunities</span>
+                <span>Reviewed Avg: <strong>30.5 / 100</strong></span>
+                <span>Reviewed Enrolled: <strong>0 of 4</strong></span>
+                <span style={{ opacity: 0.7 }}>CRM Total: 5 sales / 51 calls</span>
               </div>
             </>
           )}
         </motion.div>
 
-        {/* ── Report History ── */}
+        {/* Report History */}
         <motion.div className={styles.reportHistory} {...SPRING}>
           <h2 className={styles.sectionTitle}>Report History</h2>
-          {reportHistory.map((r, i) => (
-            <div key={i} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
-              <div className={styles.reportLeft}>
-                <span className={styles.reportType}>{r.date} · {r.type}</span>
-                <span className={styles.reportTitle}>{r.period}</span>
-              </div>
-              <div className={styles.reportRight}>
-                <span className={styles.reportScore}>{r.detail}</span>
-                <span className={styles.reportDate}>{r.score}</span>
-              </div>
-            </div>
-          ))}
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            Each report has its own page. Click any entry to open the full brief exactly as it was delivered.
+          </p>
+          <div className={styles.reportList}>
+            {reportHistory.map((r) => {
+              const content = (
+                <>
+                  <div className={styles.reportLeft}>
+                    <span className={styles.reportType}>{r.date} · {r.label}</span>
+                    <span className={styles.reportTitle}>{r.period}</span>
+                  </div>
+                  <div className={styles.reportRight} style={{ textAlign: 'right' }}>
+                    <span className={styles.reportScore}>{r.trendHeadline}</span>
+                    <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
+                  </div>
+                </>
+              )
+              return r.href ? (
+                <Link
+                  key={r.id}
+                  href={r.href}
+                  className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}
+                  style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <div key={r.id} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
+                  {content}
+                </div>
+              )
+            })}
+          </div>
         </motion.div>
 
-        {/* ── Footer ── */}
+        {/* Footer */}
         <div className={styles.footer}>
-          <p>The Certainty System · Guillermo Cruz · Week of April 20–22, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC1 · RC2 · RC6 · Surrender at Resistance · Client Gold · CSN SEP · Math Humanization</p>
+          <p>The Certainty System · Guillermo Cruz · Weekly Brief · April 22, 2026</p>
         </div>
 
       </div>

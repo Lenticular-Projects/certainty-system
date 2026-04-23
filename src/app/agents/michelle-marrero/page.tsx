@@ -1,146 +1,94 @@
 'use client'
 
+import { useState } from 'react'
 import PageShell from '@/components/layout/PageShell'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
-import { useState } from 'react'
 import styles from './page.module.css'
 
-// ── Mid-Week Report: April 20–22, 2026 ──────────────────────────────────────
+// ── Weekly Brief — April 22, 2026 ──────────────────────────────────────────
+// CRM (source of truth):
+//   Apr 13–17 (5 days): 124 all_calls · 77 billable · 7 sales ·  5.65% conv · $214.29 CPA
+//   Apr 20–22 (3 days):  73 all_calls · 53 billable · 9 sales · 12.33% conv · $102.67 CPA
+// Coaching sample: 3 reviewed calls (1 from Apr 20, 2 from Apr 21)
+// Compliance flag: "I'm Medicare" TPMO misstatement on Karen Colm (Apr 21, 0:52)
 
-// CRM Trend Data
 const trendRows = [
-  { metric: 'Sales',      prior: '7',      priorLabel: 'Last Week (5d)', current: '5',       currentLabel: 'This Period (2d)', delta: 'On pace to exceed', dir: 'neutral' as const },
-  { metric: 'Conversion', prior: '5.65%',  priorLabel: 'Last Week',      current: '10.00%',  currentLabel: 'This Period',      delta: '+4.35pp',          dir: 'up' as const },
-  { metric: 'CPA',        prior: '$214',   priorLabel: 'Last Week',      current: '$120',    currentLabel: 'This Period',      delta: '−$94',             dir: 'up' as const },
+  { metric: 'Sales',      lastWeek: '7',       thisPeriod: '9',       movement: '↑ +2 in fewer days',  dir: 'up' },
+  { metric: 'Conversion', lastWeek: '5.65%',   thisPeriod: '12.33%',  movement: '↑ +6.68pp',           dir: 'up' },
+  { metric: 'CPA',        lastWeek: '$214.29', thisPeriod: '$102.67', movement: '↓ −$111.62',          dir: 'up' },
 ]
 
-// Calls this period
-const callsByDate = [
+const reviewedCalls = [
   {
     date: 'Monday, April 20',
     calls: [
-      {
-        consumer: 'Robert Cook',
-        duration: '43:50',
-        score: 84,
-        outcome: 'MISSED OPPORTUNITY',
-        outcomeNote: 'External — wife approval + hard stop',
-        type: 'C-SNP Expert Pivot — Callback Secured',
-        href: '/agents/michelle-marrero/calls/robert-cook',
-      },
+      { consumer: 'Robert Cook', duration: '43:50', score: 84, outcome: 'MISSED OPPORTUNITY', type: 'C-SNP pivot · third-party + time stop', href: '/agents/michelle-marrero/calls/robert-cook' },
     ],
   },
   {
     date: 'Tuesday, April 21',
     calls: [
-      {
-        consumer: 'Brian Graese',
-        duration: '21:44',
-        score: 62,
-        outcome: 'CORRECT NO-SALE',
-        outcomeNote: 'PCP out-of-network on upgrade',
-        type: 'Loyal Patient — Doctor Conflict',
-        href: '/agents/michelle-marrero/calls/brian-graese',
-      },
-      {
-        consumer: 'Karen Colm',
-        duration: '10:11',
-        score: 61,
-        outcome: 'CORRECT NO-SALE',
-        outcomeNote: 'Active chemo + dual coverage',
-        type: 'Cancer Patient — Integrity Advisory',
-        href: '/agents/michelle-marrero/calls/karen-colm',
-      },
+      { consumer: 'Brian Graese', duration: '21:44', score: 62, outcome: 'CORRECT NO-SALE', type: 'Doctor network conflict · PCP out-of-network', href: '/agents/michelle-marrero/calls/brian-graese' },
+      { consumer: 'Karen Colm', duration: '10:11', score: 61, outcome: 'CORRECT NO-SALE', type: 'Active chemo · new enrollee · no-change call', href: '/agents/michelle-marrero/calls/karen-colm' },
     ],
   },
 ]
 
-// YOUR TELLS delta
-const yourTells = [
+const whatYouDidWell = [
   {
-    call: 'Robert Cook',
-    score: 84,
-    outcome: 'MISSED OPPORTUNITY' as const,
-    enrolled: false,
-    delta: 'Elite diagnostic work — C-SNP identified, objections dismantled, callback secured. The one gap: math never annualized. Robert sold himself on "$1,500 a year" without Michelle saying the number.',
+    title: 'Diagnostic C-SNP pivot on Robert Cook',
+    body: "Robert called asking about a $44 give-back and opened as a Scared Switcher who did not want to change his Humana plan. You heard \"chest pains\" at 6:40, stayed with it through an unclear hospitalization story, and confirmed cardiomyopathy at 11:58. That single diagnosis pivot turned a routine benefit inquiry into a $3,493-a-year upgrade conversation. When Robert stalled at 34:26 and said he wanted to call Humana himself, you pulled up their plan inventory on the spot and confirmed they have no chronic plans in his county — you answered his question before he could leave to find the answer himself. That's the move that keeps the call alive.",
   },
   {
-    call: 'Brian Graese',
-    score: 62,
-    outcome: 'CORRECT NO-SALE' as const,
-    enrolled: false,
-    delta: 'Right call — DaFonseca out-of-network, Brian firm on doctor loyalty. The tell: when Brian said "I got a nurse here" at 7:03, you heard a scheduling concern. The top of the leaderboard hears a C-SNP anchor.',
+    title: 'Ethical no-sale calls on two genuinely uncloseable callers',
+    body: "Brian Graese had a three-year PCP relationship that the upgrade plan didn't cover — you accepted his refusal without pressure and closed using his own words (\"I don't want to mess up anything with your benefits\"). Karen Colm was one day into her first chemotherapy treatment with transitional dual coverage still active — you advised her to hold course and left her your number for when it mattered. Both calls were correct. Agents who can distinguish \"not today\" from \"never\" protect the business and build a referral base.",
   },
   {
-    call: 'Karen Colm',
-    score: 61,
-    outcome: 'CORRECT NO-SALE' as const,
-    enrolled: false,
-    delta: 'Integrity-first no-sale during active chemo. The tell that costs: at 0:52 you said "I\'m Medicare" — that one line contradicts everything the TPMO disclaimer established 15 seconds earlier. It needs to go.',
+    title: 'CRM trajectory this period — strongest stretch of your month',
+    body: 'Nine sales in three days against seven in a full five-day week. Conversion more than doubled from 5.65% to 12.33%. CPA dropped $111.62. That is not a drift — that is a different agent showing up. The coaching sample caught one compliance line that needs correcting, but the production story is an agent who is closing harder and qualifying faster than she was last week.',
   },
 ]
 
-// Patterns — Chronic | Emerging | Resolved
-const chronicPatterns = [
+const whatToWorkOn = [
   {
-    title: 'Math stops at the feature list',
-    rc: 'RC3',
-    urgency: 'high' as const,
-    summary: 'On every call this period — Robert Cook (30:07), Brian Graese (11:47) — you presented benefits but never annualized. Robert himself said "a couple thousand dollars or so" at 41:54. He did your job for you.',
-    fix: 'Instead: After any benefit, say the year number out loud. "$125/month is $1,500 a year." Then connect it to what they told you they need.',
+    num: 1,
+    title: '"I\'m Medicare" — fix this before your next call',
+    body: 'On Karen Colm at 0:52, you said "I\'m Medicare, we require that you know that I work for Medicare." That statement directly contradicts the TPMO disclaimer you delivered 15 seconds earlier — which correctly states you do NOT represent all plans and the consumer should contact Medicare.gov for all options. You are a licensed Medicare insurance agent working with private Medicare Advantage carriers. Medicare is a federal government program. Saying "I\'m Medicare" implies you represent the federal program. This is the line CMS auditors flag. It needs to be locked in and corrected before the next call.',
+    script: '"I\'m a licensed Medicare insurance agent" or "I\'m not directly connected to the federal Medicare program — I\'m a licensed broker who represents multiple carriers in your area."',
+  },
+  {
+    num: 2,
+    title: 'Complete the Math Breakdown — give them the annual number before you end the call',
+    body: 'Robert Cook sold himself on the plan at 41:54 — "on a yearly basis it would be a couple thousand dollars or so." That math came from him, not you. The number is $3,493 in total annual value and it needed to come from your mouth before the callback. On Brian Graese, seven benefits were listed but never summed — $40 food card + $39 Part B giveback + $300 vision alone is nearly $1,000 a year. Benefits listed as a sequence feel like a brochure. Benefits summed into one annual number feel like money.',
+    script: '"Let me add this up for you. The food card is [X] a month — that\'s [annualized] a year. Add [benefit 2] and [benefit 3] and you\'re looking at [total] in your pocket this year. That\'s the number I want you to walk away with."',
+  },
+  {
+    num: 3,
+    title: 'Check for C-SNP before making any no-sale call on a cancer patient',
+    body: 'Karen Colm disclosed kidney cancer and active chemotherapy at 5:06 — a CSN SEP trigger. A C-SNP in ZIP 45034 could have offered better oncology care coordination and lower chemo copays than her current give-back plan. You made the no-sale without checking. The correct sequence: hear a chronic condition diagnosis → run the C-SNP check → then decide. If no C-SNP exists in the county, the no-sale stands and you\'ve done your job fully. If one exists, that enrollment is the most beneficial thing you can do for her.',
+    script: '"Because you have an active cancer diagnosis, there\'s a specific type of Medicare plan built for people going through treatment. Let me take two minutes to check if one is available in your area before we leave you on your current plan."',
   },
 ]
 
-const emergingPatterns = [
+const reportHistory = [
   {
-    title: '"I\'m Medicare" — TPMO identity violation',
-    rc: 'RC7',
-    urgency: 'critical' as const,
-    summary: 'Karen Colm call (0:52): you said "I\'m Medicare, we require that you know that I work for Medicare." This is an audit-level contradiction — the TPMO disclaimer you just delivered establishes you do NOT represent Medicare directly.',
-    fix: 'Instead: "Medicare requires that I let you know I\'m not directly connected to the federal Medicare program — I\'m a licensed broker representing multiple carriers in your area." Practice this until it\'s automatic.',
-  },
-  {
-    title: 'Client Gold heard but not deployed',
-    rc: 'RC2',
-    urgency: 'medium' as const,
-    summary: 'Brian\'s visiting nurse (7:03), Karen\'s surgery and chemo (2:44, 5:06) — you acknowledged each one and moved on. The details that feel personal are the ones that close calls.',
-    fix: 'Instead: When someone reveals a health crisis or care situation, pause and name it: "That tells me your health management is a priority — let me make sure this plan is built for exactly that."',
+    id: 'apr-22',
+    active: true,
+    date: 'Apr 22',
+    label: 'Weekly Brief',
+    period: 'April 20–21, 2026',
+    trendHeadline: 'Sales 9 ↑ · Conv 12.33% ↑ · CPA $103 ↓',
+    scoreNote: 'Strongest stretch of the month · TPMO compliance flag · 3 reviewed calls',
+    href: '/agents/michelle-marrero/reports/2026-04-22' as string | null,
   },
 ]
-
-const resolvedPatterns = [
-  {
-    title: 'Third-party gatekeeper handled correctly',
-    rc: 'RC1',
-    urgency: 'medium' as const,
-    summary: 'Robert Cook introduced his wife\'s MS at 35:28. You adapted immediately — built the wife\'s C-SNP case, set up a joint callback. That\'s the right move.',
-    fix: 'Status: Resolved this week. Keep adapting in real time when a new decision-maker enters late.',
-  },
-  {
-    title: 'Correct no-sale judgment on complex calls',
-    rc: 'RC4',
-    urgency: 'medium' as const,
-    summary: 'Both no-sales this period were called correctly — Brian\'s doctor loyalty was a hard barrier, Karen\'s active chemo with dual coverage made switching harmful. Zero pressure on either consumer.',
-    fix: 'Status: Strong. Your ability to identify and honor the right no-sale is protecting your compliance record.',
-  },
-]
-
-// Report history
-const pastReports = [
-  { title: 'Weekly Brief — April 14 (Tue only)', type: 'Weekly Brief', date: 'Apr 15, 2026', score: '44 avg', active: false },
-  { title: 'Weekly Brief — April 13–17', type: 'Weekly Brief', date: 'Apr 20, 2026', score: '44 avg', active: false },
-  { title: 'Mid-Week Report — April 20–22', type: 'Mid-Week', date: 'Apr 22, 2026', score: 'Sales: 5 ↑ · CPA: $120 ↓', active: true },
-]
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
 
 function outcomeClass(outcome: string) {
   if (outcome === 'ENROLLED') return styles.pillEnrolled
   if (outcome === 'MISSED OPPORTUNITY') return styles.pillMissed
   if (outcome === 'INCOMPLETE') return styles.pillIncomplete
-  if (outcome === 'CORRECT NO-SALE') return styles.pillNeutral
   return styles.pillNeutral
 }
 
@@ -150,213 +98,121 @@ function scoreColor(score: number) {
   return 'var(--terracotta)'
 }
 
-function urgencyLabel(u: string) {
-  if (u === 'critical') return 'CRITICAL'
-  if (u === 'high') return 'HIGH'
-  return 'MEDIUM'
-}
-
-function trendClass(dir: string, s: Record<string, string>) {
-  if (dir === 'up') return s.trendUp
-  if (dir === 'down') return s.trendDown
-  return s.trendNeutral
-}
-
 export default function MichelleMarreroPage() {
-  const [callsOpen, setCallsOpen] = useState(true)
+  const [showAllCalls, setShowAllCalls] = useState(true)
+
+  const totalReviewed = reviewedCalls.reduce((sum, g) => sum + g.calls.length, 0)
 
   return (
-    <PageShell signal="green">
+    <PageShell signal="yellow">
       <div className={styles.page}>
 
-        {/* ── Header ── */}
+        {/* Header */}
         <motion.div className={styles.header} {...SPRING}>
           <div className={styles.headerMeta}>
             <span className={styles.systemLabel}>The Certainty System</span>
             <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>Mid-Week Report</span>
+            <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
           <h1 className={styles.agentName}>Michelle Marrero</h1>
-          <p className={styles.period}>Week of April 20–22, 2026</p>
-          <p className={styles.updatedAt}>Updated April 22 · 3 calls reviewed</p>
+          <p className={styles.period}>April 22, 2026 · Covering April 20–22</p>
+          <p className={styles.updatedAt}>{totalReviewed} calls reviewed this period</p>
         </motion.div>
 
-        {/* ── Score Strip ── */}
-        <motion.div className={styles.scorecardRow} {...SPRING}>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: scoreColor(69) }}>69</span>
-            <span className={styles.scoreLabel}>Period Average</span>
-            <span className={styles.scoreRange}>Apr 20–21 · 3 calls</span>
+        {/* Trend Snapshot */}
+        <motion.div className={styles.trendSnapshot} {...SPRING}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Trend Snapshot</h2>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–22 · from CRM</span>
           </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue}>3</span>
-            <span className={styles.scoreLabel}>Calls Reviewed</span>
-            <span className={styles.scoreRange}>Mon–Tue this week</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--sage-dark)' }}>5</span>
-            <span className={styles.scoreLabel}>Sales (2 days)</span>
-            <span className={styles.scoreRange}>10% conversion · $120 CPA</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <span className={styles.scoreValue} style={{ color: 'var(--terracotta)' }}>RC7</span>
-            <span className={styles.scoreLabel}>Critical Flag</span>
-            <span className={styles.scoreRange}>TPMO identity script error</span>
-          </div>
-        </motion.div>
-
-        {/* ── Trend Snapshot ── */}
-        <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>CRM Trend Snapshot</h2>
-          <div className={styles.trendSnapshot}>
-            <div className={styles.trendTable}>
-              <div className={styles.trendHeader}>
-                <span>Metric</span>
-                <span>Last Week (5 days)</span>
-                <span>This Period (2 days)</span>
-                <span>Change</span>
-              </div>
-              {trendRows.map((row, i) => (
-                <div key={i} className={styles.trendRow}>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
-                  <span style={{ fontSize: '0.9375rem', color: 'var(--ink-60)', fontVariantNumeric: 'tabular-nums' }}>{row.prior}</span>
-                  <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--ink)', fontVariantNumeric: 'tabular-nums' }}>{row.current}</span>
-                  <span className={trendClass(row.dir, styles)} style={{ fontSize: '0.8125rem', fontWeight: 600 }}>{row.delta}</span>
-                </div>
-              ))}
+          <div className={styles.trendTable}>
+            <div className={styles.trendHeader}>
+              <span>Metric</span>
+              <span>Last Week</span>
+              <span>This Period</span>
+              <span>Movement</span>
             </div>
+            {trendRows.map((row) => (
+              <div key={row.metric} className={styles.trendRow}>
+                <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
+                <span style={{ fontSize: '0.9375rem', color: 'var(--ink-60)', fontVariantNumeric: 'tabular-nums' }}>{row.lastWeek}</span>
+                <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--ink)', fontVariantNumeric: 'tabular-nums' }}>{row.thisPeriod}</span>
+                <span className={row.dir === 'up' ? styles.trendUp : styles.trendDown}>{row.movement}</span>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '14px', lineHeight: 1.65 }}>
+            9 sales in 3 days — more than last week&apos;s 7 in less time. Conversion more than doubled to 12.33%. CPA dropped $111.62. This is the strongest stretch of your month. The coaching sample caught a compliance line that needs correcting before tomorrow&apos;s shift — but the production story is an agent who is closing harder and qualifying faster than she was a week ago.
+          </p>
+        </motion.div>
+
+        {/* Executive Summary */}
+        <motion.div className={styles.execSummary} {...SPRING}>
+          <h2 className={styles.sectionTitle}>Executive Summary</h2>
+          <div className={styles.execSummaryInner}>
+            <p><strong>What&apos;s working:</strong> Your diagnostic instinct. On Robert Cook, you heard &ldquo;chest pains,&rdquo; stayed with it through a meandering hospitalization story, and confirmed cardiomyopathy at 11:58 — then pivoted the entire call to a C-SNP with $3,493 in annual value. Robert opened as a Scared Switcher who didn&apos;t want to change his Humana plan. By 41:54 he was telling you the plan sounded great and doing the annualized math himself. Your objection handling on that call — answering Robert&apos;s Humana question before he could go find the answer himself — is the move that keeps calls alive. Your two correct no-sales (Brian&apos;s doctor network conflict, Karen&apos;s active chemo) show judgment that doesn&apos;t come from scripts. You can read a situation, make a call, and close it with grace.</p>
+            <p><strong>What&apos;s costing you:</strong> One compliance line that needs to be corrected before tomorrow. On Karen Colm at 0:52, you said &ldquo;I&apos;m Medicare.&rdquo; You are not Medicare. You are a licensed Medicare insurance agent working with private carriers. Medicare is a federal government program. The TPMO disclaimer you delivered 15 seconds earlier is designed to establish exactly that distinction — and &ldquo;I&apos;m Medicare&rdquo; undoes it in three words. CMS auditors flag this. The correct language is in this brief. This is the one thing to lock in tonight.</p>
           </div>
         </motion.div>
 
-        {/* ── The One Thing ── */}
+        {/* The One Thing */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>At 0:52 on the Karen Colm call, you said &ldquo;I&apos;m Medicare.&rdquo; That one line contradicts your TPMO disclaimer, creates audit exposure, and could erase the momentum you&apos;ve built this week. The correct line is locked: &ldquo;I&apos;m not directly connected to the federal Medicare program — I&apos;m a licensed broker representing multiple carriers in your area.&rdquo; Say it until it&apos;s automatic. Everything else you built this week — the C-SNP pivot on Robert, the correct no-sales, the 10% conversion — is real. Don&apos;t let a four-word script error undo it.</p>
+          <p className={styles.oneThingText}>You are not Medicare. You are a licensed Medicare insurance agent. Those are not the same thing — and every call starts with making that clear. &ldquo;I&apos;m a licensed Medicare insurance agent&rdquo; is the line. Say it until it&apos;s automatic.</p>
         </motion.div>
 
-        {/* ── Executive Summary ── */}
-        <motion.div className={styles.execSummary} {...SPRING}>
-          <div className={styles.execSummaryInner}>
-            <p><strong>What&apos;s working:</strong> You are on pace to double your conversion rate from last week — 10% this period versus 5.65% last week — and CPA has dropped from $214 to $120. That&apos;s not luck; that&apos;s better call selection and stronger execution. The Robert Cook call is the clearest evidence: you heard &ldquo;chest pains,&rdquo; probed until you found cardiomyopathy at 11:58, and completely reframed a &ldquo;don&apos;t change my plan&rdquo; call into a C-SNP upgrade worth $3,000 a year to Robert and his wife. Your objection handling on that call was textbook — when Robert wanted to call Humana himself, you answered his question before he could ask it. And both no-sales this week were called correctly. You protected a cancer patient from a coverage gap during active chemo and respected a doctor-loyal consumer&apos;s hard line. That judgment builds your reputation.</p>
-            <p><strong>What&apos;s costing you:</strong> Two patterns need attention before they become habits. First: the math always stops at the monthly number. Robert Cook confirmed the value himself — &ldquo;a couple thousand dollars or so&rdquo; at 41:54 — because you never said the annual figure out loud. Saying the number and connecting it to what the consumer told you they need is the step that converts agreement into enrollment. Second: the &ldquo;I&apos;m Medicare&rdquo; script error on Karen Colm&apos;s call is the one thing that can reverse everything you&apos;ve built. It needs to be corrected and it needs to stay corrected.</p>
-          </div>
-        </motion.div>
-
-        {/* ── YOUR TELLS ── */}
+        {/* What You Did Well */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Your Tells</h2>
-          <div className={styles.yourTells}>
-            {yourTells.map((tell, i) => (
-              <div key={i} className={styles.tellsBlock}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink)' }}>{tell.call}</span>
-                  <span className={`${styles.pill} ${outcomeClass(tell.outcome)}`}>{tell.outcome}</span>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: scoreColor(tell.score), fontVariantNumeric: 'tabular-nums' }}>{tell.score}</span>
-                </div>
-                <p className={styles.tellsList}>{tell.delta}</p>
+          <h2 className={styles.sectionTitle}>What You Did Well</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {whatYouDidWell.map((item, i) => (
+              <div key={i} style={{ padding: '16px 20px', background: 'rgba(125, 157, 123, 0.06)', borderRadius: '10px', borderLeft: '3px solid var(--sage-dark)' }}>
+                <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px' }}>{item.title}</p>
+                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--ink)', margin: 0 }}>{item.body}</p>
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* ── Patterns: Chronic · Emerging · Resolved ── */}
+        {/* What to Work On */}
         <motion.div className={styles.section} {...SPRING}>
-          <h2 className={styles.sectionTitle}>Patterns</h2>
-          <div className={styles.patternsGrid}>
-
-            {/* Chronic */}
-            <div className={styles.patternColumn}>
-              <div className={styles.patternColumnHeader}>
-                <span>Chronic</span>
-                <span style={{ fontSize: '0.6875rem', color: 'var(--ink-60)', fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>Persistent, call after call</span>
-              </div>
-              {chronicPatterns.map((p, i) => (
-                <div key={i} className={`${styles.patternCard} ${styles[`priority_${p.urgency}`]}`}>
-                  <div className={styles.priorityHeader}>
-                    <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>
-                      {urgencyLabel(p.urgency)}
-                    </span>
-                    <span className={styles.rcCode}>{p.rc}</span>
-                  </div>
-                  <p className={styles.priorityTitle}>{p.title}</p>
-                  <p className={styles.priorityDetail}>{p.summary}</p>
-                  <div className={styles.priorityMove}>
-                    <span className={styles.priorityMoveLabel}>Fix:</span>
-                    <p className={styles.priorityMoveText}>{p.fix}</p>
-                  </div>
+          <h2 className={styles.sectionTitle}>What to Work On</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {whatToWorkOn.map((item) => (
+              <div key={item.num} style={{ padding: '18px 20px', background: 'rgba(251, 248, 243, 0.82)', borderRadius: '10px', border: '1px solid rgba(19,17,16,0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--terracotta)', fontVariantNumeric: 'tabular-nums', minWidth: '1.2em' }}>{item.num}.</span>
+                  <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--ink)', margin: 0 }}>{item.title}</p>
                 </div>
-              ))}
-            </div>
-
-            {/* Emerging */}
-            <div className={styles.patternColumn}>
-              <div className={styles.patternColumnHeader}>
-                <span>Emerging</span>
-                <span style={{ fontSize: '0.6875rem', color: 'var(--ink-60)', fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>New this period — act now</span>
-              </div>
-              {emergingPatterns.map((p, i) => (
-                <div key={i} className={`${styles.patternCard} ${styles[`priority_${p.urgency}`]}`}>
-                  <div className={styles.priorityHeader}>
-                    <span className={`${styles.urgencyBadge} ${styles[`badge_${p.urgency}`]}`}>
-                      {urgencyLabel(p.urgency)}
-                    </span>
-                    <span className={styles.rcCode}>{p.rc}</span>
-                  </div>
-                  <p className={styles.priorityTitle}>{p.title}</p>
-                  <p className={styles.priorityDetail}>{p.summary}</p>
-                  <div className={styles.priorityMove}>
-                    <span className={styles.priorityMoveLabel}>Fix:</span>
-                    <p className={styles.priorityMoveText}>{p.fix}</p>
-                  </div>
+                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--ink)', margin: '0 0 10px 1.7em' }}>{item.body}</p>
+                <div style={{ marginLeft: '1.7em', padding: '10px 14px', background: 'rgba(19,17,16,0.04)', borderRadius: '6px', borderLeft: '2px solid var(--ink-20)' }}>
+                  <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)', margin: '0 0 4px' }}>The line</p>
+                  <p style={{ fontSize: '0.875rem', lineHeight: 1.65, fontStyle: 'italic', color: 'var(--ink)', margin: 0 }}>{item.script}</p>
                 </div>
-              ))}
-            </div>
-
-            {/* Resolved */}
-            <div className={styles.patternColumn}>
-              <div className={styles.patternColumnHeader}>
-                <span>Resolved</span>
-                <span style={{ fontSize: '0.6875rem', color: 'var(--ink-60)', fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>Fixed or no longer showing</span>
               </div>
-              {resolvedPatterns.map((p, i) => (
-                <div key={i} className={`${styles.patternCard} ${styles.priority_resolved}`}>
-                  <div className={styles.priorityHeader}>
-                    <span className={`${styles.urgencyBadge} ${styles.badge_resolved}`}>RESOLVED</span>
-                    <span className={styles.rcCode}>{p.rc}</span>
-                  </div>
-                  <p className={styles.priorityTitle}>{p.title}</p>
-                  <p className={styles.priorityDetail}>{p.summary}</p>
-                  <div className={styles.priorityMove}>
-                    <span className={styles.priorityMoveLabel}>Note:</span>
-                    <p className={styles.priorityMoveText}>{p.fix}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
+            ))}
           </div>
         </motion.div>
 
-        {/* ── Calls (collapsible) ── */}
+        {/* Calls */}
         <motion.div className={styles.section} {...SPRING}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', paddingBottom: '12px', borderBottom: 'var(--rule-lt)' }}>
-            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>This Period&apos;s Calls</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Reviewed Calls This Period</h2>
             <button
-              className={styles.collapsibleCallsToggle}
-              onClick={() => setCallsOpen(v => !v)}
-              aria-expanded={callsOpen}
+              onClick={() => setShowAllCalls(!showAllCalls)}
+              style={{ width: 'auto', padding: '6px 14px', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--ink-60)', background: 'transparent', border: '1px solid rgba(19,17,16,0.15)', borderRadius: '6px', cursor: 'pointer', whiteSpace: 'nowrap' }}
             >
-              {callsOpen ? 'Collapse' : 'Expand'}
+              {showAllCalls ? 'Collapse ▴' : `Expand (${totalReviewed}) ▾`}
             </button>
           </div>
-
-          {callsOpen && (
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            These are the calls we pulled for coaching this period. Your CRM total this period is 9 sales / 73 calls — this is a coaching sample, not an audit of every call.
+          </p>
+          {showAllCalls && (
             <>
-              {callsByDate.map((group) => (
+              {reviewedCalls.map((group) => (
                 <div key={group.date} style={{ marginBottom: '1.5rem' }}>
-                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>
-                    {group.date}
-                  </p>
+                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>{group.date}</p>
                   <div className={styles.callTable}>
                     <div className={styles.callTableHeader}>
                       <span>Consumer</span>
@@ -368,15 +224,12 @@ export default function MichelleMarreroPage() {
                     {group.calls.map((call, i) => (
                       <div key={i} className={styles.callRow}>
                         <span className={styles.consumerName}>
-                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>
-                            {call.consumer}
-                          </Link>
+                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>{call.consumer}</Link>
                         </span>
                         <span className={styles.callMeta}>{call.duration}</span>
                         <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
                         <span className={styles.outcomeCell}>
                           <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
-                          {call.outcomeNote && <span className={styles.outcomeNote}>{call.outcomeNote}</span>}
                         </span>
                         <span className={styles.callType}>{call.type}</span>
                       </div>
@@ -385,37 +238,52 @@ export default function MichelleMarreroPage() {
                 </div>
               ))}
               <div className={styles.callTableFooter}>
-                <span>Period Average: <strong>69 / 100</strong></span>
-                <span>Correct No-Sales: <strong>2</strong></span>
-                <span>Missed (External): <strong>1</strong></span>
+                <span>Reviewed Avg: <strong>69 / 100</strong></span>
+                <span>Reviewed Enrolled: <strong>0 of 3</strong></span>
+                <span style={{ opacity: 0.7 }}>CRM Total: 9 sales / 73 calls</span>
               </div>
             </>
           )}
         </motion.div>
 
-        {/* ── Report History ── */}
-        <motion.div className={styles.section} {...SPRING}>
+        {/* Report History */}
+        <motion.div className={styles.reportHistory} {...SPRING}>
           <h2 className={styles.sectionTitle}>Report History</h2>
-          <div className={styles.reportHistory}>
-            {pastReports.map((r, i) => (
-              <div key={i} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
-                <div className={styles.reportLeft}>
-                  <span className={styles.reportType}>{r.type}</span>
-                  <span className={styles.reportTitle}>{r.title}</span>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            Each past report has its own page so you can go back and read exactly what was said. Past-report pages are being built — links will activate as they come online.
+          </p>
+          <div className={styles.reportList}>
+            {reportHistory.map((r) => (
+              r.href ? (
+                <Link key={r.id} href={r.href} className={styles.reportHistoryEntry}>
+                  <div className={styles.reportLeft}>
+                    <span className={styles.reportType}>{r.date} · {r.label}</span>
+                    <span className={styles.reportTitle}>{r.period}</span>
+                  </div>
+                  <div className={styles.reportRight} style={{ textAlign: 'right' }}>
+                    <span className={styles.reportScore}>{r.trendHeadline}</span>
+                    <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
+                  </div>
+                </Link>
+              ) : (
+                <div key={r.id} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
+                  <div className={styles.reportLeft}>
+                    <span className={styles.reportType}>{r.date} · {r.label}</span>
+                    <span className={styles.reportTitle}>{r.period}</span>
+                  </div>
+                  <div className={styles.reportRight} style={{ textAlign: 'right' }}>
+                    <span className={styles.reportScore}>{r.trendHeadline}</span>
+                    <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
+                  </div>
                 </div>
-                <div className={styles.reportRight}>
-                  <span className={styles.reportScore}>{r.score}</span>
-                  <span className={styles.reportDate}>{r.date}</span>
-                </div>
-              </div>
+              )
             ))}
           </div>
         </motion.div>
 
-        {/* ── Footer ── */}
+        {/* Footer */}
         <div className={styles.footer}>
-          <p>The Certainty System · Michelle Marrero · Week of April 20–22, 2026</p>
-          <p style={{ marginTop: 4, opacity: 0.5 }}>RC2 · RC3 · RC7 · TPMO Identity · Math Annualization · C-SNP Identification</p>
+          <p>The Certainty System · Michelle Marrero · Weekly Brief · April 22, 2026</p>
         </div>
 
       </div>

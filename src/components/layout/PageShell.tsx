@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import styles from './PageShell.module.css'
 
 interface PageShellProps {
-  signal?: 'neutral' | 'red' | 'yellow' | 'green'
+  signal?: 'neutral' | 'red' | 'yellow' | 'amber' | 'green'
   children: React.ReactNode
 }
 

@@ -38,12 +38,12 @@ export default function ArteezCareyCallPage() {
               <span>Category</span><span>Score</span><span>Max</span>
             </div>
             {[
-              { cat: 'Lead Quality', score: 8, max: 20 },
-              { cat: 'Signal Reading', score: 4, max: 20 },
-              { cat: 'Math Breakdown', score: 4, max: 20 },
-              { cat: 'Objection Handling', score: 6, max: 15 },
+              { cat: 'Lead Quality', score: 12, max: 20 },
+              { cat: 'Signal Reading', score: 3, max: 20 },
+              { cat: 'Math Breakdown', score: 0, max: 20 },
+              { cat: 'Objection Handling', score: 8, max: 15 },
               { cat: 'Call Outcome Quality', score: 3, max: 10 },
-              { cat: 'Compliance', score: 7, max: 15 },
+              { cat: 'Compliance', score: 10, max: 15 },
             ].map((c, i, arr) => (
               <div key={c.cat} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '12px 18px', fontSize: '0.9375rem', color: 'var(--ink)', borderBottom: i < arr.length - 1 ? '1px solid rgba(19,17,16,0.06)' : 'none' }}>
                 <span>{c.cat}</span>

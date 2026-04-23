@@ -14,7 +14,7 @@ function scoreColor(score: number) {
 
 export default function NancyHazelrigCallPage() {
   return (
-    <PageShell signal="green">
+    <PageShell signal="amber">
       <div className={styles.page}>
 
         <motion.div className={styles.header} {...SPRING}>

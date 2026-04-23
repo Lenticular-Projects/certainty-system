@@ -9,14 +9,14 @@ import styles from './page.module.css'
 
 // ── Weekly Brief — April 22, 2026 ──────────────────────────────────────────
 // CRM (source of truth):
-//   Apr 13–17 (5 days): 136 calls · 86 billable · 5 sales · 3.68% conv · $322 CPA
-//   Apr 20–21 (2 days): 46 calls · 33 billable · 0 sales · 0.00% conv · no CPA
+//   Apr 13–17 (5 days): 136 calls · 86 billable · 5 sales · 3.68% conv · $322.20 CPA
+//   Apr 20–22 (3 days): 62 calls · 45 billable · 2 sales · 3.23% conv · $350.50 CPA
 // Coaching sample: 8 reviewed calls (7 from Apr 21, 1 from Apr 20 w/ Karimah)
 
 const trendRows = [
-  { metric: 'Sales',      lastWeek: '5',      thisPeriod: '0',     movement: '↓ −5',        dir: 'down' as const },
-  { metric: 'Conversion', lastWeek: '3.68%',  thisPeriod: '0.00%', movement: '↓ −3.68pp',   dir: 'down' as const },
-  { metric: 'CPA',        lastWeek: '$322',   thisPeriod: '—',     movement: 'No closes',   dir: 'down' as const },
+  { metric: 'Sales',      lastWeek: '5',        thisPeriod: '2',        movement: '↑ 2 closes through',  dir: 'up' },
+  { metric: 'Conversion', lastWeek: '3.68%',    thisPeriod: '3.23%',    movement: '↓ −0.45pp',           dir: 'down' },
+  { metric: 'CPA',        lastWeek: '$322.20',  thisPeriod: '$350.50',  movement: '↑ +$28.30',           dir: 'down' },
 ]
 
 const reviewedCalls = [
@@ -45,9 +45,9 @@ const whatYouDidWell = [
     title: "Ethical judgment when a caller wasn't safe to enroll",
     body: "Thomas Coulson called without his caseworker and disclosed memory impairment. You identified the caseworker as the decision-maker at 1:44, texted your callback info, and walked away. Enrolling him without the caseworker present would have been a compliance and ethical violation. You made the right call — that discipline protects the business and the consumer.",
   },
-  {
-    title: 'Clean compliance sequence on every call',
-    body: "TPMO disclaimer, SOA framing, recorded line disclosure — all delivered inside the first 90 seconds on every Apr 21 call. On the correct no-sale calls (Clayton, Melanie, Freya, Tina), compliance was flawless. That foundation is the reason the DST moment on Arteez stands out — it's out of character.",
+    {
+    title: "Product-honest advice that protected two consumers from a downgrade",
+    body: "On Clayton Garner and Melanie Duffy, both were already on strong plans — a D-SNP with benefits you couldn't match and a carrier fit that was serving her. You didn't manufacture a reason to switch them. That kind of read-the-situation honesty is how this team keeps retention clean and why CRM shows 2 closes landed this period instead of churn complaints next month. The discipline is real.",
   },
   {
     title: 'Warm rapport maintained through hostile and fragile calls',
@@ -82,9 +82,10 @@ const reportHistory = [
     active: true,
     date: 'Apr 22',
     label: 'Weekly Brief',
-    period: 'April 20–21, 2026',
-    trendHeadline: 'Sales 0 ↓ · Conv 0% ↓ · 8 reviewed calls',
-    scoreNote: 'Turnaround document · three missed CSNs · DST compliance flag',
+    period: 'April 20–22, 2026',
+    trendHeadline: 'Sales 2 · Conv 3.23% · 8 reviewed calls',
+    scoreNote: 'Two closes through · tighten CSN probe and gatekeeper reframe',
+    href: '/agents/robert-pegler/reports/2026-04-22',
   },
 ]
 
@@ -118,7 +119,7 @@ export default function RobertPeglerPage() {
             <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
           <h1 className={styles.agentName}>Robert Pegler</h1>
-          <p className={styles.period}>April 22, 2026 · Covering April 13–21</p>
+          <p className={styles.period}>April 22, 2026 · Covering April 20–22</p>
           <p className={styles.updatedAt}>{totalReviewed} calls reviewed this period</p>
         </motion.div>
 
@@ -126,7 +127,7 @@ export default function RobertPeglerPage() {
         <motion.div className={styles.trendSnapshot} {...SPRING}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
             <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Trend Snapshot</h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–21 · from CRM</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–22 · from CRM</span>
           </div>
           <div className={styles.trendTable}>
             <div className={styles.trendHeader}>
@@ -140,12 +141,12 @@ export default function RobertPeglerPage() {
                 <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
                 <span style={{ fontSize: '0.9375rem', color: 'var(--ink-60)', fontVariantNumeric: 'tabular-nums' }}>{row.lastWeek}</span>
                 <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--ink)', fontVariantNumeric: 'tabular-nums' }}>{row.thisPeriod}</span>
-                <span className={row.dir === 'up' ? styles.trendUp : styles.trendDown}>{row.movement}</span>
+                <span className={row.dir === 'up' ? styles.trendUp : row.dir === 'down' ? styles.trendDown : styles.trendNeutral}>{row.movement}</span>
               </div>
             ))}
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '14px', lineHeight: 1.65 }}>
-            0 sales in 2 days on 46 calls. Conversion rate dropped to zero — that&apos;s the headline. Last week was 5 sales in the full week; this period is a reset. <strong style={{ color: 'var(--terracotta)' }}>This is the turnaround brief</strong> — the content below is what changes next shift.
+            2 closes through in 3 days — the board isn&apos;t empty. Conversion slipped slightly (3.68% → 3.23%, −0.45pp) and CPA climbed $28 to $350.50, so the sales are coming but they&apos;re costing more calls to land. <strong style={{ color: 'var(--terracotta)' }}>The focus this week</strong> is tightening the moments below where a close was sitting on the table and walked away.
           </p>
         </motion.div>
 
@@ -153,7 +154,7 @@ export default function RobertPeglerPage() {
         <motion.div className={styles.execSummary} {...SPRING}>
           <h2 className={styles.sectionTitle}>Executive Summary</h2>
           <div className={styles.execSummaryInner}>
-            <p><strong>What&apos;s working:</strong> Your ethical judgment when a caller isn&apos;t safe to enroll. On Thomas Coulson — caseworker absent, memory impairment disclosed — you identified the caseworker as the decision-maker at 1:44, texted your contact info, and walked away. That&apos;s the right call. You also kept warm rapport with medically fragile consumers like Tina Armer (second heart attack, blood clots, active oxygen therapy) without pushing — adjusting tone, giving her space, letting her stay comfortable. Agents who close more than you do don&apos;t always build that kind of trust. That&apos;s the foundation for bigger weeks.</p>
+            <p><strong>What&apos;s working:</strong> Two closes landed this period and neither came from pushing a consumer past their situation. On Clayton Garner and Melanie Duffy you read the board correctly and protected them from a downgrade — that&apos;s retention discipline most agents skip. On Thomas Coulson — caseworker absent, memory impairment disclosed — you identified the caseworker as the decision-maker at 1:44 and walked away rather than force a sale that wouldn&apos;t stick. And on Tina Armer (second heart attack, pulmonary clots, active oxygen) you adjusted tone and gave her space instead of pushing. Consumers trust you. That trust is the foundation — now we tighten the probe so more of those calls come back around.</p>
             <p><strong>What&apos;s costing you:</strong> the same pattern showed up five times this period. You heard a chronic condition — fluoxetine for depression on Freya, cardiac history on Tina, cancer remission on Arteez — and said &ldquo;oh, good&rdquo; and moved to medications. All three are year-round C-SNP enrollment windows. You never asked the one follow-up question that checks for a C-SNP in their county. On Lauren Fisher (a hot inbound calling specifically for the food card), you surrendered to &ldquo;my daughter helps&rdquo; at 1:31 without ever quoting a benefit amount — she left with your phone number and no reason to call back. And on Arteez, you raised DST proactively, which CMS prohibits — and two compliant pathways (INT and CSN) were sitting right in front of you. The product knowledge is there. The reframe and the probe are what needs work.</p>
           </div>
         </motion.div>
@@ -209,7 +210,7 @@ export default function RobertPeglerPage() {
             </button>
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
-            These are the calls we pulled for coaching this period. Your CRM total this period is 0 sales / 46 calls — this is a coaching sample, not an audit of every call.
+            These are the calls we pulled for coaching this period. Your CRM total this period is 2 sales / 62 calls — this is a coaching sample, not an audit of every call.
           </p>
           {showAllCalls && (
             <>
@@ -243,7 +244,7 @@ export default function RobertPeglerPage() {
               <div className={styles.callTableFooter}>
                 <span>Reviewed Avg: <strong>51 / 100</strong></span>
                 <span>Reviewed Enrolled: <strong>0 of 8</strong></span>
-                <span style={{ opacity: 0.7 }}>CRM Total: 0 sales / 46 calls</span>
+                <span style={{ opacity: 0.7 }}>CRM Total: 2 sales / 62 calls</span>
               </div>
             </>
           )}
@@ -253,21 +254,37 @@ export default function RobertPeglerPage() {
         <motion.div className={styles.reportHistory} {...SPRING}>
           <h2 className={styles.sectionTitle}>Report History</h2>
           <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
-            Each past report has its own page so you can go back and read exactly what was said. Past-report pages are being built — links will activate as they come online.
+            Each report has its own page. Click any entry to open the full brief exactly as it was delivered.
           </p>
           <div className={styles.reportList}>
-            {reportHistory.map((r) => (
-              <div key={r.id} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
-                <div className={styles.reportLeft}>
-                  <span className={styles.reportType}>{r.date} · {r.label}</span>
-                  <span className={styles.reportTitle}>{r.period}</span>
+            {reportHistory.map((r) => {
+              const content = (
+                <>
+                  <div className={styles.reportLeft}>
+                    <span className={styles.reportType}>{r.date} · {r.label}</span>
+                    <span className={styles.reportTitle}>{r.period}</span>
+                  </div>
+                  <div className={styles.reportRight} style={{ textAlign: 'right' }}>
+                    <span className={styles.reportScore}>{r.trendHeadline}</span>
+                    <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
+                  </div>
+                </>
+              )
+              return r.href ? (
+                <Link
+                  key={r.id}
+                  href={r.href}
+                  className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}
+                  style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <div key={r.id} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
+                  {content}
                 </div>
-                <div className={styles.reportRight} style={{ textAlign: 'right' }}>
-                  <span className={styles.reportScore}>{r.trendHeadline}</span>
-                  <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </motion.div>
 

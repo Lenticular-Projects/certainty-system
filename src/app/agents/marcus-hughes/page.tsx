@@ -4,19 +4,20 @@ import { useState } from 'react'
 import PageShell from '@/components/layout/PageShell'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
+import Link from 'next/link'
 import styles from './page.module.css'
 
 // ── Weekly Brief — April 22, 2026 ──────────────────────────────────────────
 // CRM (source of truth for sales/CPA/conversion):
-//   Apr 13–17 (5 days) → 10 sales · 6.37% conv · $226 CPA · 157 calls / 102 billable
-//   Apr 20–21 (2 days) → 11 sales · 16.42% conv · $69.45 CPA · 67 calls / 47 billable
+//   Apr 13–17 (5 days) → 10 sales · 6.37% conv · $226.00 CPA · 157 calls / 102 billable
+//   Apr 20–22 (3 days) → 14 sales · 12.84% conv · $84.79 CPA · 109 calls / 76 billable
 // Coaching sample this period: 2 reviewed calls (Melbourne Waller 78, Paul Marie 82)
 
 // ── Trend Snapshot (CRM-driven) ─────────────────────────────────────────────
 const trendRows = [
-  { metric: 'Sales',      lastWeek: '10',    thisPeriod: '11',    movement: '↑ +1',       dir: 'up' as const },
-  { metric: 'Conversion', lastWeek: '6.37%', thisPeriod: '16.42%', movement: '↑ +10.05pp', dir: 'up' as const },
-  { metric: 'CPA',        lastWeek: '$226',  thisPeriod: '$69',   movement: '↓ −$157',    dir: 'up' as const }, // CPA lower = better
+  { metric: 'Sales',      lastWeek: '10',       thisPeriod: '14',     movement: '↑ +4 (4.67/day vs 2.0/day)', dir: 'up' },
+  { metric: 'Conversion', lastWeek: '6.37%',    thisPeriod: '12.84%', movement: '↑ +6.47pp',                  dir: 'up' },
+  { metric: 'CPA',        lastWeek: '$226.00',  thisPeriod: '$84.79', movement: '↓ −$141.21',                 dir: 'up' }, // CPA lower = better
 ]
 
 // ── Reviewed calls this period (coaching sample) ─────────────────────────────
@@ -80,40 +81,10 @@ const reportHistory = [
     active: true,
     date: 'Apr 22',
     label: 'Weekly Brief',
-    period: 'April 20–21, 2026',
-    trendHeadline: 'Sales 11 ↑ · Conv 16.42% ↑ · CPA $69 ↓',
-    scoreNote: 'Top-performer breakout period',
-    archive: null, // current report — content is the page itself
-  },
-  {
-    id: 'apr-14',
-    active: false,
-    date: 'Apr 14',
-    label: 'Weekly Brief',
-    period: 'April 13–17, 2026',
-    trendHeadline: 'Sales 10 · Conv 6.37% · CPA $226',
-    scoreNote: 'Mid-pack week — consistency gaps',
-    archive: {
-      execSummary: 'You were closing at 6.37% on 157 calls — below where your product knowledge should be taking you. Three of your lowest-scoring reviewed calls (Wayne Phaisson 22, Yvonne Williams 28, Myra Robinson 30) showed the same pattern: surrendered to first objection without a reframe attempt. On Christy Tuttle and Joseph Young, where you pressed through, you closed cleanly.',
-      whatYouDidWell: 'Strong product knowledge on D-SNP. Quick Medicaid detection on Christy Tuttle. Clean compliance throughout.',
-      whatToWorkOn: 'Reframe first objection on every call. Complete the math (annualize + humanize). Set a purpose before any hold over 60 seconds.',
-      oneThing: 'The difference between your 48-average week and a 75+ week is one habit: reframing the first objection instead of moving past it.',
-    },
-  },
-  {
-    id: 'apr-5',
-    active: false,
-    date: 'Apr 5',
-    label: 'Weekly Brief',
-    period: 'March 30–April 3, 2026',
-    trendHeadline: 'Baseline period',
-    scoreNote: 'First brief — pattern baseline established',
-    archive: {
-      execSummary: 'Opening brief establishing baseline. Strong technical foundation (D-SNP, INT, CSN identification), gaps in objection handling and math completion.',
-      whatYouDidWell: 'Product expertise. Compliance discipline. Natural warmth with consumers.',
-      whatToWorkOn: 'Objection reframing. Client Gold deployment. Math annualization.',
-      oneThing: 'Your product knowledge is already elite. The gap is execution on the emotional close.',
-    },
+    period: 'April 20–22, 2026',
+    trendHeadline: 'Sales 14 ↑ · Conv 12.84% ↑ · CPA $84.79 ↓',
+    scoreNote: 'Breakout: 14 sales in 3 days, CPA nearly a third of last week',
+    href: '/agents/marcus-hughes/reports/2026-04-22',
   },
 ]
 
@@ -150,7 +121,7 @@ export default function MarcusHughesPage() {
             <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
           <h1 className={styles.agentName}>Marcus Hughes</h1>
-          <p className={styles.period}>April 22, 2026 · Covering April 13–21</p>
+          <p className={styles.period}>April 22, 2026 · Covering April 20–22</p>
           <p className={styles.updatedAt}>{totalReviewed} calls reviewed this period</p>
         </motion.div>
 
@@ -158,7 +129,7 @@ export default function MarcusHughesPage() {
         <motion.div className={styles.trendSnapshot} {...SPRING}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
             <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Trend Snapshot</h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–21 · from CRM</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–22 · from CRM</span>
           </div>
           <div className={styles.trendTable}>
             <div className={styles.trendHeader}>
@@ -177,7 +148,7 @@ export default function MarcusHughesPage() {
             ))}
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '14px', lineHeight: 1.65 }}>
-            11 sales in 2 days — you&apos;ve already matched all of last week. Conversion nearly tripled, CPA dropped $157. <strong style={{ color: 'var(--sage-dark)' }}>Top-performer breakout period.</strong> Last Week is 5 business days, This Period is 2 — so raw count comparison favors the full week; rate metrics (conversion, CPA) are apples-to-apples.
+            14 sales in 3 days — you&apos;ve beaten all of last week by 40%, in 60% of the time. Conversion doubled (6.37% → 12.84%), and CPA dropped from $226 to $84.79 — nearly a third of last week. <strong style={{ color: 'var(--sage-dark)' }}>This is a breakout period.</strong> The job this week is protecting the habits that are producing it and closing the last seams where Client Gold and the math sequence are still going unused.
           </p>
         </motion.div>
 
@@ -185,7 +156,7 @@ export default function MarcusHughesPage() {
         <motion.div className={styles.execSummary} {...SPRING}>
           <h2 className={styles.sectionTitle}>Executive Summary</h2>
           <div className={styles.execSummaryInner}>
-            <p><strong>What&apos;s working:</strong> You are reading the room at an elite level right now. On Melbourne Waller, you spotted Medicaid in the system at 3:21 and pivoted from MAPD to D-SNP in real time — that product identification separates trained agents from the rest of the floor. On Paul Marie, you caught the LIS level change as a qualifying SEP on the fly, anchored the $70 vs. $230 comparison immediately, and recovered cleanly when Paul got confused about MA vs. supplement at 26:58. Both calls had genuine warmth. Both closed. The CRM reflects it: 16.42% conversion and $69 CPA are your strongest numbers yet.</p>
+            <p><strong>What&apos;s working:</strong> You are reading the room at an elite level right now. On Melbourne Waller, you spotted Medicaid in the system at 3:21 and pivoted from MAPD to D-SNP in real time — that product identification separates trained agents from the rest of the floor. On Paul Marie, you caught the LIS level change as a qualifying SEP on the fly, anchored the $70 vs. $230 comparison immediately, and recovered cleanly when Paul got confused about MA vs. supplement at 26:58. Both calls had genuine warmth. Both closed. The CRM reflects it: 14 sales in 3 days, 12.84% conversion, $84.79 CPA — your strongest numbers yet.</p>
             <p><strong>What&apos;s costing you:</strong> the same pattern showed up on both reviewed calls. Melbourne said &ldquo;Hungry&rdquo; at 0:13 — one word, and the entire emotional arc of the call was sitting right there. Paul described $70 as a 10-pound bag of potatoes and a gallon of milk — he was telling you his reality. Both moments went past without being deployed as the close. Math stopped at Step 1 on both calls: the monthly number was stated, but annualization and humanization were skipped. $283/month is $3,396 a year. That number is what makes the commitment feel real. You&apos;d close faster and tighter if you ran all three steps every time.</p>
           </div>
         </motion.div>
@@ -241,7 +212,7 @@ export default function MarcusHughesPage() {
             </button>
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
-            These are the calls we pulled for coaching this period. Your CRM total this period is 11 sales / 67 calls — this is a coaching sample, not an audit of every call.
+            These are the calls we pulled for coaching this period. Your CRM total this period is 14 sales / 109 calls — this is a coaching sample, not an audit of every call.
           </p>
           {showAllCalls && (
             <>
@@ -258,7 +229,9 @@ export default function MarcusHughesPage() {
                     </div>
                     {group.calls.map((call, i) => (
                       <div key={i} className={styles.callRow}>
-                        <span className={styles.consumerName}>{call.consumer}</span>
+                        <span className={styles.consumerName}>
+                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>{call.consumer}</Link>
+                        </span>
                         <span className={styles.callMeta}>{call.duration}</span>
                         <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
                         <span className={styles.outcomeCell}>
@@ -273,7 +246,7 @@ export default function MarcusHughesPage() {
               <div className={styles.callTableFooter}>
                 <span>Reviewed Avg: <strong>80 / 100</strong></span>
                 <span>Reviewed Enrolled: <strong>2 of 2</strong></span>
-                <span style={{ opacity: 0.7 }}>CRM Total: 11 sales / 67 calls</span>
+                <span style={{ opacity: 0.7 }}>CRM Total: 14 sales / 109 calls</span>
               </div>
             </>
           )}
@@ -283,21 +256,37 @@ export default function MarcusHughesPage() {
         <motion.div className={styles.reportHistory} {...SPRING}>
           <h2 className={styles.sectionTitle}>Report History</h2>
           <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
-            Each past report has its own page so you can go back and read exactly what was said. Past-report pages are being built — links will activate as they come online.
+            Each report has its own page. Click any entry to open the full brief exactly as it was delivered.
           </p>
           <div className={styles.reportList}>
-            {reportHistory.map((r) => (
-              <div key={r.id} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
-                <div className={styles.reportLeft}>
-                  <span className={styles.reportType}>{r.date} · {r.label}</span>
-                  <span className={styles.reportTitle}>{r.period}</span>
+            {reportHistory.map((r) => {
+              const content = (
+                <>
+                  <div className={styles.reportLeft}>
+                    <span className={styles.reportType}>{r.date} · {r.label}</span>
+                    <span className={styles.reportTitle}>{r.period}</span>
+                  </div>
+                  <div className={styles.reportRight} style={{ textAlign: 'right' }}>
+                    <span className={styles.reportScore}>{r.trendHeadline}</span>
+                    <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
+                  </div>
+                </>
+              )
+              return (r as { href?: string }).href ? (
+                <Link
+                  key={r.id}
+                  href={(r as { href: string }).href}
+                  className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}
+                  style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <div key={r.id} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
+                  {content}
                 </div>
-                <div className={styles.reportRight} style={{ textAlign: 'right' }}>
-                  <span className={styles.reportScore}>{r.trendHeadline}</span>
-                  <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </motion.div>
 

@@ -31,8 +31,8 @@ export default function LaurenFisherCallPage() {
               <span>Category</span><span>Score</span><span>Max</span>
             </div>
             {[
-              { cat: 'Lead Quality', score: 6, max: 20 },
-              { cat: 'Signal Reading', score: 3, max: 20 },
+              { cat: 'Lead Quality', score: 5, max: 20 },
+              { cat: 'Signal Reading', score: 4, max: 20 },
               { cat: 'Math Breakdown', score: 0, max: 20 },
               { cat: 'Objection Handling', score: 3, max: 15 },
               { cat: 'Call Outcome Quality', score: 2, max: 10 },

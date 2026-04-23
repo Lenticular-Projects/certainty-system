@@ -1,262 +1,293 @@
 'use client'
+
+import { useState } from 'react'
 import PageShell from '@/components/layout/PageShell'
 import { motion } from 'framer-motion'
 import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
-import { useState } from 'react'
 import styles from './page.module.css'
 
-export default function KazimierzExioPage() {
-  const [callsOpen, setCallsOpen] = useState(true)
+// ── Weekly Brief — April 22, 2026 ──────────────────────────────────────────
+// Display name: Casimir Exil (slug: casimir-exil)
+// CRM (source of truth — from CRM screenshot Apr 20–22):
+//   Apr 13–17 (5 days): not tracked — first tracked period
+//   Apr 20–22 (3 days): 26 all_calls · 20 billable · 3 sales · 11.54% conv · $84.67 CPA
+// Coaching sample: 3 reviewed calls (Gary Rich Apr 21, Judith Copeland + Not Stated Apr 22)
+
+const trendRows = [
+  { metric: 'Sales',      lastWeek: '—',  thisPeriod: '3',       movement: 'First tracked period',  dir: 'neutral' },
+  { metric: 'Conversion', lastWeek: '—',  thisPeriod: '11.54%',  movement: 'First tracked period',  dir: 'neutral' },
+  { metric: 'CPA',        lastWeek: '—',  thisPeriod: '$84.67',  movement: 'First tracked period',  dir: 'neutral' },
+]
+
+const reviewedCalls = [
+  {
+    date: 'Tuesday, April 21',
+    calls: [
+      { consumer: 'Gary Rich',       duration: '1:05:38', score: 76, outcome: 'ENROLLED',           type: 'Friendly Skeptic · DST compliance flag · Type 2 diabetes',       href: '/agents/casimir-exil/calls/gary-rich' },
+    ],
+  },
+  {
+    date: 'Wednesday, April 22',
+    calls: [
+      { consumer: 'Judith Copeland', duration: '4:28',    score: 20, outcome: 'MISSED OPPORTUNITY', type: 'Commercial Myth · SSN refusal · surrendered to scam fear',       href: '/agents/casimir-exil/calls/judith-copeland' },
+      { consumer: 'Not Stated',      duration: '8:44',    score: 21, outcome: 'MISSED OPPORTUNITY', type: 'Scared Switcher · "is this a scam" · logic met fear',            href: '/agents/casimir-exil/calls/not-stated-8m44s' },
+    ],
+  },
+]
+
+const whatYouDidWell = [
+  {
+    title: 'Patience with Gary Rich that most new agents can’t hold',
+    body: "Gary is 83, has arthritis, and moves at his own pace — it took him nearly two minutes just to get up and find his Medicare card. You never rushed him, never showed impatience, and never stepped on his pauses. That is the only reason a 65-minute call ended with an enrollment instead of a hang-up. Most agents would have lost Gary inside the first five minutes. You built the trust he needed to sign.",
+  },
+  {
+    title: 'You annualized the give-back and it landed',
+    body: "At 17:45 on the Gary Rich call, you turned $163.90/month into \"$1,956, almost $2,000\" in annual savings. Gary’s \"Wow\" told you the number did exactly what it was supposed to do — it made the benefit real. That’s Math Step 2 executed properly, and it’s the move that locked the emotional close before you ever got to the compliance reading.",
+  },
+  {
+    title: 'Full prescription verification — zero surprises at the pharmacy',
+    body: "You looked up all six of Gary’s medications individually, confirmed Tier 1 and Tier 2 across the board, and confirmed Wimberley Pharmacy as in-network. For a medication-dependent consumer, that was the trust element that closed the call. Agents skip this step all the time and lose enrollments at the pharmacy counter later. You did it right.",
+  },
+]
+
+const whatToWorkOn = [
+  {
+    num: 1,
+    title: 'Never say "I work for Medicare" — that line is a compliance violation',
+    body: "On the Judith Copeland call at 1:07, you said \"I work for Medicare.\" On the Gary Rich call, you described yourself as \"contracted with Medicare.\" Both phrasings are prohibited under CMS marketing rules — you’re contracted with private carriers, not the federal government. This is one of the fastest ways to fail a compliance audit, and it’s also the moment a skeptical consumer’s internal alarm goes off. The fix is a single, precise sentence you rehearse until it’s automatic.",
+    script: '"I\'m a state-licensed independent agent, and I work with a number of Medicare Advantage plans in your area. My job is to help you compare what\'s out there and make sure you\'re not missing benefits you\'re entitled to."',
+  },
+  {
+    num: 2,
+    title: 'When a consumer says "is this a scam?" — slow down and name the fear, don’t stack credentials',
+    body: "On the Not Stated call at 2:22, the consumer asked \"Are you sure this is not a scam?\" You responded with your name and your license. On Judith Copeland at 3:28, she said \"I’m not going to give that out over the phone,\" and you answered \"I am a licensed agent in Florida… I am contracted with Medicare.\" Both times, the consumer was giving you a fear signal — not a logic question. Credentials don’t calm fear; they amplify it, because they sound like a script. The move is to pause, validate the instinct, and then offer a smaller step (Medicare card instead of SSN). This is a trust play, not a credential play.",
+    script: '"You\'re 100% right to be careful — you should never give that number out to anyone you\'re not comfortable with. The good news is we don\'t actually need it. Do you have your red, white, and blue Medicare card nearby? We can use that number instead."',
+  },
+  {
+    num: 3,
+    title: 'SEPs are identified, not created — the Gary Rich DST invocation has to get corrected',
+    body: "At 25:16 on the Gary Rich call, you brought up the Disaster SEP for winter storm power outages. Gary immediately told you \"No, we’re not, thank goodness\" — that was a disqualification. You kept coaching him toward a qualifying answer and submitted the enrollment under DST anyway. That is a CMS audit flag. You had a clean path sitting right there: Gary confirmed Type 2 diabetes at 11:27 and again at 55:11. If Devoted has a C-SNP in Hays County, CSN was the correct, year-round, consumer-confirmed SEP. Flag this enrollment with compliance and switch future calls to the SEP the consumer actually qualifies for.",
+    script: '"Gary, the diabetes you mentioned actually qualifies you for a year-round special enrollment period we can use today — I don’t need to use anything weather-related. Let me pull up the C-SNP that fits your situation."',
+  },
+]
+
+const reportHistory = [
+  {
+    id: 'apr-22',
+    active: true,
+    date: 'Apr 22',
+    label: 'Weekly Brief',
+    period: 'April 20–22, 2026',
+    trendHeadline: '3 sales · 11.54% conv · 3 reviewed calls',
+    scoreNote: 'First tracked period · DST compliance flag to correct',
+    href: '/agents/casimir-exil/reports/2026-04-22',
+  },
+]
+
+function outcomeClass(outcome: string) {
+  if (outcome === 'ENROLLED') return styles.pillEnrolled
+  if (outcome === 'MISSED OPPORTUNITY') return styles.pillMissed
+  if (outcome === 'INCOMPLETE') return styles.pillIncomplete
+  return styles.pillNeutral
+}
+
+function scoreColor(score: number) {
+  if (score >= 75) return 'var(--sage-dark)'
+  if (score >= 55) return 'var(--mustard-dark)'
+  return 'var(--terracotta)'
+}
+
+export default function CasimirExilPage() {
+  const [showAllCalls, setShowAllCalls] = useState(true)
+
+  const totalReviewed = reviewedCalls.reduce((sum, g) => sum + g.calls.length, 0)
 
   return (
-    <PageShell>
+    <PageShell signal="green">
       <div className={styles.page}>
 
-        {/* ── Header ── */}
-        <header className={styles.header}>
+        {/* Header */}
+        <motion.div className={styles.header} {...SPRING}>
           <div className={styles.headerMeta}>
-            <span className={styles.systemLabel}>Certainty System</span>
+            <span className={styles.systemLabel}>The Certainty System</span>
             <span className={styles.dot}>·</span>
-            <span className={styles.systemLabel}>Agent Report</span>
+            <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
-          <h1 className={styles.agentName}>Kazimierz Exio</h1>
-          <p className={styles.period}>Mid-Week Report — April 22, 2026</p>
-          <p className={styles.period}>Week of April 20–22</p>
-          <p className={styles.updatedAt}>Updated April 22 · 1 call reviewed</p>
-        </header>
+          <h1 className={styles.agentName}>Casimir Exil</h1>
+          <p className={styles.period}>April 22, 2026 · Covering April 20–22</p>
+          <p className={styles.updatedAt}>{totalReviewed} calls reviewed this period</p>
+        </motion.div>
 
-        {/* ── Trend Snapshot ── */}
-        <section className={styles.trendSnapshot}>
-          <h2 className={styles.sectionTitle}>CRM Trend Snapshot</h2>
+        {/* Trend Snapshot */}
+        <motion.div className={styles.trendSnapshot} {...SPRING}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Trend Snapshot</h2>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>First tracked period · from CRM</span>
+          </div>
           <div className={styles.trendTable}>
             <div className={styles.trendHeader}>
-              <span>Period</span>
-              <span>Sales</span>
-              <span>Conv %</span>
-              <span>CPA</span>
+              <span>Metric</span>
+              <span>Last Week</span>
+              <span>This Period</span>
+              <span>Movement</span>
             </div>
-            <div className={styles.trendRow}>
-              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--ink)' }}>
-                This Period
-                <br />
-                <span style={{ fontSize: '0.75rem', fontWeight: 400, color: 'var(--ink-60)' }}>Apr 20–21 · 16 calls · 11 billable</span>
-              </span>
-              <span className={styles.trendUp}>2</span>
-              <span className={styles.trendUp}>12.50%</span>
-              <span className={styles.trendUp}>$72.50</span>
-            </div>
-            <div className={styles.trendRow}>
-              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--ink-60)' }}>
-                Last Week
-                <br />
-                <span style={{ fontSize: '0.75rem', fontWeight: 400, color: 'var(--ink-60)' }}>New hire — no prior data</span>
-              </span>
-              <span className={styles.trendNeutral}>—</span>
-              <span className={styles.trendNeutral}>—</span>
-              <span className={styles.trendNeutral}>—</span>
-            </div>
+            {trendRows.map((row) => (
+              <div key={row.metric} className={styles.trendRow}>
+                <span style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{row.metric}</span>
+                <span style={{ fontSize: '0.9375rem', color: 'var(--ink-60)', fontVariantNumeric: 'tabular-nums' }}>{row.lastWeek}</span>
+                <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--ink)', fontVariantNumeric: 'tabular-nums' }}>{row.thisPeriod}</span>
+                <span className={row.dir === 'up' ? styles.trendUp : row.dir === 'down' ? styles.trendDown : styles.trendNeutral}>{row.movement}</span>
+              </div>
+            ))}
           </div>
-          <p style={{ fontSize: '0.75rem', color: 'var(--ink-60)', marginTop: '8px', fontStyle: 'italic' }}>
-            First period tracked — new hire. 2 sales in first 2 days is a strong debut.
-          </p>
-        </section>
-
-        {/* ── The One Thing ── */}
-        <motion.div
-          className={styles.oneThing}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={SPRING}
-        >
-          <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>
-            Your job is to identify SEPs — not create them. When Gary said "No, we're not, thank goodness," that was your answer. A consumer who can't confirm a qualifying event cannot be enrolled under that SEP. You had a valid path right in front of you — his Type 2 diabetes. Use what's real.
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '14px', lineHeight: 1.65 }}>
+            First tracked period — <strong style={{ color: 'var(--sage-dark)' }}>3 sales in 3 days at $84.67 CPA</strong> is a strong debut. The fundamentals (patience, math, prescription verification) are landing. This brief sets the baseline — next week we’ll have deltas to read against.
           </p>
         </motion.div>
 
-        {/* ── Executive Summary ── */}
-        <section className={styles.section}>
+        {/* Executive Summary */}
+        <motion.div className={styles.execSummary} {...SPRING}>
           <h2 className={styles.sectionTitle}>Executive Summary</h2>
-          <div className={styles.summaryCard}>
-            <div className={styles.execSummaryInner}>
-              <p>
-                <strong>What's working:</strong> You opened your account with 2 sales in your first 2 days — 12.50% conversion and a $72.50 CPA on 11 billable calls. That's a strong debut. On the Gary Rich call, you showed something most new agents don't have: patience. Gary is 83 with arthritis, moves at his own pace, and you never rushed him. That's why a 65-minute call ended in an enrollment instead of a hang-up. You confirmed the doctor before the pitch, you annualized the give-back to $1,956 and it landed, and you ran a complete health risk assessment after the voice signature. The fundamentals are there.
-              </p>
-              <p>
-                <strong>What's costing you:</strong> The DST invocation on the Gary Rich call is a compliance issue that needs to be corrected before your next call. At 25:16 you brought up the Disaster Special Election Period for winter storm power outages — and Gary immediately told you he was NOT affected. That's a disqualification. Instead of accepting it, you coached him toward a qualifying answer and submitted the enrollment under DST. This is a CMS audit flag, and it may put the enrollment at risk of reversal. The compliant path was available: Gary confirmed Type 2 diabetes at 11:27. If Devoted has a C-SNP in Hays County, CSN is your correct SEP — year-round, consumer-confirmed, no expiring window. You need to verify that and flag this enrollment for compliance review.
-              </p>
-            </div>
+          <div className={styles.execSummaryInner}>
+            <p><strong>What&apos;s working:</strong> 3 sales at an $84.67 CPA on your first tracked week is a real debut — and the Gary Rich call shows you already have something most new agents lack: patience with an elderly, slow-moving consumer. You annualized the give-back to $1,956, confirmed the primary doctor in-network, verified all six of Gary’s medications individually, and ran a clean voice signature. The math landed (his &ldquo;Wow&rdquo; at 17:45 said it) and the trust held all the way to the close. That’s a complete enrollment skillset.</p>
+            <p><strong>The pattern to fix this week:</strong> Two moments are costing you trust before you ever get to the math. First — language. On Judith Copeland at 1:07 you said &ldquo;I work for Medicare,&rdquo; and on Gary Rich you said &ldquo;contracted with Medicare.&rdquo; Both are prohibited — you&apos;re a licensed independent agent who works with Medicare Advantage plans. That&apos;s the exact phrasing; nothing else. Second — scam objections. On the Not Stated call at 2:22 the consumer asked &ldquo;Are you sure this is not a scam?&rdquo; and on Judith Copeland at 3:28 she refused to share her SSN. Both times you answered by stacking credentials (&ldquo;I&apos;m a licensed agent… I&apos;m contracted with Medicare&rdquo;). Credentials amplify fear — they sound scripted. The move is to slow down, validate the instinct (&ldquo;You&apos;re right to be careful&rdquo;), and offer the Medicare card as a smaller step. Separately, the DST invocation on Gary Rich needs to be flagged with compliance — Gary denied the disaster impact, and the compliant path (CSN via his Type 2 diabetes) was sitting right there. Fix the language, fix the scam response, and correct the SEP — your close gets cleaner immediately.</p>
           </div>
-        </section>
+        </motion.div>
 
-        {/* ── Your Tells ── */}
-        <section className={styles.yourTells}>
-          <h2 className={styles.sectionTitle}>Your Tells</h2>
-          <div className={styles.tellsBlock}>
-            <p style={{ fontSize: '0.875rem', color: 'var(--ink-60)', lineHeight: 1.7, fontStyle: 'italic' }}>
-              YOUR TELLS — needs more data (coming in next report). One reviewed call isn't enough to establish enrolled vs. missed deltas. Check back after this week's calls are analyzed.
-            </p>
+        {/* The One Thing */}
+        <motion.div className={styles.oneThing} {...SPRING}>
+          <span className={styles.oneThingLabel}>The One Thing</span>
+          <p className={styles.oneThingText}>When a consumer flags fear — &ldquo;is this a scam,&rdquo; &ldquo;I&apos;m not giving that out&rdquo; — stop stacking credentials. Credentials sound like a script and make the fear worse. Slow down, validate the instinct, then offer a smaller step: &ldquo;You&apos;re 100% right to be careful — you should never give that out to anyone you&apos;re not comfortable with. Do you have your red, white, and blue Medicare card nearby? We can use that number instead.&rdquo; Match fear with a reframe, not a résumé.</p>
+        </motion.div>
+
+        {/* What You Did Well */}
+        <motion.div className={styles.section} {...SPRING}>
+          <h2 className={styles.sectionTitle}>What You Did Well</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {whatYouDidWell.map((item, i) => (
+              <div key={i} style={{ padding: '16px 20px', background: 'rgba(125, 157, 123, 0.06)', borderRadius: '10px', borderLeft: '3px solid var(--sage-dark)' }}>
+                <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px' }}>{item.title}</p>
+                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--ink)', margin: 0 }}>{item.body}</p>
+              </div>
+            ))}
           </div>
-        </section>
+        </motion.div>
 
-        {/* ── Patterns ── */}
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Patterns — Chronic · Emerging · Resolved</h2>
-          <div className={styles.patternsGrid}>
-
-            {/* Chronic */}
-            <div className={styles.patternColumn}>
-              <p className={`${styles.patternColumnHeader} ${styles.patternColumnChronic}`}>Chronic</p>
-              <div className={`${styles.patternCard} ${styles.patternCardChronic}`}>
-                <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '6px' }}>
-                  First Period
-                </p>
-                <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--ink-60)' }}>
-                  Establishing baseline — no recurring patterns yet. Chronic column updates after 2+ weeks of call data.
-                </p>
+        {/* What to Work On */}
+        <motion.div className={styles.section} {...SPRING}>
+          <h2 className={styles.sectionTitle}>What to Work On</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {whatToWorkOn.map((item) => (
+              <div key={item.num} style={{ padding: '18px 20px', background: 'rgba(251, 248, 243, 0.82)', borderRadius: '10px', border: '1px solid rgba(19,17,16,0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--terracotta)', fontVariantNumeric: 'tabular-nums', minWidth: '1.2em' }}>{item.num}.</span>
+                  <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--ink)', margin: 0 }}>{item.title}</p>
+                </div>
+                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--ink)', margin: '0 0 10px 1.7em' }}>{item.body}</p>
+                <div style={{ marginLeft: '1.7em', padding: '10px 14px', background: 'rgba(19,17,16,0.04)', borderRadius: '6px', borderLeft: '2px solid var(--ink-20)' }}>
+                  <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)', margin: '0 0 4px' }}>The line</p>
+                  <p style={{ fontSize: '0.875rem', lineHeight: 1.65, fontStyle: 'italic', color: 'var(--ink)', margin: 0 }}>{item.script}</p>
+                </div>
               </div>
-            </div>
-
-            {/* Emerging */}
-            <div className={styles.patternColumn}>
-              <p className={`${styles.patternColumnHeader} ${styles.patternColumnEmerging}`}>Emerging</p>
-              <div className={`${styles.patternCard} ${styles.patternCardEmerging}`} style={{ border: '1px solid rgba(224, 92, 52, 0.25)', borderLeft: '4px solid var(--terracotta)', background: 'rgba(252, 238, 233, 0.7)' }}>
-                <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--terracotta)', marginBottom: '4px' }}>
-                  CRITICAL · RC4
-                </p>
-                <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px', lineHeight: 1.4 }}>
-                  SEP Coaching — Prohibited DST Invocation
-                </p>
-                <p style={{ fontSize: '0.8125rem', lineHeight: 1.65, color: 'var(--ink-60)', marginBottom: '8px' }}>
-                  Gary Rich call (Apr 21): After Gary denied any weather impact, you continued coaching him toward DST qualification. Consumer's "No, we're not, thank goodness" is a disqualification — not a prompt to keep probing.
-                </p>
-                <p style={{ fontSize: '0.8125rem', fontStyle: 'italic', fontWeight: 600, color: 'var(--ink)', lineHeight: 1.6, borderLeft: '3px solid var(--terracotta)', paddingLeft: '10px' }}>
-                  Instead: "SEPs require a real, consumer-confirmed triggering event. Identify them — don't suggest them when the consumer hasn't described one. If no valid SEP exists after discovery, correct no-sale is the right call."
-                </p>
-              </div>
-              <div className={`${styles.patternCard} ${styles.patternCardEmerging}`} style={{ marginTop: '10px' }}>
-                <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--mustard-dark)', marginBottom: '4px' }}>
-                  HIGH · RC2
-                </p>
-                <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px', lineHeight: 1.4 }}>
-                  Client Gold Left on the Table
-                </p>
-                <p style={{ fontSize: '0.8125rem', lineHeight: 1.65, color: 'var(--ink-60)', marginBottom: '8px' }}>
-                  Gary's wife woke up suddenly blind in one eye. You said "Wow" and moved on. That moment — Gary as caregiver, managing his own health, anxiety about everything — was the close. You enrolled without it. With it, the call takes 30 minutes.
-                </p>
-                <p style={{ fontSize: '0.8125rem', fontStyle: 'italic', fontWeight: 600, color: 'var(--ink)', lineHeight: 1.6, borderLeft: '3px solid var(--mustard)', paddingLeft: '10px' }}>
-                  Instead: "Gary, that's a lot to carry. Let me make sure your coverage is locked in so that's one less thing on your plate while you're taking care of her."
-                </p>
-              </div>
-              <div className={`${styles.patternCard} ${styles.patternCardEmerging}`} style={{ marginTop: '10px' }}>
-                <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--mustard-dark)', marginBottom: '4px' }}>
-                  MEDIUM · RC1
-                </p>
-                <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px', lineHeight: 1.4 }}>
-                  Call Duration — 65 Min for a Simple Enrollment
-                </p>
-                <p style={{ fontSize: '0.8125rem', lineHeight: 1.65, color: 'var(--ink-60)', marginBottom: '8px' }}>
-                  This call should take 35–40 minutes. Property tangents (22:53–24:44), life stories, Houston in 1968 — you let them run. Gary said "my arm's going to sleep" during the attestation. Arrive at compliance reading with a fresh consumer, not a tired one.
-                </p>
-                <p style={{ fontSize: '0.8125rem', fontStyle: 'italic', fontWeight: 600, color: 'var(--ink)', lineHeight: 1.6, borderLeft: '3px solid var(--mustard)', paddingLeft: '10px' }}>
-                  Instead: "Gary, I love that — hold that thought, let me get everything locked in for you first and then we can catch up."
-                </p>
-              </div>
-            </div>
-
-            {/* Resolved */}
-            <div className={styles.patternColumn}>
-              <p className={`${styles.patternColumnHeader} ${styles.patternColumnResolved}`}>Resolved</p>
-              <div className={`${styles.patternCard} ${styles.patternCardResolved}`}>
-                <p style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '6px' }}>
-                  First Period
-                </p>
-                <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--ink-60)' }}>
-                  No prior patterns — nothing to resolve yet.
-                </p>
-              </div>
-            </div>
-
+            ))}
           </div>
-        </section>
+        </motion.div>
 
-        {/* ── Calls ── */}
-        <section className={styles.section}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', paddingBottom: '12px', borderBottom: 'var(--rule-lt)' }}>
-            <h2 className={styles.sectionTitle} style={{ marginBottom: 0, paddingBottom: 0, borderBottom: 'none' }}>
-              This Period's Calls
-            </h2>
+        {/* Calls */}
+        <motion.div className={styles.section} {...SPRING}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
+            <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Reviewed Calls This Period</h2>
             <button
-              className={styles.collapsibleCallsToggle}
-              onClick={() => setCallsOpen(prev => !prev)}
+              onClick={() => setShowAllCalls(!showAllCalls)}
+              style={{ width: 'auto', padding: '6px 14px', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--ink-60)', background: 'transparent', border: '1px solid rgba(19,17,16,0.15)', borderRadius: '6px', cursor: 'pointer', whiteSpace: 'nowrap' }}
             >
-              {callsOpen ? 'Hide' : 'Show'} calls
+              {showAllCalls ? 'Collapse ▴' : `Expand (${totalReviewed}) ▾`}
             </button>
           </div>
-
-          {/* Date group: April 21 */}
-          {callsOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={SPRING}
-            >
-              <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '10px' }}>
-                April 21, 2026
-              </p>
-              <div className={styles.callTable}>
-                <div className={styles.callTableHeader}>
-                  <span>Consumer</span>
-                  <span>Score</span>
-                  <span>Outcome</span>
-                  <span>Call Type</span>
-                  <span>Key Pattern</span>
-                </div>
-                <div className={styles.callRow}>
-                  <div>
-                    <Link href="/agents/kazimierz-exio/calls/gary-rich" className={styles.consumerName} style={{ textDecoration: 'none', borderBottom: '1px dotted var(--ink-20)' }}>
-                      Gary Rich
-                    </Link>
-                    <p className={styles.callMeta}>Wimberley, TX · 1:05:38</p>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            These are the calls we pulled for coaching this period. Your CRM total is 3 sales / 26 calls — this is a coaching sample, not an audit of every call.
+          </p>
+          {showAllCalls && (
+            <>
+              {reviewedCalls.map((group) => (
+                <div key={group.date} style={{ marginBottom: '1.5rem' }}>
+                  <p style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: '0.5rem' }}>{group.date}</p>
+                  <div className={styles.callTable}>
+                    <div className={styles.callTableHeader}>
+                      <span>Consumer</span>
+                      <span>Duration</span>
+                      <span>Score</span>
+                      <span>Outcome</span>
+                      <span>Call Type</span>
+                    </div>
+                    {group.calls.map((call, i) => (
+                      <div key={i} className={styles.callRow}>
+                        <span className={styles.consumerName}>
+                          <Link href={call.href} style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: 'var(--ink-20)', textUnderlineOffset: '3px' }}>{call.consumer}</Link>
+                        </span>
+                        <span className={styles.callMeta}>{call.duration}</span>
+                        <span className={styles.callScore} style={{ color: scoreColor(call.score) }}>{call.score}</span>
+                        <span className={styles.outcomeCell}>
+                          <span className={`${styles.pill} ${outcomeClass(call.outcome)}`}>{call.outcome}</span>
+                        </span>
+                        <span className={styles.callType}>{call.type}</span>
+                      </div>
+                    ))}
                   </div>
-                  <span className={styles.callScore} style={{ color: 'var(--mustard-dark)' }}>76</span>
-                  <div className={styles.outcomeCell}>
-                    <span className={`${styles.pill} ${styles.pillEnrolled}`}>Enrolled</span>
-                    <span className={styles.outcomeNote}>May 1, 2026</span>
-                  </div>
-                  <span className={styles.callType}>The Friendly Skeptic<br />The Slow Mover</span>
-                  <span className={styles.callMeta} style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>DST compliance flag — review SEP coding</span>
                 </div>
-                <div className={styles.callTableFooter}>
-                  <span>Day average: <strong>76 / 100</strong></span>
-                  <span>1 call · 1 enrolled</span>
-                </div>
+              ))}
+              <div className={styles.callTableFooter}>
+                <span>Reviewed Avg: <strong>39 / 100</strong></span>
+                <span>Reviewed Enrolled: <strong>1 of 3</strong></span>
+                <span style={{ opacity: 0.7 }}>CRM Total: 3 sales / 26 calls</span>
               </div>
-            </motion.div>
+            </>
           )}
-        </section>
+        </motion.div>
 
-        {/* ── Report History ── */}
-        <section className={styles.reportHistory}>
+        {/* Report History */}
+        <motion.div className={styles.reportHistory} {...SPRING}>
           <h2 className={styles.sectionTitle}>Report History</h2>
-          <div className={styles.reportHistoryEntry} style={{ opacity: 1, borderColor: 'rgba(143, 175, 148, 0.4)', background: 'rgba(238, 243, 239, 0.85)' }}>
-            <div className={styles.reportLeft}>
-              <span className={styles.reportType}>Mid-Week Report · Active</span>
-              <span className={styles.reportTitle}>Apr 22 · First period — 2 sales · $72.50 CPA</span>
-            </div>
-            <div className={styles.reportRight}>
-              <span className={styles.reportScore}>76 avg</span>
-              <span className={styles.reportDate}>Apr 20–22, 2026</span>
-            </div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
+            Each report has its own page. Click any entry to open the full brief exactly as it was delivered.
+          </p>
+          <div className={styles.reportList}>
+            {reportHistory.map((r) => {
+              const content = (
+                <>
+                  <div className={styles.reportLeft}>
+                    <span className={styles.reportType}>{r.date} · {r.label}</span>
+                    <span className={styles.reportTitle}>{r.period}</span>
+                  </div>
+                  <div className={styles.reportRight} style={{ textAlign: 'right' }}>
+                    <span className={styles.reportScore}>{r.trendHeadline}</span>
+                    <span className={styles.reportDate} style={{ opacity: 0.65 }}>{r.scoreNote}</span>
+                  </div>
+                </>
+              )
+              return r.href ? (
+                <Link
+                  key={r.id}
+                  href={r.href}
+                  className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}
+                  style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <div key={r.id} className={`${styles.reportHistoryEntry} ${r.active ? styles.reportActive : ''}`}>
+                  {content}
+                </div>
+              )
+            })}
           </div>
-        </section>
+        </motion.div>
 
-        {/* ── Footer ── */}
-        <footer className={styles.footer}>
-          <p>Certainty System · certainty.vercel.app/agents/kazimierz-exio</p>
-          <p style={{ marginTop: '4px' }}>Updated April 22, 2026 · 1 call reviewed · Mid-Week Report</p>
-        </footer>
+        {/* Footer */}
+        <div className={styles.footer}>
+          <p>The Certainty System · Casimir Exil · Weekly Brief · April 22, 2026</p>
+        </div>
 
       </div>
     </PageShell>
