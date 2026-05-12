@@ -1,0 +1,292 @@
+/* Ad Reframes Page */
+
+.hero {
+  text-align: center;
+  padding: var(--space-9) var(--space-7) var(--space-7);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.headline {
+  color: var(--ink);
+  opacity: 0.92;
+  margin-bottom: var(--space-4);
+}
+
+.subtitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--ink-70);
+  max-width: 640px;
+  margin: 0 auto var(--space-5);
+}
+
+.intro {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--ink-60);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Section headers */
+.sectionHeader {
+  margin-bottom: var(--space-5);
+  max-width: 720px;
+}
+
+.sectionLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-2);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.sectionDesc {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink-60);
+  margin-top: var(--space-2);
+  max-width: 640px;
+}
+
+/* Frames section */
+.framesSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-7) var(--space-8);
+}
+
+.framesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .framesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.frameCard {
+  border-radius: 16px;
+  padding: var(--space-6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: box-shadow 200ms ease;
+}
+
+.frameCard:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.cardNumber {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: var(--space-3);
+}
+
+.callerQuote {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+.frameRow {
+  margin-bottom: var(--space-3);
+}
+
+.frameRow:last-of-type {
+  margin-bottom: var(--space-4);
+}
+
+.rowLabel {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: 4px;
+}
+
+.rowBody {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(19, 17, 16, 0.08);
+}
+
+.cardLinkText {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-60);
+}
+
+.cardArrow {
+  color: var(--ink-60);
+  transition: transform 200ms ease;
+}
+
+.frameCard:hover .cardArrow {
+  transform: translateX(4px);
+}
+
+/* Sequence section */
+.sequenceSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-7) var(--space-8);
+}
+
+.sequenceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .sequenceGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .sequenceGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stepCard {
+  border-radius: 14px;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+}
+
+.stepNumber {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--ink-60);
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.stepTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.stepBody {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+
+/* Don't section */
+.dontSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-7) var(--space-8);
+}
+
+.dontList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 760px;
+}
+
+.dontItem {
+  position: relative;
+  padding: var(--space-4) 0 var(--space-4) var(--space-5);
+  border-bottom: 1px solid rgba(19, 17, 16, 0.08);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.dontItem::before {
+  content: '×';
+  position: absolute;
+  left: 0;
+  top: var(--space-4);
+  color: #b84420;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.dontItem:last-child {
+  border-bottom: none;
+}
+
+/* Cross links */
+.crossSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-7) var(--space-9);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: var(--space-7) var(--space-5) var(--space-5);
+  }
+
+  .framesSection,
+  .sequenceSection,
+  .dontSection {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+  }
+
+  .crossSection {
+    padding: var(--space-5) var(--space-5) var(--space-7);
+  }
+}

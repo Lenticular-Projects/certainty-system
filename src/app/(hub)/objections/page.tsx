@@ -14,6 +14,7 @@ const sectionDescriptions: Record<string, string> = {
   'All': 'Every objection across all categories. Use search to find what you just heard.',
   'Fear of Change & Switching': 'The client is protecting what they have. Fear drives the words, not logic.',
   'Commercial & Benefit': 'They called about a benefit they saw advertised. Motivated — but often misinformed about how it works.',
+  'Ad-Driven Misconceptions': 'Caller already has a story from the ad. Reframe the belief — don\'t correct it.',
   'Stall': 'Not saying no — not saying yes. They\'re buying time.',
   'Network & Coverage': 'Doctor, hospital, and provider network concerns.',
   'Loyalty': 'They have a relationship — with their plan, their agent, or their carrier.',

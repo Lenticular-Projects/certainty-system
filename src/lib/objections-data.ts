@@ -14,6 +14,7 @@ export const sections = [
   'All',
   'Fear of Change & Switching',
   'Commercial & Benefit',
+  'Ad-Driven Misconceptions',
   'Stall',
   'Network & Coverage',
   'Loyalty',
@@ -277,6 +278,128 @@ export const objections: Objection[] = [
     pillar: 'Reframing — become the ally; position enrollment as the activation step the commercial left out',
   },
 
+  {
+    id: 'just-calling-about-x',
+    section: 'Commercial & Benefit',
+    clientPhrase: '"I\'m just calling about [the grocery card / the food allowance / the dental thing]."',
+    signal: 'green',
+    underneath: 'The caller is narrowing scope to one benefit because the ad showed only one thing. They\'re motivated (green signal) but their mental frame is "I want this one thing, not a plan review." If you go straight to plan comparison, you sound like you\'re selling something they didn\'t ask for. The reframe is to honor the specific thing they called for, then explicitly bridge to the wider picture using their own stated reason — the requested benefit is the floor, not the ceiling.',
+    tags: ['just calling about', 'just want the card', 'just the grocery thing', 'calling about the food', 'the dental thing', 'narrow scope', 'one benefit only'],
+    doNotSay: [
+      '"Let me ask you a few questions about your overall plan." — sounds like you\'re changing the subject',
+      'Pivoting to plan comparison without acknowledging the specific thing they called about',
+      'Treating the narrow request as ignorance — they\'re responding exactly to what the ad showed them',
+    ],
+    responses: [
+      {
+        label: 'Honor the ask, then bridge',
+        text: '"You got it — [grocery card] is exactly what we\'re going to find for you. Here\'s why I\'m going to ask a few extra things: the [card] lives inside specific plans, and the plans that carry the biggest [card] usually carry other things too — dental, transportation, sometimes money back into your Social Security. So while I\'m looking at [the card] for your zip code, I\'m going to make sure the plan that carries it isn\'t leaving anything else on the table. Two minutes — fair?"',
+      },
+      {
+        label: 'When you find the bigger picture (use their reason as the anchor)',
+        text: '"You called about [the grocery card]. Here\'s what I\'m looking at: this plan gives you [card amount] for groceries — that\'s exactly what you came in for. But it also gives you $0 doctor visits, your medications at zero copay, and [X dental]. The thing you called about is in there — and it\'s not even the biggest thing in there."',
+      },
+    ],
+    pillar: 'The Shift — narrow scope is fine; bridge from their stated reason to the full picture by treating the requested benefit as the floor, not the ceiling',
+  },
+
+  // ─── SECTION 2.5: AD-DRIVEN MISCONCEPTIONS ───────────────────────────────
+
+  {
+    id: 'ad-wont-affect-plan',
+    section: 'Ad-Driven Misconceptions',
+    clientPhrase: '"The ad said this wouldn\'t affect / change my plan."',
+    signal: 'red',
+    underneath: 'The ad framed this as additive — claim a card, get a benefit, nothing moves. The caller is protecting their existing plan because they were promised they wouldn\'t have to. They are not opposed to the benefit — they are opposed to losing what they already have. The reframe is to replace the word "change" with "upgrade," and to anchor on what stays the same (doctors, meds, what\'s working) before naming what gets added.',
+    tags: ['ad said it wouldn\'t change', 'won\'t change my plan', 'commercial said no change', 'said it doesn\'t affect', 'just adding to it', 'not switching plans', 'keeping my plan'],
+    doNotSay: [
+      '"That\'s not really how it works." — shames the caller for trusting the ad',
+      '"The commercial was misleading." — you become part of what betrayed them',
+      'Defending the ad copy or explaining technicalities before naming what they\'re feeling',
+      'Using the word "switch" or "change" — you reinforce the exact frame they\'re trying to protect against',
+    ],
+    responses: [
+      {
+        position: 'early',
+        label: 'Validate and replace the word',
+        text: '"You\'re right — I\'m not here to change anything that\'s working for you. Your doctors stay your doctors, your medications stay your medications. What I\'m looking at is whether there\'s an upgrade available to your current plan that adds the benefit you called about — without taking anything away. Can I run the comparison for your zip code?"',
+      },
+      {
+        position: 'late',
+        label: 'After the comparison is on the table',
+        text: '"You said you didn\'t want anything about your plan to change. Look at what you have now versus what we just put together — same doctors, same medications covered, same $0 premium. The only thing that changes is you have [annualized benefit] more in your pocket this year. That\'s not a change to your plan — that\'s an upgrade to it."',
+      },
+      {
+        label: 'When they push back: "but the ad said..."',
+        text: '"I hear you — and the ad wasn\'t wrong about the benefit being available. What it didn\'t explain is that those benefits live inside specific plans. So me looking at this for you isn\'t me changing anything — it\'s me making sure the plan you\'re on is the one that actually delivers what you called for. That\'s it."',
+      },
+    ],
+    pillar: 'Reframing — replace "change" with "upgrade," anchor on what stays the same before naming what gets added',
+  },
+
+  {
+    id: 'ad-extra-card-benefit',
+    section: 'Ad-Driven Misconceptions',
+    clientPhrase: '"This is just an extra card / extra benefit, right?"',
+    signal: 'green',
+    underneath: 'The ad presented the OTC card / flex card / grocery allowance as a standalone object — like a coupon, government rebate, or supplemental card you receive on top of whatever else you have. The caller is motivated (they want the benefit) but the misconception is that the card is independent of their plan. The reframe is to validate the motivation, then reposition the card as something that lives inside the right plan — making you the person who delivers it, not the person who blocks it.',
+    tags: ['extra card', 'extra benefit', 'just a card', 'separate card', 'additional benefit', 'standalone card', 'on top of my plan', 'in addition to'],
+    doNotSay: [
+      '"It doesn\'t work like that." — dismissive; makes them feel foolish for calling',
+      '"You have to enroll in a plan to get the card." — lands like a trap; triggers resistance',
+      'Jumping to plan comparison before resolving the misconception about what the card is',
+      'Saying the word "no" in your first sentence — you sound like every other call they\'ve had today',
+    ],
+    responses: [
+      {
+        position: 'early',
+        label: 'Reposition the card as living inside the right plan',
+        text: '"Yeah — and I\'m the person who can get that card to you. Here\'s how it works: the card the ad showed you is real, but it lives inside a specific plan. So my job is to look at what you\'re on now and make sure you\'re on the plan that actually carries that card. If you already are, I\'ll tell you. If you\'re not, I\'ll get you on it. Either way, you walk away with the card."',
+      },
+      {
+        label: 'When they say "but it\'s just supposed to be extra"',
+        text: '"I get why it sounds that way — the commercials make it sound like it just shows up in the mail. The way the government actually distributes those benefits is through plans, so the card you saw on TV is exactly what we\'re going to look at for your zip code. You\'re in the right place — let me just confirm a few things and we\'ll get you sorted."',
+      },
+      {
+        label: 'When they\'re skeptical of having to "do" anything',
+        text: '"Totally fair. The reason I\'m walking through this with you is that the people who call in and just say \\"send me the card\\" usually never end up getting it — because no one connected the card to a plan that actually delivers it. I\'m doing the connecting part right now. Five minutes and you\'ll know it\'s active."',
+      },
+    ],
+    pillar: 'Reframing — the card is real and lives inside the right plan; you\'re the delivery step, not the gatekeeper',
+  },
+
+  {
+    id: 'ad-only-takes-2-minutes',
+    section: 'Ad-Driven Misconceptions',
+    clientPhrase: '"The ad said this would only take 2 minutes / 2 questions."',
+    signal: 'yellow',
+    underneath: 'The ad implied a quick eligibility check. The caller now feels misled because the actual process — verification, doctor lookup, medication check, plan comparison — takes 15-30 minutes. If you don\'t name this up front, the caller hits minute 10 and feels trapped. The reframe is to set the expectation early ("I\'m doing more than 2 questions on purpose — here\'s why") and to use checkpoints so they always feel in control. This is also the objection that prevents the late-call "let me call you back" exit.',
+    tags: ['only takes 2 minutes', 'said it would be quick', 'just 2 questions', 'thought this was fast', 'taking too long', 'didn\'t expect this long', 'how much longer'],
+    doNotSay: [
+      '"It usually takes longer than that." — confirms their fear that they were misled and gives them the opening to leave',
+      '"We\'re almost done." — vague reassurance; they\'ve heard it before',
+      'Continuing the process without addressing the time concern when it surfaces',
+      'Apologizing for the length — you sound like you\'re wasting their time',
+    ],
+    responses: [
+      {
+        position: 'early',
+        label: 'Set the expectation in the first 60 seconds (preventive)',
+        text: '"Before we go any further — those commercials make it sound like 2 minutes, and I\'m going to be straight with you: this takes me about 15 minutes, and I do that on purpose. I\'m verifying both your doctors, checking every medication, and making sure the plan I confirm for you has zero surprises when the card arrives. That\'s the difference between getting the right plan and getting a plan. Sound good?"',
+      },
+      {
+        position: 'late',
+        label: 'When they raise it mid-call ("how much longer?")',
+        text: '"Fair question. Here\'s exactly where we are: [name what\'s done — doctors verified, meds checked, plan identified]. I have one more piece to lock in and we\'re done. The reason I\'m being thorough is so the card you called about actually shows up — most people who do this in 2 minutes end up calling us back in 30 days because something didn\'t go through. We\'re not going to be those people."',
+      },
+      {
+        label: 'Checkpoint phrasing (use every 10-15 minutes)',
+        text: '"We\'re about halfway through and everything\'s lining up. Still good to keep going? I want to make sure we finish this one in one call so you don\'t have to do this twice."',
+      },
+    ],
+    pillar: 'Persuasion — set time expectations transparently, anchor the length to a benefit they want (the card actually arriving), use checkpoints to maintain consent',
+  },
+
   // ─── SECTION 3: STALL ────────────────────────────────────────────────────
 
   {
@@ -466,10 +589,12 @@ export const objections: Objection[] = [
     clientPhrase: '"I have an insurance lady / agent who handles this."',
     signal: 'red',
     underneath: 'Their loyalty is to a person, not a plan. Do not attack that person — you will lose. Work alongside the relationship, not against it.',
-    tags: ['agent', 'insurance agent', 'insurance lady', 'my agent', 'person who handles', 'already have someone', 'person I use', 'lady who does it'],
+    tags: ['agent', 'insurance agent', 'insurance lady', 'my agent', 'person who handles', 'already have someone', 'person I use', 'lady who does it', 'broker'],
     doNotSay: [
       '"You should go talk to them." — handing the sale directly to a competitor',
       'Criticizing the other agent directly — they will defend the person',
+      '"Do you want to go back to your old plan?" — turns your close into a permission slip for them to say no',
+      '"We can\'t do this then." — surrendering before they\'ve finished the objection',
     ],
     responses: [
       {
@@ -480,8 +605,43 @@ export const objections: Objection[] = [
         label: 'No specific gap identified yet',
         text: '"Your agent cares about you — and so do I. The difference is I\'m looking at what\'s available right now, and I can see there\'s [annualized amount] a year you\'re not getting. A good agent would want you to have that. Let\'s look at the numbers together."',
       },
+      {
+        position: 'late',
+        label: 'Late-stage — when the broker is invoked after they\'ve agreed the plan is better',
+        text: '"You already said this plan is the right one for you. Your broker can review it next time you talk — but [enrollment window] is closing soon and your doctor is in this network. Let\'s get you covered today and you can loop him in afterward. Full name on your Medicare card?"',
+      },
     ],
     pillar: 'Reframing — validate the loyalty, identify the gap, add urgency through the enrollment window',
+  },
+
+  {
+    id: 'broker-told-me-already',
+    section: 'Loyalty',
+    clientPhrase: '"My broker / agent already told me he\'s going to put me in [Plan X]."',
+    signal: 'red',
+    underneath: 'This is the late-stage version of "have-agent" — and it\'s the single biggest call-killer in the call data. It typically surfaces 40+ minutes into the call, after the caller has already agreed the plan you found is better. They are not rejecting the plan — they are refusing to step on the broker\'s toes. If you ask "do you want to go back to [their plan] then?" you hand them the exit. The reframe is to anchor on the decision they already made, treat the broker as protected (not in conflict), and execute the enrollment now while letting them tell the broker afterward.',
+    tags: ['broker told me', 'agent told me', 'going to put me in', 'he\'s already setting it up', 'my broker said', 'he\'s handling it', 'someone is doing this for me', 'broker'],
+    doNotSay: [
+      '"Do you want to go back to [old plan / their plan] then?" — turns your close into a permission slip for them to say no',
+      '"We can\'t do this then." — surrenders before the consumer has even finished the objection',
+      '"Your broker doesn\'t have access to this plan." — feels like an attack on someone they trust',
+      'Asking "should we keep going?" — make a statement of decision, not a request for permission',
+    ],
+    responses: [
+      {
+        label: 'Anchor on the decision they already made',
+        text: '"You already told me this plan is the right one for you. Your broker is going to be glad you\'re covered before [enrollment window] closes — that\'s the part that matters. Let\'s get this locked in right now, and you can let him know when you talk to him next. He\'ll see the same thing you\'re seeing."',
+      },
+      {
+        label: 'When they hesitate after the close',
+        text: '"I\'m not asking you to choose between me and your broker. You said yes to this plan because of [the specific reason — doctor in network, medications covered, $X giveback]. That\'s the same reason your broker would have picked it if he had access to it today. Let\'s finish what you decided. Your full name as it appears on your Medicare card?"',
+      },
+      {
+        label: 'Preemptive (mid-call, before the broker objection surfaces)',
+        text: '"You mentioned you have a broker — I\'m glad you have someone looking out for you. Let me show you what\'s available in your area, and if it turns out to be better than what he\'s setting up for you, are you open to making the change today? You can always loop him in afterward."',
+      },
+    ],
+    pillar: 'Refocusing — anchor on the decision the caller already made, position the broker as protected (not threatened), execute the enrollment without asking permission to continue',
   },
 
   // ─── SECTION 6: TIMING ───────────────────────────────────────────────────
@@ -801,6 +961,35 @@ export const objections: Objection[] = [
     pillar: 'Persuasion — early: build trust through action; late: the verification is done, pivot from channel to math',
   },
 
+  {
+    id: 'dont-deserve-it',
+    section: 'Trust & Credibility',
+    clientPhrase: '"This sounds too good." / "I don\'t feel like I deserve all this."',
+    signal: 'yellow',
+    underneath: 'The caller is encountering what feels like a moral conflict — they were not raised to accept "free" things and the size of the benefit triggers suspicion or guilt. This is not a trust objection about you — it\'s a self-worth objection. The reframe is to anchor the benefit in something they\'ve already done: paid into Medicare, worked their whole life, raised a family. The benefit isn\'t a handout — it\'s an entitlement they\'ve already paid for.',
+    tags: ['too good to be true', 'don\'t deserve it', 'sounds too good', 'why me', 'this is too much', 'I haven\'t earned', 'free'],
+    doNotSay: [
+      '"You absolutely deserve it!" — sounds rehearsed; doesn\'t address the real feeling',
+      '"It\'s not free, the government pays for it." — clinical; doesn\'t honor the emotion',
+      'Moving past the comment too quickly — this is a Client Gold moment',
+    ],
+    responses: [
+      {
+        label: 'Anchor on what they\'ve already done',
+        text: '"I hear that — and I want you to hear something. You worked your whole life. You paid into Medicare every paycheck. This isn\'t something extra — this is what you bought and paid for. The only question is whether the money you already put in is actually getting back to you. That\'s what we\'re doing right now."',
+      },
+      {
+        label: 'When they say "this seems too easy"',
+        text: '"It does seem too easy — and the reason most people don\'t get it is exactly that. They feel like there must be a catch, so they don\'t finish the call. There\'s no catch. The benefit is real, it\'s yours, and you\'ve already paid for it. I\'m just the part that gets it to you."',
+      },
+      {
+        label: 'When they mention family / pride',
+        text: '"I respect that — and your family raised you to be careful. I\'m being careful with you. This isn\'t charity. This is your money coming back to you in a different form. I\'d feel the same way if a stranger called me about money — that\'s why I\'m going to walk you through every piece so you can see exactly where it comes from."',
+      },
+    ],
+    pillar: 'Reframing — reframe "deserve" as "already paid for"; honor the emotion before correcting the frame',
+  },
+
   // ─── SECTION 9: FEAR OF LOSING EXISTING BENEFITS ─────────────────────────
 
   {
@@ -1087,9 +1276,18 @@ export const objections: Objection[] = [
     clientPhrase: '"I need to call you back." / "Let me call my doctor first."',
     signal: 'red',
     underneath: 'Exit mechanism — they want off the call with a reason to leave.',
+    doNotSay: [
+      '"Sure, what\'s a good time?" — open-ended callbacks from a post-yes moment convert below 10%',
+      '"Take your time." — you contradict the urgency you spent the call building',
+    ],
     responses: [
       {
         text: '"I understand — and here\'s what I\'d like to do before you go: let me check Dr. [name] right now while we\'re on the phone. If they\'re covered, that\'s one call you don\'t have to make. If they\'re not, at least you\'ll know before you call them."',
+      },
+      {
+        position: 'late',
+        label: 'When they ask for callback after agreeing to the plan',
+        text: '"You just told me this plan is the right one. We are 90 seconds from done. If we hang up now, life gets in the way and your [effective date] coverage doesn\'t start. I\'d rather finish this in one call so you never have to do it twice. Full name on your Medicare card?"',
       },
     ],
     pillar: 'Persuasion — eliminate the reason to call back by doing the work now',
@@ -1207,8 +1405,14 @@ export const objections: Objection[] = [
       '"Do you have your Medicare card?" (again) — they already said they don\'t; going backwards loses the call',
       '"Your information is encrypted and secure." — tech-security talk they don\'t care about',
       'Asking for it a second time without repositioning the ask — now you are the person they were afraid of',
+      'Pushing on the SSN ask without acknowledging the legitimate fear',
+      '"I get it. Bye." — surrender; they came in motivated and you let one objection end it',
     ],
     responses: [
+      {
+        label: 'Trust bridge — validate the smartness of the caution first',
+        text: '"You\'re smart for asking — a lot of people get calls trying to trick them out of that number, and you\'re right to protect it. You don\'t have to give me your social. The safer way is your Medicare card, or I can verify you with your name, date of birth, and just the last four digits. Which one do you want to use?"',
+      },
       {
         label: 'Empathy first — just another way',
         text: '"You\'re right to be cautious. This is just another way I can pull you up — the only reason I need it is to verify your information so I can look up exactly what\'s available to you and make sure you\'re maximizing your benefits."',
@@ -1537,8 +1741,14 @@ export const objections: Objection[] = [
       '"[Preferred carrier] doesn\'t have anything good in your area." — this is an argument before you\'ve even looked',
       '"But [other carrier] is better because..." — the consumer hears: you are not listening to me',
       'Any reframe before you have at least attempted to fulfill the request',
+      'Arguing back when they name a carrier they don\'t want — every push deepens the resistance',
+      'Defending your recommendation against their preference — pivot, don\'t debate',
     ],
     responses: [
+      {
+        label: 'Pivot, don\'t argue',
+        text: '"No problem — let me check what [their preferred carrier] has in your zip code. If it\'s the strongest option, that\'s what we\'ll go with."',
+      },
       {
         label: 'First move — always fulfill',
         text: '"No problem — let me pull up [carrier] in your area right now and see what they have available. Give me one moment."',
@@ -1695,6 +1905,65 @@ export const objections: Objection[] = [
       },
     ],
     pillar: 'Persuasion — treat the obstacle as a problem to solve; always have an alternative path ready before accepting the exit',
+  },
+
+  {
+    id: 'callback-after-yes',
+    section: 'Resistance at Close',
+    clientPhrase: '"Let me call you back" — after they\'ve already said yes.',
+    signal: 'red',
+    underneath: 'This is different from a normal stall. The caller has agreed the plan is better, said "yes, I want this," and then asked to call back. Almost always: a sudden anxiety spike at the moment of commitment, an interruption (someone walked in, the dog), or the consumer feels the close is happening too fast. Open-ended callbacks from this point convert below 10%. The reframe is to anchor on what they just said yes to, name the specific window closing, and execute the voice signature in the next sentence — no permission asked.',
+    tags: ['call you back after yes', 'callback at close', 'I do want it but', 'yes but call me back', 'after they agreed', 'post-yes callback'],
+    doNotSay: [
+      '"Sure, when\'s a good time?" — almost zero of these calls reconnect',
+      '"Take your time, no rush." — you contradict the urgency you just established',
+      '"You don\'t have to decide right now." — they did decide, two sentences ago',
+      'Asking "are you sure?" — invites the doubt back in',
+    ],
+    responses: [
+      {
+        label: 'Anchor on the yes they just gave',
+        text: '"You already said yes — and you\'re right, this is the plan. Here\'s what I don\'t want to happen: we hang up, life gets in the way, and your [effective date] coverage doesn\'t start because we didn\'t finish the last 90 seconds. I have everything in front of me. Your full name as it appears on your Medicare card?"',
+      },
+      {
+        label: 'When something/someone interrupted',
+        text: '"Take 30 seconds — handle [whatever it is]. I\'m not going anywhere. When you come back, all I need is your full name on your Medicare card and we\'re done. We\'re three sentences from finished."',
+      },
+      {
+        label: 'When the anxiety is real (voice has tightened)',
+        text: '"I can hear you tighten up a little — that\'s normal. This is the moment where it becomes real. Nothing I\'m doing is permanent for you — you have a full review window after this where you can change your mind with one phone call. But to even have that window, we need to finish this now. Full name on your Medicare card?"',
+      },
+    ],
+    pillar: 'Refocusing — the yes already happened; your job is to hold the close, not relitigate it',
+  },
+
+  {
+    id: 'soft-exit-thanks',
+    section: 'Resistance at Close',
+    clientPhrase: '"That\'s okay, thank you." / "Okay, thanks anyway."',
+    signal: 'red',
+    underneath: 'This is the most-missed exit in the data. It is not a "no" — it is a polite pivot to leave the call. The caller doesn\'t want to be rude, doesn\'t want to argue, and has lost the thread of why they should stay. Agents who treat this as a final answer end the call. Agents who use a 60-second hold ("before you go — you mentioned [the thing they came in for]…") rescue 1 in 4 of these. The reframe is to use their own stated reason for calling as the bridge back into the conversation.',
+    tags: ['that\'s okay thank you', 'okay thanks', 'thanks anyway', 'I appreciate it', 'no thank you', 'soft no', 'polite exit'],
+    doNotSay: [
+      '"Okay, have a great day." — you accept an exit that wasn\'t a real decision',
+      '"Are you sure?" — invites them to confirm the exit',
+      'Letting silence sit — they will fill it with another thank-you and hang up',
+    ],
+    responses: [
+      {
+        label: 'The 60-second hold (use their stated reason for calling)',
+        text: '"Before you go — you called in about [the grocery card / the giveback / the dental coverage]. Give me 60 seconds and I\'ll show you exactly what\'s available for your zip code. If it\'s not what you\'re looking for, we hang up and I\'ve only cost you a minute. Fair?"',
+      },
+      {
+        label: 'When you have a verified gap on the table',
+        text: '"I hear you — but I\'d feel bad letting you off this call without telling you what I just saw: your current plan doesn\'t cover [specific gap]. That\'s [annualized amount] you\'re leaving on the table this year. One question: did you know about that gap before this call?"',
+      },
+      {
+        label: 'When they\'re visibly tired (long call already)',
+        text: '"You\'ve been on with me for a while — that\'s on me. Let me just leave you with one number: [annualized benefit]. That\'s what\'s available to you this year if we close this out today. I can finish this in three more questions. Want me to do it now or do you need a minute?"',
+      },
+    ],
+    pillar: 'Refocusing — re-anchor on their stated reason for calling, ask for one more minute, never accept the polite exit as the real answer',
   },
 
   {

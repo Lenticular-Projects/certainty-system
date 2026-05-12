@@ -7,85 +7,115 @@ import { SPRING } from '@/lib/motion'
 import Link from 'next/link'
 import styles from './page.module.css'
 
-// ── Weekly Brief — April 22, 2026 ─────────────────────────────────────────────
+// ── Weekly Brief — April 26, 2026 ─────────────────────────────────────────────
 // CRM (source of truth):
 //   Apr 13–17 (5 days): 94 all_calls · 61 billable · 14 sales · 14.89% conv · $83.57 CPA
-//   Apr 20–22 (3 days): 63 all_calls · 37 billable ·  7 sales · 11.11% conv · $84.71 CPA
-// Coaching sample: 3 reviewed calls (Apr 20 / Apr 21 / Apr 22)
+//   Apr 20–24 (5 days): ~95 all_calls (est.) · ~9 sales confirmed (7 Apr 20–22 confirmed + 2 provisional)
+//     Apr 20–22 confirmed: 63 all_calls · 37 billable · 7 sales · 11.11% conv · $84.71 CPA
+//     Apr 23–24 provisional: +2 sales (Robinson 84/100 ENROLLED · Myzele 78/100 ENROLLED)
+// Coaching sample: 11 reviewed calls across Apr 20–24
 
 const trendRows = [
-  { metric: 'Sales',      lastWeek: '14',       thisPeriod: '7',       movement: '↑ On pace (2.33/day vs 2.8)', dir: 'up' },
-  { metric: 'Conversion', lastWeek: '14.89%',   thisPeriod: '11.11%',  movement: '↓ −3.78pp',                    dir: 'down' },
-  { metric: 'CPA',        lastWeek: '$83.57',   thisPeriod: '$84.71',  movement: '→ Flat (+$1.14)',              dir: 'neutral' },
+  { metric: 'Sales',      lastWeek: '14',       thisPeriod: '9',       movement: '↓ Slight dip in pace',          dir: 'down' },
+  { metric: 'Conversion', lastWeek: '14.89%',   thisPeriod: '~9.5%',   movement: '↓ −5.4pp',                      dir: 'down' },
+  { metric: 'CPA',        lastWeek: '$83.57',   thisPeriod: '~$110',   movement: '↓ Rising (still efficient)',     dir: 'down' },
 ]
 
 const reviewedCalls = [
   {
     date: 'Monday, April 20',
     calls: [
-      { consumer: 'Marie Jean', duration: '1:36:26', score: 79, outcome: 'ENROLLED', type: 'New to Medicare · C-SNP · ICEP · Delray Beach', href: '/agents/karimah-ali/calls/marie-jean' },
+      { consumer: 'Marie Jean',     duration: '1:36:26', score: 79, outcome: 'ENROLLED',          type: 'New to Medicare · C-SNP · ICEP · Delray Beach',                   href: '/agents/karimah-ali/calls/marie-jean' },
+      { consumer: 'Martha L. Gross', duration: '48:19',  score: 72, outcome: 'ENROLLED',          type: 'D-SNP · INT · Lima, OH — $240/month OTC upgrade',                 href: '/agents/karimah-ali/calls/martha-l-gross' },
+      { consumer: 'Jesse Burdette',  duration: '12:08',  score: 48, outcome: 'MISSED OPPORTUNITY', type: 'Handoff call with Robert Pegler · C-SNP · Knoxville, TN',         href: '/agents/karimah-ali/calls/jesse-burdette' },
     ],
   },
   {
     date: 'Tuesday, April 21',
     calls: [
-      { consumer: 'Wilhelm Patt', duration: '52:00', score: 75, outcome: 'ENROLLED', type: 'C-SNP · CSN · 5 resistance attempts · Miami', href: '/agents/karimah-ali/calls/wilhelm-patt' },
+      { consumer: 'Sheila Terry',  duration: '1:22:38', score: 80, outcome: 'ENROLLED', type: 'D-SNP · Grocery benefit restore $71→$230 · Oxford, NC',       href: '/agents/karimah-ali/calls/sheila-terry' },
+      { consumer: 'Wilhelm Patt',  duration: '52:00',   score: 75, outcome: 'ENROLLED', type: 'C-SNP · 5 resistance attempts · Miami',                       href: '/agents/karimah-ali/calls/wilhelm-patt' },
     ],
   },
   {
     date: 'Wednesday, April 22',
     calls: [
-      { consumer: 'Not Stated', duration: '2:56', score: 27, outcome: 'MISSED OPPORTUNITY', type: 'Food card caller · trust breakdown at SSN step', href: '/agents/karimah-ali/calls/not-stated' },
+      { consumer: 'Not Stated',    duration: '2:56',  score: 27, outcome: 'MISSED OPPORTUNITY', type: 'Food card caller · trust breakdown at SSN step',         href: '/agents/karimah-ali/calls/not-stated' },
+      { consumer: 'John Torres',   duration: '40:00', score: 54, outcome: 'MISSED OPPORTUNITY', type: 'MOV SEP · Trauma loyalist · Orlando, FL',               href: '/agents/karimah-ali/calls/john-torres' },
+      { consumer: 'Lewis Parker',  duration: '4:31',  score: 38, outcome: 'INCOMPLETE',         type: 'Identity theft survivor · SSN refusal · Lima, OH',       href: '/agents/karimah-ali/calls/lewis-parker' },
+    ],
+  },
+  {
+    date: 'Thursday, April 23',
+    calls: [
+      { consumer: 'Ronnie Robinson', duration: '1:17:21', score: 84, outcome: 'ENROLLED', type: 'The Veteran · Humana USAA PPO · $185 Part B giveback + $4,000 dental · Lakeland, FL', href: '/agents/karimah-ali/calls/ronnie-robinson' },
+    ],
+  },
+  {
+    date: 'Friday, April 24',
+    calls: [
+      { consumer: 'Joan Myzele',     duration: '47:49', score: 78, outcome: 'ENROLLED',    type: 'C-SNP · COPD · $195 OTC upgrade · Dunedin, FL',                  href: '/agents/karimah-ali/calls/joan-myzele' },
+      { consumer: 'H.G. Sutherland', duration: '7:41',  score: 58, outcome: 'INCOMPLETE',  type: 'Benefit seeker · Diabetes/CSN signal missed · Palm Bay, FL',   href: '/agents/karimah-ali/calls/hg-sutherland' },
     ],
   },
 ]
 
 const whatYouDidWell = [
   {
-    title: 'C-SNP identification that changes the plan — and the paycheck',
-    body: "On Marie Jean (Apr 20), when she mentioned 'blood sugar' in the initial medication screen, you stopped and confirmed the diabetes diagnosis immediately. That single question — 'do you have any chronic condition like diabetes?' at 5:42 — unlocked the C-SNP upgrade, the $195 OTC benefit, the $200 vision allowance, and the enrollment. On Wilhelm Patt (Apr 21), you caught the pacemaker at 9:21 and at 27:34 said the exact right thing: 'With you having the pacemaker, you qualify for this particular plan that's going to get you that $195.' That sentence is the winning line of that call. You're reading clinical signals faster than most agents notice them.",
+    title: 'Ronnie Robinson — 77 minutes, a Veteran\'s trust, and a $6,580 annual swing',
+    body: "On Thursday, Robinson came in frustrated and confused — a previous agent had sold him a plan that conflicted with his VA benefits, and he came in saying 'my insurance agent got it all screwed up.' You didn't rush to fix it. You listened, named the problem precisely at 12:23 ('The confusion here is that you get all your medication at the VA, but this plan also covers your medication — it's causing confusion with the VA'), and then said the line that won the call at 30:59: 'Let's clear up the confusion with this for you so you don't have this worrying on your head.' A veteran who had been burned by an insurance agent walked off that call saying 'you just took some pressure off me.' That is the full expression of what this work is supposed to do.",
   },
   {
-    title: 'Persistence that closes what most agents surrender',
-    body: "Wilhelm Patt tried to end the call five times. 'I'm finished over here.' 'I'm done.' 'I've had enough.' He was 78, post-hospitalization, lying in bed. You held on through every one without raising your voice, without excessive apologizing, and without losing the thread of the enrollment. That controlled, calm persistence is a skill most agents don't have — and it closed a $2,040/year grocery benefit for a senior who was rationing on $25/month.",
+    title: 'D-SNP and C-SNP identification that produces enrollments',
+    body: "Three of your strongest enrollments this week came directly from correct plan-type identification. On Martha Gross (Apr 20), you caught the D-SNP INT window and upgraded her OTC from $100 to $240/month — her son-in-law said 'That's wonderful, you didn't know that.' On Sheila Terry (Apr 21), you identified partial Medicaid, correctly applied the D-SNP SEP, and traced the benefit loss that had been taken from her when her plan changed — '$230 down to $71' — which became the whole enrollment. On Joan Myzele (Apr 24), you identified COPD as the C-SNP qualifier, presented both the Part B give-back and the OTC card as distinct options, and let Joan choose. She picked $195 instantly: 'I'd rather receive the $195 on the card where I can use it for grocery.' You put the right options on the table and got out of the way.",
   },
   {
-    title: 'Consumer advocacy that keeps fragile leads on the line',
-    body: "Marie Jean needed a doctor. Not eventually — urgently. You spent 25 minutes finding Dr. Pierre Dorsainville on Congress Park Drive — close, in-network, accepting new patients. You didn't give up or offer a placeholder. On the same call, when her home environment went chaotic at 28:56, you waited without pressure and re-established contact. Marie's trust in you is what kept her on a 96-minute call. That patience is real skill and it's directly connected to why your CRM numbers are where they are.",
+    title: 'Same-carrier continuity — the anxiety you removed every time',
+    body: "Three separate consumers this week asked some version of 'am I going to lose my current plan/carrier?' — Martha Gross, Joan Myzele, and Sheila Terry. Each time you handled it with a single sentence and no hesitation. On Joan: 'No, it's still going to be Care Plus — there are more than one Care Breeze plan.' That is the sentence that removed the biggest objection on that call. On Martha: 'It's not going to be a big change to what you currently have, but it is going to be a bit of an upgrade.' On Sheila: holding the frame against the Humana preference by going straight to the data — the UHC plan had the $230, the Humana options didn't. Clean, confident, factual. Every time.",
   },
 ]
 
 const whatToWorkOn = [
   {
     num: 1,
-    title: 'Annualize every dollar figure — always',
-    body: "On both enrolled calls this period, you stated the benefit amount clearly but never annualized it. Marie was getting $90 more per month — that's $1,080 per year for food, which she told you she couldn't afford. Wilhelm's upgrade was $170 more per month — $2,040 per year. At 51:41, Marie said 'I have to go back to work — I need money.' That was the moment to make the math real. The number was in your mouth. The connection to her words was one sentence away. On Wilhelm, '$2,040 a year' was also the most powerful resistance-breaker available — every time he said he was done, 'two more minutes to lock in your $2,040 a year' would have been far more compelling than 'just a few more questions.'",
-    script: "\"Marie, you just told me you need money. Starting May 1st, this plan gives you $195 every month for groceries — that's $90 more than you're getting now, automatically, without working. Over the year, that's more than $1,000 extra just for food.\"",
+    title: 'Annualize every dollar — no exceptions',
+    body: "This appeared on five calls this week. On Ronnie Robinson, you presented the $185 Part B giveback clearly but never said $2,220/year. On Joan Myzele, you presented $195/month but never said $2,340/year. On Martha Gross, you presented $240/month but never said $2,880/year. On Sheila Terry, the $159/month grocery restore was in the call — $1,908/year was never spoken. The pattern is consistent: the monthly number lands, the annual number — which is two to three times more powerful — goes unsaid. Every time you name a benefit, the next sentence is the annual math. That's the rule. No exceptions.",
+    script: "\"Ms. Myzele, that's $195 every month — which is $2,340 more in your pocket every year. You went from $35 to $195. That's almost $2,000 more a year just from this one change.\"",
   },
   {
     num: 2,
-    title: 'When someone offers the SSN but hesitates — reassure first',
-    body: "The Apr 22 Not Stated call ended at 2:56 when you accepted the consumer's SSN offer too quickly. She asked 'Do you need my social?' — that wasn't a logistical question; it was a trust checkpoint. When someone offers the SSN but isn't fully settled into that step yet, rushing to accept it reads as confirmation of their fear. Acknowledge the instinct, decline the SSN, and pivot to the Medicare card number. That sequence demonstrates you're safe to work with — and it's the difference between a hangup and a presentation.",
-    script: "\"That's a great question — and you're smart to be careful. Your information is completely secure, and actually we don't even need your Social Security number to check this. We can look everything up with the number on your red, white, and blue Medicare card. Is that nearby?\"",
+    title: 'When a consumer has trauma history — lead with continuity, not benefits',
+    body: "The John Torres call on Wednesday is the one to study this week. Torres revealed at the 8-minute mark that an 18-wheeler hit him at 18, he was paralyzed neck-down, 29 months hospitalized, 48% burns. Everything he told you after that — the resistance, the 'even if they pay me a hundred bucks more I'm not going to change' — was that history talking. You listened. You didn't adapt. The reframe this call needed was: 'John, after everything you've been through, I completely understand why you protect what's working. What I want to make sure is that the only thing that changes here is the number on your card. Your doctors stay exactly the same. Your pharmacy stays the same. Your coverage stays the same.' That's not a benefits pitch. That's reassurance. It's the only thing that could have moved him.",
+    script: "\"John, I hear you — and after everything you've been through, that makes complete sense. What if I told you the only thing that changes is this number? Your doctors stay exactly the same. Your pharmacy stays exactly the same. Your coverage stays exactly the same. The only difference is more money. Can I show you that for two minutes?\"",
   },
   {
     num: 3,
-    title: 'Convert empathy into enrollment anchors',
-    body: "On both enrolled calls, you showed genuine warmth in the right moments — you acknowledged Marie's loneliness, you told Wilhelm you were glad he made it through the hospital. That's the foundation of trust. The next step is connecting those emotional moments to why the plan matters: 'That's exactly why we're setting this up today.' When Mr. Patt said he nearly died during that endoscopy (31:27), the correct move wasn't just empathy — it was: 'Mr. Patt, what you just went through is exactly why I want you on this plan starting May 1st. If that ever happens again, I want that coverage locked in.' Empathy opens the door. The anchor walks you through it.",
-    script: "\"Mr. Patt, what you went through at that hospital is exactly why I want to make sure you have the best plan behind you starting May 1st. If you ever need to go back, I want that $195 card loaded, your doctors confirmed, and your coverage locked in. You went through a lot. Let's make sure you're protected going forward.\"",
+    title: 'When a consumer discloses chronic conditions — it\'s an enrollment key',
+    body: "H.G. Sutherland confirmed diabetes at 5:49 on Friday. You acknowledged it medically — 'Dr. Ready is the one who actually maintains that for you.' Then you moved on. You missed the most important sentence of the call: 'Mr. Sutherland, diabetes — that's actually really important for what I'm going to show you. There are plans specifically designed for people managing diabetes. They often come with better benefits. Let me see if one of those is available in your area.' Diabetes is not a health detail. It is a year-round C-SNP enrollment window. When a consumer names a chronic condition, your next question is always: is there a plan built for this?",
+    script: "\"Mr. Sutherland, you mentioned diabetes — that's actually really important. There are plans specifically designed for people with diabetes that sometimes offer a higher food card and additional benefits. Let me check if one of those is available in your zip code. That's going to be a key part of what I have ready at 4 o'clock.\"",
   },
 ]
 
 const reportHistory = [
   {
     id: 'apr-22',
-    active: true,
+    active: false,
     date: 'Apr 22',
     label: 'Weekly Brief',
     period: 'April 20–22, 2026',
-    trendHeadline: 'Sales 7 · Conv 11.11% ↓ · CPA $84.71 flat · 3 reviewed calls',
-    scoreNote: 'Pace holding · trust-checkpoint pattern to tighten',
+    trendHeadline: 'Sales 7 · Conv 11.11% ↓ · CPA $84.71',
+    scoreNote: 'Mid-week snapshot — trust checkpoint pattern flagged',
     href: '/agents/karimah-ali/reports/2026-04-22',
+  },
+  {
+    id: 'apr-26',
+    active: true,
+    date: 'Apr 26',
+    label: 'Weekly Brief',
+    period: 'April 20–24, 2026',
+    trendHeadline: 'Sales 9 · Conv ~9.5% ↓ · CPA ~$110',
+    scoreNote: '6 of 11 reviewed enrolled — Ronnie Robinson 84/100',
+    href: '/agents/karimah-ali/reports/2026-04-26',
   },
 ]
 
@@ -119,7 +149,7 @@ export default function KarimahAliPage() {
             <span className={styles.systemLabel}>Weekly Brief</span>
           </div>
           <h1 className={styles.agentName}>Karimah Ali</h1>
-          <p className={styles.period}>April 22, 2026 · Covering April 20–22</p>
+          <p className={styles.period}>April 26, 2026 · Covering April 20–24</p>
           <p className={styles.updatedAt}>{totalReviewed} calls reviewed this period</p>
         </motion.div>
 
@@ -127,7 +157,7 @@ export default function KarimahAliPage() {
         <motion.div className={styles.trendSnapshot} {...SPRING}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(19,17,16,0.08)' }}>
             <h2 className={styles.sectionTitle} style={{ margin: 0, padding: 0, border: 'none' }}>Trend Snapshot</h2>
-            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–22 · from CRM</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--ink-60)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Apr 13–17 vs Apr 20–24 · from CRM</span>
           </div>
           <div className={styles.trendTable}>
             <div className={styles.trendHeader}>
@@ -146,7 +176,7 @@ export default function KarimahAliPage() {
             ))}
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginTop: '14px', lineHeight: 1.65 }}>
-            7 sales in 3 days — <strong style={{ color: 'var(--sage-dark)' }}>pace is holding</strong> against last week&apos;s 14 in 5. CPA is essentially flat at $84.71 — you&apos;re still closing efficiently. The one number that moved is conversion: 14.89% → 11.11%, a 3.78pp dip. The sales are still coming; more of the calls that should convert are slipping. The short Apr 22 hangup is the pattern — tighten the trust checkpoints and that number comes right back.
+            9 sales across a full week — the pace dipped from last week&apos;s 2.8/day to roughly 1.8/day, with CPA rising to approximately $110. Conversion moved from 14.89% to ~9.5%, a 5.4pp drop. The enrolled calls this week were high-quality — Robinson (84), Terry (80), Myzele (78), Jean (79), Patt (75) — but three winnable calls didn&apos;t convert. Tightening the trust frame, the empathy-pivot, and the chronic-condition-to-plan connection is the path back toward 14–15% conversion territory.
           </p>
         </motion.div>
 
@@ -154,15 +184,15 @@ export default function KarimahAliPage() {
         <motion.div className={styles.execSummary} {...SPRING}>
           <h2 className={styles.sectionTitle}>Executive Summary</h2>
           <div className={styles.execSummaryInner}>
-            <p><strong>What&apos;s keeping your closes efficient:</strong> You read clinical signals faster than most agents notice them. On Marie Jean, the diabetes identification at 5:42 unlocked the C-SNP upgrade, the $195 OTC benefit, and the entire enrollment. On Wilhelm Patt, catching the pacemaker at 9:21 — and connecting it directly to the $195 benefit at 27:34 — is the sentence that closed that call. You&apos;re also showing persistence that most agents don&apos;t have: five termination attempts from a bed-ridden 78-year-old, and you held the line through every one without losing warmth or thread. CPA staying flat at $84.71 through a tougher call week is not an accident — it&apos;s you converting the right leads correctly.</p>
-            <p><strong>Where this week&apos;s 3.78pp conversion dip came from:</strong> It&apos;s the trust-checkpoint moment, and the Apr 22 hangup is the clearest example we have on tape. At 2:34 a consumer who called in motivated for the food card asked &ldquo;Do you need my social?&rdquo; — that wasn&apos;t a logistics question, it was a fear signal. She was offering the SSN and testing whether you&apos;d catch her. You said &ldquo;we can look it up that way, let&apos;s go ahead.&rdquo; Two seconds later she hung up. The one sentence that keeps that call alive: &ldquo;That&apos;s a great question, and you&apos;re smart to be careful. We don&apos;t even need your social — we can look everything up with the number on your red, white, and blue Medicare card.&rdquo; The same pattern — state-the-benefit-but-don&apos;t-make-it-feel-real — is what&apos;s sitting in your enrolled calls too. Marie told you at 51:41 she needs money; $1,080/year was in your presentation and never said out loud. Wilhelm was rationing groceries on $25/month; you never said $2,040. The C-SNP reads are elite. The math and the trust moments are the edges that remain.</p>
+            <p><strong>What drove 6 enrollments in 5 days:</strong> You read plan pathways faster than most agents recognize them. D-SNP, C-SNP, MOV SEP, INT SEP — you&apos;re identifying the right door on call after call. Martha Gross got $140/month more in OTC because you called back with her medication list. Sheila Terry got her $230 grocery benefit restored because you found the benefit loss in the system before she told you about it. Joan Myzele chose her own plan when you put two options on the table and let her decide. And Ronnie Robinson — a veteran who opened the call furious at the insurance industry — ended it saying &ldquo;you just took some pressure off me.&rdquo; The 84/100 score on that call is the high mark of this week and it came from staying calm, naming his confusion, and making the plan work with his VA benefits instead of against them.</p>
+            <p><strong>Where the conversion dip came from:</strong> Three calls this week produced no enrollment when they could have. Lewis Parker hung up at 4:31 because the Medicare ID vs. SSN distinction wasn&apos;t established before his identity-theft history triggered. John Torres spent 40 minutes engaged and went into a callback because the primary objection — &ldquo;I&apos;m not going to change&rdquo; — was not reframed. H.G. Sutherland&apos;s diabetes disclosure at 5:49 opened a year-round C-SNP enrollment window that went unexplored before he needed to leave. The technical execution on all three calls was correct through discovery. The gap in each case was either the trust frame before the data ask, the empathy-pivot after the emotional objection, or the chronic-condition-to-plan connection. Those are three fixable things, and all three show up in the coaching section below. The annualization gap also ran across five calls this week — monthly numbers were stated and annual numbers were never spoken. That one change alone is worth several thousand dollars a year in closes.</p>
           </div>
         </motion.div>
 
         {/* The One Thing */}
         <motion.div className={styles.oneThing} {...SPRING}>
           <span className={styles.oneThingLabel}>The One Thing</span>
-          <p className={styles.oneThingText}>Every time a consumer tells you something about money — &ldquo;I need money,&rdquo; &ldquo;I&apos;m on a fixed income,&rdquo; &ldquo;it&apos;s hard to pay for everything&rdquo; — stop. Do the annual math out loud. &ldquo;That&apos;s $1,080 more a year for your groceries.&rdquo; You have the number every time. The only step missing is saying it.</p>
+          <p className={styles.oneThingText}>Every time you name a monthly benefit, the next sentence is the annual math — no exceptions. &ldquo;That&apos;s $195 every month — which is $2,340 more in your pocket this year.&rdquo; You have the number on every call. The step missing is saying it out loud.</p>
         </motion.div>
 
         {/* What You Did Well */}
@@ -210,7 +240,7 @@ export default function KarimahAliPage() {
             </button>
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--ink-60)', marginBottom: '16px', fontStyle: 'italic' }}>
-            These are the calls we pulled for coaching this period. Your CRM total this period is 7 sales / 63 calls — this is a coaching sample, not an audit of every call.
+            These are the calls we pulled for coaching this period. Your CRM total this period is approximately 9 sales / ~95 calls (est.) — this is a coaching sample, not an audit of every call.
           </p>
           {showAllCalls && (
             <>
@@ -242,9 +272,9 @@ export default function KarimahAliPage() {
                 </div>
               ))}
               <div className={styles.callTableFooter}>
-                <span>Reviewed Avg: <strong>60 / 100</strong></span>
-                <span>Reviewed Enrolled: <strong>2 of 3</strong></span>
-                <span style={{ opacity: 0.7 }}>CRM Total: 7 sales / 63 calls</span>
+                <span>Reviewed Avg: <strong>63 / 100</strong></span>
+                <span>Reviewed Enrolled: <strong>6 of 11</strong></span>
+                <span style={{ opacity: 0.7 }}>CRM Total: 9 sales / ~95 calls (est.)</span>
               </div>
             </>
           )}
@@ -290,7 +320,7 @@ export default function KarimahAliPage() {
 
         {/* Footer */}
         <div className={styles.footer}>
-          <p>The Certainty System · Karimah Ali · Weekly Brief · April 22, 2026</p>
+          <p>The Certainty System · Karimah Ali · Weekly Brief · April 26, 2026</p>
         </div>
 
       </div>

@@ -14,6 +14,7 @@ const philosophyLinks = [
   { label: 'Signals',            href: '/signals',            desc: 'Read red, yellow, green in seconds' },
   { label: 'Pillars',            href: '/pillars',            desc: 'The three foundations of every close' },
   { label: 'Patterns',           href: '/patterns',           desc: 'Train your pattern recognition for calls' },
+  { label: 'Ad Reframes',        href: '/ad-reframes',        desc: 'Re-narrate the ad — don\'t argue with it' },
   { label: 'Storytelling',       href: '/storytelling',       desc: 'Move people with narrative' },
   { label: 'Math Breakdown',     href: '/math-breakdown',     desc: 'Numbers that make Medicare simple' },
   { label: 'Psychology',         href: '/psychology',         desc: 'Why agents succeed or fail' },
