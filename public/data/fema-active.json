@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-05-12",
-  "source": "Humana Compliance Communication, March 9, 2026 + Devoted Health Active SEP Agent Portal, April 1, 2026 + Carrier SEP Update, May 12, 2026",
+  "lastUpdated": "2026-05-15",
+  "source": "Humana Compliance Communication, March 9, 2026 + Devoted Health Active SEP Agent Portal, April 1, 2026 + Carrier SEP Update, May 12, 2026 + DST Renewal Notice, May 15, 2026",
   "note": "Source: Humana carrier compliance communication. Entries with original TBD end dates (09/09/9999 in source) mapped to 2026-12-31 — review on next update.",
   "declarations": [
     {"state": "Alabama", "disaster": "Severe Weather", "counties": ["Blount", "Cherokee", "Colbert", "Cullman", "DeKalb", "Etowah", "Fayette", "Franklin", "Geneva", "Houston", "Jackson", "Lamar", "Lauderdale", "Lawrence", "Limestone", "Madison", "Marion", "Marshall", "Montgomery", "Morgan", "Walker", "Winston"], "allCounties": false, "sepStartDate": "2026-01-22", "sepEndDate": "2026-05-31", "declarationType": "Governor", "status": "active"},
