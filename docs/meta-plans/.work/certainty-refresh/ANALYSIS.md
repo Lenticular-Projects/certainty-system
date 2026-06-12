@@ -76,3 +76,42 @@ Where polish IS warranted (the upgrade, without a rebuild):
 4. **Consistency pass** across the 28 hub pages so the editorial system (eyebrow → display headline → body) is applied uniformly rather than re-implemented per 1,100–1,400-line page component.
 
 In short: the design has a real point of view worth protecting; the upgrade is discipline and accessibility, not a new look.
+
+## 5. TRIAGE RESOLUTIONS (main session + user, 2026-06-12)
+
+### Critique dispositions
+- C1 (undefined done / unbounded scope) — RESOLVED — user accepted the Scope A → Scope B split and all four [PROPOSED] thresholds as written.
+- C2 (hardcoded-TSX content architecture) — CARRIED-FORWARD — live design constraint on the plan: the plan must name this tension; any content/presentation separation is Scope B+ and opt-in. Partially mooted for the largest mass: user approved removing the 223 agent pages.
+- C3 (middleware edit risk during trainee deletion) — RESOLVED — A4 verified by file read (hub IP-gate block independent of trainee carve-outs); plan must still treat middleware edit as a high-care step with post-edit smoke check.
+- C4 (no tests/CI = unverifiable refresh) — RESOLVED — verification floor accepted as acceptance criterion 5 (smoke-check threshold confirmed by user).
+- C5 (223 unlinked agent pages) — RESOLVED — user: "No, can be removed. They're write-only output; delete or archive them out of the app." Git history preserves them. Plan should prefer archive-out (or rely on git) over irrecoverable deletion, and remove `/daily-brief`, `/team-report`, `/top-closer-analysis` with them, which also frees the d3 dep.
+
+### Verify=YES assumption resolutions
+- A1 — RESOLVED (user decision supersedes verification): agent pages are removable write-only output.
+- A3 — converted to plan obligation: verified by build + grep immediately after deletion (acceptance criterion 1).
+- A4 — VERIFIED this run by reading src/middleware.ts (independent blocks).
+- A6 — VERIFIED this run: grep shows zero site links to /api/pdf. User decision: KEEP the PDF system (regeneration tool).
+- A8 — converted to plan obligation: Next 15 upgrade stays optional/Scope B, gated behind build + smoke.
+- A9 — RESOLVED: user accepted verification floor as a Scope A criterion.
+- A11 — VERIFIED this run: grep shows @next/mdx, next-mdx-remote, gray-matter unused in src/ and next.config.
+- A13 — converted to plan obligation: axe scan during Scope B accessibility pass.
+- A14 — VERIFIED this run: grep shows zero links to /preview routes.
+
+### Threshold confirmations (no [PROPOSED] tags remain)
+- Criterion 4 threshold CONFIRMED by user: remove all discovery-flagged unused deps, build green.
+- Criterion 5 threshold CONFIRMED by user: every top-level hub/tool route asserted reachable post-change.
+- Criterion 6 threshold CONFIRMED by user: ≤2 clicks to Objections/SEP-Check/SEP-Guides. (Scope B)
+- Criterion 7 threshold CONFIRMED by user: no core-stack change; animation layer stays unless owner later opts out. (Scope B)
+- SCOPE-TOO-LARGE: user accepted split, A then B. ADJUSTMENT: removal of the 223 agent pages + daily-brief/team-report/top-closer-analysis moves into Scope A (subtractive, user-approved).
+
+## 6. OPEN QUESTIONS
+
+- **Q:** Are any /agents, /daily-brief, /team-report, /top-closer-analysis URLs shared with or bookmarked by managers/agents outside the repo (e.g., texted links)?
+  **Answerable by:** Jonathan checking with whoever received report links.
+  **Blocks:** Nothing in planning; only the final irreversible-feeling moment of the agent-pages removal (git history preserves everything regardless).
+- **Q:** Where exactly does the "FEMA pipeline" boundary end — is design polish of the sep-check page UI (preserving data read/filter logic) acceptable? (A5, judgment, assumed YES.)
+  **Answerable by:** Jonathan, when the plan proposes specific sep-check changes.
+  **Blocks:** Any sep-check visual polish work.
+- **Q:** Is there any real usage signal (who uses what, on which OS/browser)? No analytics exist in-repo (A12).
+  **Answerable by:** Vercel Analytics (free tier) if enabled — candidate Scope B item.
+  **Blocks:** Evidence-based UX prioritization in Scope B; Scope A unaffected.
