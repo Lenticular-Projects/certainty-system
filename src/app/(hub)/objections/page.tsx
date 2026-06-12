@@ -36,6 +36,9 @@ export default function ObjectionsPage() {
   const searchRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
+    // Seed from ?q= so the global search palette can deep-link an entry
+    const q = new URLSearchParams(window.location.search).get('q')
+    if (q) setQuery(q)
     searchRef.current?.focus()
   }, [])
 

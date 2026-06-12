@@ -196,3 +196,34 @@
     display: flex;
   }
 }
+
+/* --- Search button --- */
+.searchBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 0.4em 0.7em;
+  border: 1px solid var(--ink-10);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--ink-60);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.searchBtn:hover {
+  color: var(--ink);
+  border-color: var(--ink-20);
+}
+
+.searchHint {
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 880px) {
+  .searchHint {
+    display: none;
+  }
+}

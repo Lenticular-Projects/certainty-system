@@ -1,6 +1,7 @@
 import { AmbientProvider } from '@/context/AmbientContext'
 import { MotionProvider } from '@/components/layout/MotionProvider'
 import Nav from '@/components/layout/Nav'
+import SearchPalette from '@/components/layout/SearchPalette'
 import Footer from '@/components/layout/Footer'
 import './hub.css'
 
@@ -14,6 +15,7 @@ export default function HubLayout({
       <AmbientProvider>
         <a href="#main" className="skipLink">Skip to content</a>
         <Nav />
+        <SearchPalette />
         {children}
         <Footer />
       </AmbientProvider>

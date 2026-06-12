@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ChevronDown, Menu, Close } from '@carbon/icons-react'
+import { ChevronDown, Menu, Close, Search } from '@carbon/icons-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SPRING_FAST, EASE_SPRING } from '@/lib/motion'
 import styles from './Nav.module.css'
@@ -165,6 +165,16 @@ export default function Nav() {
             </AnimatePresence>
           </div>
         </div>
+
+        <button
+          className={styles.searchBtn}
+          onClick={() => window.dispatchEvent(new Event('open-search'))}
+          aria-label="Search (Ctrl+K)"
+          title="Search (Ctrl+K)"
+        >
+          <Search size={16} />
+          <span className={styles.searchHint}>⌘K</span>
+        </button>
 
         <button className={styles.hamburger} onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? 'Close menu' : 'Open menu'}>
           {mobileOpen ? <Close size={24} /> : <Menu size={24} />}
