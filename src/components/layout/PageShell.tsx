@@ -21,7 +21,7 @@ export default function PageShell({ signal = 'neutral', children }: PageShellPro
   return (
     <>
       <div className={styles.overlay} />
-      <main className={styles.main}>
+      <main id="main" className={styles.main}>
         {children}
       </main>
     </>

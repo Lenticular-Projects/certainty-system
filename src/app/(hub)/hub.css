@@ -7,7 +7,7 @@
 body {
   background-image: linear-gradient(-45deg, rgba(244, 80, 40, 0.95), rgba(245, 175, 20, 0.9), rgba(210, 245, 240, 0.7), rgba(45, 195, 175, 0.85));
   background-size: 400% 400%;
-  animation: gradientDrift 20s ease infinite;
+  animation: gradientDrift 40s ease infinite;
   transition: background-position 2.5s ease-in-out;
 }
 
@@ -115,4 +115,21 @@ body[data-signal="neutral"] {
   background: #8FAF94;
   top: -40px;
   left: -40px;
+}
+
+/* --- Skip Link (keyboard users) --- */
+.skipLink {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 200;
+  padding: 0.6em 1em;
+  background: var(--ink);
+  color: var(--dark-text);
+  border-radius: 8px;
+  font-size: 0.875rem;
+}
+
+.skipLink:focus-visible {
+  top: 12px;
 }

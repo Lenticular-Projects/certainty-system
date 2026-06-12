@@ -12,6 +12,7 @@ export default function HubLayout({
   return (
     <MotionProvider>
       <AmbientProvider>
+        <a href="#main" className="skipLink">Skip to content</a>
         <Nav />
         {children}
         <Footer />

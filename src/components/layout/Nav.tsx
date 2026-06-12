@@ -44,6 +44,18 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setPhilosophyOpen(false)
+        setToolOpen(false)
+        setMobileOpen(false)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
   const philosophyActive = philosophyLinks.some((l) => pathname.startsWith(l.href))
   const toolActive = toolLinks.some((l) => pathname.startsWith(l.href))
 
@@ -52,6 +64,7 @@ export default function Nav() {
 
   return (
     <motion.nav
+      aria-label="Main"
       className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
@@ -72,6 +85,8 @@ export default function Nav() {
             <button
               className={`${styles.link} ${styles.moreBtn} ${philosophyActive ? styles.active : ''}`}
               onClick={() => philosophyOpen ? setPhilosophyOpen(false) : openPhilosophy()}
+              aria-expanded={philosophyOpen}
+              aria-haspopup="menu"
             >
               Philosophy
               <motion.span animate={{ rotate: philosophyOpen ? 180 : 0 }} transition={SPRING_FAST} style={{ display: 'inline-flex' }}>
@@ -90,6 +105,7 @@ export default function Nav() {
                   {philosophyLinks.map((link) => (
                     <Link key={link.href} href={link.href}
                       className={`${styles.dropdownLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
+                      aria-current={pathname.startsWith(link.href) ? 'page' : undefined}
                       onClick={() => setPhilosophyOpen(false)}
                     >
                       <span className={styles.dropdownLinkTitle}>{link.label}</span>
@@ -101,10 +117,10 @@ export default function Nav() {
             </AnimatePresence>
           </div>
 
-          <Link href="/objections" className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/objections') ? styles.active : ''}`}>
+          <Link href="/objections" aria-current={pathname.startsWith('/objections') ? 'page' : undefined} className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/objections') ? styles.active : ''}`}>
             Objection Handbook
           </Link>
-          <Link href="/sep-check" className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/sep-check') ? styles.active : ''}`}>
+          <Link href="/sep-check" aria-current={pathname.startsWith('/sep-check') ? 'page' : undefined} className={`${styles.link} ${styles.directLink} ${pathname.startsWith('/sep-check') ? styles.active : ''}`}>
             SEP Check
           </Link>
 
@@ -117,6 +133,8 @@ export default function Nav() {
             <button
               className={`${styles.link} ${styles.moreBtn} ${toolActive ? styles.active : ''}`}
               onClick={() => toolOpen ? setToolOpen(false) : openTool()}
+              aria-expanded={toolOpen}
+              aria-haspopup="menu"
             >
               Tools
               <motion.span animate={{ rotate: toolOpen ? 180 : 0 }} transition={SPRING_FAST} style={{ display: 'inline-flex' }}>
@@ -135,6 +153,7 @@ export default function Nav() {
                   {toolLinks.map((link) => (
                     <Link key={link.href} href={link.href}
                       className={`${styles.dropdownLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
+                      aria-current={pathname.startsWith(link.href) ? 'page' : undefined}
                       onClick={() => setToolOpen(false)}
                     >
                       <span className={styles.dropdownLinkTitle}>{link.label}</span>
@@ -166,6 +185,7 @@ export default function Nav() {
             {philosophyLinks.map((link) => (
               <Link key={link.href} href={link.href}
                 className={`${styles.mobileLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
+                aria-current={pathname.startsWith(link.href) ? 'page' : undefined}
                 onClick={() => setMobileOpen(false)}
               >{link.label}</Link>
             ))}
@@ -173,6 +193,7 @@ export default function Nav() {
             {toolLinks.map((link) => (
               <Link key={link.href} href={link.href}
                 className={`${styles.mobileLink} ${pathname.startsWith(link.href) ? styles.active : ''}`}
+                aria-current={pathname.startsWith(link.href) ? 'page' : undefined}
                 onClick={() => setMobileOpen(false)}
               >{link.label}</Link>
             ))}

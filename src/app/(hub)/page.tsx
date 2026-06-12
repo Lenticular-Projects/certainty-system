@@ -55,7 +55,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <>
+    <main id="main">
       {/* Hero — no overlay, full gradient */}
       <section className={styles.hero}>
         {!videoFailed && (
@@ -287,6 +287,6 @@ export default function HomePage() {
           ))}
         </motion.div>
       </section>
-    </>
+    </main>
   )
 }
